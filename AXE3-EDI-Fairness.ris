@@ -1,0 +1,51 @@
+TY  - JOUR
+AU  - Dong, Yushun
+AU  - Ma, Jing
+AU  - Wang, Song
+AU  - Chen, Chen
+AU  - Li, Jundong
+TI  - Fairness in Graph Mining: A Survey
+JO  - IEEE Transactions on Knowledge and Data Engineering
+PY  - 2023
+VL  - 35
+SP  - 10583
+EP  - 10602
+DO  - 10.1109/TKDE.2023.3265598
+UR  - https://dl.acm.org/doi/10.1109/TKDE.2023.3265598
+ER  -
+
+TY  - JOUR
+AU  - Zhao, Yuying
+AU  - Wang, Yu
+AU  - Liu, Yunchao
+AU  - Cheng, Xueqi
+AU  - Aggarwal, Charu C.
+AU  - Derr, Tyler
+TI  - Fairness and Diversity in Recommender Systems: A Survey
+JO  - ACM Transactions on Intelligent Systems and Technology
+PY  - 2024
+VL  - 16
+DO  - 10.1145/3664928
+UR  - https://dl.acm.org/doi/full/10.1145/3664928
+ER  -
+
+TY  - UNPB
+AU  - Yao, Sirui
+AU  - Huang, Bert
+TI  - New Fairness Metrics for Recommendation that Embrace Differences
+PY  - 2017
+UR  - https://arxiv.org/pdf/1706.09838
+N1  - arXiv:1706.09838
+AB  - We study fairness in collaborative-filtering recommender systems, which are sensitive to discrimination that exists in historical data. Biased data can lead collaborative filtering methods to make unfair predictions against minority groups of users. We identify the insufficiency of existing fairness metrics and propose four new metrics that address different forms of unfairness.
+ER  -
+
+TY  - UNPB
+AU  - Leonhardt, Jurek
+AU  - Anand, Avishek
+AU  - Khosla, Megha
+TI  - User Fairness in Recommender Systems
+PY  - 2018
+UR  - https://arxiv.org/pdf/1807.06349
+N1  - arXiv:1807.06349
+AB  - Recent works in recommendation systems have focused on diversity in recommendations as an important aspect of recommendation quality. In this work we argue that the post-processing algorithms aimed at only improving diversity among recommendations lead to discrimination among the users.
+ER  -

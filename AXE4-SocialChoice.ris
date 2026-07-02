@@ -1,0 +1,29 @@
+TY  - UNPB
+AU  - Aird, Amanda
+AU  - Štefancová, Elena
+AU  - All, Cassidy
+AU  - Voida, Amy
+AU  - Homola, Martin
+AU  - Mattei, Nicholas
+AU  - Burke, Robin
+TI  - Social Choice for Heterogeneous Fairness in Recommendation (SCRUF-D)
+PY  - 2024
+UR  - https://arxiv.org/html/2410.04551v1
+N1  - arXiv:2410.04551 ; cite egalement comme ACM Transactions on Recommender Systems, 3(2), 2024
+AB  - Algorithmic fairness in recommender systems requires close attention to the needs of a diverse set of stakeholders that may have competing interests. Our work approaches recommendation fairness from the standpoint of computational social choice, using a multi-agent framework.
+ER  -
+
+TY  - UNPB
+AU  - Aird, Amanda
+AU  - All, Cassidy
+AU  - Farastu, Paresha
+AU  - Stefancova, Elena
+AU  - Sun, Joshua
+AU  - Mattei, Nicholas
+AU  - Burke, Robin
+TI  - Exploring Social Choice Mechanisms for Recommendation Fairness in SCRUF
+PY  - 2023
+UR  - https://arxiv.org/pdf/2309.08621
+N1  - arXiv:2309.08621
+AB  - Fairness problems in recommender systems often have a complexity in practice that is not adequately captured in simplified research formulations. This paper explores a range of options for choice mechanisms in multi-aspect fairness applications.
+ER  -

@@ -1,0 +1,26 @@
+TY  - BOOK
+AU  - Arrow, Kenneth J.
+TI  - Social Choice and Individual Values
+PY  - 1951
+PB  - John Wiley & Sons
+N1  - Resultat fondateur : Arrow's Impossibility Theorem. A classer dans AXE1-Choix social.
+ER  -
+
+TY  - ELEC
+TI  - Awesome Graph Reduction
+T2  - GitHub
+PY  - 2024
+UR  - https://github.com/Emory-Melody/awesome-graph-reduction
+N1  - Depot GitHub Emory-Melody, liste curatee (coarsening, condensation, sparsification, summarization), presentee a IJCAI 2024. A classer dans AXE2-GRAPH SUMMARIZATION.
+ER  -
+
+TY  - UNPB
+AU  - Ghoroghchian, Nafiseh
+AU  - Dasarathy, Gautam
+AU  - Draper, Stark C.
+TI  - Graph Community Detection from Coarse Measurements: Recovery Conditions for the Coarsened Weighted Stochastic Block Model
+PY  - 2021
+UR  - https://arxiv.org/pdf/2102.13135
+N1  - arXiv:2102.13135 ; AISTATS 2021. A classer dans AXE2-GRAPH SUMMARIZATION.
+AB  - We study the problem of community recovery from coarse measurements of a graph. We build on the stochastic block model by mathematically formalizing the coarsening process, and characterizing its impact on the community members and connections.
+ER  -
