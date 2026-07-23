@@ -535,7 +535,7 @@
         "inc_M": 0.3922,
         "ratio": 0.006,
         "n_supernodes": 6,
-        "elapsed_s": 500.1,
+        "elapsed_s": 520.6,
         "n_F_sn": 2,
         "n_M_sn": 4
       }
@@ -574,7 +574,7 @@
         "inc_M": 0.3922,
         "ratio": 0.006,
         "n_supernodes": 6,
-        "elapsed_s": 489.4,
+        "elapsed_s": 530.2,
         "n_F_sn": 2,
         "n_M_sn": 4
       }
@@ -613,7 +613,7 @@
         "inc_M": 0.3249,
         "ratio": 0.005,
         "n_supernodes": 5,
-        "elapsed_s": 494.6,
+        "elapsed_s": 522.8,
         "n_F_sn": 3,
         "n_M_sn": 2
       }
@@ -652,7 +652,7 @@
         "inc_M": 0.3249,
         "ratio": 0.005,
         "n_supernodes": 5,
-        "elapsed_s": 512.5,
+        "elapsed_s": 513.0,
         "n_F_sn": 3,
         "n_M_sn": 2
       }
@@ -691,7 +691,7 @@
         "inc_M": 0.3477,
         "ratio": 0.288,
         "n_supernodes": 272,
-        "elapsed_s": 3.9,
+        "elapsed_s": 4.0,
         "n_F_sn": 101,
         "n_M_sn": 171
       }
@@ -730,7 +730,7 @@
         "inc_M": 0.3477,
         "ratio": 0.288,
         "n_supernodes": 272,
-        "elapsed_s": 3.9,
+        "elapsed_s": 4.2,
         "n_F_sn": 101,
         "n_M_sn": 171
       }
