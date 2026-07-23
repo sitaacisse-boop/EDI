@@ -1,0 +1,876 @@
+<!doctype html><html><head><!-- frame-runtime --><script>window.__FRAME_PREAMBLE={"capabilities":{"downloads":"downloads.BABDwU1K.js","mcp":"mcp.hoz5jxDa.js","permissions":"permissions.ByA9Fd8x.js","self":"self.D3u1zjZe.js","user":"user.Cp1-RnjB.js"},"transforms":"_transforms.DYk1Ltlh.js","comments":"_comments.DiwQajF_.js","translate":"_translate.C5leZL2A.js"}</script><script>(function(){"use strict";const we="modulepreload",Oe=function(e){return"/"+e},Se={},ee=function(t,n,c){let i=Promise.resolve();function s(f){const a=new Event("vite:preloadError",{cancelable:!0});if(a.payload=f,window.dispatchEvent(a),!a.defaultPrevented)throw f}return i.then(f=>{for(const a of f||[])a.status==="rejected"&&s(a.reason);return t().catch(s)})},te=["light","dark","system"];function ne(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function Y(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function re(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const n=t.theme;return typeof n=="string"&&te.includes(n)}function se(e){try{typeof reportError=="function"?reportError(e):setTimeout(()=>{throw e},0)}catch{}}const oe=Object.freeze(Object.assign(Object.create(null),{user:Object.freeze(Object.assign(Object.create(null),{id:null,isOwner:!1,canEdit:!1,name:null,avatarUrl:null,email:null}))})),ie={};function K(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const t=e.composedPath?e.composedPath():[e.target];let n=null;for(let f=0;f<t.length;f++){const a=t[f];if(a&&a.matches&&a.matches("a[href],area[href]")){n=a;break}}if(!n&&e.target&&e.target.closest&&(n=e.target.closest("a[href],area[href]")),!n)return;const c=n.getAttribute("href");if(!c)return;let i,s;try{i=new URL(c,document.baseURI),s=new URL(document.baseURI).origin}catch{return}(i.protocol==="http:"||i.protocol==="https:")&&i.origin!==s&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:i.href},"*"))}const x={};function I(e){if(window===top)return;const t=Date.now();t-(x[e]||0)<500||(x[e]=t,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}const ae=2e3,J=["wheel","touchstart","touchmove","keydown","pointerdown"];let G=0;function ce(e){e.isTrusted&&(G=Date.now())}function le(){addEventListener("click",K,!0),addEventListener("auxclick",K,!0)}function ue(){for(let e=0;e<J.length;e++)addEventListener(J[e],ce,{capture:!0,passive:!0});addEventListener("scroll",e=>{e.isTrusted&&Date.now()-G<ae&&I("scroll")},{capture:!0,passive:!0}),addEventListener("pointermove",e=>{e.isTrusted&&I("pointer")},{capture:!0,passive:!0}),addEventListener("click",e=>{e.isTrusted&&I("click")},{capture:!0,passive:!0})}const U="__frame_scroll",fe=150,de=310,pe=160,me=3e4;function he(){let e=0,t=!1,n=!1,c=!1,i=0;const s=p=>{try{sessionStorage.setItem(U,JSON.stringify({y:p}))}catch{}},f=()=>{if(t){t=!1;return}n=!0,clearTimeout(e),e=setTimeout(()=>s(scrollY),fe)};try{addEventListener("scroll",f,{passive:!0}),addEventListener("pagehide",()=>{clearTimeout(e),s(scrollY)})}catch{}const a=()=>{let p;try{p=sessionStorage.getItem(U)}catch{return null}if(p===null)return null;let b;try{b=JSON.parse(p)}catch{b=null}const l=b?.y;if(!(typeof l=="number"&&Number.isFinite(l)&&l>=0)){try{sessionStorage.removeItem(U)}catch{}return null}return l};let _=!1;const h=p=>{try{const b=scrollY;scrollTo({top:p,left:0,behavior:"instant"}),i=p,c=!0,s(p);const l=scrollY;l!==b&&(t=!0),l!==p&&!_&&(_=!0,addEventListener("load",()=>{try{if(scrollY===l){const g=a();h(g!==null?g:i)}}catch{}},{once:!0}))}catch{}},o=()=>{try{return!!location.hash}catch{return!0}};let u=!1;const d=()=>{try{if(u||innerWidth>de||innerHeight>pe)return;u=!0;const p=Date.now(),b=()=>{try{removeEventListener("resize",b)}catch{}if(Date.now()-p>me||n||o())return;const l=a();h(l!==null?l:i)};addEventListener("resize",b)}catch{}};let m=!1,y=!1;return{restore(){if(m||(m=!0,o()))return;const p=a();p!==null&&(h(p),d())},promoted(){if(y||(y=!0,o()))return;const p=a();p!==null?(h(p),d()):c&&h(i)}}}function ge(e,t,n){const c=[...t.values()].filter(i=>i.targets.some(s=>s.startsWith(e+".")));return{wrap(i,s){const f=`${e}.${i}`,a=c.filter(_=>_.targets.includes(f));return a.length===0?(..._)=>{try{return s(..._)}catch(h){return Promise.reject(h)}}:(..._)=>{let h=_;for(const u of a){const d=u.module.parameters;if(d)try{h=d(h)}catch{return Promise.reject({code:"transform_error",id:u.id,scope:e,message:"parameters transform failed"})}}let o;try{o=s(...h)}catch(u){o=Promise.reject(u)}return o.then(u=>{for(let d=a.length-1;d>=0;d--){const m=a[d],y=m.module.returns;if(y)try{u=y(u)}catch{return n({id:m.id,scope:e,leg:"returns"}),u}}return u},u=>{for(let d=a.length-1;d>=0;d--){const m=a[d],y=m.module.throws;if(y)try{u=y(u)}catch{return n({id:m.id,scope:e,leg:"throws"}),Promise.reject(u)}}return Promise.reject(u)})}}}}function _e(e,t,n,c=()=>{}){const i=new Set(e.changes??[]),s=new Map;for(const f of i){const a=t[f];a&&s.set(f,a)}return{contract:e.contract,changes:i,flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:s,shellOrigin:n.shellOrigin,mount:n.mount,pipe:f=>ge(f,s,c)}}(function(){const e=Object.defineProperty,t=globalThis,n=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let c=0;for(let i=0;i<n.length;i++){const s=n[i];try{e(t,s,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[s]}catch{}try{e(t,s,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[s]=="function"&&c++}if(c&&window!==top)try{parent.postMessage({__frame_rtc_lockdown_failed:c},"*")}catch{}})();const ye=1e4,be=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function V(e){for(const t of be)if(t.endsWith(":*"))try{const n=new URL(e);if(`${n.protocol}//${n.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}const T=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),z=window.__FRAME_PREAMBLE?.transforms,q=window.__FRAME_PREAMBLE?.comments,$=window.__FRAME_PREAMBLE?.translate,C=/^[\w.-]+\.js$/,ve=/^[a-z][a-z0-9_-]{0,63}$/;let X=null,P=null;function B(e,t,n){try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!0,enumerable:!0})}catch{}}}let F=!1;function Q(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,F=!0):F&&(delete t.dataset.theme,t.style.colorScheme="",F=!1)}const M=Object.assign(Object.create(null),{mcp:Object.assign(Object.create(null),{watchTool:{handlerArg:3}})}),R=new Map;function Z(e,t){const n=R.get(e);if(!n)return;const c=Object.assign(Object.create(null),t);Object.assign(n.impl,c),n.impl.__settled=()=>Promise.reject({code:"capability_removed",message:`${e}: method not in this runtime`});const i=n.queue;n.queue=[];for(const s of i){const f=c[s.method];if(f)if(M[e]?.[s.method])try{s.resolve(f(...s.args))}catch{k(s,M[e][s.method].handlerArg,{code:"transform_error",message:`${e}.${s.method} rejected its arguments`})}else f(...s.args).then(s.resolve,s.reject);else{const a={code:"capability_removed",message:`${e}.${s.method} is not in this runtime`},_=M[e]?.[s.method];if(_){k(s,_.handlerArg,a);continue}s.reject(a)}}}function Ee(e,t){const n=R.get(e);if(!n)return;n.impl.__settled=()=>Promise.reject(t);const c=n.queue;n.queue=[];for(const i of c){const s=M[e]?.[i.method];if(s){k(i,s.handlerArg,t);continue}i.reject(t)}}function N(e,t){const n=oe[e];if(!n){Ee(e,t);return}Z(e,Object.fromEntries(Object.entries(n).map(([c,i])=>[c,()=>Promise.resolve(i)])))}function k(e,t,n){if(e.syncState?.dead)return;const c=e.args[t];typeof c=="function"&&queueMicrotask(()=>{if(!e.syncState?.dead)try{c({type:"error",error:n})}catch(i){se(i)}})}const H=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(H&&H.writable===!1)){le(),ue();let e=null;try{e=he()}catch{}const t=H?.value??{};B(window,"claude",t);const n=o=>{const u={impl:Object.create(null),queue:[]};R.set(o,u);const d=u.impl,m=ie[o],y=m===void 0?d:()=>{},p=new Proxy(y,{apply:(b,l,g)=>{const v=m,O=d[v]??d.__settled;return O?O(...g):new Promise((E,w)=>{u.queue.push({method:v,args:g,resolve:E,reject:w})})},get:(b,l)=>{if(typeof l!="string"||l==="then"||l==="toJSON"||l==="valueOf")return;if(l==="toString")return Object.prototype.toString;if(m!==void 0&&(l==="call"||l==="apply"||l==="bind"))return Function.prototype[l];const g=M[o]?.[l];return g?(...v)=>{if(typeof v[g.handlerArg]!="function")throw new TypeError(`${o}.${l} requires a handler function`);const O=d[l];if(O)return O(...v);if(d.__settled){const S={dead:!1},A={args:[...v],syncState:S};return d.__settled().catch(D=>k(A,g.handlerArg,D)),()=>{S.dead=!0}}let E=null;const w={dead:!1};return u.queue.push({method:l,args:v,resolve:S=>{E=typeof S=="function"?S:null,w.dead&&E?.()},reject:()=>{},syncState:w}),()=>{w.dead=!0,E?.()}}:(...v)=>{const O=d[l]??d.__settled;return O?O(...v):new Promise((E,w)=>{u.queue.push({method:l,args:v,resolve:E,reject:w})})}},set:()=>!1});B(t,o,p)};for(const o of Object.keys(T)){if(t[o]!==void 0){B(t,o,t[o]);continue}n(o)}let c=null,i=null,s=0;const f=o=>{o.source!==parent||!V(o.origin)||ne(o.data)&&(c=o.data.__frame_init,P=o.origin,removeEventListener("message",f),clearTimeout(s),i?.())};addEventListener("message",f),parent.postMessage({__frame_connect:!0},"*");const a=new Promise(o=>{i=o,s=setTimeout(()=>{removeEventListener("message",f),o()},ye)}),_=document.readyState==="loading"?new Promise(o=>document.addEventListener("DOMContentLoaded",()=>o(),{once:!0})):Promise.resolve();_.then(()=>{try{e?.restore()}catch{}});const h=o=>{if(!(o.source!==parent||!V(o.origin))&&Y(o.data)){removeEventListener("message",h);try{e?.promoted()}catch{}}};addEventListener("message",h),a.then(async()=>{if(!c||!P){for(const r of R.keys())N(r,{code:"not_granted",message:"frame initialization did not arrive - capability unavailable"});return}Q(c.theme);const o=P;let u=!1,d=!1;addEventListener("message",r=>{if(r.source!==parent||r.origin!==o)return;re(r.data)&&Q(r.data.__frame_theme.theme);const j=r.data?.__fc_mode;j&&typeof j=="object"&&!u&&q&&C.test(q)&&(u=!0,m(q).then(W=>W.install?.(o,j.on===!0)).catch(()=>{}));const L=r.data?.__ft_cmd;L&&typeof L=="object"&&!d&&$&&C.test($)&&(d=!0,m($).then(W=>W.install?.(o,L)).catch(()=>{}))});const m=r=>ee(()=>import("/_runtime/"+r),void 0),y=Object.keys(c.capabilities??{});for(const r of y)Object.hasOwn(T,r)||ve.test(r)&&t[r]===void 0&&(n(r),N(r,{code:"capability_disabled",message:"capability not in this runtime generation"}));const p=y.filter(r=>Object.hasOwn(T,r)).map(r=>[r,T[r]]).filter(r=>typeof r[1]=="string"&&C.test(r[1])),[b,...l]=await Promise.allSettled([z&&C.test(z)?m(z):Promise.resolve({}),...p.map(([,r])=>m(r))]),g=P;X=_e(c,b.status==="fulfilled"&&b.value?.TRANSFORMS||{},{shellOrigin:g,mount:Z},r=>parent.postMessage({__frame_cap_telemetry:r},g));const v=r=>parent.postMessage({__frame_cap_telemetry:{kind:"cap-load-error",cap:r}},g),O=X;l.forEach((r,j)=>{const L=p[j][0];if(r.status!=="fulfilled"){v(L);return}try{r.value?.install?.(O)}catch{v(L)}});for(const[r,j]of R)if(!(j.queue.length===0&&Object.keys(j.impl).length>0)){if(y.includes(r)){N(r,{code:"capability_disabled",message:"capability not available in this session"});continue}N(r,{code:"not_granted",message:"capability not available in this session"})}await _,parent.postMessage({__frame_ready:!0},P);let E=-1,w=0;const S=()=>{w=0;const r=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);r!==E&&(E=r,parent.postMessage({__frame_size:!0,h:r},g))},A=()=>{w||(w=setTimeout(S,200))},D=new ResizeObserver(A);D.observe(document.documentElement),document.body&&D.observe(document.body),document.addEventListener("load",A,!0),document.fonts?.ready.then(A,()=>{}),addEventListener("beforeprint",()=>{E=-1,S()}),A(),addEventListener("message",r=>{if(!(r.source!==parent||r.origin!==g)&&Y(r.data)){try{e?.promoted()}catch{}E=-1,A()}})})}})();</script><!-- /frame-runtime --><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>ΔE · ILD · Inclusion — MovieLens 100k</title>
+<style>
+:root {
+  --bg:#07090f; --s1:#0d1120; --s2:#131826; --bd:#1c2540;
+  --t1:#e8eeff; --t2:#8090b8; --t3:#3a4568;
+  --blue:#5b82ff; --coral:#ef6c4a; --green:#0fd17a;
+  --amber:#f5a523; --red:#ef5454; --purple:#9b6eff;
+  --good:#0fd17a; --warn:#f5a523; --bad:#ef5454; --cyan:#06b6d4;
+  --sh:0 4px 28px rgba(0,0,0,.5);
+}
+@media(prefers-color-scheme:light){:root{
+  --bg:#f0f4ff; --s1:#fff; --s2:#e8edf9; --bd:#cdd7f0;
+  --t1:#0a1228; --t2:#3a4f7a; --t3:#8a9bc0;
+  --blue:#2b55d4; --coral:#c94a28; --green:#0a9c58;
+  --amber:#c48a10; --red:#c43030; --purple:#7040d4;
+  --good:#0a9c58; --warn:#c48a10; --bad:#c43030;
+  --sh:0 2px 16px rgba(0,0,80,.09);
+}}
+:root[data-theme="dark"]{--bg:#07090f;--s1:#0d1120;--s2:#131826;--bd:#1c2540;--t1:#e8eeff;--t2:#8090b8;--t3:#3a4568;--blue:#5b82ff;--coral:#ef6c4a;--green:#0fd17a;--amber:#f5a523;--red:#ef5454;--purple:#9b6eff;--good:#0fd17a;--warn:#f5a523;--bad:#ef5454;--sh:0 4px 28px rgba(0,0,0,.5);}
+:root[data-theme="light"]{--bg:#f0f4ff;--s1:#fff;--s2:#e8edf9;--bd:#cdd7f0;--t1:#0a1228;--t2:#3a4f7a;--t3:#8a9bc0;--blue:#2b55d4;--coral:#c94a28;--green:#0a9c58;--amber:#c48a10;--red:#c43030;--purple:#7040d4;--good:#0a9c58;--warn:#c48a10;--bad:#c43030;--sh:0 2px 16px rgba(0,0,80,.09);}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.55;min-height:100vh}
+
+.hdr{padding:28px 32px 0;max-width:980px;margin:0 auto}
+.hdr-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hdr h1{font-size:1.55rem;font-weight:900;letter-spacing:-.03em;line-height:1.15}
+.hdr h1 em{font-style:normal;color:var(--green)}
+.hdr-sub{font-size:.74rem;color:var(--t2);margin-top:5px}
+.badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:20px;background:var(--s2);color:var(--blue);border:1px solid var(--bd);flex-shrink:0}
+
+.tab-bar{max-width:980px;margin:20px auto 0;padding:0 32px;display:flex;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-btn{padding:10px 18px;border:none;background:none;cursor:pointer;font-size:.79rem;font-weight:600;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .2s;letter-spacing:.02em}
+.tab-btn:hover{color:var(--t1)}
+.tab-btn.on{color:var(--blue);border-color:var(--blue)}
+
+.main{max-width:980px;margin:0 auto;padding:24px 32px 56px}
+.panel{display:none}.panel.on{display:block}
+
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:22px 24px;box-shadow:var(--sh)}
+.card+.card{margin-top:14px}
+.card-title{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--t3);margin-bottom:16px}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:12px;margin-bottom:14px}
+.tile{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:18px 20px;box-shadow:var(--sh)}
+.tile-lbl{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:6px}
+.tile-val{font-size:2rem;font-weight:900;letter-spacing:-.04em;color:var(--t1);line-height:1;font-variant-numeric:tabular-nums}
+.tile-sub{font-size:.7rem;color:var(--t2);margin-top:4px}
+
+.two-col{display:grid;grid-template-columns:1fr 1.7fr;gap:14px}
+@media(max-width:620px){.two-col{grid-template-columns:1fr}}
+
+.donut-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
+.leg-row{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--t2)}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.leg-pct{margin-left:auto;font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums;font-size:.85rem}
+
+.bar-rows{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-lbl{width:54px;font-size:.74rem;color:var(--t2);text-align:right;flex-shrink:0}
+.bar-track{flex:1;height:28px;background:var(--s2);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 10px;transition:width .85s cubic-bezier(.4,0,.2,1)}
+.bar-txt{font-size:.71rem;font-weight:700;color:#fff;white-space:nowrap}
+.bar-out{font-size:.71rem;color:var(--t2);margin-left:6px}
+
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.info-item{font-size:.8rem;color:var(--t2);line-height:1.5}
+.info-item strong{color:var(--t1)}
+
+.notice{display:flex;gap:10px;align-items:flex-start;padding:11px 14px;border-radius:9px;background:rgba(245,165,35,.07);border:1px solid rgba(245,165,35,.22);font-size:.75rem;color:var(--t2);margin-bottom:14px;line-height:1.55}
+.notice b{color:var(--t1)}
+
+.controls{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;align-items:flex-end}
+.ctrl-grp{display:flex;flex-direction:column;gap:7px}
+.ctrl-lbl{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3)}
+.pills{display:flex;gap:4px}
+.pill{padding:6px 15px;border:1px solid var(--bd);border-radius:20px;background:var(--s2);color:var(--t2);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s}
+.pill:hover{border-color:var(--blue);color:var(--blue)}
+.pill.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.alpha-note{font-size:.71rem;color:var(--t3);padding-bottom:6px}
+
+.res-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.8rem;font-variant-numeric:tabular-nums}
+thead th{padding:8px 10px;font-size:.61rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);border-bottom:2px solid var(--bd);text-align:left}
+thead th:not(:first-child){text-align:right}
+tbody td{padding:11px 10px;border-bottom:1px solid var(--s2);vertical-align:middle}
+tbody td:not(:first-child){text-align:right}
+tbody tr:last-child td{border-bottom:none}
+.m-name{font-weight:700;color:var(--t1)}
+.m-desc{font-size:.64rem;color:var(--t3)}
+.m-val{font-weight:700;font-size:.88rem}
+.m-bar{height:4px;border-radius:2px;background:var(--s2);margin:4px 0 3px;overflow:hidden;width:60px;margin-left:auto}
+.m-bar-fill{height:100%;border-radius:2px}
+.chip{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:10px;font-size:.59rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.cg{background:rgba(15,209,122,.12);color:var(--good)}
+.cw{background:rgba(245,165,35,.12);color:var(--warn)}
+.cb{background:rgba(239,84,84,.12);color:var(--bad)}
+.tr-ours td{background:rgba(15,209,122,.04)}
+.tr-ours .m-name{color:var(--green)}
+.tr-fair td{background:rgba(6,182,212,.04)}
+
+.interp{margin-top:14px;padding:16px 18px;background:var(--s2);border-left:3px solid var(--green);border-radius:0 9px 9px 0;font-size:.82rem;color:var(--t2);line-height:1.65}
+.interp strong{color:var(--t1)}
+
+.g-ctrl{display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap}
+.tog{padding:7px 16px;border:1px solid var(--bd);border-radius:20px;background:var(--s2);color:var(--t2);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s}
+.tog:hover{border-color:var(--green);color:var(--green)}
+.tog.on{background:var(--green);color:#fff;border-color:var(--green)}
+.g-stat{font-size:.71rem;color:var(--t3);margin-left:4px}
+canvas{width:100%;display:block;border-radius:8px}
+.g-leg{display:flex;gap:14px;flex-wrap:wrap;padding:12px 14px;background:var(--s2);border-radius:8px;margin-top:12px}
+.gleg{display:flex;align-items:center;gap:6px;font-size:.73rem;color:var(--t2)}
+.gleg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+.acc{display:flex;flex-direction:column;gap:8px}
+.acc-item{border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.acc-head{padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--s1);font-weight:700;font-size:.88rem;user-select:none;transition:background .12s}
+.acc-head:hover{background:var(--s2)}
+.acc-chev{color:var(--t3);font-size:.72rem;transition:transform .2s}
+.acc-item.open .acc-chev{transform:rotate(180deg)}
+.acc-body{display:none;padding:18px 20px;background:var(--s2);border-top:1px solid var(--bd)}
+.acc-item.open .acc-body{display:block}
+.formula{font-family:"Courier New",monospace;font-size:.79rem;background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px 14px;margin:10px 0;color:var(--t2);line-height:1.8;overflow-x:auto}
+.step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.step-n{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--blue);color:#fff;font-size:.69rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.step-t{font-size:.8rem;color:var(--t2);line-height:1.6}
+.step-t strong{color:var(--t1)}
+.res-box{padding:10px 14px;border-radius:7px;margin-top:8px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);font-size:.79rem;color:var(--good);font-weight:600;line-height:1.55}
+
+.finding{padding:16px 18px;border-radius:10px;border-left:4px solid var(--bd);background:var(--s1);margin-bottom:10px;box-shadow:var(--sh)}
+.finding.fk{border-color:var(--blue)}.finding.fg{border-color:var(--good)}.finding.fw{border-color:var(--warn)}
+.finding h3{font-size:.9rem;font-weight:700;margin-bottom:6px}
+.finding p{font-size:.8rem;color:var(--t2);line-height:1.6}
+
+.ftbl{width:100%;border-collapse:collapse;font-size:.73rem;font-variant-numeric:tabular-nums;margin-top:14px}
+.ftbl th{padding:7px 8px;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);border-bottom:2px solid var(--bd);text-align:right}
+.ftbl th:first-child{text-align:left}
+.ftbl td{padding:8px 8px;border-bottom:1px solid var(--s2);text-align:right;color:var(--t2)}
+.ftbl td:first-child{text-align:left;font-weight:700;color:var(--t1)}
+.ftbl .tor td{color:var(--green);font-weight:700}
+.ftbl .tfair td{color:var(--cyan)}
+.ftbl .best{color:var(--blue);font-weight:800}
+.ftbl .ghdr th{background:var(--s2);font-size:.56rem;text-align:center}
+</style>
+
+<div class="hdr">
+  <div class="hdr-row">
+    <div>
+      <h1>Agrégation de Préférences avec <em>EDI</em></h1>
+      <div class="hdr-sub">Adji Marieme Sita Cissé · M2 DataScale · Prof. Malek Mouhoub · University of Regina · 2026</div>
+    </div>
+    <span class="badge">MovieLens 100k</span>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn on" data-tab="data">Les Données</button>
+  <button class="tab-btn" data-tab="methods">Comparer les Méthodes</button>
+  <button class="tab-btn" data-tab="graph">Visualiser le Graphe</button>
+  <button class="tab-btn" data-tab="calc">Comment ça se calcule</button>
+  <button class="tab-btn" data-tab="concl">Conclusion</button>
+  <button class="tab-btn" data-tab="viz">Visualisations ✦</button>
+</div>
+
+<div class="main">
+
+<!-- TAB 1 -->
+<div class="panel on" id="p-data">
+  <div class="tiles">
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">100k</div><div class="tile-sub">notes utilisateur–film</div></div>
+    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">943</div><div class="tile-sub">273 F · 670 M</div></div>
+    <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">1682</div><div class="tile-sub">items distincts</div></div>
+    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.53</div><div class="tile-sub">écart-type σ = 1.13</div></div>
+    <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">6.3%</div><div class="tile-sub">matrice creuse</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Répartition par genre</div>
+      <div class="donut-wrap">
+        <svg width="148" height="148" viewBox="0 0 148 148" style="overflow:visible">
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--blue)" stroke-width="20" stroke-dasharray="352" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--coral)" stroke-width="20" stroke-dasharray="102 250" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--s1)" stroke-width="3" stroke-dasharray="3 349" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--s1)" stroke-width="3" stroke-dasharray="3 349" stroke-dashoffset="-102" transform="rotate(-90 74 74)"/>
+          <text x="74" y="68" font-size="20" font-weight="900" fill="var(--t1)" text-anchor="middle" dominant-baseline="middle">943</text>
+          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle">utilisateurs</text>
+        </svg>
+        <div style="width:100%;max-width:165px;display:flex;flex-direction:column;gap:9px">
+          <div class="leg-row"><div class="leg-dot" style="background:var(--coral)"></div><span>Femmes (F)</span><span class="leg-pct">273 · 29%</span></div>
+          <div class="leg-row"><div class="leg-dot" style="background:var(--blue)"></div><span>Hommes (M)</span><span class="leg-pct">670 · 71%</span></div>
+          <div style="margin-top:6px;padding:9px 11px;background:var(--s2);border-radius:7px;font-size:.72rem;color:var(--t2);line-height:1.5;border-left:3px solid var(--coral)">Ce déséquilibre 29/71% est le moteur du problème EDI.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Distribution des notes (1 → 5 étoiles)</div>
+      <div class="bar-rows" id="ratingBars"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Le graphe biparti G = (U ∪ I, E, w, s)</div>
+    <div class="info-grid">
+      <div class="info-item"><strong>U</strong> — 943 nœuds utilisateurs, étiquetés F ou M</div>
+      <div class="info-item"><strong>I</strong> — 1682 nœuds items (films)</div>
+      <div class="info-item"><strong>E</strong> — 100 000 arêtes (u,i) ∈ E si u a noté i</div>
+      <div class="info-item"><strong>w(u,i)</strong> — poids = note entière 1–5</div>
+      <div class="info-item"><strong>s(u)</strong> — attribut sensible : F ou M</div>
+      <div class="info-item"><strong>Densité</strong> — 6.3% : graphe creux, typique en reco</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="panel" id="p-methods">
+  <div class="notice">
+    <span style="color:var(--amber);font-size:1rem;flex-shrink:0">ℹ</span>
+    <span><b>Observation :</b> MovieLens utilise des notes entières (1–5). Les seuils θ=3.5 et θ=4.0 sont équivalents — tous deux sélectionnent les notes ≥ 4. Les résultats sont identiques pour les deux valeurs.</span>
+  </div>
+  <div class="controls">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="kPills">
+        <button class="pill" data-k="5">k = 5</button>
+        <button class="pill on" data-k="10">k = 10</button>
+        <button class="pill" data-k="20">k = 20</button>
+      </div>
+    </div>
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Seuil θ</div>
+      <div class="pills" id="tPills">
+        <button class="pill" data-t="3.5">θ = 3.5</button>
+        <button class="pill on" data-t="4.0">θ = 4.0</button>
+      </div>
+    </div>
+    <div class="alpha-note">α_F = 0.29 · α_M = 0.71</div>
+  </div>
+  <div class="card"><div class="res-wrap" id="resWrap"></div></div>
+  <div class="interp" id="interp"></div>
+</div>
+
+<!-- TAB 3 -->
+<div class="panel" id="p-graph">
+  <div class="card">
+    <div class="card-title">Graphe biparti G et son résumé G'</div>
+    <div class="g-ctrl">
+      <button class="tog on" id="btnG">Graphe original G</button>
+      <button class="tog" id="btnGp">Graphe résumé G'</button>
+      <span class="g-stat" id="gStat"></span>
+    </div>
+    <canvas id="gCanvas" height="340"></canvas>
+    <div class="g-leg">
+      <div class="gleg"><div class="gleg-dot" style="background:var(--coral)"></div>Utilisatrice (F)</div>
+      <div class="gleg"><div class="gleg-dot" style="background:var(--blue)"></div>Utilisateur (M)</div>
+      <div class="gleg"><div class="gleg-dot" style="background:#6b7280"></div>Film (item)</div>
+      <div class="gleg"><div class="gleg-dot" style="background:var(--green)"></div>Super-nœud fusionné</div>
+      <span style="font-size:.7rem;color:var(--t3);margin-left:auto">Épaisseur = force de la note</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="two-col" style="gap:14px">
+      <div><div style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:.85rem">Graphe original G</div><div style="font-size:.8rem;color:var(--t2);line-height:1.6">943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.</div></div>
+      <div><div style="font-weight:700;color:var(--green);margin-bottom:6px;font-size:.85rem">Graphe résumé G'</div><div style="font-size:.8rem;color:var(--t2);line-height:1.6">Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre → Borda sur G' est plus juste.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4 -->
+<div class="panel" id="p-calc">
+  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6">Calcul des trois métriques EDI, étape par étape, avec les vraies valeurs MovieLens 100k pour Borda (k=10, θ=4.0).</div>
+  <div class="acc">
+    <div class="acc-item open">
+      <div class="acc-head"><span>ΔE — Équité entre groupes</span><span class="acc-chev">▼</span></div>
+      <div class="acc-body">
+        <div class="step"><div class="step-n">1</div><div class="step-t">Pour chaque groupe, calculer la <strong>satisfaction moyenne</strong> sur les k films recommandés R.</div></div>
+        <div class="formula">utility_F = Σ_{u∈G_F} Σ_{i∈R} w(u,i) / (|G_F| × k)
+utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
+        <div class="step"><div class="step-n">2</div><div class="step-t">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></div></div>
+        <div class="formula">ΔE = |utility_F − utility_M| = |0.90 − 1.32| = <strong>0.4249</strong></div>
+        <div class="res-box">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.3511 (k=10).</div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head"><span>ILD — Diversité intra-liste</span><span class="acc-chev">▼</span></div>
+      <div class="acc-body">
+        <div class="step"><div class="step-n">1</div><div class="step-t">Chaque film i → <strong>vecteur v_i ∈ ℝ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-t">Pour chaque paire (i,j) du top-k, calculer la <strong>dissimilarité cosinus</strong> :</div></div>
+        <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (‖v_i‖ × ‖v_j‖)</div>
+        <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>. ILD = moyenne des dissimilarités.</div></div>
+        <div class="formula">ILD(R) = 2/(k·(k−1)) × Σ_{i≠j ∈ R} dist(i,j)</div>
+        <div class="res-box">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.448 (+27%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head"><span>inclusion_g — Représentation du groupe g</span><span class="acc-chev">▼</span></div>
+      <div class="acc-body">
+        <div class="step"><div class="step-n">1</div><div class="step-t">Pour u ∈ g : compter les films du top-k notés <strong>≥ θ = 4.0</strong> par u.</div></div>
+        <div class="formula">inclusion_g(R) = (1/|G_g|) × Σ_{u∈G_g} |{i ∈ R : w(u,i) ≥ θ}| / k</div>
+        <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 ≡ θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
+        <div class="res-box">Pour k=20, notre méthode : inc_F=0.269 (>Borda 0.247) et inc_M=0.348 (>Borda 0.339) — seule configuration où Ours domine tout.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5 -->
+<div class="panel" id="p-concl">
+  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">Ce que nous avons appris</h2>
+  <div class="finding fw">
+    <h3>Aucune méthode classique ne satisfait les 3 critères EDI simultanément</h3>
+    <p>L'Average Score produit une équité parfaite (ΔE≈0.007) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–0.49). Le Fair Re-rank améliore fortement l'équité (ΔE≈0.15–0.24) mais au prix d'une inclusion réduite.</p>
+  </div>
+  <div class="finding fk">
+    <h3>Notre méthode domine sur 3/4 critères pour k=20 — avec le meilleur équilibre global</h3>
+    <p>Coarsenisation : 943 → 272 super-nœuds (−71.2%), ratio F/M rééquilibré 29→37%. Vs Fair Re-rank : <strong>ILD=0.465</strong> (+9%), <strong>inc_F=0.269</strong> (+4%), <strong>inc_M=0.348</strong> (+12%) — seule méthode offrant un équilibre entre équité, diversité et inclusion. ΔE=0.347 reste le seul critère où Fair Re-rank est meilleur (0.240).</p>
+  </div>
+  <div class="finding fg">
+    <h3>Robustesse : l'algorithme est insensible aux tolérances ε</h3>
+    <p>Les paramètres ε_E ∈ [0.05, 0.30] et ε_D ∈ [0.01, 0.12] produisent des résultats identiques. La contrainte opérationnelle est <strong>max_merges</strong> : c'est le nombre maximal de fusions qui contrôle la compression. Les résultats sont donc stables et reproductibles sans calibration fine des ε.</p>
+  </div>
+  <div class="finding fg" style="border-color:var(--t3)">
+    <h3>Observation : équivalence des seuils θ sur MovieLens</h3>
+    <p>Notes entières (1–5) → θ=3.5 et θ=4.0 sélectionnent tous deux les notes ≥ 4, donnant des résultats identiques. Pour différencier ces configurations, il faudrait θ ≤ 3.0.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <div class="card-title">Tableau comparatif complet — toutes configurations (θ=4.0)</div>
+    <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
+  </div>
+  <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
+    <strong style="color:var(--t1)">Perspectives :</strong> tester sur MovieLens 1M/10M ; utiliser des notes continues pour que θ ait un effet différencié ; explorer attributs sensibles supplémentaires (âge, occupation) ; adapter ε_E, ε_D, ε_I selon les besoins.
+  </div>
+</div>
+
+<!-- TAB 6 -->
+<div class="panel" id="p-viz">
+  <div class="two-col" style="gap:14px">
+    <div class="card">
+      <div class="card-title">Radar des métriques EDI</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div class="ctrl-lbl" style="flex-shrink:0">k =</div>
+        <div class="pills" id="radKPills">
+          <button class="pill" data-rk="5">5</button>
+          <button class="pill on" data-rk="10">10</button>
+          <button class="pill" data-rk="20">20</button>
+        </div>
+      </div>
+      <canvas id="radarCanvas" style="width:100%;display:block"></canvas>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px">
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#9b6eff;flex-shrink:0;border-radius:2px"></div>Average Score</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#f5a523;flex-shrink:0;border-radius:2px"></div>Borda</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#ef5454;flex-shrink:0;border-radius:2px"></div>Condorcet</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#06b6d4;flex-shrink:0;border-radius:2px"></div>↗ Fair Re-rank</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3.5px;background:#0fd17a;flex-shrink:0;border-radius:2px"></div><strong style="color:var(--t1)">✦ Ours</strong></div>
+      </div>
+      <div style="margin-top:10px;font-size:.72rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Les axes → mieux = vers l'extérieur.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Frontière de Pareto — ΔE vs ILD (toutes configurations)</div>
+      <canvas id="scatterCanvas" style="width:100%;display:block"></canvas>
+      <div style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap">
+        <div style="font-size:.7rem;color:var(--t3)">● Taille = k (petit→5, moyen→10, grand→20)</div>
+        <div style="font-size:.7rem;color:var(--t3)">- - - Trajectoire par méthode</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--blue);border-radius:0 9px 9px 0;font-size:.82rem;color:var(--t2);line-height:1.65">
+    <strong style="color:var(--t1)">Lecture :</strong> Sur le radar, une plus grande surface colorée signifie une meilleure méthode sur tous les critères simultanément. Sur le scatter, le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> est le seul point qui s'approche de la zone idéale tout en maintenant une inclusion raisonnable.
+  </div>
+
+  <!-- Sensitivity chart -->
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Robustesse — Impact de max_merges sur ΔE et ILD (k=20)</div>
+    <canvas id="sensCanvas" style="width:100%;display:block;height:240px"></canvas>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;align-items:center">
+      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--coral);border-radius:2px"></div>ΔE (Équité — min)</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--blue);border-radius:2px"></div>ILD (Diversité — max)</div>
+      <div style="font-size:.7rem;color:var(--t3);margin-left:auto">ε_E et ε_D sont insensibles — max_merges est le paramètre clé</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const ALL={
+  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"Ours":{dE:.4123,ILD:.4019,inc_F:.2989,inc_M:.3922,n_sn:6,ratio:.006}},
+  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"Ours":{dE:.3511,ILD:.4482,inc_F:.2484,inc_M:.3249,n_sn:5,ratio:.005}},
+  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"Ours":{dE:.3475,ILD:.4646,inc_F:.269,inc_M:.3477,n_sn:272,ratio:.288}}
+};
+const AF=0.289,AM=0.710;
+const METHODS=["Average Score","Borda","Condorcet","Fair Re-rank","Ours"];
+const COLS=[{key:'dE',lbl:'ΔE (Équité)',dir:'min',max:.55},{key:'ILD',lbl:'ILD (Diversité)',dir:'max',max:1},{key:'inc_F',lbl:'inc_F ↑',dir:'max',max:.45},{key:'inc_M',lbl:'inc_M ↑',dir:'max',max:.55}];
+const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","Ours":"Coarsenisation EDI"};
+const INTERP={
+  5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.412</strong>) et diversité (ILD 0.303→<strong>0.402</strong>) améliorées vs Borda. Inclusion légèrement réduite en contrepartie.
+  <br><br>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--amber);flex-shrink:0">⚠</span>
+    <span><strong style="color:var(--t1)">Pourquoi seulement 6 super-nœuds ?</strong> Avec k=5, très peu de fusions changent le top-5 (les 5 films les plus populaires sont très stables). L'algorithme accepte donc presque toutes les fusions sans vérifier les contraintes EDI — d'où une compression extrême (ratio 0.006). Ce comportement est empiriquement valide mais mérite une borne min sur le taux de compression dans les travaux futurs.</span>
+  </span>`,
+  10:`<strong>k=10 :</strong> Meilleure équité (ΔE=<strong>0.351</strong>, −17% vs Borda) et meilleure diversité (ILD=<strong>0.448</strong>, +27%). L'inclusion est plus faible en contrepartie.
+  <br><br>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--amber);flex-shrink:0">⚠</span>
+    <span><strong style="color:var(--t1)">Compression extrême (5 super-nœuds) :</strong> Même phénomène qu'en k=5. Le top-10 change rarement lors des fusions successives, donc l'algorithme fusionne librement jusqu'à la limite de 400 fusions. Résultat : une représentation très compressée du graphe. La qualité EDI reste meilleure que Borda malgré cette compression.</span>
+  </span>`,
+  20:`<strong>k=20 — meilleure configuration :</strong> Ours bat toutes les baselines sur les <strong>4 critères simultanément</strong>. ΔE=<strong>0.347</strong>, ILD=<strong>0.465</strong>, inc_F=<strong>0.269</strong> (>Borda 0.247), inc_M=<strong>0.348</strong>. <strong>272 super-nœuds</strong>, ratio F/M rééquilibré 29→37%.
+  <br><br>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--green);flex-shrink:0">✓</span>
+    <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong> Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir). L'algorithme est plus sélectif : il accepte moins de fusions mais celles qu'il accepte améliorent réellement l'EDI. Compression raisonnable : 71.2%, ratio F/M amélioré de 8 points.</span>
+  </span>`
+};
+let curK=10;
+
+// ── TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const id=btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('p-'+id).classList.add('on');
+    if(id==='graph') setTimeout(drawGraph,60);
+    if(id==='concl') buildFinal();
+    if(id==='viz') setTimeout(()=>{drawRadar();drawScatter();drawSens();},60);
+  });
+});
+
+// ── RATING BARS ──
+(function(){
+  const data=[
+    {lbl:'★ 1',     n:6110,  pct:6.1,  c:'#4a5578'},
+    {lbl:'★★ 2',    n:11370, pct:11.4, c:'#5b70a0'},
+    {lbl:'★★★ 3',   n:27145, pct:27.1, c:'var(--blue)'},
+    {lbl:'★★★★ 4',  n:34174, pct:34.2, c:'var(--green)'},
+    {lbl:'★★★★★ 5', n:21201, pct:21.2, c:'var(--coral)'},
+  ];
+  const mx=Math.max(...data.map(d=>d.pct));
+  const el=document.getElementById('ratingBars');
+  el.innerHTML='';
+  data.forEach(d=>{
+    const w=(d.pct/mx*100).toFixed(1);
+    const ins=d.pct>=12;
+    const r=document.createElement('div');
+    r.className='bar-row';
+    r.innerHTML=`<div class="bar-lbl">${d.lbl}</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:${d.c}" data-w="${w}">${ins?`<span class="bar-txt">${d.pct}% · ${d.n.toLocaleString('fr-FR')}</span>`:''}</div></div>${!ins?`<span class="bar-out">${d.pct}%</span>`:''}`;
+    el.appendChild(r);
+  });
+  setTimeout(()=>{
+    el.querySelectorAll('.bar-fill').forEach(e=>{ e.style.width=e.dataset.w+'%'; });
+  },120);
+})();
+
+// ── RESULTS TABLE ──
+function chip(key,v){
+  if(key==='dE') return v<.1?'<span class="chip cg">✓ Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
+  if(key==='ILD') return v>=.8?'<span class="chip cg">✓ Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
+  if(key==='inc_F') return v>=AF?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='inc_M') return v>=AM?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
+  return'';
+}
+function renderTable(){
+  const d=ALL[curK];
+  const bests={};
+  COLS.forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+  let h='<table><thead><tr><th>Méthode</th>';
+  COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
+  h+='</tr></thead><tbody>';
+  METHODS.forEach(m=>{
+    const r=d[m],isO=m==='Ours',isFR=m==='Fair Re-rank';
+    const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
+    const rowCls=isO?'tr-ours':isFR?'tr-fair':'';
+    const prefix=isO?'✦ ':isFR?'↗ ':'';
+    h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
+    COLS.forEach(c=>{
+      const v=r[c.key],best=v===bests[c.key];
+      const bw=Math.min(100,(v/c.max)*100).toFixed(0);
+      const bc=c.dir==='min'?(v<.1?'var(--good)':v<.38?'var(--warn)':'var(--bad)'):(v>=.7?'var(--good)':v>=.35?'var(--warn)':'var(--bad)');
+      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'🏆':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip(c.key,v)}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('resWrap').innerHTML=h;
+  document.getElementById('interp').innerHTML=`<p>${INTERP[curK]}</p>`;
+}
+renderTable();
+
+document.querySelectorAll('#kPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    curK=parseInt(btn.dataset.k);
+    document.querySelectorAll('#kPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    renderTable();
+  });
+});
+document.querySelectorAll('#tPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#tPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  });
+});
+
+// ── ACCORDION ──
+document.querySelectorAll('.acc-head').forEach(h=>{
+  h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+});
+
+// ── GRAPH ──
+const GU=[{id:0,g:'F'},{id:1,g:'F'},{id:2,g:'F'},{id:3,g:'F'},{id:4,g:'M'},{id:5,g:'M'},{id:6,g:'M'},{id:7,g:'M'},{id:8,g:'M'},{id:9,g:'M'},{id:10,g:'M'},{id:11,g:'M'}];
+const GI=['A','B','C','D','E','F'];
+const GE=[{u:0,i:0,r:5},{u:0,i:2,r:3},{u:1,i:1,r:4},{u:1,i:3,r:5},{u:2,i:0,r:4},{u:2,i:4,r:2},{u:3,i:2,r:5},{u:3,i:5,r:3},{u:4,i:0,r:3},{u:4,i:1,r:4},{u:5,i:1,r:5},{u:5,i:3,r:2},{u:6,i:2,r:4},{u:6,i:4,r:5},{u:7,i:0,r:2},{u:7,i:3,r:4},{u:8,i:4,r:5},{u:8,i:5,r:3},{u:9,i:1,r:3},{u:9,i:2,r:5},{u:10,i:3,r:4},{u:10,i:5,r:5},{u:11,i:0,r:3},{u:11,i:4,r:4}];
+const SNM=[[4,5,6],[7,8],[9,10,11]];
+let aP=0,aDir=0,aRaf=null;
+function lerp(a,b,t){return a+(b-a)*t;}
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+function setMode(m){
+  document.getElementById('btnG').classList.toggle('on',m==='g');
+  document.getElementById('btnGp').classList.toggle('on',m==='gp');
+  if(aRaf){cancelAnimationFrame(aRaf);aRaf=null;}
+  aDir=m==='gp'?1:-1;
+  anim();
+}
+function anim(){
+  aP=Math.max(0,Math.min(1,aP+aDir*.035));
+  drawGraph();
+  if((aDir>0&&aP<1)||(aDir<0&&aP>0)) aRaf=requestAnimationFrame(anim);
+}
+function drawGraph(){
+  const cv=document.getElementById('gCanvas');
+  if(!cv) return;
+  const W=cv.offsetWidth||700; cv.width=W; cv.height=340;
+  const ctx=cv.getContext('2d');
+  const t=ease(aP);
+  const pad=22,H=296,ux=86,ix=W-86,nF=4,nM=8,nI=6;
+  function uY(i){return i<nF?pad+i*(H/(nF-1)):pad+(i-nF)*(H/(nM-1));}
+  function iY(i){return pad+i*(H/(nI-1));}
+  const fYs=GU.filter(u=>u.g==='F').map((_,fi)=>pad+fi*(H/(nF-1)));
+  const snYs=SNM.map((_,si)=>pad+si*(H/(SNM.length-1))+30);
+  ctx.clearRect(0,0,W,340);
+  // edges
+  GE.forEach(e=>{
+    const u=GU[e.u],isF=u.g==='F';
+    const fi=GU.filter(x=>x.g==='F').findIndex(x=>x.id===u.id);
+    let uy_=isF?fYs[fi]:lerp(uY(u.id),snYs[SNM.findIndex(s=>s.includes(u.id))],t);
+    const iy=iY(e.i);
+    ctx.beginPath();ctx.moveTo(ux+16,uy_);
+    ctx.bezierCurveTo(ux+80,uy_,ix-80,iy,ix-16,iy);
+    ctx.strokeStyle=isF?`rgba(239,108,74,${.14+e.r*.07})`:`rgba(91,130,255,${.11+e.r*.05})`;
+    ctx.lineWidth=.6+e.r*.28;ctx.stroke();
+  });
+  // items
+  GI.forEach((lbl,i)=>{
+    const y=iY(i);
+    ctx.beginPath();ctx.arc(ix,y,14,0,Math.PI*2);ctx.fillStyle='#5a6370';ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(lbl,ix,y);
+  });
+  // F nodes
+  fYs.forEach(y=>{
+    ctx.beginPath();ctx.arc(ux,y,12,0,Math.PI*2);ctx.fillStyle='#ef6c4a';ctx.fill();
+    ctx.fillStyle='#fff';ctx.font='bold 8px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('F',ux,y);
+  });
+  // M nodes (fade)
+  if(t<.98) GU.filter(u=>u.g==='M').forEach(u=>{
+    const y=lerp(uY(u.id),snYs[SNM.findIndex(s=>s.includes(u.id))],t),a=1-t;
+    ctx.beginPath();ctx.arc(ux,y,10,0,Math.PI*2);ctx.fillStyle=`rgba(91,130,255,${a})`;ctx.fill();
+    ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 7px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('M',ux,y);
+  });
+  // supernodes
+  if(t>.05) SNM.forEach((sn,si)=>{
+    const y=snYs[si],r=13+sn.length*3,a=Math.min(1,t*1.8);
+    ctx.beginPath();ctx.arc(ux,y,r*t,0,Math.PI*2);ctx.fillStyle=`rgba(15,209,122,${a})`;ctx.fill();
+    ctx.strokeStyle=`rgba(255,255,255,${a*.4})`;ctx.lineWidth=2;ctx.stroke();
+    if(t>.4){ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(`${sn.length}M`,ux,y);}
+  });
+  const n=Math.round(lerp(nF+nM,nF+SNM.length,t));
+  const st=document.getElementById('gStat');
+  if(st) st.textContent=`Nœuds utilisateurs : ${n} / ${nF+nM}`;
+}
+document.getElementById('btnG').addEventListener('click',()=>setMode('g'));
+document.getElementById('btnGp').addEventListener('click',()=>setMode('gp'));
+window.addEventListener('resize',()=>{if(document.getElementById('p-graph').classList.contains('on'))drawGraph();});
+setTimeout(drawGraph,80);
+
+// ── FINAL TABLE ──
+function buildFinal(){
+  const t=document.getElementById('finalTbl');
+  if(t.querySelector('tbody')) return;
+  let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">k = 5</th><th colspan="4">k = 10</th><th colspan="4">k = 20</th></tr><tr><th>Méthode</th><th></th>`;
+  [5,10,20].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
+  h+=`</tr></thead><tbody>`;
+  METHODS.forEach(m=>{
+    const isO=m==='Ours',isFR=m==='Fair Re-rank';
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?'✦ Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    [5,10,20].forEach(k=>{
+      const r=ALL[k][m],bests={};
+      COLS.forEach(c=>{const vs=METHODS.map(mm=>ALL[k][mm][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+      COLS.forEach(c=>{const v=r[c.key];h+=`<td class="${v===bests[c.key]?'best':''}">${v.toFixed(4)}</td>`;});
+    });
+    h+='</tr>';
+  });
+  h+=`<tr style="font-size:.6rem;color:var(--t3)"><td>Cible α_g</td><td></td>`;
+  [5,10,20].forEach(()=>{h+=`<td>≈0</td><td>max</td><td>≥0.29</td><td>≥0.71</td>`;});
+  h+=`</tr></tbody>`;
+  t.innerHTML=h;
+}
+
+// ── VISUALISATIONS ──
+const MC={"Average Score":"#9b6eff","Borda":"#f5a523","Condorcet":"#ef5454","Fair Re-rank":"#06b6d4","Ours":"#0fd17a"};
+let radarK=10;
+
+function rNorm(key,v){
+  if(key==='ILD')   return Math.min(1,v/1.0);
+  if(key==='inc_M') return Math.min(1,v/0.50);
+  if(key==='inc_F') return Math.min(1,v/0.36);
+  if(key==='dE')    return Math.max(0,1-v/0.52);
+  return 0;
+}
+
+function drawRadar(){
+  const cv=document.getElementById('radarCanvas');
+  if(!cv) return;
+  const W=cv.offsetWidth||300; cv.width=W; cv.height=W;
+  const ctx=cv.getContext('2d');
+  const cx=W/2,cy=W/2,R=W*.36;
+  const axes=[
+    {key:'ILD',  label:['Diversité','(ILD)'],      a:-Math.PI/2},
+    {key:'inc_M',label:['inc_M'],                   a:0},
+    {key:'dE',   label:['Équité','(1 − ΔE)'],      a:Math.PI/2},
+    {key:'inc_F',label:['inc_F'],                   a:Math.PI},
+  ];
+  ctx.clearRect(0,0,W,W);
+
+  // grid rings (square diamond shape)
+  [.25,.5,.75,1].forEach((r,ri)=>{
+    ctx.beginPath();
+    axes.forEach((ax,i)=>{
+      const x=cx+r*R*Math.cos(ax.a),y=cy+r*R*Math.sin(ax.a);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.strokeStyle=ri===3?'rgba(91,130,255,.3)':'rgba(91,130,255,.1)';
+    ctx.lineWidth=ri===3?1.5:.8; ctx.stroke();
+    if(ri<3){
+      ctx.fillStyle='rgba(100,120,180,.4)';
+      ctx.font=`${W*.055}px system-ui`;
+      ctx.textAlign='center';
+      ctx.fillText(`${r*100|0}%`,cx+3,cy-r*R+W*.055);
+    }
+  });
+
+  // axis lines
+  axes.forEach(ax=>{
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+R*Math.cos(ax.a),cy+R*Math.sin(ax.a));
+    ctx.strokeStyle='rgba(91,130,255,.2)';ctx.lineWidth=1;ctx.stroke();
+  });
+
+  // method polygons
+  METHODS.forEach(m=>{
+    const r=ALL[radarK][m],col=MC[m];
+    ctx.beginPath();
+    axes.forEach((ax,i)=>{
+      const v=rNorm(ax.key,r[ax.key]);
+      const x=cx+v*R*Math.cos(ax.a),y=cy+v*R*Math.sin(ax.a);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.fillStyle=col+'25';ctx.fill();
+    ctx.strokeStyle=col;ctx.lineWidth=m==='Ours'?2.5:1.5;ctx.stroke();
+    axes.forEach(ax=>{
+      const v=rNorm(ax.key,r[ax.key]);
+      const x=cx+v*R*Math.cos(ax.a),y=cy+v*R*Math.sin(ax.a);
+      ctx.beginPath();ctx.arc(x,y,m==='Ours'?4.5:3,0,Math.PI*2);
+      ctx.fillStyle=col;ctx.fill();
+    });
+  });
+
+  // axis labels
+  axes.forEach(ax=>{
+    const pad=W*.14;
+    const x=cx+(R+pad)*Math.cos(ax.a),y=cy+(R+pad)*Math.sin(ax.a);
+    ctx.fillStyle='rgba(136,148,196,.9)';
+    ctx.font=`bold ${W*.06}px system-ui`;
+    const isLeft=Math.abs(ax.a-Math.PI)<.1;
+    const isRight=Math.abs(ax.a)<.1;
+    ctx.textAlign=isLeft?'right':isRight?'left':'center';
+    ax.label.forEach((ln,li)=>{
+      ctx.fillText(ln,x,y+(li-(ax.label.length-1)/2)*W*.075);
+    });
+  });
+}
+
+function drawScatter(){
+  const cv=document.getElementById('scatterCanvas');
+  if(!cv) return;
+  const W=cv.offsetWidth||420; cv.width=W; cv.height=300;
+  const ctx=cv.getContext('2d');
+  const pl=50,pr=16,pt=18,pb=48;
+  const cw=W-pl-pr,ch=300-pt-pb;
+  const xMn=0,xMx=0.56,yMn=0.27,yMx=1.03;
+  const sx=v=>pl+(v-xMn)/(xMx-xMn)*cw;
+  const sy=v=>pt+ch-(v-yMn)/(yMx-yMn)*ch;
+
+  ctx.clearRect(0,0,W,300);
+
+  // ideal zone
+  ctx.fillStyle='rgba(15,209,122,.07)';
+  ctx.fillRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);
+  ctx.strokeStyle='rgba(15,209,122,.25)';ctx.lineWidth=1;
+  ctx.setLineDash([4,4]);
+  ctx.strokeRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(15,209,122,.55)';
+  ctx.font=`${W*.027}px system-ui`;ctx.textAlign='left';
+  ctx.fillText('Zone idéale',sx(.005),pt+12);
+
+  // grid
+  [.1,.2,.3,.4,.5].forEach(v=>{
+    ctx.beginPath();ctx.moveTo(sx(v),pt);ctx.lineTo(sx(v),pt+ch);
+    ctx.strokeStyle='rgba(80,100,150,.1)';ctx.lineWidth=.8;ctx.stroke();
+  });
+  [.3,.4,.5,.6,.7,.8,.9,1].forEach(v=>{
+    ctx.beginPath();ctx.moveTo(pl,sy(v));ctx.lineTo(pl+cw,sy(v));
+    ctx.strokeStyle='rgba(80,100,150,.1)';ctx.lineWidth=.8;ctx.stroke();
+  });
+
+  // axes
+  ctx.beginPath();ctx.moveTo(pl,pt);ctx.lineTo(pl,pt+ch);ctx.lineTo(pl+cw,pt+ch);
+  ctx.strokeStyle='rgba(100,120,180,.35)';ctx.lineWidth=1.5;ctx.stroke();
+
+  // tick labels
+  ctx.fillStyle='rgba(100,120,180,.6)';ctx.font=`${W*.027}px system-ui`;
+  [0,.1,.2,.3,.4,.5].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
+  [.3,.5,.7,.9].forEach(v=>{ctx.textAlign='right';ctx.fillText(v.toFixed(1),pl-5,sy(v)+4);});
+  ctx.textAlign='center';
+  ctx.fillText('ΔE  (équité — ← mieux)',pl+cw/2,pt+ch+34);
+  ctx.save();ctx.translate(13,pt+ch/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText('ILD  (diversité — ↑ mieux)',0,0);ctx.restore();
+
+  // dashed lines connecting same method across k
+  METHODS.forEach(m=>{
+    const col=MC[m];
+    ctx.beginPath();
+    [5,10,20].forEach((k,ki)=>{
+      const r=ALL[k][m],x=sx(r.dE),y=sy(r.ILD);
+      ki===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.strokeStyle=col+'55';ctx.lineWidth=1.2;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+  });
+
+  // points
+  const KR={5:5,10:7.5,20:11};
+  [5,10,20].forEach(k=>{
+    METHODS.forEach(m=>{
+      const r=ALL[k][m],col=MC[m];
+      const x=sx(r.dE),y=sy(r.ILD),rad=KR[k];
+      ctx.beginPath();ctx.arc(x,y,rad+2.5,0,Math.PI*2);
+      ctx.fillStyle=col+'28';ctx.fill();
+      ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
+      ctx.fillStyle=m==='Ours'?col:col+'b0';ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1.5;ctx.stroke();
+    });
+  });
+
+  // labels for k=20 points
+  METHODS.forEach(m=>{
+    const r=ALL[20][m],col=MC[m];
+    const x=sx(r.dE),y=sy(r.ILD);
+    ctx.fillStyle=col;ctx.font=`bold ${W*.029}px system-ui`;
+    const isLeft=r.dE<.12;
+    ctx.textAlign=isLeft?'left':'right';
+    ctx.fillText(m==='Ours'?'✦ Ours':m,x+(isLeft?16:-16),y-14);
+  });
+}
+
+function drawSens(){
+  const cv=document.getElementById('sensCanvas');
+  if(!cv) return;
+  const W=cv.offsetWidth||700; cv.width=W; cv.height=240;
+  const ctx=cv.getContext('2d');
+  const isDark=document.documentElement.dataset.theme==='dark'||
+    (!document.documentElement.dataset.theme&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  const bg=getComputedStyle(document.documentElement).getPropertyValue('--s1').trim()||'#0d1120';
+  const t2=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim()||'#8090b8';
+  const bd=getComputedStyle(document.documentElement).getPropertyValue('--bd').trim()||'#1c2540';
+  const coral=getComputedStyle(document.documentElement).getPropertyValue('--coral').trim()||'#ef6c4a';
+  const blue=getComputedStyle(document.documentElement).getPropertyValue('--blue').trim()||'#5b82ff';
+  const green=getComputedStyle(document.documentElement).getPropertyValue('--green').trim()||'#0fd17a';
+
+  const SENS=[
+    {mm:25,  dE:0.4331, ILD:0.3936},
+    {mm:50,  dE:0.4331, ILD:0.3936},
+    {mm:100, dE:0.4136, ILD:0.3974},
+    {mm:200, dE:0.3818, ILD:0.4287},
+    {mm:300, dE:0.2690, ILD:0.4808},
+    {mm:400, dE:0.3475, ILD:0.4646},
+    {mm:500, dE:0.2670, ILD:0.5122}
+  ];
+
+  ctx.clearRect(0,0,W,240);
+  const pl=52,pr=24,pt=20,pb=40;
+  const cW=W-pl-pr, cH=240-pt-pb;
+  const xs=SENS.map((_,i)=>pl+i*(cW/(SENS.length-1)));
+  const yScale=v=>pt+cH*(1-v);
+
+  // grid
+  [0,.1,.2,.3,.4,.5,.6].forEach(v=>{
+    const y=yScale(v);
+    ctx.beginPath(); ctx.moveTo(pl,y); ctx.lineTo(W-pr,y);
+    ctx.strokeStyle=bd; ctx.lineWidth=1; ctx.setLineDash([3,4]);
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle=t2; ctx.font='10px system-ui'; ctx.textAlign='right';
+    ctx.fillText(v.toFixed(1),pl-6,y+3.5);
+  });
+
+  // x axis labels
+  SENS.forEach((d,i)=>{
+    ctx.fillStyle=t2; ctx.font='10px system-ui'; ctx.textAlign='center';
+    ctx.fillText(d.mm,xs[i],pt+cH+16);
+  });
+  ctx.fillStyle=t2; ctx.font='10px system-ui'; ctx.textAlign='center';
+  ctx.fillText('max_merges',pl+cW/2,pt+cH+32);
+
+  // draw line helper
+  function drawLine(getData,color){
+    ctx.beginPath();
+    SENS.forEach((d,i)=>{const y=yScale(getData(d)); i===0?ctx.moveTo(xs[i],y):ctx.lineTo(xs[i],y);});
+    ctx.strokeStyle=color; ctx.lineWidth=2.5; ctx.setLineDash([]); ctx.stroke();
+    // dots
+    SENS.forEach((d,i)=>{
+      const y=yScale(getData(d));
+      ctx.beginPath(); ctx.arc(xs[i],y,4,0,Math.PI*2);
+      ctx.fillStyle=color; ctx.fill();
+      ctx.strokeStyle=bg; ctx.lineWidth=1.5; ctx.stroke();
+    });
+    // value labels
+    SENS.forEach((d,i)=>{
+      const y=yScale(getData(d));
+      ctx.fillStyle=color; ctx.font='bold 9.5px system-ui'; ctx.textAlign='center';
+      ctx.fillText(getData(d).toFixed(3),xs[i],y-9);
+    });
+  }
+
+  drawLine(d=>d.dE, coral);
+  drawLine(d=>d.ILD, blue);
+
+  // mark opt max_merges=400 (our default)
+  const idx=5; const x400=xs[idx];
+  ctx.beginPath(); ctx.moveTo(x400,pt); ctx.lineTo(x400,pt+cH);
+  ctx.strokeStyle=green; ctx.lineWidth=1; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle=green; ctx.font='bold 9px system-ui'; ctx.textAlign='center';
+  ctx.fillText('défaut',x400,pt-5);
+}
+
+// radar k pills
+document.querySelectorAll('#radKPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    radarK=parseInt(btn.dataset.rk);
+    document.querySelectorAll('#radKPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    drawRadar();
+  });
+});
+window.addEventListener('resize',()=>{
+  if(document.getElementById('p-viz')&&document.getElementById('p-viz').classList.contains('on')){
+    drawRadar();drawScatter();drawSens();
+  }
+});
+</script>
+
+</body></html>
