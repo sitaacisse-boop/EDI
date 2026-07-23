@@ -20,6 +20,48 @@ def load():
 def top_k_avg(ratings, k):
     return list(ratings.groupby("item_id")["rating"].mean().nlargest(k).index)
 
+def top_k_fair_rerank(ratings, gender_map, k, theta, pool=40):
+    """Re-ranking équitable : Borda sur pool=40 candidats, sélection greedy
+    qui maximise inc_F + inc_M tout en minimisant ΔE."""
+    # 1. Pool de candidats Borda élargi
+    def bs(g):
+        r = g.sort_values("rating",ascending=False).reset_index(drop=True)
+        r["b"] = range(len(r),0,-1)
+        return r[["item_id","b"]]
+    b = ratings.groupby("user_id", group_keys=False).apply(bs)
+    candidates = list(b.groupby("item_id")["b"].sum().nlargest(pool).index)
+    # 2. Precompute per-item stats for each group
+    f_u = [u for u,g in gender_map.items() if g=="F"]
+    m_u = [u for u,g in gender_map.items() if g=="M"]
+    nF, nM = len(f_u), len(m_u)
+    def item_score(iid, group_users):
+        sub = ratings[(ratings["item_id"]==iid) & (ratings["user_id"].isin(group_users))]
+        return float(sub["rating"].sum()) / (len(group_users) + 1e-9)
+    def item_inc(iid, group_users):
+        sub = ratings[(ratings["item_id"]==iid) & (ratings["user_id"].isin(group_users)) & (ratings["rating"]>=theta)]
+        return len(sub["user_id"].unique()) / (len(group_users) + 1e-9)
+    item_sf = {iid: item_score(iid, f_u) for iid in candidates}
+    item_sm = {iid: item_score(iid, m_u) for iid in candidates}
+    item_if = {iid: item_inc(iid, f_u) for iid in candidates}
+    item_im = {iid: item_inc(iid, m_u) for iid in candidates}
+    # 3. Greedy selection : prioritise equity + inclusion
+    selected = []
+    remaining = list(candidates)
+    for _ in range(k):
+        if not remaining: break
+        def gain(iid):
+            sel = selected + [iid]
+            sf = sum(item_sf[i] for i in sel) / len(sel)
+            sm = sum(item_sm[i] for i in sel) / len(sel)
+            dE = abs(sf - sm)
+            inc_f = sum(item_if[i] for i in sel) / len(sel)
+            inc_m = sum(item_im[i] for i in sel) / len(sel)
+            return inc_f + inc_m - dE
+        best = max(remaining, key=gain)
+        selected.append(best)
+        remaining.remove(best)
+    return selected
+
 def top_k_borda(ratings, k):
     def bs(g):
         r = g.sort_values("rating",ascending=False).reset_index(drop=True)
@@ -166,6 +208,8 @@ for k in [5, 10, 20]:
         borda_items = top_k_borda(ratings, k)
         print("  Condorcet...")
         cond_items  = top_k_condorcet(ratings, k)
+        print("  Fair Re-rank...")
+        fair_items  = top_k_fair_rerank(ratings, gender_map, k, theta)
         print("  Coarsening...")
         ours_m = run_coarsening(ratings, gender_map, k, theta)
         results["experiments"][key] = {
@@ -173,10 +217,11 @@ for k in [5, 10, 20]:
             "Average Score": edi_metrics(ratings, avg_items,   gender_map, theta),
             "Borda":         edi_metrics(ratings, borda_items, gender_map, theta),
             "Condorcet":     edi_metrics(ratings, cond_items,  gender_map, theta),
+            "Fair Re-rank":  edi_metrics(ratings, fair_items,  gender_map, theta),
             "Ours":          ours_m,
         }
         r = results["experiments"][key]
-        for m in ["Average Score","Borda","Condorcet","Ours"]:
+        for m in ["Average Score","Borda","Condorcet","Fair Re-rank","Ours"]:
             v = r[m]
             print(f"  {m:14s}: dE={v['dE']} ILD={v['ILD']} inc_F={v['inc_F']} inc_M={v['inc_M']}")
 
