@@ -2,23 +2,23 @@
 <title>ΔE · ILD · Inclusion — MovieLens 100k</title>
 <style>
 :root {
-  --bg:#07090f; --s1:#0d1120; --s2:#131826; --bd:#1c2540;
-  --t1:#e8eeff; --t2:#8090b8; --t3:#3a4568;
-  --blue:#5b82ff; --coral:#ef6c4a; --green:#0fd17a;
-  --amber:#f5a523; --red:#ef5454; --purple:#9b6eff;
-  --good:#0fd17a; --warn:#f5a523; --bad:#ef5454; --cyan:#06b6d4;
-  --sh:0 4px 28px rgba(0,0,0,.5);
+  --bg:#0c0918; --s1:#14102e; --s2:#1c1848; --bd:#302875;
+  --t1:#ede8ff; --t2:#9888d0; --t3:#4a4290;
+  --blue:#6b8fff; --coral:#ff7a5c; --green:#12e87a;
+  --amber:#ffb830; --red:#ff6464; --purple:#b07aff;
+  --good:#12e87a; --warn:#ffb830; --bad:#ff6464; --cyan:#22d4f5;
+  --sh:0 4px 32px rgba(0,0,0,.65);
 }
 @media(prefers-color-scheme:light){:root{
-  --bg:#f0f4ff; --s1:#fff; --s2:#e8edf9; --bd:#cdd7f0;
-  --t1:#0a1228; --t2:#3a4f7a; --t3:#8a9bc0;
-  --blue:#2b55d4; --coral:#c94a28; --green:#0a9c58;
-  --amber:#c48a10; --red:#c43030; --purple:#7040d4;
-  --good:#0a9c58; --warn:#c48a10; --bad:#c43030;
-  --sh:0 2px 16px rgba(0,0,80,.09);
+  --bg:#f0ecff; --s1:#fff; --s2:#e5e0ff; --bd:#c0b8f0;
+  --t1:#0a0520; --t2:#46387a; --t3:#9080c0;
+  --blue:#4a30d0; --coral:#cc3a18; --green:#0a9c58;
+  --amber:#b07c00; --red:#c43030; --purple:#7040d4;
+  --good:#0a9c58; --warn:#b07c00; --bad:#c43030; --cyan:#0899c0;
+  --sh:0 2px 16px rgba(60,0,120,.10);
 }}
-:root[data-theme="dark"]{--bg:#07090f;--s1:#0d1120;--s2:#131826;--bd:#1c2540;--t1:#e8eeff;--t2:#8090b8;--t3:#3a4568;--blue:#5b82ff;--coral:#ef6c4a;--green:#0fd17a;--amber:#f5a523;--red:#ef5454;--purple:#9b6eff;--good:#0fd17a;--warn:#f5a523;--bad:#ef5454;--sh:0 4px 28px rgba(0,0,0,.5);}
-:root[data-theme="light"]{--bg:#f0f4ff;--s1:#fff;--s2:#e8edf9;--bd:#cdd7f0;--t1:#0a1228;--t2:#3a4f7a;--t3:#8a9bc0;--blue:#2b55d4;--coral:#c94a28;--green:#0a9c58;--amber:#c48a10;--red:#c43030;--purple:#7040d4;--good:#0a9c58;--warn:#c48a10;--bad:#c43030;--sh:0 2px 16px rgba(0,0,80,.09);}
+:root[data-theme="dark"]{--bg:#0c0918;--s1:#14102e;--s2:#1c1848;--bd:#302875;--t1:#ede8ff;--t2:#9888d0;--t3:#4a4290;--blue:#6b8fff;--coral:#ff7a5c;--green:#12e87a;--amber:#ffb830;--red:#ff6464;--purple:#b07aff;--good:#12e87a;--warn:#ffb830;--bad:#ff6464;--cyan:#22d4f5;--sh:0 4px 32px rgba(0,0,0,.65);}
+:root[data-theme="light"]{--bg:#f0ecff;--s1:#fff;--s2:#e5e0ff;--bd:#c0b8f0;--t1:#0a0520;--t2:#46387a;--t3:#9080c0;--blue:#4a30d0;--coral:#cc3a18;--green:#0a9c58;--amber:#b07c00;--red:#c43030;--purple:#7040d4;--good:#0a9c58;--warn:#b07c00;--bad:#c43030;--cyan:#0899c0;--sh:0 2px 16px rgba(60,0,120,.10);}
 
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.55;min-height:100vh}
@@ -347,15 +347,15 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         </div>
       </div>
       <canvas id="radarCanvas" style="width:100%;display:block"></canvas>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px">
-        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#9b6eff;flex-shrink:0;border-radius:2px"></div>Average Score</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#f5a523;flex-shrink:0;border-radius:2px"></div>Borda</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#e8833a;flex-shrink:0;border-radius:2px"></div>Weighted Borda</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#ef5454;flex-shrink:0;border-radius:2px"></div>Condorcet</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#06b6d4;flex-shrink:0;border-radius:2px"></div>↗ Fair Re-rank</div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3.5px;background:#0fd17a;flex-shrink:0;border-radius:2px"></div><strong style="color:var(--t1)">✦ Ours</strong></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#b07aff;flex-shrink:0"></div>Average Score</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#ffb830;flex-shrink:0"></div>Borda</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#e8833a;flex-shrink:0"></div>Weighted Borda</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#ff6464;flex-shrink:0"></div>Condorcet</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#22d4f5;flex-shrink:0"></div>↗ Fair Re-rank</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;color:var(--t1)"><div style="width:13px;height:13px;border-radius:50%;background:#12e87a;box-shadow:0 0 8px #12e87a88;flex-shrink:0"></div>✦ Ours</div>
       </div>
-      <div style="margin-top:10px;font-size:.72rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Les axes → mieux = vers l'extérieur.</div>
+      <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</div>
     </div>
     <div class="card">
       <div class="card-title">Frontière de Pareto — ΔE vs ILD (toutes configurations)</div>
@@ -611,7 +611,7 @@ function buildFinal(){
 }
 
 // ── VISUALISATIONS ──
-const MC={"Average Score":"#9b6eff","Borda":"#f5a523","Weighted Borda":"#e8833a","Condorcet":"#ef5454","Fair Re-rank":"#06b6d4","Ours":"#0fd17a"};
+const MC={"Average Score":"#b07aff","Borda":"#ffb830","Weighted Borda":"#e8833a","Condorcet":"#ff6464","Fair Re-rank":"#22d4f5","Ours":"#12e87a"};
 let radarK=10;
 
 function rNorm(key,v){
@@ -627,16 +627,22 @@ function drawRadar(){
   if(!cv) return;
   const W=cv.offsetWidth||300; cv.width=W; cv.height=W;
   const ctx=cv.getContext('2d');
-  const cx=W/2,cy=W/2,R=W*.36;
+  const cx=W/2,cy=W/2,R=W*.35;
   const axes=[
-    {key:'ILD',  label:['Diversité','(ILD)'],      a:-Math.PI/2},
-    {key:'inc_M',label:['inc_M'],                   a:0},
-    {key:'dE',   label:['Équité','(1 − ΔE)'],      a:Math.PI/2},
-    {key:'inc_F',label:['inc_F'],                   a:Math.PI},
+    {key:'ILD',  label:['Diversité','(ILD)'],  a:-Math.PI/2},
+    {key:'inc_M',label:['inc_M'],               a:0},
+    {key:'dE',   label:['Équité','(1−ΔE)'],    a:Math.PI/2},
+    {key:'inc_F',label:['inc_F'],               a:Math.PI},
   ];
   ctx.clearRect(0,0,W,W);
 
-  // grid rings (square diamond shape)
+  // soft background glow
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.1);
+  grd.addColorStop(0,'rgba(100,80,220,.08)');
+  grd.addColorStop(1,'rgba(100,80,220,0)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,W,W);
+
+  // grid rings
   [.25,.5,.75,1].forEach((r,ri)=>{
     ctx.beginPath();
     axes.forEach((ax,i)=>{
@@ -644,13 +650,13 @@ function drawRadar(){
       i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
     });
     ctx.closePath();
-    ctx.strokeStyle=ri===3?'rgba(91,130,255,.3)':'rgba(91,130,255,.1)';
-    ctx.lineWidth=ri===3?1.5:.8; ctx.stroke();
+    ctx.strokeStyle=ri===3?'rgba(176,140,255,.5)':'rgba(176,140,255,.18)';
+    ctx.lineWidth=ri===3?1.8:1; ctx.stroke();
     if(ri<3){
-      ctx.fillStyle='rgba(100,120,180,.4)';
-      ctx.font=`${W*.055}px system-ui`;
+      ctx.fillStyle='rgba(180,160,255,.55)';
+      ctx.font=`${Math.max(9,W*.045)}px system-ui`;
       ctx.textAlign='center';
-      ctx.fillText(`${r*100|0}%`,cx+3,cy-r*R+W*.055);
+      ctx.fillText(`${r*100|0}%`,cx+4,cy-r*R-5);
     }
   });
 
@@ -658,40 +664,50 @@ function drawRadar(){
   axes.forEach(ax=>{
     ctx.beginPath();ctx.moveTo(cx,cy);
     ctx.lineTo(cx+R*Math.cos(ax.a),cy+R*Math.sin(ax.a));
-    ctx.strokeStyle='rgba(91,130,255,.2)';ctx.lineWidth=1;ctx.stroke();
+    ctx.strokeStyle='rgba(176,140,255,.28)';ctx.lineWidth=1.2;ctx.stroke();
   });
 
-  // method polygons
-  METHODS.forEach(m=>{
-    const r=ALL[radarK][m],col=MC[m];
-    ctx.beginPath();
-    axes.forEach((ax,i)=>{
+  // draw baselines first, Ours on top
+  const order=[...METHODS.filter(m=>m!=='Ours'),'Ours'];
+  order.forEach(m=>{
+    const r=ALL[radarK][m],col=MC[m],isO=m==='Ours';
+    const pts=axes.map(ax=>{
       const v=rNorm(ax.key,r[ax.key]);
-      const x=cx+v*R*Math.cos(ax.a),y=cy+v*R*Math.sin(ax.a);
-      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      return {x:cx+v*R*Math.cos(ax.a),y:cy+v*R*Math.sin(ax.a)};
     });
+    // fill
+    ctx.beginPath();
+    pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
     ctx.closePath();
-    ctx.fillStyle=col+'25';ctx.fill();
-    ctx.strokeStyle=col;ctx.lineWidth=m==='Ours'?2.5:1.5;ctx.stroke();
-    axes.forEach(ax=>{
-      const v=rNorm(ax.key,r[ax.key]);
-      const x=cx+v*R*Math.cos(ax.a),y=cy+v*R*Math.sin(ax.a);
-      ctx.beginPath();ctx.arc(x,y,m==='Ours'?4.5:3,0,Math.PI*2);
+    ctx.fillStyle=col+(isO?'42':'1a');ctx.fill();
+    // stroke with glow for Ours
+    if(isO){ctx.shadowBlur=12;ctx.shadowColor=col+'cc';}
+    ctx.beginPath();
+    pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+    ctx.closePath();
+    ctx.strokeStyle=col;ctx.lineWidth=isO?3:1.8;ctx.stroke();
+    ctx.shadowBlur=0;
+    // dots
+    pts.forEach(p=>{
+      if(isO){ctx.shadowBlur=8;ctx.shadowColor=col+'bb';}
+      ctx.beginPath();ctx.arc(p.x,p.y,isO?6.5:4,0,Math.PI*2);
       ctx.fillStyle=col;ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1.8;ctx.stroke();
+      ctx.shadowBlur=0;
     });
   });
 
   // axis labels
   axes.forEach(ax=>{
-    const pad=W*.14;
+    const pad=W*.145;
     const x=cx+(R+pad)*Math.cos(ax.a),y=cy+(R+pad)*Math.sin(ax.a);
-    ctx.fillStyle='rgba(136,148,196,.9)';
-    ctx.font=`bold ${W*.06}px system-ui`;
-    const isLeft=Math.abs(ax.a-Math.PI)<.1;
-    const isRight=Math.abs(ax.a)<.1;
+    ctx.fillStyle='rgba(230,215,255,.95)';
+    ctx.font=`bold ${Math.max(10,W*.065)}px system-ui`;
+    const isLeft=Math.abs(ax.a-Math.PI)<.15;
+    const isRight=Math.abs(ax.a)<.15;
     ctx.textAlign=isLeft?'right':isRight?'left':'center';
     ax.label.forEach((ln,li)=>{
-      ctx.fillText(ln,x,y+(li-(ax.label.length-1)/2)*W*.075);
+      ctx.fillText(ln,x,y+(li-(ax.label.length-1)/2)*W*.082);
     });
   });
 }
@@ -768,14 +784,30 @@ function drawScatter(){
     });
   });
 
-  // labels for k=20 points
+  // per-method label offsets (k=20) — évite les collisions dans le cluster droite
+  const LBL20={
+    "Average Score":  {dx:18,  dy:-14, align:'left'},
+    "Borda":          {dx:-10, dy:20,  align:'right'},
+    "Weighted Borda": {dx:0,   dy:-20, align:'center'},
+    "Condorcet":      {dx:16,  dy:6,   align:'left'},
+    "Fair Re-rank":   {dx:-14, dy:-18, align:'right'},
+    "Ours":           {dx:14,  dy:-20, align:'left'},
+  };
   METHODS.forEach(m=>{
     const r=ALL[20][m],col=MC[m];
     const x=sx(r.dE),y=sy(r.ILD);
-    ctx.fillStyle=col;ctx.font=`bold ${W*.029}px system-ui`;
-    const isLeft=r.dE<.12;
-    ctx.textAlign=isLeft?'left':'right';
-    ctx.fillText(m==='Ours'?'✦ Ours':m,x+(isLeft?16:-16),y-14);
+    const off=LBL20[m]||{dx:0,dy:-16,align:'center'};
+    const isO=m==='Ours';
+    const lbl=isO?'✦ Ours':m;
+    ctx.font=`bold ${W*(isO?.031:.027)}px system-ui`;
+    // subtle text shadow for readability
+    ctx.fillStyle='rgba(0,0,0,.55)';
+    ctx.textAlign=off.align;
+    ctx.fillText(lbl,x+off.dx+1,y+off.dy+1);
+    if(isO){ctx.shadowBlur=6;ctx.shadowColor=col+'99';}
+    ctx.fillStyle=col;
+    ctx.fillText(lbl,x+off.dx,y+off.dy);
+    ctx.shadowBlur=0;
   });
 }
 
