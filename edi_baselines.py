@@ -131,6 +131,30 @@ def top_k_fair_rerank(ratings, gender_map, k=10, theta=4.0, pool=40):
     return selected
 
 
+def top_k_weighted_borda(ratings, gender_map, k=10):
+    """
+    Weighted Borda : normalise les scores Borda par la taille du groupe.
+    score(i) = Σ_F borda(u,i)/n_F  +  Σ_M borda(u,i)/n_M
+    Compense le déséquilibre 29% F / 71% M : chaque groupe a le même poids total.
+    """
+    n_F = sum(1 for g in gender_map.values() if g == "F")
+    n_M = sum(1 for g in gender_map.values() if g == "M")
+
+    r = ratings.copy()
+    r["gender"] = r["user_id"].map(gender_map)
+
+    def borda_user(group):
+        ranked = group.sort_values("rating", ascending=False).reset_index(drop=True)
+        ranked["borda"] = range(len(ranked), 0, -1)
+        return ranked[["item_id", "borda", "gender"]]
+
+    borda = r.groupby("user_id", group_keys=False).apply(borda_user)
+    scores_F = borda[borda["gender"] == "F"].groupby("item_id")["borda"].sum() / n_F
+    scores_M = borda[borda["gender"] == "M"].groupby("item_id")["borda"].sum() / n_M
+    scores = scores_F.add(scores_M, fill_value=0)
+    return list(scores.nlargest(k).index)
+
+
 # ── 4. Métriques EDI ─────────────────────────────────────────────────────────
 def group_utility(ratings, top_k_items, gender_map):
     """utility_g(R) = moyenne sur le groupe g de leur satisfaction sur R."""

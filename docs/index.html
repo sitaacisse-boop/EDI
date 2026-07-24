@@ -350,6 +350,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px">
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#9b6eff;flex-shrink:0;border-radius:2px"></div>Average Score</div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#f5a523;flex-shrink:0;border-radius:2px"></div>Borda</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#e8833a;flex-shrink:0;border-radius:2px"></div>Weighted Borda</div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#ef5454;flex-shrink:0;border-radius:2px"></div>Condorcet</div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3px;background:#06b6d4;flex-shrink:0;border-radius:2px"></div>↗ Fair Re-rank</div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:14px;height:3.5px;background:#0fd17a;flex-shrink:0;border-radius:2px"></div><strong style="color:var(--t1)">✦ Ours</strong></div>
@@ -385,14 +386,14 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
 <script>
 const ALL={
-  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"Ours":{dE:.4123,ILD:.4019,inc_F:.2989,inc_M:.3922,n_sn:6,ratio:.006}},
-  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"Ours":{dE:.3511,ILD:.4482,inc_F:.2484,inc_M:.3249,n_sn:5,ratio:.005}},
-  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"Ours":{dE:.3475,ILD:.4646,inc_F:.269,inc_M:.3477,n_sn:272,ratio:.288}}
+  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"Ours":{dE:.4123,ILD:.4019,inc_F:.2989,inc_M:.3922,n_sn:6,ratio:.006}},
+  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"Ours":{dE:.3511,ILD:.4482,inc_F:.2484,inc_M:.3249,n_sn:5,ratio:.005}},
+  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Weighted Borda":{dE:.3933,ILD:.3904,inc_F:.2548,inc_M:.3444},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"Ours":{dE:.3475,ILD:.4646,inc_F:.269,inc_M:.3477,n_sn:272,ratio:.288}}
 };
 const AF=0.289,AM=0.710;
-const METHODS=["Average Score","Borda","Condorcet","Fair Re-rank","Ours"];
+const METHODS=["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"];
 const COLS=[{key:'dE',lbl:'ΔE (Équité)',dir:'min',max:.55},{key:'ILD',lbl:'ILD (Diversité)',dir:'max',max:1},{key:'inc_F',lbl:'inc_F ↑',dir:'max',max:.45},{key:'inc_M',lbl:'inc_M ↑',dir:'max',max:.55}];
-const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","Ours":"Coarsenisation EDI"};
+const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Weighted Borda":"Borda pondéré par groupe","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","Ours":"Coarsenisation EDI"};
 const INTERP={
   5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.412</strong>) et diversité (ILD 0.303→<strong>0.402</strong>) améliorées vs Borda. Inclusion légèrement réduite en contrepartie.
   <br><br>
@@ -610,7 +611,7 @@ function buildFinal(){
 }
 
 // ── VISUALISATIONS ──
-const MC={"Average Score":"#9b6eff","Borda":"#f5a523","Condorcet":"#ef5454","Fair Re-rank":"#06b6d4","Ours":"#0fd17a"};
+const MC={"Average Score":"#9b6eff","Borda":"#f5a523","Weighted Borda":"#e8833a","Condorcet":"#ef5454","Fair Re-rank":"#06b6d4","Ours":"#0fd17a"};
 let radarK=10;
 
 function rNorm(key,v){

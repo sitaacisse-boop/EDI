@@ -80,6 +80,21 @@ def top_k_condorcet(ratings, k):
             w[iid] = w.get(iid,0)+int(wp[i])
     return [i for i,_ in sorted(w.items(),key=lambda x:x[1],reverse=True)[:k]]
 
+def top_k_weighted_borda(ratings, gender_map, k):
+    """Weighted Borda : score(i) = Σ_F borda(u,i)/n_F + Σ_M borda(u,i)/n_M"""
+    n_F = sum(1 for g in gender_map.values() if g == "F")
+    n_M = sum(1 for g in gender_map.values() if g == "M")
+    r = ratings.copy()
+    r["gender"] = r["user_id"].map(gender_map)
+    def borda_user(group):
+        ranked = group.sort_values("rating", ascending=False).reset_index(drop=True)
+        ranked["borda"] = range(len(ranked), 0, -1)
+        return ranked[["item_id", "borda", "gender"]]
+    borda = r.groupby("user_id", group_keys=False).apply(borda_user)
+    scores_F = borda[borda["gender"] == "F"].groupby("item_id")["borda"].sum() / n_F
+    scores_M = borda[borda["gender"] == "M"].groupby("item_id")["borda"].sum() / n_M
+    return list(scores_F.add(scores_M, fill_value=0).nlargest(k).index)
+
 def edi_metrics(ratings, top_k, gender_map, theta):
     s = set(top_k); k = len(top_k)
     f_u = [u for u,g in gender_map.items() if g=="F"]
@@ -204,8 +219,9 @@ for k in [5, 10, 20]:
     for theta in [3.5, 4.0]:
         key = f"k{k}_t{str(theta).replace('.','_')}"
         print(f"\n=== k={k}, theta={theta} ===")
-        avg_items   = top_k_avg(ratings, k)
+        avg_items  = top_k_avg(ratings, k)
         borda_items = top_k_borda(ratings, k)
+        wb_items   = top_k_weighted_borda(ratings, gender_map, k)
         print("  Condorcet...")
         cond_items  = top_k_condorcet(ratings, k)
         print("  Fair Re-rank...")
@@ -214,16 +230,17 @@ for k in [5, 10, 20]:
         ours_m = run_coarsening(ratings, gender_map, k, theta)
         results["experiments"][key] = {
             "k": k, "theta": theta,
-            "Average Score": edi_metrics(ratings, avg_items,   gender_map, theta),
-            "Borda":         edi_metrics(ratings, borda_items, gender_map, theta),
-            "Condorcet":     edi_metrics(ratings, cond_items,  gender_map, theta),
-            "Fair Re-rank":  edi_metrics(ratings, fair_items,  gender_map, theta),
-            "Ours":          ours_m,
+            "Average Score":   edi_metrics(ratings, avg_items,   gender_map, theta),
+            "Borda":           edi_metrics(ratings, borda_items, gender_map, theta),
+            "Weighted Borda":  edi_metrics(ratings, wb_items,    gender_map, theta),
+            "Condorcet":       edi_metrics(ratings, cond_items,  gender_map, theta),
+            "Fair Re-rank":    edi_metrics(ratings, fair_items,  gender_map, theta),
+            "Ours":            ours_m,
         }
         r = results["experiments"][key]
-        for m in ["Average Score","Borda","Condorcet","Fair Re-rank","Ours"]:
+        for m in ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"]:
             v = r[m]
-            print(f"  {m:14s}: dE={v['dE']} ILD={v['ILD']} inc_F={v['inc_F']} inc_M={v['inc_M']}")
+            print(f"  {m:16s}: dE={v['dE']} ILD={v['ILD']} inc_F={v['inc_F']} inc_M={v['inc_M']}")
 
 with open("experiments_results.json","w") as f:
     json.dump(results, f, indent=2)
