@@ -23,15 +23,24 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.55;min-height:100vh}
 
-.hdr{padding:28px 32px 0;max-width:980px;margin:0 auto}
-.hdr-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.hdr h1{font-size:1.55rem;font-weight:900;letter-spacing:-.03em;line-height:1.15}
-.hdr h1 em{font-style:normal;color:var(--green)}
-.hdr-sub{font-size:.74rem;color:var(--t2);margin-top:5px}
-.badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:20px;background:var(--s2);color:var(--blue);border:1px solid var(--bd);flex-shrink:0}
+/* ── HEADER ── */
+.hdr{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hdr-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 140% at 92% 50%,rgba(107,143,255,.08) 0%,transparent 60%),radial-gradient(ellipse 45% 100% at 4% 95%,rgba(18,232,122,.06) 0%,transparent 55%),radial-gradient(circle at 1px 1px,rgba(107,143,255,.06) 1px,transparent 0);background-size:auto,auto,26px 26px;pointer-events:none}
+.hdr-inner{max-width:980px;margin:0 auto;padding:24px 32px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1;flex-wrap:wrap}
+.hdr-eyebrow{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
+.hdr-title{font-size:1.65rem;font-weight:900;letter-spacing:-.035em;line-height:1.1;color:var(--t1);margin:0}
+.edi-accent{color:var(--green);text-shadow:0 0 28px rgba(18,232,122,.35)}
+.hdr-meta{font-size:.73rem;color:var(--t2);margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.hdr-author{font-weight:700;color:var(--t1)}
+.hdr-sep{color:var(--t3)}
+.hdr-kpis{display:flex;gap:8px;flex-shrink:0}
+.hdr-kpi{text-align:center;padding:10px 15px;background:rgba(107,143,255,.07);border:1px solid rgba(107,143,255,.18);border-radius:10px;min-width:60px}
+.kpi-val{font-size:1.35rem;font-weight:900;color:var(--blue);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi-lbl{font-size:.53rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-top:4px}
 
-.tab-bar{max-width:980px;margin:20px auto 0;padding:0 32px;display:flex;flex-wrap:wrap;border-bottom:1px solid var(--bd);gap:0}
-.tab-btn{padding:8px 14px;border:none;background:none;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .2s;letter-spacing:.02em}
+/* ── TABS sticky ── */
+.tab-bar{max-width:980px;margin:0 auto;padding:0 32px;display:flex;flex-wrap:wrap;border-bottom:1px solid var(--bd);gap:0;position:sticky;top:0;background:var(--bg);z-index:50;box-shadow:0 2px 14px rgba(0,0,0,.28)}
+.tab-btn{padding:10px 15px;border:none;background:none;cursor:pointer;font-size:.72rem;font-weight:700;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .2s;letter-spacing:.02em}
 .tab-btn:hover{color:var(--t1)}
 .tab-btn.on{color:var(--blue);border-color:var(--blue)}
 
@@ -144,15 +153,27 @@ canvas{width:100%;display:block;border-radius:8px}
 .ftbl .ghdr th{background:var(--s2);font-size:.56rem;text-align:center}
 </style>
 
-<div class="hdr">
-  <div class="hdr-row">
+<header class="hdr">
+  <div class="hdr-bg"></div>
+  <div class="hdr-inner">
     <div>
-      <h1>Agrégation de Préférences avec <em>EDI</em></h1>
-      <div class="hdr-sub">Adji Marieme Sita Cissé · M2 DataScale · Prof. Malek Mouhoub · University of Regina · 2026</div>
+      <div class="hdr-eyebrow">Mémoire M2 DataScale · Université de Regina · 2026</div>
+      <h1 class="hdr-title">Agrégation de Préférences avec <span class="edi-accent">EDI</span></h1>
+      <div class="hdr-meta">
+        <span class="hdr-author">Adji Marieme Sita Cissé</span>
+        <span class="hdr-sep">·</span>
+        <span>Prof. Malek Mouhoub</span>
+        <span class="hdr-sep">·</span>
+        <span>University of Regina</span>
+      </div>
     </div>
-    <span class="badge">MovieLens 100k</span>
+    <div class="hdr-kpis">
+      <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl">Méthodes</div></div>
+      <div class="hdr-kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Datasets</div></div>
+      <div class="hdr-kpi"><div class="kpi-val">1M+</div><div class="kpi-lbl">Ratings</div></div>
+    </div>
   </div>
-</div>
+</header>
 
 <div class="tab-bar">
   <button class="tab-btn on" data-tab="data">Les Données</button>
