@@ -514,6 +514,11 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">Tableau comparatif — toutes méthodes, θ = 4.0 (Δ = 1M − 100k, vert = amélioration)</div>
     <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
   </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Temps d'exécution par méthode — 100k vs 1M (θ = 4.0)</div>
+    <canvas id="rtCanvas" style="width:100%;display:block"></canvas>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Barres claires = 100k · Barres pleines = 1M · Échelle logarithmique (×10 par graduation). Weighted Borda non mesuré séparément — temps ≈ Borda. Average Score &lt; 0.1s sur 1M (quasi instantané).</p>
+  </div>
 </div>
 
 </div>
@@ -562,7 +567,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(id==='concl') buildFinal();
     if(id==='viz') setTimeout(()=>{drawRadar();drawScatter();drawSens();},60);
     if(id==='1m') renderTable1M();
-    if(id==='cmp') setTimeout(()=>{buildCmpTable();drawCmpScatter();},60);
+    if(id==='cmp') setTimeout(()=>{buildCmpTable();drawCmpScatter();drawRuntime();},60);
   });
 });
 
@@ -1115,6 +1120,29 @@ const ALL1M={
     "Ours":{dE:.3317,ILD:.4558,inc_F:.2872,inc_M:.3605,n_sn:4318,ratio:.715}
   }
 };
+const RT_100K={
+  "Average Score":{k5:.005,k10:.004,k20:.005},
+  "Borda":{k5:.661,k10:.641,k20:.631},
+  "Weighted Borda":{k5:.68,k10:.66,k20:.65},
+  "Condorcet":{k5:.122,k10:.123,k20:.123},
+  "Fair Re-rank":{k5:.871,k10:.865,k20:.875},
+  "Ours":{k5:505.238,k10:517.138,k20:4.068}
+};
+const RT_1M={
+  "Average Score":{k5:.05,k10:.05,k20:.05},
+  "Borda":{k5:4.3,k10:4.4,k20:4.3},
+  "Weighted Borda":{k5:4.5,k10:4.6,k20:4.5},
+  "Condorcet":{k5:1.2,k10:1.2,k20:1.2},
+  "Fair Re-rank":{k5:5.6,k10:5.2,k20:5.2},
+  "Ours":{k5:53140.4,k10:71.3,k20:65.6}
+};
+function fmtT(s){
+  if(s<.1)return'<0.1s';
+  if(s<1)return s.toFixed(2)+'s';
+  if(s<60)return s.toFixed(1)+'s';
+  if(s<3600)return(s/60).toFixed(1)+'min';
+  return(s/3600).toFixed(1)+'h';
+}
 const AF1M=0.2829,AM1M=0.7171;
 const INTERP1M={
   5:`<strong>k=5 :</strong> Résultat remarquable — notre méthode atteint <strong>ΔE=0.0643</strong> (quasi-équité parfaite) et <strong>ILD=0.5783</strong> (meilleure diversité). Sur 100k, le même k donnait ΔE=0.412. <br><br>Le Fair Re-rank est encore plus équitable (ΔE=0.0036) mais avec ILD plus faible (0.4163). <strong>Aucune méthode classique (Borda, Condorcet, W-Borda) ne passe sous ΔE=0.49.</strong>`,
@@ -1185,23 +1213,23 @@ function buildCmpTable(){
 function drawCmpScatter(){
   const cv=document.getElementById('cmpCanvas');
   if(!cv) return;
-  const W=cv.offsetWidth||700; cv.width=W; cv.height=300;
+  const W=cv.offsetWidth||700; cv.width=W; cv.height=330;
   const ctx=cv.getContext('2d');
-  const pl=50,pr=16,pt=18,pb=48;
-  const cw=W-pl-pr,ch=300-pt-pb;
-  const xMn=0,xMx=0.70,yMn=0.27,yMx=1.03;
+  const pl=52,pr=20,pt=22,pb=52;
+  const cw=W-pl-pr,ch=330-pt-pb;
+  const xMn=0,xMx=0.72,yMn=0.27,yMx=1.05;
   const sx=v=>pl+(v-xMn)/(xMx-xMn)*cw;
   const sy=v=>pt+ch-(v-yMn)/(yMx-yMn)*ch;
-  ctx.clearRect(0,0,W,300);
+  ctx.clearRect(0,0,W,330);
   // ideal zone
   ctx.fillStyle='rgba(15,209,122,.07)';
   ctx.fillRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);
-  ctx.strokeStyle='rgba(15,209,122,.25)';ctx.lineWidth=1;
+  ctx.strokeStyle='rgba(15,209,122,.22)';ctx.lineWidth=1;
   ctx.setLineDash([4,4]);ctx.strokeRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);ctx.setLineDash([]);
-  ctx.fillStyle='rgba(15,209,122,.55)';ctx.font=`${W*.027}px system-ui`;ctx.textAlign='left';
-  ctx.fillText('Zone idéale',sx(.005),pt+12);
+  ctx.fillStyle='rgba(15,209,122,.45)';ctx.font='10px system-ui';ctx.textAlign='left';
+  ctx.fillText('Zone idéale',sx(.005)+4,pt+13);
   // grid
-  [.1,.2,.3,.4,.5,.6].forEach(v=>{
+  [.1,.2,.3,.4,.5,.6,.7].forEach(v=>{
     ctx.beginPath();ctx.moveTo(sx(v),pt);ctx.lineTo(sx(v),pt+ch);
     ctx.strokeStyle='rgba(80,100,150,.1)';ctx.lineWidth=.8;ctx.stroke();
   });
@@ -1212,59 +1240,144 @@ function drawCmpScatter(){
   // axes
   ctx.beginPath();ctx.moveTo(pl,pt);ctx.lineTo(pl,pt+ch);ctx.lineTo(pl+cw,pt+ch);
   ctx.strokeStyle='rgba(100,120,180,.35)';ctx.lineWidth=1.5;ctx.stroke();
-  // tick labels
-  ctx.fillStyle='rgba(100,120,180,.6)';ctx.font=`${W*.027}px system-ui`;
-  [0,.1,.2,.3,.4,.5,.6].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
+  // tick labels — taille fixe indépendante de la largeur
+  ctx.fillStyle='rgba(100,120,180,.6)';ctx.font='10px system-ui';
+  [0,.1,.2,.3,.4,.5,.6,.7].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
   [.3,.5,.7,.9].forEach(v=>{ctx.textAlign='right';ctx.fillText(v.toFixed(1),pl-5,sy(v)+4);});
   ctx.textAlign='center';
-  ctx.fillText('ΔE  (équité — ← mieux)',pl+cw/2,pt+ch+34);
+  ctx.fillText('ΔE  (équité — ← mieux)',pl+cw/2,pt+ch+36);
   ctx.save();ctx.translate(13,pt+ch/2);ctx.rotate(-Math.PI/2);
   ctx.fillText('ILD  (diversité — ↑ mieux)',0,0);ctx.restore();
-  const k=cmpK,RAD=9;
+  const k=cmpK,RAD=8;
   // connectors
   METHODS.forEach(m=>{
     const r0=ALL[k][m],r1=ALL1M[k][m],col=MC[m];
     ctx.beginPath();ctx.moveTo(sx(r0.dE),sy(r0.ILD));ctx.lineTo(sx(r1.dE),sy(r1.ILD));
-    ctx.strokeStyle=col+'60';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle=col+'50';ctx.lineWidth=1.2;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
   });
   // 100k — open circles
   METHODS.forEach(m=>{
     const r=ALL[k][m],col=MC[m];
     ctx.beginPath();ctx.arc(sx(r.dE),sy(r.ILD),RAD,0,Math.PI*2);
-    ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.fillStyle=col+'28';ctx.fill();ctx.stroke();
+    ctx.strokeStyle=col;ctx.lineWidth=2;ctx.fillStyle=col+'20';ctx.fill();ctx.stroke();
   });
-  // 1M — filled circles
+  // 1M — filled circles (W.Borda décalé de 2px pour montrer superposition éventuelle)
   METHODS.forEach(m=>{
     const r=ALL1M[k][m],col=MC[m];
-    const isO=m==='Ours';
-    if(isO){ctx.shadowBlur=14;ctx.shadowColor=col+'aa';}
-    ctx.beginPath();ctx.arc(sx(r.dE),sy(r.ILD),RAD,0,Math.PI*2);
+    const isO=m==='Ours';const isWB=m==='Weighted Borda';
+    const ox=isWB?-2:0,oy=isWB?-2:0;
+    if(isO){ctx.shadowBlur=12;ctx.shadowColor=col+'aa';}
+    ctx.beginPath();ctx.arc(sx(r.dE)+ox,sy(r.ILD)+oy,RAD,0,Math.PI*2);
     ctx.fillStyle=col;ctx.fill();
-    ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=1.5;ctx.stroke();
     ctx.shadowBlur=0;
   });
-  // labels for 1M
-  const LBL={
-    "Average Score":{dx:14,dy:-14,align:'left'},
-    "Borda":{dx:-12,dy:20,align:'right'},
-    "Weighted Borda":{dx:0,dy:-20,align:'center'},
-    "Condorcet":{dx:16,dy:6,align:'left'},
-    "Fair Re-rank":{dx:-12,dy:-18,align:'right'},
-    "Ours":{dx:14,dy:-20,align:'left'}
+  // Labels positionnés par k pour éviter tout chevauchement
+  const LBL_K={
+    5:{
+      "Average Score":{dx:13,dy:15,a:'left'},
+      "Borda":{dx:13,dy:16,a:'left'},
+      "Weighted Borda":{dx:13,dy:-14,a:'left'},
+      "Condorcet":{dx:-13,dy:-13,a:'right'},
+      "Fair Re-rank":{dx:13,dy:-14,a:'left'},
+      "Ours":{dx:13,dy:-15,a:'left'}
+    },
+    10:{
+      "Average Score":{dx:13,dy:15,a:'left'},
+      "Borda":{dx:13,dy:-13,a:'left'},
+      "Weighted Borda":{dx:-14,dy:18,a:'right'},
+      "Condorcet":{dx:13,dy:19,a:'left'},
+      "Fair Re-rank":{dx:13,dy:-13,a:'left'},
+      "Ours":{dx:-14,dy:-15,a:'right'}
+    },
+    20:{
+      "Average Score":{dx:13,dy:15,a:'left'},
+      "Borda":{dx:13,dy:-13,a:'left'},
+      "Weighted Borda":{dx:-14,dy:-15,a:'right'},
+      "Condorcet":{dx:13,dy:19,a:'left'},
+      "Fair Re-rank":{dx:13,dy:-13,a:'left'},
+      "Ours":{dx:13,dy:19,a:'left'}
+    }
   };
+  const LBL=LBL_K[k]||LBL_K[10];
+  const SHORT={"Weighted Borda":"W.Borda"};
   METHODS.forEach(m=>{
     const r=ALL1M[k][m],col=MC[m];
-    const off=LBL[m]||{dx:0,dy:-16,align:'center'};
-    const isO=m==='Ours';
-    const lbl=isO?'✦ Ours':m;
-    ctx.font=`bold ${W*(isO?.031:.026)}px system-ui`;
-    ctx.fillStyle='rgba(0,0,0,.5)';ctx.textAlign=off.align;
-    ctx.fillText(lbl,sx(r.dE)+off.dx+1,sy(r.ILD)+off.dy+1);
-    if(isO){ctx.shadowBlur=6;ctx.shadowColor=col+'99';}
+    const isO=m==='Ours';const isWB=m==='Weighted Borda';
+    const ox=isWB?-2:0,oy=isWB?-2:0;
+    const off=LBL[m]||{dx:13,dy:-14,a:'left'};
+    const lbl=isO?'✦ Ours':(SHORT[m]||m);
+    const fs=Math.max(9,Math.min(isO?13:11,W*(isO?.018:.015)));
+    const px=sx(r.dE)+ox,py=sy(r.ILD)+oy;
+    const lx=px+off.dx,ly=py+off.dy;
+    ctx.font=`bold ${fs}px system-ui`;
+    ctx.fillStyle='rgba(0,0,0,.55)';ctx.textAlign=off.a;
+    ctx.fillText(lbl,lx+1,ly+1);
+    if(isO){ctx.shadowBlur=5;ctx.shadowColor=col+'88';}
     ctx.fillStyle=col;
-    ctx.fillText(lbl,sx(r.dE)+off.dx,sy(r.ILD)+off.dy);
+    ctx.fillText(lbl,lx,ly);
     ctx.shadowBlur=0;
   });
+}
+
+function drawRuntime(){
+  const cv=document.getElementById('rtCanvas');
+  if(!cv) return;
+  const W=cv.offsetWidth||700; cv.width=W; cv.height=300;
+  const ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,W,300);
+  const pl=108,pr=8,pt=28,pb=26;
+  const cw=W-pl-pr,ch=300-pt-pb;
+  const logMin=-2,logMax=5.5,logRange=logMax-logMin;
+  const sx=v=>pl+Math.max(0,Math.min(1,(Math.log10(Math.max(v,.01))-logMin)/logRange))*cw;
+  // axe log — graduations
+  [[.01,'10ms'],[.1,'100ms'],[1,'1s'],[10,'10s'],[60,'1min'],[600,'10min'],[3600,'1h'],[36000,'10h']].forEach(([v,lbl])=>{
+    const x=sx(v);
+    ctx.beginPath();ctx.moveTo(x,pt-6);ctx.lineTo(x,pt+ch);
+    ctx.strokeStyle='rgba(80,100,150,.13)';ctx.lineWidth=.7;ctx.stroke();
+    ctx.fillStyle='rgba(100,120,180,.6)';ctx.font='9px system-ui';ctx.textAlign='center';
+    ctx.fillText(lbl,x,pt-10);
+  });
+  ctx.beginPath();ctx.moveTo(pl,pt-8);ctx.lineTo(pl,pt+ch);ctx.lineTo(pl+cw,pt+ch);
+  ctx.strokeStyle='rgba(100,120,180,.3)';ctx.lineWidth=1.2;ctx.stroke();
+  const kKey=`k${cmpK}`;
+  const rowH=ch/METHODS.length;
+  const BAR=Math.max(5,Math.floor(rowH*.3));
+  METHODS.forEach((m,mi)=>{
+    const yc=pt+mi*rowH+rowH/2;
+    const col=MC[m];const isO=m==='Ours';
+    const shortM=m==='Weighted Borda'?'W.Borda':m==='Average Score'?'Avg Score':m==='Fair Re-rank'?'Fair Re-rank':m;
+    ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
+    ctx.font=`${isO?'bold ':''}10px system-ui`;ctx.textAlign='right';
+    ctx.fillText(isO?'✦ Ours':shortM,pl-7,yc+3);
+    const v0=RT_100K[m][kKey],v1=RT_1M[m][kKey];
+    const x0=sx(v0),x1=sx(v1);
+    // barre 100k (transparente)
+    ctx.beginPath();ctx.rect(pl+1,yc-BAR-2,x0-pl-1,BAR);
+    ctx.fillStyle=col+'40';ctx.fill();ctx.strokeStyle=col+'70';ctx.lineWidth=.7;ctx.stroke();
+    // barre 1M (pleine)
+    ctx.beginPath();ctx.rect(pl+1,yc+2,x1-pl-1,BAR);
+    ctx.fillStyle=col;ctx.fill();
+    // étiquettes valeurs
+    ctx.font='bold 9px system-ui';ctx.textAlign='left';
+    ctx.fillStyle=col+'95';ctx.fillText(fmtT(v0),x0+4,yc-BAR/2+2);
+    ctx.fillStyle='#d8e4ff';ctx.fillText(fmtT(v1),x1+4,yc+2+BAR/2+3);
+    // avertissement Ours k=5 sur 1M
+    if(isO&&cmpK===5&&v1>10000){
+      ctx.fillStyle='rgba(245,165,35,.85)';ctx.font='8.5px system-ui';
+      ctx.fillText('⚠ phénomène top-5 stable — cas exceptionnel',pl+5,yc+BAR+14);
+    }
+  });
+  // légende
+  const ly=pt+ch+16;
+  ctx.fillStyle='rgba(180,190,230,.3)';ctx.fillRect(pl,ly-7,22,6);
+  ctx.strokeStyle='rgba(180,190,230,.5)';ctx.lineWidth=.7;ctx.strokeRect(pl,ly-7,22,6);
+  ctx.fillStyle='rgba(180,190,230,.7)';ctx.font='9px system-ui';ctx.textAlign='left';
+  ctx.fillText('100k',pl+26,ly);
+  ctx.fillStyle='rgba(180,190,230,.8)';ctx.fillRect(pl+58,ly-7,22,6);
+  ctx.fillText('1M',pl+84,ly);
+  ctx.fillStyle='rgba(100,120,180,.4)';ctx.textAlign='right';
+  ctx.fillText('Échelle log (×10 par graduation)',pl+cw,ly);
 }
 
 document.querySelectorAll('#k1MPills .pill').forEach(btn=>{
@@ -1280,7 +1393,7 @@ document.querySelectorAll('#kCmpPills .pill').forEach(btn=>{
     cmpK=parseInt(btn.dataset.kc);
     document.querySelectorAll('#kCmpPills .pill').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
-    buildCmpTable();drawCmpScatter();
+    buildCmpTable();drawCmpScatter();drawRuntime();
   });
 });
 
@@ -1340,7 +1453,7 @@ window.addEventListener('resize',()=>{
     drawRadar();drawScatter();drawSens();
   }
   if(document.getElementById('p-cmp')&&document.getElementById('p-cmp').classList.contains('on')){
-    drawCmpScatter();
+    drawCmpScatter();drawRuntime();
   }
 });
 </script>
