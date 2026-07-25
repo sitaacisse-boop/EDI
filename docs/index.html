@@ -30,9 +30,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .hdr-sub{font-size:.74rem;color:var(--t2);margin-top:5px}
 .badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:20px;background:var(--s2);color:var(--blue);border:1px solid var(--bd);flex-shrink:0}
 
-.tab-bar{max-width:980px;margin:20px auto 0;padding:0 32px;display:flex;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none}
-.tab-bar::-webkit-scrollbar{display:none}
-.tab-btn{padding:10px 18px;border:none;background:none;cursor:pointer;font-size:.79rem;font-weight:600;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .2s;letter-spacing:.02em}
+.tab-bar{max-width:980px;margin:20px auto 0;padding:0 32px;display:flex;flex-wrap:wrap;border-bottom:1px solid var(--bd);gap:0}
+.tab-btn{padding:8px 14px;border:none;background:none;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--t2);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .2s;letter-spacing:.02em}
 .tab-btn:hover{color:var(--t1)}
 .tab-btn.on{color:var(--blue);border-color:var(--blue)}
 
@@ -157,9 +156,9 @@ canvas{width:100%;display:block;border-radius:8px}
 
 <div class="tab-bar">
   <button class="tab-btn on" data-tab="data">Les Données</button>
-  <button class="tab-btn" data-tab="methods">Comparer les Méthodes</button>
-  <button class="tab-btn" data-tab="graph">Visualiser le Graphe</button>
-  <button class="tab-btn" data-tab="calc">Comment ça se calcule</button>
+  <button class="tab-btn" data-tab="methods">Méthodes</button>
+  <button class="tab-btn" data-tab="graph">Graphe</button>
+  <button class="tab-btn" data-tab="calc">Calcul EDI</button>
   <button class="tab-btn" data-tab="concl">Conclusion</button>
   <button class="tab-btn" data-tab="viz">Visualisations ✦</button>
   <button class="tab-btn" data-tab="1m">MovieLens 1M</button>
@@ -340,12 +339,17 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   <div class="two-col" style="gap:14px">
     <div class="card">
       <div class="card-title">Radar des métriques EDI</div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
         <div class="ctrl-lbl" style="flex-shrink:0">k =</div>
         <div class="pills" id="radKPills">
           <button class="pill" data-rk="5">5</button>
           <button class="pill on" data-rk="10">10</button>
           <button class="pill" data-rk="20">20</button>
+        </div>
+        <div class="ctrl-lbl" style="flex-shrink:0;margin-left:8px">Dataset</div>
+        <div class="pills" id="radDSPills">
+          <button class="pill on" data-rds="100k">100k</button>
+          <button class="pill" data-rds="1M">1M</button>
         </div>
       </div>
       <canvas id="radarCanvas" style="width:100%;display:block"></canvas>
@@ -360,7 +364,14 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</div>
     </div>
     <div class="card">
-      <div class="card-title">Projection 2D — ΔE vs ILD (toutes configurations, approximation)</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div class="card-title" style="margin-bottom:0">Projection 2D — ΔE vs ILD (toutes configurations, approximation)</div>
+        <div class="pills" id="vizDSPills">
+          <button class="pill on" data-vds="100k">100k</button>
+          <button class="pill" data-vds="1M">1M</button>
+          <button class="pill" data-vds="both">Les deux</button>
+        </div>
+      </div>
       <canvas id="scatterCanvas" style="width:100%;display:block"></canvas>
       <div style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap">
         <div style="font-size:.7rem;color:var(--t3)">● Taille = k (petit→5, moyen→10, grand→20)</div>
@@ -409,7 +420,30 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     </div>
     <div class="alpha-note">α_F = 0.2829 · α_M = 0.7171</div>
   </div>
-  <div class="card"><div class="res-wrap" id="res1MWrap"></div></div>
+  <div class="two-col" style="margin-top:14px">
+    <div class="card">
+      <div class="card-title">Répartition par genre</div>
+      <div class="donut-wrap">
+        <svg width="148" height="148" viewBox="0 0 148 148" style="overflow:visible">
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--blue)" stroke-width="20" stroke-dasharray="352" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--coral)" stroke-width="20" stroke-dasharray="100 252" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
+          <circle cx="74" cy="74" r="56" fill="none" stroke="var(--s1)" stroke-width="3" stroke-dasharray="3 349" stroke-dashoffset="-100" transform="rotate(-90 74 74)"/>
+          <text x="74" y="68" font-size="20" font-weight="900" fill="var(--t1)" text-anchor="middle" dominant-baseline="middle">6 040</text>
+          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle">utilisateurs</text>
+        </svg>
+        <div style="width:100%;max-width:175px;display:flex;flex-direction:column;gap:9px">
+          <div class="leg-row"><div class="leg-dot" style="background:var(--coral)"></div><span>Femmes (F)</span><span class="leg-pct">1 709 · 28%</span></div>
+          <div class="leg-row"><div class="leg-dot" style="background:var(--blue)"></div><span>Hommes (M)</span><span class="leg-pct">4 331 · 72%</span></div>
+          <div style="margin-top:6px;padding:9px 11px;background:var(--s2);border-radius:7px;font-size:.72rem;color:var(--t2);line-height:1.5;border-left:3px solid var(--coral)">Déséquilibre 28/72% — similaire au 100k (29/71%) mais sur 6× plus d'utilisateurs.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Distribution des notes (1 → 5 étoiles)</div>
+      <div class="bar-rows" id="ratingBars1M"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px"><div class="res-wrap" id="res1MWrap"></div></div>
   <div class="interp" id="interp1M"></div>
 </div>
 
@@ -676,7 +710,7 @@ function buildFinal(){
 
 // ── VISUALISATIONS ──
 const MC={"Average Score":"#b07aff","Borda":"#ffb830","Weighted Borda":"#e8833a","Condorcet":"#ff6464","Fair Re-rank":"#22d4f5","Ours":"#12e87a"};
-let radarK=10;
+let radarK=10,radarDS='100k',scatterDS='100k';
 
 function rNorm(key,v){
   if(key==='ILD')   return Math.min(1,v/1.0);
@@ -690,6 +724,7 @@ function drawRadar(){
   const cv=document.getElementById('radarCanvas');
   if(!cv) return;
   const W=cv.offsetWidth||300; cv.width=W; cv.height=W;
+  const DATA=radarDS==='1M'?ALL1M:ALL;
   const ctx=cv.getContext('2d');
   const cx=W/2,cy=W/2,R=W*.35;
   const axes=[
@@ -734,7 +769,7 @@ function drawRadar(){
   // draw baselines first, Ours on top
   const order=[...METHODS.filter(m=>m!=='Ours'),'Ours'];
   order.forEach(m=>{
-    const r=ALL[radarK][m],col=MC[m],isO=m==='Ours';
+    const r=DATA[radarK][m],col=MC[m],isO=m==='Ours';
     const pts=axes.map(ax=>{
       const v=rNorm(ax.key,r[ax.key]);
       return {x:cx+v*R*Math.cos(ax.a),y:cy+v*R*Math.sin(ax.a)};
@@ -823,32 +858,62 @@ function drawScatter(){
   ctx.save();ctx.translate(13,pt+ch/2);ctx.rotate(-Math.PI/2);
   ctx.fillText('ILD  (diversité — ↑ mieux)',0,0);ctx.restore();
 
-  // dashed lines connecting same method across k
-  METHODS.forEach(m=>{
-    const col=MC[m];
-    ctx.beginPath();
-    [5,10,20].forEach((k,ki)=>{
-      const r=ALL[k][m],x=sx(r.dE),y=sy(r.ILD);
-      ki===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  const isBoth=scatterDS==='both';
+  const DATA_S=scatterDS==='1M'?ALL1M:ALL;
+
+  // if "both", draw connectors first
+  if(isBoth){
+    METHODS.forEach(m=>{
+      const col=MC[m];
+      [5,10,20].forEach(k=>{
+        const r0=ALL[k][m],r1=ALL1M[k][m];
+        ctx.beginPath();ctx.moveTo(sx(r0.dE),sy(r0.ILD));ctx.lineTo(sx(r1.dE),sy(r1.ILD));
+        ctx.strokeStyle=col+'40';ctx.lineWidth=1;ctx.setLineDash([2,3]);ctx.stroke();ctx.setLineDash([]);
+      });
     });
-    ctx.strokeStyle=col+'55';ctx.lineWidth=1.2;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // dashed lines connecting same method across k
+  const DRAW_D=isBoth?[ALL,ALL1M]:[DATA_S];
+  DRAW_D.forEach((DS,di)=>{
+    METHODS.forEach(m=>{
+      const col=MC[m];
+      ctx.beginPath();
+      [5,10,20].forEach((k,ki)=>{
+        const r=DS[k][m],x=sx(r.dE),y=sy(r.ILD);
+        ki===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      });
+      ctx.strokeStyle=col+(di===1?'55':'33');ctx.lineWidth=1.2;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+    });
   });
 
   // points
   const KR={5:5,10:7.5,20:11};
-  [5,10,20].forEach(k=>{
-    METHODS.forEach(m=>{
-      const r=ALL[k][m],col=MC[m];
-      const x=sx(r.dE),y=sy(r.ILD),rad=KR[k];
-      ctx.beginPath();ctx.arc(x,y,rad+2.5,0,Math.PI*2);
-      ctx.fillStyle=col+'28';ctx.fill();
-      ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
-      ctx.fillStyle=m==='Ours'?col:col+'b0';ctx.fill();
-      ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1.5;ctx.stroke();
+  DRAW_D.forEach((DS,di)=>{
+    [5,10,20].forEach(k=>{
+      METHODS.forEach(m=>{
+        const r=DS[k][m],col=MC[m];
+        const x=sx(r.dE),y=sy(r.ILD),rad=KR[k];
+        const isO=m==='Ours';
+        if(isBoth&&di===0){
+          // 100k: open circle
+          ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
+          ctx.strokeStyle=col;ctx.lineWidth=2;ctx.fillStyle=col+'18';ctx.fill();ctx.stroke();
+        } else {
+          // filled
+          if(isO){ctx.shadowBlur=10;ctx.shadowColor=col+'aa';}
+          ctx.beginPath();ctx.arc(x,y,rad+2.5,0,Math.PI*2);
+          ctx.fillStyle=col+'28';ctx.fill();
+          ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
+          ctx.fillStyle=isO?col:col+'b0';ctx.fill();
+          ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1.5;ctx.stroke();
+          ctx.shadowBlur=0;
+        }
+      });
     });
   });
 
-  // per-method label offsets (k=20) — évite les collisions dans le cluster droite
+  // per-method label offsets (k=20)
   const LBL20={
     "Average Score":  {dx:18,  dy:-14, align:'left'},
     "Borda":          {dx:-10, dy:20,  align:'right'},
@@ -857,14 +922,14 @@ function drawScatter(){
     "Fair Re-rank":   {dx:-14, dy:-18, align:'right'},
     "Ours":           {dx:14,  dy:-20, align:'left'},
   };
+  const LABEL_DS=isBoth?ALL1M:DATA_S;
   METHODS.forEach(m=>{
-    const r=ALL[20][m],col=MC[m];
+    const r=LABEL_DS[20][m],col=MC[m];
     const x=sx(r.dE),y=sy(r.ILD);
     const off=LBL20[m]||{dx:0,dy:-16,align:'center'};
     const isO=m==='Ours';
     const lbl=isO?'✦ Ours':m;
     ctx.font=`bold ${W*(isO?.031:.027)}px system-ui`;
-    // subtle text shadow for readability
     ctx.fillStyle='rgba(0,0,0,.55)';
     ctx.textAlign=off.align;
     ctx.fillText(lbl,x+off.dx+1,y+off.dy+1);
@@ -873,6 +938,12 @@ function drawScatter(){
     ctx.fillText(lbl,x+off.dx,y+off.dy);
     ctx.shadowBlur=0;
   });
+  // dataset label
+  if(isBoth){
+    ctx.font=`bold ${W*.022}px system-ui`;ctx.textAlign='left';
+    ctx.fillStyle='rgba(200,200,255,.5)';
+    ctx.fillText('○ = 100k   ● = 1M',pl+4,pt+ch-6);
+  }
 }
 
 function drawSens(){
@@ -1147,6 +1218,48 @@ document.querySelectorAll('#kCmpPills .pill').forEach(btn=>{
     document.querySelectorAll('#kCmpPills .pill').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
     buildCmpTable();drawCmpScatter();
+  });
+});
+
+// ── rating bars 1M ──
+(function(){
+  const data1m=[
+    {lbl:'★ 1',     n:56174,  pct:5.6,  c:'#4a5578'},
+    {lbl:'★★ 2',    n:107557, pct:10.7, c:'#5b70a0'},
+    {lbl:'★★★ 3',   n:261197, pct:26.1, c:'var(--blue)'},
+    {lbl:'★★★★ 4',  n:348971, pct:34.9, c:'var(--green)'},
+    {lbl:'★★★★★ 5', n:226310, pct:22.6, c:'var(--coral)'},
+  ];
+  const mx=Math.max(...data1m.map(d=>d.pct));
+  const el=document.getElementById('ratingBars1M');
+  if(!el) return;
+  el.innerHTML='';
+  data1m.forEach(d=>{
+    const w=(d.pct/mx*100).toFixed(1);
+    const ins=d.pct>=12;
+    const r=document.createElement('div');
+    r.className='bar-row';
+    r.innerHTML=`<div class="bar-lbl">${d.lbl}</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:${d.c}" data-w="${w}">${ins?`<span class="bar-txt">${d.pct}% · ${d.n.toLocaleString('fr-FR')}</span>`:''}</div></div>${!ins?`<span class="bar-out">${d.pct}%</span>`:''}`;
+    el.appendChild(r);
+  });
+  setTimeout(()=>{ el.querySelectorAll('.bar-fill').forEach(e=>{ e.style.width=e.dataset.w+'%'; }); },200);
+})();
+
+// ── dataset toggles for viz tab ──
+document.querySelectorAll('#radDSPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    radarDS=btn.dataset.rds;
+    document.querySelectorAll('#radDSPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    drawRadar();
+  });
+});
+document.querySelectorAll('#vizDSPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    scatterDS=btn.dataset.vds;
+    document.querySelectorAll('#vizDSPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    drawScatter();
   });
 });
 
