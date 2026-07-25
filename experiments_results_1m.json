@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "dataset": "MovieLens 1M",
+    "n_users": 6040,
+    "n_F": 1709,
+    "n_M": 4331,
+    "alpha_F": 0.2829,
+    "alpha_M": 0.7171,
+    "n_items": 3706,
+    "n_ratings": 1000209,
+    "density": 0.0447,
+    "mean_rating": 3.58,
+    "std_rating": 1.12
+  },
+  "experiments": {
+    "k5_t4_0": {
+      "k": 5,
+      "theta": 4.0,
+      "Average Score": {
+        "dE": 0.001,
+        "ILD": 1.0,
+        "inc_F": 0.0001,
+        "inc_M": 0.0003
+      },
+      "Borda": {
+        "dE": 0.4895,
+        "ILD": 0.3857,
+        "inc_F": 0.336,
+        "inc_M": 0.4445
+      },
+      "Condorcet": {
+        "dE": 0.6335,
+        "ILD": 0.3616,
+        "inc_F": 0.3133,
+        "inc_M": 0.4497
+      },
+      "Fair Re-rank": {
+        "dE": 0.0036,
+        "ILD": 0.4163,
+        "inc_F": 0.3627,
+        "inc_M": 0.3655
+      },
+      "Ours": {
+        "dE": 0.0643,
+        "ILD": 0.5783,
+        "inc_F": 0.2774,
+        "inc_M": 0.2945,
+        "ratio": 0.001,
+        "n_supernodes": 6,
+        "elapsed_s": 53140.4
+      },
+      "Weighted Borda": {
+        "dE": 0.4895,
+        "ILD": 0.3857,
+        "inc_F": 0.336,
+        "inc_M": 0.4445
+      }
+    },
+    "k10_t4_0": {
+      "k": 10,
+      "theta": 4.0,
+      "Average Score": {
+        "dE": 0.0001,
+        "ILD": 1.0,
+        "inc_F": 0.0002,
+        "inc_M": 0.0002
+      },
+      "Borda": {
+        "dE": 0.538,
+        "ILD": 0.4015,
+        "inc_F": 0.3016,
+        "inc_M": 0.4169
+      },
+      "Condorcet": {
+        "dE": 0.4872,
+        "ILD": 0.4079,
+        "inc_F": 0.3053,
+        "inc_M": 0.4115
+      },
+      "Fair Re-rank": {
+        "dE": 0.0185,
+        "ILD": 0.4518,
+        "inc_F": 0.3358,
+        "inc_M": 0.3427
+      },
+      "Ours": {
+        "dE": 0.332,
+        "ILD": 0.4231,
+        "inc_F": 0.317,
+        "inc_M": 0.3903,
+        "ratio": 0.456,
+        "n_supernodes": 2755,
+        "elapsed_s": 71.3
+      },
+      "Weighted Borda": {
+        "dE": 0.3709,
+        "ILD": 0.4129,
+        "inc_F": 0.3235,
+        "inc_M": 0.4039
+      }
+    },
+    "k20_t4_0": {
+      "k": 20,
+      "theta": 4.0,
+      "Average Score": {
+        "dE": 0.0703,
+        "ILD": 0.9582,
+        "inc_F": 0.0638,
+        "inc_M": 0.0787
+      },
+      "Borda": {
+        "dE": 0.4238,
+        "ILD": 0.4333,
+        "inc_F": 0.2853,
+        "inc_M": 0.3788
+      },
+      "Condorcet": {
+        "dE": 0.4371,
+        "ILD": 0.432,
+        "inc_F": 0.2838,
+        "inc_M": 0.3787
+      },
+      "Fair Re-rank": {
+        "dE": 0.0998,
+        "ILD": 0.4768,
+        "inc_F": 0.2903,
+        "inc_M": 0.3146
+      },
+      "Ours": {
+        "dE": 0.3317,
+        "ILD": 0.4558,
+        "inc_F": 0.2872,
+        "inc_M": 0.3605,
+        "ratio": 0.715,
+        "n_supernodes": 4318,
+        "elapsed_s": 65.6
+      },
+      "Weighted Borda": {
+        "dE": 0.3923,
+        "ILD": 0.436,
+        "inc_F": 0.2874,
+        "inc_M": 0.3742
+      }
+    }
+  }
+}

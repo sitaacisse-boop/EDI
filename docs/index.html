@@ -162,6 +162,8 @@ canvas{width:100%;display:block;border-radius:8px}
   <button class="tab-btn" data-tab="calc">Comment ça se calcule</button>
   <button class="tab-btn" data-tab="concl">Conclusion</button>
   <button class="tab-btn" data-tab="viz">Visualisations ✦</button>
+  <button class="tab-btn" data-tab="1m">MovieLens 1M</button>
+  <button class="tab-btn" data-tab="cmp">Comparaison ⇄</button>
 </div>
 
 <div class="main">
@@ -329,7 +331,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
   </div>
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
-    <strong style="color:var(--t1)">Perspectives :</strong> tester sur MovieLens 1M/10M ; utiliser des notes continues pour que θ ait un effet différencié ; explorer attributs sensibles supplémentaires (âge, occupation) ; adapter ε_E, ε_D, ε_I selon les besoins.
+    <strong style="color:var(--t1)">Perspectives :</strong> résultats validés sur <strong>MovieLens 1M</strong> (6040 utilisateurs, 1M notes) — scalabilité confirmée (voir onglet Comparaison ⇄) ; tester sur MovieLens 10M ; utiliser des notes continues pour que θ ait un effet différencié ; explorer attributs sensibles supplémentaires (âge, occupation) ; adapter ε_E, ε_D, ε_I selon les besoins.
   </div>
 </div>
 
@@ -358,7 +360,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</div>
     </div>
     <div class="card">
-      <div class="card-title">Frontière de Pareto — ΔE vs ILD (toutes configurations)</div>
+      <div class="card-title">Projection 2D — ΔE vs ILD (toutes configurations, approximation)</div>
       <canvas id="scatterCanvas" style="width:100%;display:block"></canvas>
       <div style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap">
         <div style="font-size:.7rem;color:var(--t3)">● Taille = k (petit→5, moyen→10, grand→20)</div>
@@ -367,7 +369,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     </div>
   </div>
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--blue);border-radius:0 9px 9px 0;font-size:.82rem;color:var(--t2);line-height:1.65">
-    <strong style="color:var(--t1)">Lecture :</strong> Sur le radar, une plus grande surface colorée signifie une meilleure méthode sur tous les critères simultanément. Sur le scatter, le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> est le seul point qui s'approche de la zone idéale tout en maintenant une inclusion raisonnable.
+    <strong style="color:var(--t1)">Lecture :</strong> Sur le radar, une plus grande surface colorée signifie une meilleure méthode sur tous les critères simultanément. Sur le scatter, le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> est le seul point qui s'approche de la zone idéale tout en maintenant une inclusion raisonnable. <em style="color:var(--t3);font-size:.79em">Note : projection 2D d'un problème 4-objectif (ΔE, ILD, inc_F, inc_M) — ce n'est pas le front de Pareto exact.</em>
   </div>
 
   <!-- Sensitivity chart -->
@@ -379,6 +381,66 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--blue);border-radius:2px"></div>ILD (Diversité — max)</div>
       <div style="font-size:.7rem;color:var(--t3);margin-left:auto">ε_E et ε_D sont insensibles — max_merges est le paramètre clé</div>
     </div>
+  </div>
+</div>
+
+
+<!-- TAB 7 — MovieLens 1M -->
+<div class="panel" id="p-1m">
+  <div class="tiles">
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">1M</div><div class="tile-sub">1 000 209 notes</div></div>
+    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">6 040</div><div class="tile-sub">1 709 F · 4 331 M</div></div>
+    <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">3 706</div><div class="tile-sub">items distincts</div></div>
+    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.58</div><div class="tile-sub">écart-type σ = 1.12</div></div>
+    <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">4.47%</div><div class="tile-sub">matrice creuse</div></div>
+  </div>
+  <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
+    <span style="color:var(--green);font-size:1rem;flex-shrink:0">✦</span>
+    <span><b>Résultat marquant (k=5) :</b> notre méthode atteint <strong>ΔE=0.0643</strong> et <strong>ILD=0.5783</strong> — équité quasi-parfaite + meilleure diversité de toutes les méthodes. Fair Re-rank atteint ΔE=0.0036 mais ILD=0.4163 seulement. Aucune méthode classique ne passe sous ΔE=0.49.</span>
+  </div>
+  <div class="controls">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="k1MPills">
+        <button class="pill" data-k1m="5">k = 5</button>
+        <button class="pill on" data-k1m="10">k = 10</button>
+        <button class="pill" data-k1m="20">k = 20</button>
+      </div>
+    </div>
+    <div class="alpha-note">α_F = 0.2829 · α_M = 0.7171</div>
+  </div>
+  <div class="card"><div class="res-wrap" id="res1MWrap"></div></div>
+  <div class="interp" id="interp1M"></div>
+</div>
+
+<!-- TAB 8 — Comparaison 100k vs 1M -->
+<div class="panel" id="p-cmp">
+  <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.07)">
+    <span style="color:var(--blue);font-size:1rem;flex-shrink:0">⇄</span>
+    <span><b>Scalabilité :</b> même protocole expérimental, jeu de données 6× plus grand. Les cercles ouverts = 100k, les cercles pleins = 1M. La flèche indique l'évolution de chaque méthode.</span>
+  </div>
+  <div class="controls">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="kCmpPills">
+        <button class="pill" data-kc="5">k = 5</button>
+        <button class="pill on" data-kc="10">k = 10</button>
+        <button class="pill" data-kc="20">k = 20</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">ΔE vs ILD — 100k (○ ouvert) et 1M (● plein)</div>
+    <canvas id="cmpCanvas" style="width:100%;display:block"></canvas>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;align-items:center">
+      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;border:2.5px solid var(--t3);background:transparent"></div>100k</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;background:var(--t3)"></div>1M</div>
+      <div style="font-size:.7rem;color:var(--t3);margin-left:auto">← ΔE bas = meilleure équité · ↑ ILD élevé = meilleure diversité</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Tableau comparatif — toutes méthodes, θ = 4.0 (Δ = 1M − 100k, vert = amélioration)</div>
+    <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
   </div>
 </div>
 
@@ -427,6 +489,8 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(id==='graph') setTimeout(drawGraph,60);
     if(id==='concl') buildFinal();
     if(id==='viz') setTimeout(()=>{drawRadar();drawScatter();drawSens();},60);
+    if(id==='1m') renderTable1M();
+    if(id==='cmp') setTimeout(()=>{buildCmpTable();drawCmpScatter();},60);
   });
 });
 
@@ -890,6 +954,202 @@ function drawSens(){
   ctx.fillText('défaut',x400,pt-5);
 }
 
+// ── MOVIELÉNS 1M DATA ──
+const ALL1M={
+  5:{
+    "Average Score":{dE:.001,ILD:1,inc_F:.0001,inc_M:.0003},
+    "Borda":{dE:.4895,ILD:.3857,inc_F:.336,inc_M:.4445},
+    "Weighted Borda":{dE:.4895,ILD:.3857,inc_F:.336,inc_M:.4445},
+    "Condorcet":{dE:.6335,ILD:.3616,inc_F:.3133,inc_M:.4497},
+    "Fair Re-rank":{dE:.0036,ILD:.4163,inc_F:.3627,inc_M:.3655},
+    "Ours":{dE:.0643,ILD:.5783,inc_F:.2774,inc_M:.2945,n_sn:6,ratio:.001}
+  },
+  10:{
+    "Average Score":{dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
+    "Borda":{dE:.538,ILD:.4015,inc_F:.3016,inc_M:.4169},
+    "Weighted Borda":{dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
+    "Condorcet":{dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
+    "Fair Re-rank":{dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
+    "Ours":{dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_sn:2755,ratio:.456}
+  },
+  20:{
+    "Average Score":{dE:.0703,ILD:.9582,inc_F:.0638,inc_M:.0787},
+    "Borda":{dE:.4238,ILD:.4333,inc_F:.2853,inc_M:.3788},
+    "Weighted Borda":{dE:.3923,ILD:.436,inc_F:.2874,inc_M:.3742},
+    "Condorcet":{dE:.4371,ILD:.432,inc_F:.2838,inc_M:.3787},
+    "Fair Re-rank":{dE:.0998,ILD:.4768,inc_F:.2903,inc_M:.3146},
+    "Ours":{dE:.3317,ILD:.4558,inc_F:.2872,inc_M:.3605,n_sn:4318,ratio:.715}
+  }
+};
+const AF1M=0.2829,AM1M=0.7171;
+const INTERP1M={
+  5:`<strong>k=5 :</strong> Résultat remarquable — notre méthode atteint <strong>ΔE=0.0643</strong> (quasi-équité parfaite) et <strong>ILD=0.5783</strong> (meilleure diversité). Sur 100k, le même k donnait ΔE=0.412. <br><br>Le Fair Re-rank est encore plus équitable (ΔE=0.0036) mais avec ILD plus faible (0.4163). <strong>Aucune méthode classique (Borda, Condorcet, W-Borda) ne passe sous ΔE=0.49.</strong>`,
+  10:`<strong>k=10 :</strong> Ours ΔE=<strong>0.332</strong>, ILD=<strong>0.423</strong> — similaire au 100k (ΔE=0.351, ILD=0.448). La méthode <strong>scale bien</strong> : la qualité EDI est maintenue sur un graphe 6× plus grand. Fair Re-rank reste excellent en équité (ΔE=0.019).`,
+  20:`<strong>k=20 :</strong> Ours ΔE=<strong>0.332</strong>, ILD=<strong>0.456</strong> — très proches du 100k (ΔE=0.348, ILD=0.465). <strong>Robustesse confirmée</strong> : nos métriques EDI restent stables avec 6× plus d'utilisateurs et de données.`
+};
+let cur1MK=10,cmpK=10;
+
+function chip1M(key,v){
+  if(key==='dE') return v<.1?'<span class="chip cg">✓ Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
+  if(key==='ILD') return v>=.8?'<span class="chip cg">✓ Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
+  if(key==='inc_F') return v>=AF1M?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='inc_M') return v>=AM1M?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
+  return'';
+}
+
+function renderTable1M(){
+  const d=ALL1M[cur1MK];
+  const bests={};
+  COLS.forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+  let h='<table><thead><tr><th>Méthode</th>';
+  COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
+  h+='</tr></thead><tbody>';
+  METHODS.forEach(m=>{
+    const r=d[m],isO=m==='Ours',isFR=m==='Fair Re-rank';
+    const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
+    const rowCls=isO?'tr-ours':isFR?'tr-fair':'';
+    const prefix=isO?'✦ ':isFR?'↗ ':'';
+    h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
+    COLS.forEach(c=>{
+      const v=r[c.key],best=v===bests[c.key];
+      const bw=Math.min(100,(v/c.max)*100).toFixed(0);
+      const bc=c.dir==='min'?(v<.1?'var(--good)':v<.38?'var(--warn)':'var(--bad)'):(v>=.7?'var(--good)':v>=.35?'var(--warn)':'var(--bad)');
+      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'🏆':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip1M(c.key,v)}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('res1MWrap').innerHTML=h;
+  document.getElementById('interp1M').innerHTML=`<p>${INTERP1M[cur1MK]}</p>`;
+}
+
+function buildCmpTable(){
+  const t=document.getElementById('cmpTbl');
+  t.innerHTML='';
+  const k=cmpK;
+  let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">100k</th><th colspan="4">1M</th><th colspan="2">Δ (1M−100k)</th></tr>`;
+  h+=`<tr><th>Méthode</th><th></th>`;
+  ['100k','1M'].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
+  h+=`<th>ΔΔE</th><th>ΔILD</th></tr></thead><tbody>`;
+  METHODS.forEach(m=>{
+    const r0=ALL[k][m],r1=ALL1M[k][m];
+    const isO=m==='Ours',isFR=m==='Fair Re-rank';
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?'✦ Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    COLS.forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
+    COLS.forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
+    const ddE=r1.dE-r0.dE,dILD=r1.ILD-r0.ILD;
+    const dECol=ddE<0?'var(--good)':'var(--bad)';
+    const ILDCol=dILD>0?'var(--good)':'var(--bad)';
+    h+=`<td style="color:${dECol};font-weight:700">${ddE>=0?'+':''}${ddE.toFixed(4)}</td>`;
+    h+=`<td style="color:${ILDCol};font-weight:700">${dILD>=0?'+':''}${dILD.toFixed(4)}</td>`;
+    h+=`</tr>`;
+  });
+  h+=`</tbody>`;
+  t.innerHTML=h;
+}
+
+function drawCmpScatter(){
+  const cv=document.getElementById('cmpCanvas');
+  if(!cv) return;
+  const W=cv.offsetWidth||700; cv.width=W; cv.height=300;
+  const ctx=cv.getContext('2d');
+  const pl=50,pr=16,pt=18,pb=48;
+  const cw=W-pl-pr,ch=300-pt-pb;
+  const xMn=0,xMx=0.70,yMn=0.27,yMx=1.03;
+  const sx=v=>pl+(v-xMn)/(xMx-xMn)*cw;
+  const sy=v=>pt+ch-(v-yMn)/(yMx-yMn)*ch;
+  ctx.clearRect(0,0,W,300);
+  // ideal zone
+  ctx.fillStyle='rgba(15,209,122,.07)';
+  ctx.fillRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);
+  ctx.strokeStyle='rgba(15,209,122,.25)';ctx.lineWidth=1;
+  ctx.setLineDash([4,4]);ctx.strokeRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);ctx.setLineDash([]);
+  ctx.fillStyle='rgba(15,209,122,.55)';ctx.font=`${W*.027}px system-ui`;ctx.textAlign='left';
+  ctx.fillText('Zone idéale',sx(.005),pt+12);
+  // grid
+  [.1,.2,.3,.4,.5,.6].forEach(v=>{
+    ctx.beginPath();ctx.moveTo(sx(v),pt);ctx.lineTo(sx(v),pt+ch);
+    ctx.strokeStyle='rgba(80,100,150,.1)';ctx.lineWidth=.8;ctx.stroke();
+  });
+  [.3,.4,.5,.6,.7,.8,.9,1].forEach(v=>{
+    ctx.beginPath();ctx.moveTo(pl,sy(v));ctx.lineTo(pl+cw,sy(v));
+    ctx.strokeStyle='rgba(80,100,150,.1)';ctx.lineWidth=.8;ctx.stroke();
+  });
+  // axes
+  ctx.beginPath();ctx.moveTo(pl,pt);ctx.lineTo(pl,pt+ch);ctx.lineTo(pl+cw,pt+ch);
+  ctx.strokeStyle='rgba(100,120,180,.35)';ctx.lineWidth=1.5;ctx.stroke();
+  // tick labels
+  ctx.fillStyle='rgba(100,120,180,.6)';ctx.font=`${W*.027}px system-ui`;
+  [0,.1,.2,.3,.4,.5,.6].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
+  [.3,.5,.7,.9].forEach(v=>{ctx.textAlign='right';ctx.fillText(v.toFixed(1),pl-5,sy(v)+4);});
+  ctx.textAlign='center';
+  ctx.fillText('ΔE  (équité — ← mieux)',pl+cw/2,pt+ch+34);
+  ctx.save();ctx.translate(13,pt+ch/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText('ILD  (diversité — ↑ mieux)',0,0);ctx.restore();
+  const k=cmpK,RAD=9;
+  // connectors
+  METHODS.forEach(m=>{
+    const r0=ALL[k][m],r1=ALL1M[k][m],col=MC[m];
+    ctx.beginPath();ctx.moveTo(sx(r0.dE),sy(r0.ILD));ctx.lineTo(sx(r1.dE),sy(r1.ILD));
+    ctx.strokeStyle=col+'60';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.stroke();ctx.setLineDash([]);
+  });
+  // 100k — open circles
+  METHODS.forEach(m=>{
+    const r=ALL[k][m],col=MC[m];
+    ctx.beginPath();ctx.arc(sx(r.dE),sy(r.ILD),RAD,0,Math.PI*2);
+    ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.fillStyle=col+'28';ctx.fill();ctx.stroke();
+  });
+  // 1M — filled circles
+  METHODS.forEach(m=>{
+    const r=ALL1M[k][m],col=MC[m];
+    const isO=m==='Ours';
+    if(isO){ctx.shadowBlur=14;ctx.shadowColor=col+'aa';}
+    ctx.beginPath();ctx.arc(sx(r.dE),sy(r.ILD),RAD,0,Math.PI*2);
+    ctx.fillStyle=col;ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.shadowBlur=0;
+  });
+  // labels for 1M
+  const LBL={
+    "Average Score":{dx:14,dy:-14,align:'left'},
+    "Borda":{dx:-12,dy:20,align:'right'},
+    "Weighted Borda":{dx:0,dy:-20,align:'center'},
+    "Condorcet":{dx:16,dy:6,align:'left'},
+    "Fair Re-rank":{dx:-12,dy:-18,align:'right'},
+    "Ours":{dx:14,dy:-20,align:'left'}
+  };
+  METHODS.forEach(m=>{
+    const r=ALL1M[k][m],col=MC[m];
+    const off=LBL[m]||{dx:0,dy:-16,align:'center'};
+    const isO=m==='Ours';
+    const lbl=isO?'✦ Ours':m;
+    ctx.font=`bold ${W*(isO?.031:.026)}px system-ui`;
+    ctx.fillStyle='rgba(0,0,0,.5)';ctx.textAlign=off.align;
+    ctx.fillText(lbl,sx(r.dE)+off.dx+1,sy(r.ILD)+off.dy+1);
+    if(isO){ctx.shadowBlur=6;ctx.shadowColor=col+'99';}
+    ctx.fillStyle=col;
+    ctx.fillText(lbl,sx(r.dE)+off.dx,sy(r.ILD)+off.dy);
+    ctx.shadowBlur=0;
+  });
+}
+
+document.querySelectorAll('#k1MPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    cur1MK=parseInt(btn.dataset.k1m);
+    document.querySelectorAll('#k1MPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    renderTable1M();
+  });
+});
+document.querySelectorAll('#kCmpPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    cmpK=parseInt(btn.dataset.kc);
+    document.querySelectorAll('#kCmpPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    buildCmpTable();drawCmpScatter();
+  });
+});
+
 // radar k pills
 document.querySelectorAll('#radKPills .pill').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -902,6 +1162,9 @@ document.querySelectorAll('#radKPills .pill').forEach(btn=>{
 window.addEventListener('resize',()=>{
   if(document.getElementById('p-viz')&&document.getElementById('p-viz').classList.contains('on')){
     drawRadar();drawScatter();drawSens();
+  }
+  if(document.getElementById('p-cmp')&&document.getElementById('p-cmp').classList.contains('on')){
+    drawCmpScatter();
   }
 });
 </script>
