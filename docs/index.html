@@ -417,8 +417,27 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       </div>
     </div>
   </div>
-  <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--blue);border-radius:0 9px 9px 0;font-size:.82rem;color:var(--t2);line-height:1.65">
-    <strong style="color:var(--t1)">Lecture :</strong> Sur le radar, une plus grande surface colorée signifie une meilleure méthode sur tous les critères simultanément. Sur le scatter, le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> est le seul point qui s'approche de la zone idéale tout en maintenant une inclusion raisonnable. <em style="color:var(--t3);font-size:.79em">Note : projection 2D d'un problème 4-objectif (ΔE, ILD, inc_F, inc_M) — ce n'est pas le front de Pareto exact.</em>
+  <div style="margin-top:14px;padding:16px 20px;background:var(--s2);border-left:3px solid var(--blue);border-radius:0 9px 9px 0;font-size:.81rem;color:var(--t2);line-height:1.7">
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <div style="flex:1;min-width:220px">
+        <strong style="color:var(--t1)">Radar des métriques :</strong> Les 4 axes représentent les métriques EDI normalisées — plus la surface colorée est grande, meilleure est la méthode sur tous les critères à la fois.
+        <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
+          <li><b>↑ ILD</b> — diversité intra-liste (vers le haut)</li>
+          <li><b>→ inc_M</b> — inclusion du groupe masculin</li>
+          <li><b>↓ Équité (1−ΔE)</b> — proche de 1 = très équitable</li>
+          <li><b>← inc_F</b> — inclusion du groupe féminin</li>
+        </ul>
+      </div>
+      <div style="flex:1;min-width:220px">
+        <strong style="color:var(--t1)">Projection 2D :</strong> Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> s'en approche le mieux.
+        <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
+          <li>Taille du cercle = k (petit→5, moyen→10, grand→20)</li>
+          <li>Mode <em>Les deux</em> : cercle creux ○ = 100k, plein ● = 1M</li>
+          <li>Lignes tiretées = trajectoire de scalabilité 100k → 1M</li>
+        </ul>
+        <em style="font-size:.73rem;color:var(--t3)">Projection 2D d'un problème 4-objectif — inc_F/inc_M non affichés ici.</em>
+      </div>
+    </div>
   </div>
 
   <!-- Sensitivity chart -->
@@ -794,22 +813,21 @@ function drawRadar(){
   const W=cv.offsetWidth||300; cv.width=W; cv.height=W;
   const DATA=radarDS==='1M'?ALL1M:ALL;
   const ctx=cv.getContext('2d');
-  const cx=W/2,cy=W/2,R=W*.35;
+  // R réduit et pad contrôlé pour que les labels restent dans le canvas
+  const cx=W/2,cy=W/2,R=W*.27;
+  const pad=W*.115;
   const axes=[
-    {key:'ILD',  label:['Diversité','(ILD)'],  a:-Math.PI/2},
-    {key:'inc_M',label:['inc_M'],               a:0},
-    {key:'dE',   label:['Équité','(1−ΔE)'],    a:Math.PI/2},
-    {key:'inc_F',label:['inc_F'],               a:Math.PI},
+    {key:'ILD',  label:['Diversité','(ILD ↑)'], a:-Math.PI/2},
+    {key:'inc_M',label:['inc_M →'],              a:0},
+    {key:'dE',   label:['Équité','(1−ΔE ↑)'],   a:Math.PI/2},
+    {key:'inc_F',label:['← inc_F'],              a:Math.PI},
   ];
   ctx.clearRect(0,0,W,W);
-
-  // soft background glow
   const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,R*1.1);
-  grd.addColorStop(0,'rgba(100,80,220,.08)');
-  grd.addColorStop(1,'rgba(100,80,220,0)');
-  ctx.fillStyle=grd; ctx.fillRect(0,0,W,W);
-
+  grd.addColorStop(0,'rgba(100,80,220,.08)');grd.addColorStop(1,'rgba(100,80,220,0)');
+  ctx.fillStyle=grd;ctx.fillRect(0,0,W,W);
   // grid rings
+  const lfs=Math.max(8,Math.min(10,W*.035));
   [.25,.5,.75,1].forEach((r,ri)=>{
     ctx.beginPath();
     axes.forEach((ax,i)=>{
@@ -818,43 +836,32 @@ function drawRadar(){
     });
     ctx.closePath();
     ctx.strokeStyle=ri===3?'rgba(176,140,255,.5)':'rgba(176,140,255,.18)';
-    ctx.lineWidth=ri===3?1.8:1; ctx.stroke();
+    ctx.lineWidth=ri===3?1.8:1;ctx.stroke();
     if(ri<3){
-      ctx.fillStyle='rgba(180,160,255,.55)';
-      ctx.font=`${Math.max(9,W*.045)}px system-ui`;
-      ctx.textAlign='center';
-      ctx.fillText(`${r*100|0}%`,cx+4,cy-r*R-5);
+      ctx.fillStyle='rgba(180,160,255,.55)';ctx.font=`${lfs}px system-ui`;
+      ctx.textAlign='center';ctx.fillText(`${r*100|0}%`,cx+4,cy-r*R-4);
     }
   });
-
   // axis lines
   axes.forEach(ax=>{
     ctx.beginPath();ctx.moveTo(cx,cy);
     ctx.lineTo(cx+R*Math.cos(ax.a),cy+R*Math.sin(ax.a));
     ctx.strokeStyle='rgba(176,140,255,.28)';ctx.lineWidth=1.2;ctx.stroke();
   });
-
-  // draw baselines first, Ours on top
+  // data areas — baselines first, Ours on top
   const order=[...METHODS.filter(m=>m!=='Ours'),'Ours'];
   order.forEach(m=>{
     const r=DATA[radarK][m],col=MC[m],isO=m==='Ours';
     const pts=axes.map(ax=>{
       const v=rNorm(ax.key,r[ax.key]);
-      return {x:cx+v*R*Math.cos(ax.a),y:cy+v*R*Math.sin(ax.a)};
+      return{x:cx+v*R*Math.cos(ax.a),y:cy+v*R*Math.sin(ax.a)};
     });
-    // fill
-    ctx.beginPath();
-    pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
-    ctx.closePath();
-    ctx.fillStyle=col+(isO?'42':'1a');ctx.fill();
-    // stroke with glow for Ours
+    ctx.beginPath();pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+    ctx.closePath();ctx.fillStyle=col+(isO?'42':'1a');ctx.fill();
     if(isO){ctx.shadowBlur=12;ctx.shadowColor=col+'cc';}
-    ctx.beginPath();
-    pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
-    ctx.closePath();
-    ctx.strokeStyle=col;ctx.lineWidth=isO?3:1.8;ctx.stroke();
+    ctx.beginPath();pts.forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+    ctx.closePath();ctx.strokeStyle=col;ctx.lineWidth=isO?3:1.8;ctx.stroke();
     ctx.shadowBlur=0;
-    // dots
     pts.forEach(p=>{
       if(isO){ctx.shadowBlur=8;ctx.shadowColor=col+'bb';}
       ctx.beginPath();ctx.arc(p.x,p.y,isO?6.5:4,0,Math.PI*2);
@@ -863,18 +870,17 @@ function drawRadar(){
       ctx.shadowBlur=0;
     });
   });
-
-  // axis labels
+  // axis labels — taille fixe, dans le canvas
+  const afs=Math.max(10,Math.min(12,W*.042));
+  const ls=Math.max(13,Math.min(16,W*.056));
   axes.forEach(ax=>{
-    const pad=W*.145;
-    const x=cx+(R+pad)*Math.cos(ax.a),y=cy+(R+pad)*Math.sin(ax.a);
+    const lx=cx+(R+pad)*Math.cos(ax.a);
+    const ly=cy+(R+pad)*Math.sin(ax.a);
     ctx.fillStyle='rgba(230,215,255,.95)';
-    ctx.font=`bold ${Math.max(10,W*.065)}px system-ui`;
-    const isLeft=Math.abs(ax.a-Math.PI)<.15;
-    const isRight=Math.abs(ax.a)<.15;
-    ctx.textAlign=isLeft?'right':isRight?'left':'center';
+    ctx.font=`bold ${afs}px system-ui`;
+    ctx.textAlign='center';
     ax.label.forEach((ln,li)=>{
-      ctx.fillText(ln,x,y+(li-(ax.label.length-1)/2)*W*.082);
+      ctx.fillText(ln,lx,ly+(li-(ax.label.length-1)/2)*ls);
     });
   });
 }
@@ -899,9 +905,9 @@ function drawScatter(){
   ctx.setLineDash([4,4]);
   ctx.strokeRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);
   ctx.setLineDash([]);
-  ctx.fillStyle='rgba(15,209,122,.55)';
-  ctx.font=`${W*.027}px system-ui`;ctx.textAlign='left';
-  ctx.fillText('Zone idéale',sx(.005),pt+12);
+  ctx.fillStyle='rgba(15,209,122,.5)';
+  ctx.font='10px system-ui';ctx.textAlign='left';
+  ctx.fillText('Zone idéale',sx(.005)+3,pt+12);
 
   // grid
   [.1,.2,.3,.4,.5].forEach(v=>{
@@ -917,8 +923,8 @@ function drawScatter(){
   ctx.beginPath();ctx.moveTo(pl,pt);ctx.lineTo(pl,pt+ch);ctx.lineTo(pl+cw,pt+ch);
   ctx.strokeStyle='rgba(100,120,180,.35)';ctx.lineWidth=1.5;ctx.stroke();
 
-  // tick labels
-  ctx.fillStyle='rgba(100,120,180,.6)';ctx.font=`${W*.027}px system-ui`;
+  // tick labels — taille fixe
+  ctx.fillStyle='rgba(100,120,180,.6)';ctx.font='10px system-ui';
   [0,.1,.2,.3,.4,.5].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
   [.3,.5,.7,.9].forEach(v=>{ctx.textAlign='right';ctx.fillText(v.toFixed(1),pl-5,sy(v)+4);});
   ctx.textAlign='center';
@@ -981,14 +987,14 @@ function drawScatter(){
     });
   });
 
-  // per-method label offsets (k=20)
+  // per-method label offsets (k=20) — positionnés pour éviter les débordements
   const LBL20={
-    "Average Score":  {dx:18,  dy:-14, align:'left'},
-    "Borda":          {dx:-10, dy:20,  align:'right'},
-    "Weighted Borda": {dx:0,   dy:-20, align:'center'},
-    "Condorcet":      {dx:16,  dy:6,   align:'left'},
-    "Fair Re-rank":   {dx:-14, dy:-18, align:'right'},
-    "Ours":           {dx:14,  dy:-20, align:'left'},
+    "Average Score":  {dx:13,  dy:15,  align:'left'},
+    "Borda":          {dx:13,  dy:18,  align:'left'},
+    "Weighted Borda": {dx:-13, dy:-15, align:'right'},
+    "Condorcet":      {dx:13,  dy:-13, align:'left'},
+    "Fair Re-rank":   {dx:13,  dy:-14, align:'left'},
+    "Ours":           {dx:13,  dy:-15, align:'left'},
   };
   const LABEL_DS=isBoth?ALL1M:DATA_S;
   METHODS.forEach(m=>{
@@ -996,8 +1002,9 @@ function drawScatter(){
     const x=sx(r.dE),y=sy(r.ILD);
     const off=LBL20[m]||{dx:0,dy:-16,align:'center'};
     const isO=m==='Ours';
-    const lbl=isO?'✦ Ours':m;
-    ctx.font=`bold ${W*(isO?.031:.027)}px system-ui`;
+    const lbl=isO?'✦ Ours':(m==='Weighted Borda'?'W.Borda':m);
+    const fs=Math.max(9,Math.min(isO?13:11,W*(isO?.018:.015)));
+    ctx.font=`bold ${fs}px system-ui`;
     ctx.fillStyle='rgba(0,0,0,.55)';
     ctx.textAlign=off.align;
     ctx.fillText(lbl,x+off.dx+1,y+off.dy+1);
@@ -1008,8 +1015,8 @@ function drawScatter(){
   });
   // dataset label
   if(isBoth){
-    ctx.font=`bold ${W*.022}px system-ui`;ctx.textAlign='left';
-    ctx.fillStyle='rgba(200,200,255,.5)';
+    ctx.font='bold 10px system-ui';ctx.textAlign='left';
+    ctx.fillStyle='rgba(200,200,255,.55)';
     ctx.fillText('○ = 100k   ● = 1M',pl+4,pt+ch-6);
   }
 }
