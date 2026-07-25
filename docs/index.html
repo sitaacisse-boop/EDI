@@ -249,6 +249,10 @@ canvas{width:100%;display:block;border-radius:8px}
       <button class="tog on" id="btnG">Graphe original G</button>
       <button class="tog" id="btnGp">Graphe résumé G'</button>
       <span class="g-stat" id="gStat"></span>
+      <div style="margin-left:auto;display:flex;gap:6px">
+        <button class="tog on" id="gDS100k" style="font-size:.7rem;padding:5px 12px">100k</button>
+        <button class="tog" id="gDS1m" style="font-size:.7rem;padding:5px 12px">1M</button>
+      </div>
     </div>
     <canvas id="gCanvas" height="340"></canvas>
     <div class="g-leg">
@@ -259,10 +263,44 @@ canvas{width:100%;display:block;border-radius:8px}
       <span style="font-size:.7rem;color:var(--t3);margin-left:auto">Épaisseur = force de la note</span>
     </div>
   </div>
-  <div class="card" style="margin-top:14px">
-    <div class="two-col" style="gap:14px">
-      <div><div style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:.85rem">Graphe original G</div><div style="font-size:.8rem;color:var(--t2);line-height:1.6">943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.</div></div>
-      <div><div style="font-weight:700;color:var(--green);margin-bottom:6px;font-size:.85rem">Graphe résumé G'</div><div style="font-size:.8rem;color:var(--t2);line-height:1.6">Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre → Borda sur G' est plus juste.</div></div>
+  <div class="card" style="margin-top:14px" id="graphInfoCard">
+    <div class="two-col" style="gap:14px" id="graphInfoCols">
+      <div><div style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:.85rem">Graphe original G</div><div id="graphInfoG" style="font-size:.8rem;color:var(--t2);line-height:1.6">943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.</div></div>
+      <div><div style="font-weight:700;color:var(--green);margin-bottom:6px;font-size:.85rem">Graphe résumé G'</div><div id="graphInfoGp" style="font-size:.8rem;color:var(--t2);line-height:1.6">Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre → Borda sur G' est plus juste.</div></div>
+    </div>
+    <div id="graphStats1M" style="display:none;margin-top:14px">
+      <div class="card-title" style="margin-bottom:12px">Résultats du coarsening — MovieLens 1M</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
+        <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
+          <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 5</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">6 super-nœuds</strong><br>Compression −99.9% · Top-5 ultra-stable<br>ΔE = 0.0643 · ILD = 0.5783</div>
+        </div>
+        <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
+          <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 10</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">2 755 super-nœuds</strong><br>Compression −54.4%<br>ΔE = 0.332 · ILD = 0.423</div>
+        </div>
+        <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--amber)">
+          <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 20</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--amber)">4 318 super-nœuds</strong><br>Compression −28.5%<br>ΔE = 0.332 · ILD = 0.456</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:.78rem;color:var(--t2);line-height:1.6;padding:10px 13px;background:rgba(245,165,35,.07);border:1px solid rgba(245,165,35,.2);border-radius:7px">
+        <strong style="color:var(--t1)">Phénomène k=5 :</strong> sur 1M, le top-5 est identique après presque toutes les fusions → l'algorithme accepte toutes les fusions sans contrainte → compression extrême (6 super-nœuds). Pour k≥10 le top-k change plus souvent → compression raisonnable.
+      </div>
+    </div>
+    <div id="graphStats100k" style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
+      <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 5</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">6 super-nœuds</strong><br>Compression −99.4%<br>ΔE = 0.412 · ILD = 0.402</div>
+      </div>
+      <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 10</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">5 super-nœuds</strong><br>Compression −99.5%<br>ΔE = 0.351 · ILD = 0.448</div>
+      </div>
+      <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--amber)">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 20</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--amber)">272 super-nœuds</strong><br>Compression −71.2% · Ratio F/M 29→37%<br>ΔE = 0.348 · ILD = 0.465</div>
+      </div>
     </div>
   </div>
 </div>
@@ -682,6 +720,31 @@ function drawGraph(){
 }
 document.getElementById('btnG').addEventListener('click',()=>setMode('g'));
 document.getElementById('btnGp').addEventListener('click',()=>setMode('gp'));
+
+// toggle 100k / 1M pour le graphe
+let graphDS='100k';
+const GDS={
+  '100k':{
+    infoG:'943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.',
+    infoGp:'Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre 29%→37% → Borda sur G\' est plus juste.',
+  },
+  '1M':{
+    infoG:'6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.',
+    infoGp:'Même principe de fusion par similarité. La compression varie fortement selon k (voir tableaux ci-dessous). Sur k=20 : 6040→4318 super-nœuds (−28.5%).',
+  }
+};
+function applyGraphDS(ds){
+  graphDS=ds;
+  document.getElementById('gDS100k').classList.toggle('on',ds==='100k');
+  document.getElementById('gDS1m').classList.toggle('on',ds==='1M');
+  document.getElementById('graphInfoG').textContent=GDS[ds].infoG;
+  document.getElementById('graphInfoGp').textContent=GDS[ds].infoGp;
+  document.getElementById('graphStats100k').style.display=ds==='100k'?'grid':'none';
+  document.getElementById('graphStats1M').style.display=ds==='1M'?'block':'none';
+}
+document.getElementById('gDS100k').addEventListener('click',()=>applyGraphDS('100k'));
+document.getElementById('gDS1m').addEventListener('click',()=>applyGraphDS('1M'));
+
 window.addEventListener('resize',()=>{if(document.getElementById('p-graph').classList.contains('on'))drawGraph();});
 setTimeout(drawGraph,80);
 
