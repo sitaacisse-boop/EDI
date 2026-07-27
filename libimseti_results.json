@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "dataset": "libimseti.cz",
+    "n_users": 1000,
+    "n_F": 500,
+    "n_M": 500,
+    "alpha_F": 0.5,
+    "alpha_M": 0.5,
+    "n_ratings": 97707,
+    "n_profiles": 32677,
+    "k_values": [
+      10
+    ],
+    "theta": 7.0,
+    "seed": 42,
+    "note": "items = profils de personnes (genre M/F explicite)"
+  },
+  "experiments": {
+    "k10_t7_0": {
+      "k": 10,
+      "theta": 7.0,
+      "Average Score": {
+        "dE": 0.016,
+        "ILD": 0.8667,
+        "inc_F": 0.0018,
+        "inc_M": 0.0002,
+        "elapsed_s": 0.009
+      },
+      "Borda": {
+        "dE": 1.2182,
+        "ILD": 0.7436,
+        "inc_F": 0.1466,
+        "inc_M": 0.0244,
+        "elapsed_s": 0.6673
+      },
+      "Weighted Borda": {
+        "dE": 1.2182,
+        "ILD": 0.7436,
+        "inc_F": 0.1466,
+        "inc_M": 0.0244,
+        "elapsed_s": 0.705
+      },
+      "Condorcet": {
+        "dE": 1.296,
+        "ILD": 0.7462,
+        "inc_F": 0.157,
+        "inc_M": 0.0244,
+        "elapsed_s": 0.2574
+      },
+      "Fair Re-rank": {
+        "dE": 0.144,
+        "ILD": 0.7194,
+        "inc_F": 0.0386,
+        "inc_M": 0.0236,
+        "elapsed_s": 0.8072
+      },
+      "Ours": {
+        "dE": 0.8764,
+        "ILD": 0.816,
+        "inc_F": 0.112,
+        "inc_M": 0.0238,
+        "ratio": 0.01,
+        "n_supernodes": 10,
+        "elapsed_s": 402.522
+      }
+    }
+  }
+}

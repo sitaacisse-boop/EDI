@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "dataset": "Rate My Professors",
+    "source": "github.com/vxuv/ratemyprofessor-dataset",
+    "formulation": "item-side equity",
+    "user": "code de cours (ex. ENG101)",
+    "item": "professeur (genre infere depuis prenom)",
+    "n_users": 1981,
+    "n_items": 59066,
+    "n_F_items": 30141,
+    "n_M_items": 28925,
+    "alpha_F": 0.5103,
+    "alpha_M": 0.4897,
+    "n_ratings": 150800,
+    "k_values": [
+      10
+    ],
+    "theta": 4.0,
+    "seed": 42,
+    "gender_inference": "gender_guesser v0.4.0 (premier prenom)"
+  },
+  "experiments": {
+    "k10_t4_0": {
+      "k": 10,
+      "theta": 4.0,
+      "Average Score": {
+        "dE": 0.0,
+        "ILD": 0.9819,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.4,
+        "frac_M": 0.6,
+        "elapsed_s": 0.0116
+      },
+      "Borda": {
+        "dE": 0.0083,
+        "ILD": 0.1448,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.4,
+        "frac_M": 0.6,
+        "elapsed_s": 1.3081
+      },
+      "Weighted Borda": {
+        "dE": 0.0083,
+        "ILD": 0.1448,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.4,
+        "frac_M": 0.6,
+        "elapsed_s": 41.2882
+      },
+      "Condorcet": {
+        "dE": 0.0757,
+        "ILD": 0.2533,
+        "inc_F": 1.0,
+        "inc_M": 0.9841,
+        "frac_F": 0.3,
+        "frac_M": 0.7,
+        "elapsed_s": 0.2889
+      },
+      "Fair Re-rank": {
+        "dE": 0.0,
+        "ILD": 0.1956,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.5,
+        "frac_M": 0.5,
+        "elapsed_s": 1.4553
+      },
+      "Ours": {
+        "dE": 0.0169,
+        "ILD": 0.9244,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.6,
+        "frac_M": 0.4,
+        "ratio": 0.132,
+        "n_supernodes": 261,
+        "elapsed_s": 46.556
+      }
+    }
+  }
+}
