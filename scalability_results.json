@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "dataset": "MovieLens 1M (sous-ensembles)",
+    "k": 10,
+    "theta": 4.0,
+    "seed": 42,
+    "sizes": [
+      500,
+      1000,
+      2000,
+      4000,
+      6040
+    ],
+    "description": "Scalabilit\u00e9 : temps d'ex\u00e9cution et m\u00e9triques EDI vs. n_users"
+  },
+  "experiments": {
+    "500": {
+      "n_users": 500,
+      "n_F": 141,
+      "n_M": 359,
+      "n_items": 3290,
+      "n_ratings": 88748,
+      "Average Score": {
+        "dE": 0.0115,
+        "ILD": 0.9732,
+        "inc_F": 0.0043,
+        "inc_M": 0.0019,
+        "elapsed_s": 0.0041
+      },
+      "Borda": {
+        "dE": 0.3957,
+        "ILD": 0.3918,
+        "inc_F": 0.3298,
+        "inc_M": 0.4212,
+        "elapsed_s": 0.3269
+      },
+      "Weighted Borda": {
+        "dE": 0.1196,
+        "ILD": 0.4085,
+        "inc_F": 0.3688,
+        "inc_M": 0.3969,
+        "elapsed_s": 0.3668
+      },
+      "Condorcet": {
+        "dE": 0.31,
+        "ILD": 0.395,
+        "inc_F": 0.3482,
+        "inc_M": 0.4131,
+        "elapsed_s": 0.1063
+      },
+      "Fair Re-rank": {
+        "dE": 0.0115,
+        "ILD": 0.453,
+        "inc_F": 0.3397,
+        "inc_M": 0.3538,
+        "elapsed_s": 0.4949
+      },
+      "Ours": {
+        "dE": 0.1242,
+        "ILD": 0.5704,
+        "inc_F": 0.2674,
+        "inc_M": 0.2905,
+        "ratio": 0.01,
+        "n_supernodes": 5,
+        "elapsed_s": 289.412
+      }
+    },
+    "1000": {
+      "n_users": 1000,
+      "n_F": 283,
+      "n_M": 717,
+      "n_items": 3393,
+      "n_ratings": 162306,
+      "Average Score": {
+        "dE": 0.0075,
+        "ILD": 0.9889,
+        "inc_F": 0.0025,
+        "inc_M": 0.001,
+        "elapsed_s": 0.0067
+      },
+      "Borda": {
+        "dE": 0.4227,
+        "ILD": 0.412,
+        "inc_F": 0.3194,
+        "inc_M": 0.4053,
+        "elapsed_s": 0.636
+      },
+      "Weighted Borda": {
+        "dE": 0.3618,
+        "ILD": 0.4131,
+        "inc_F": 0.3254,
+        "inc_M": 0.3976,
+        "elapsed_s": 0.7146
+      },
+      "Condorcet": {
+        "dE": 0.3982,
+        "ILD": 0.4129,
+        "inc_F": 0.3219,
+        "inc_M": 0.4038,
+        "elapsed_s": 0.1923
+      },
+      "Fair Re-rank": {
+        "dE": 0.0207,
+        "ILD": 0.4614,
+        "inc_F": 0.323,
+        "inc_M": 0.3304,
+        "elapsed_s": 0.8893
+      },
+      "Ours": {
+        "dE": 0.1829,
+        "ILD": 0.5484,
+        "inc_F": 0.2633,
+        "inc_M": 0.2999,
+        "ratio": 0.097,
+        "n_supernodes": 97,
+        "elapsed_s": 8.075
+      }
+    },
+    "2000": {
+      "n_users": 2000,
+      "n_F": 566,
+      "n_M": 1434,
+      "n_items": 3538,
+      "n_ratings": 326612,
+      "Average Score": {
+        "dE": 0.0023,
+        "ILD": 1.0,
+        "inc_F": 0.0002,
+        "inc_M": 0.0006,
+        "elapsed_s": 0.0123
+      },
+      "Borda": {
+        "dE": 0.4034,
+        "ILD": 0.4089,
+        "inc_F": 0.3228,
+        "inc_M": 0.4086,
+        "elapsed_s": 1.2752
+      },
+      "Weighted Borda": {
+        "dE": 0.3237,
+        "ILD": 0.416,
+        "inc_F": 0.3327,
+        "inc_M": 0.4016,
+        "elapsed_s": 1.4417
+      },
+      "Condorcet": {
+        "dE": 0.3981,
+        "ILD": 0.416,
+        "inc_F": 0.3196,
+        "inc_M": 0.404,
+        "elapsed_s": 0.3802
+      },
+      "Fair Re-rank": {
+        "dE": 0.0011,
+        "ILD": 0.4873,
+        "inc_F": 0.326,
+        "inc_M": 0.3273,
+        "elapsed_s": 1.7224
+      },
+      "Ours": {
+        "dE": 0.1688,
+        "ILD": 0.4551,
+        "inc_F": 0.3246,
+        "inc_M": 0.3637,
+        "ratio": 0.176,
+        "n_supernodes": 352,
+        "elapsed_s": 17.613
+      }
+    },
+    "4000": {
+      "n_users": 4000,
+      "n_F": 1132,
+      "n_M": 2868,
+      "n_items": 3635,
+      "n_ratings": 664230,
+      "Average Score": {
+        "dE": 0.0011,
+        "ILD": 0.9872,
+        "inc_F": 0.0005,
+        "inc_M": 0.0003,
+        "elapsed_s": 0.0252
+      },
+      "Borda": {
+        "dE": 0.4714,
+        "ILD": 0.4082,
+        "inc_F": 0.306,
+        "inc_M": 0.4099,
+        "elapsed_s": 2.6138
+      },
+      "Weighted Borda": {
+        "dE": 0.3752,
+        "ILD": 0.4126,
+        "inc_F": 0.3211,
+        "inc_M": 0.4045,
+        "elapsed_s": 2.8903
+      },
+      "Condorcet": {
+        "dE": 0.4912,
+        "ILD": 0.4092,
+        "inc_F": 0.3024,
+        "inc_M": 0.411,
+        "elapsed_s": 0.8404
+      },
+      "Fair Re-rank": {
+        "dE": 0.001,
+        "ILD": 0.4794,
+        "inc_F": 0.3266,
+        "inc_M": 0.3326,
+        "elapsed_s": 4.2139
+      },
+      "Ours": {
+        "dE": 0.1496,
+        "ILD": 0.4526,
+        "inc_F": 0.317,
+        "inc_M": 0.3552,
+        "ratio": 0.287,
+        "n_supernodes": 1149,
+        "elapsed_s": 43.234
+      }
+    },
+    "6040": {
+      "n_users": 6040,
+      "n_F": 1709,
+      "n_M": 4331,
+      "n_items": 3706,
+      "n_ratings": 1000209,
+      "Average Score": {
+        "dE": 0.0001,
+        "ILD": 1.0,
+        "inc_F": 0.0002,
+        "inc_M": 0.0002,
+        "elapsed_s": 0.0354
+      },
+      "Borda": {
+        "dE": 0.538,
+        "ILD": 0.4015,
+        "inc_F": 0.3016,
+        "inc_M": 0.4169,
+        "elapsed_s": 4.0434
+      },
+      "Weighted Borda": {
+        "dE": 0.3709,
+        "ILD": 0.4129,
+        "inc_F": 0.3235,
+        "inc_M": 0.4039,
+        "elapsed_s": 4.4758
+      },
+      "Condorcet": {
+        "dE": 0.4872,
+        "ILD": 0.4079,
+        "inc_F": 0.3053,
+        "inc_M": 0.4115,
+        "elapsed_s": 1.1828
+      },
+      "Fair Re-rank": {
+        "dE": 0.0185,
+        "ILD": 0.4518,
+        "inc_F": 0.3358,
+        "inc_M": 0.3427,
+        "elapsed_s": 5.129
+      },
+      "Ours": {
+        "dE": 0.332,
+        "ILD": 0.4231,
+        "inc_F": 0.317,
+        "inc_M": 0.3903,
+        "ratio": 0.456,
+        "n_supernodes": 2755,
+        "elapsed_s": 76.334
+      }
+    }
+  }
+}

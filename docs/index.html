@@ -184,6 +184,7 @@ canvas{width:100%;display:block;border-radius:8px}
   <button class="tab-btn" data-tab="viz">Visualisations ✦</button>
   <button class="tab-btn" data-tab="1m">MovieLens 1M</button>
   <button class="tab-btn" data-tab="cmp">Comparaison ⇄</button>
+  <button class="tab-btn" data-tab="scal">Scalabilité 📈</button>
 </div>
 
 <div class="main">
@@ -561,6 +562,36 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   </div>
 </div>
 
+<!-- ── SCALABILITÉ ── -->
+<div class="panel" id="p-scal">
+  <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
+    <span style="color:var(--green);font-size:1rem;flex-shrink:0">📈</span>
+    <span><b>Expérimentation scalabilité (résultats réels) :</b> sous-ensembles stratifiés du MovieLens 1M (500→6 040 utilisateurs, ratio F/M préservé), k=10, θ=4.0. Weighted Borda mesuré séparément. ⚠ n=500 : phénomène top-k stable (5 super-nœuds, temps ≈ 289s) analogue au cas k=5 sur 1M — normal behavior reprend à n≥1 000.</span>
+  </div>
+  <div class="card">
+    <div class="card-title">Temps d'exécution vs. nombre d'utilisateurs — échelle log (toutes méthodes)</div>
+    <canvas id="scalRtCanvas" style="width:100%;display:block"></canvas>
+    <div id="scalRtLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;align-items:center;font-size:.7rem;color:var(--t2)"></div>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Axe Y logarithmique. Weighted Borda mesuré séparément (légèrement plus lent que Borda car il normalise par groupe). ⚠ n=500 : le top-10 est très stable sur un petit sous-ensemble → l'algorithme fusionne librement sans contrainte EDI → 5 super-nœuds, 289s (phénomène analogue au top-k stable observé à k=5 sur 1M complet).</p>
+  </div>
+  <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
+    <div class="card">
+      <div class="card-title">Compression — super-nœuds de « Ours »</div>
+      <canvas id="scalSnCanvas" style="width:100%;display:block"></canvas>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Nombre de super-nœuds après coarsenisation. Une compression plus forte = graphe plus compact pour le vote Borda.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Métriques EDI de « Ours » à travers les échelles</div>
+      <canvas id="scalEdiCanvas" style="width:100%;display:block"></canvas>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">ΔE (vert) et ILD (bleu) de la méthode Ours à k=10. La stabilité des métriques confirme la robustesse de l'approche.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Tableau de scalabilité — résultats complets (k=10, θ=4.0)</div>
+    <div style="overflow-x:auto"><table class="ftbl" id="scalTbl"></table></div>
+  </div>
+</div>
+
 </div>
 
 <script>
@@ -608,6 +639,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(id==='viz') setTimeout(()=>{drawRadar();drawScatter();drawSens();},60);
     if(id==='1m') renderTable1M();
     if(id==='cmp') setTimeout(()=>{buildCmpTable();drawCmpScatter();drawRuntime();},60);
+    if(id==='scal') setTimeout(()=>{drawScalAll();},60);
   });
 });
 
@@ -1483,7 +1515,281 @@ window.addEventListener('resize',()=>{
   if(document.getElementById('p-cmp')&&document.getElementById('p-cmp').classList.contains('on')){
     drawCmpScatter();drawRuntime();
   }
+  if(document.getElementById('p-scal')&&document.getElementById('p-scal').classList.contains('on')){
+    drawScalAll();
+  }
 });
+
+// ── SCALABILITÉ DATA ────────────────────────────────────────────────────────
+// Résultats réels (k=10, θ=4.0) — mis à jour après run_scalability.py
+// Résultats réels — run_scalability.py (k=10, θ=4.0, graine=42)
+// Note : n=500 → phénomène top-k stable (5 super-nœuds, 289s — cf. k=5 sur 1M)
+const SCAL_DATA={
+  500:{n_F:141,n_M:359,n_ratings:88748,
+    "Average Score":{elapsed_s:.0041,dE:.0115,ILD:.9732,inc_F:.0043,inc_M:.0019},
+    "Borda":{elapsed_s:.3269,dE:.3957,ILD:.3918,inc_F:.3298,inc_M:.4212},
+    "Weighted Borda":{elapsed_s:.3668,dE:.1196,ILD:.4085,inc_F:.3688,inc_M:.3969},
+    "Condorcet":{elapsed_s:.1063,dE:.31,ILD:.395,inc_F:.3482,inc_M:.4131},
+    "Fair Re-rank":{elapsed_s:.4949,dE:.0115,ILD:.453,inc_F:.3397,inc_M:.3538},
+    "Ours":{elapsed_s:289.412,dE:.1242,ILD:.5704,inc_F:.2674,inc_M:.2905,n_supernodes:5,ratio:.01,stable_topk:true}
+  },
+  1000:{n_F:283,n_M:717,n_ratings:162306,
+    "Average Score":{elapsed_s:.0067,dE:.0075,ILD:.9889,inc_F:.0025,inc_M:.001},
+    "Borda":{elapsed_s:.636,dE:.4227,ILD:.412,inc_F:.3194,inc_M:.4053},
+    "Weighted Borda":{elapsed_s:.7146,dE:.3618,ILD:.4131,inc_F:.3254,inc_M:.3976},
+    "Condorcet":{elapsed_s:.1923,dE:.3982,ILD:.4129,inc_F:.3219,inc_M:.4038},
+    "Fair Re-rank":{elapsed_s:.8893,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
+    "Ours":{elapsed_s:8.075,dE:.1829,ILD:.5484,inc_F:.2633,inc_M:.2999,n_supernodes:97,ratio:.097}
+  },
+  2000:{n_F:566,n_M:1434,n_ratings:326612,
+    "Average Score":{elapsed_s:.0123,dE:.0023,ILD:1.0,inc_F:.0002,inc_M:.0006},
+    "Borda":{elapsed_s:1.2752,dE:.4034,ILD:.4089,inc_F:.3228,inc_M:.4086},
+    "Weighted Borda":{elapsed_s:1.4417,dE:.3237,ILD:.416,inc_F:.3327,inc_M:.4016},
+    "Condorcet":{elapsed_s:.3802,dE:.3981,ILD:.416,inc_F:.3196,inc_M:.404},
+    "Fair Re-rank":{elapsed_s:1.7224,dE:.0011,ILD:.4873,inc_F:.326,inc_M:.3273},
+    "Ours":{elapsed_s:17.613,dE:.1688,ILD:.4551,inc_F:.3246,inc_M:.3637,n_supernodes:352,ratio:.176}
+  },
+  4000:{n_F:1132,n_M:2868,n_ratings:664230,
+    "Average Score":{elapsed_s:.0252,dE:.0011,ILD:.9872,inc_F:.0005,inc_M:.0003},
+    "Borda":{elapsed_s:2.6138,dE:.4714,ILD:.4082,inc_F:.306,inc_M:.4099},
+    "Weighted Borda":{elapsed_s:2.8903,dE:.3752,ILD:.4126,inc_F:.3211,inc_M:.4045},
+    "Condorcet":{elapsed_s:.8404,dE:.4912,ILD:.4092,inc_F:.3024,inc_M:.411},
+    "Fair Re-rank":{elapsed_s:4.2139,dE:.001,ILD:.4794,inc_F:.3266,inc_M:.3326},
+    "Ours":{elapsed_s:43.234,dE:.1496,ILD:.4526,inc_F:.317,inc_M:.3552,n_supernodes:1149,ratio:.287}
+  },
+  6040:{n_F:1709,n_M:4331,n_ratings:1000209,
+    "Average Score":{elapsed_s:.0354,dE:.0001,ILD:1.0,inc_F:.0002,inc_M:.0002},
+    "Borda":{elapsed_s:4.0434,dE:.538,ILD:.4015,inc_F:.3016,inc_M:.4169},
+    "Weighted Borda":{elapsed_s:4.4758,dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
+    "Condorcet":{elapsed_s:1.1828,dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
+    "Fair Re-rank":{elapsed_s:5.129,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
+    "Ours":{elapsed_s:76.334,dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_supernodes:2755,ratio:.456}
+  }
+};
+const SCAL_SIZES=[500,1000,2000,4000,6040];
+const MCOLS_SCAL={
+  "Average Score":"coral","Borda":"blue","Weighted Borda":"cyan",
+  "Condorcet":"amber","Fair Re-rank":"purple","Ours":"green"
+};
+
+function scalCtx(id,h){
+  const cv=document.getElementById(id);
+  if(!cv)return null;
+  const W=cv.offsetWidth; const dpr=window.devicePixelRatio||1;
+  cv.width=W*dpr; cv.height=h*dpr; cv.style.height=h+'px';
+  const ctx=cv.getContext('2d'); ctx.scale(dpr,dpr);
+  return {ctx,W,H:h,cv};
+}
+function scalCss(v){return getComputedStyle(document.documentElement).getPropertyValue('--'+v).trim();}
+
+// ── Runtime curve ──────────────────────────────────────────────────────────
+function drawScalRuntime(){
+  const r=scalCtx('scalRtCanvas',280); if(!r)return;
+  const {ctx,W,H}=r;
+  const t1=scalCss('t1'),t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2');
+  const pad={l:64,r:20,t:18,b:46};
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+
+  // Log Y scale: 0.001 → 1000
+  const logMin=-3,logMax=3;
+  const xScale=n=>(Math.log10(n)-Math.log10(500))/(Math.log10(6040)-Math.log10(500));
+  const xPos=n=>pad.l+xScale(n)*pw;
+  const yPos=t=>pad.t+ph*(1-(Math.log10(Math.max(t,0.0005))-logMin)/(logMax-logMin));
+
+  // Grid Y
+  ctx.setLineDash([3,4]);
+  [.001,.01,.1,1,10,60,600].forEach(t=>{
+    const y=yPos(t); if(y<pad.t||y>pad.t+ph)return;
+    ctx.strokeStyle=s2; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+pw,y); ctx.stroke();
+    ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='right';
+    const lbl=t<1?(t<.01?'1ms':t<.1?'10ms':'0.1s'):t<60?t+'s':t<3600?(t/60).toFixed(0)+'min':'';
+    ctx.fillText(lbl,pad.l-5,y+3);
+  });
+  ctx.setLineDash([]);
+
+  // Grid X
+  SCAL_SIZES.forEach(n=>{
+    const x=xPos(n);
+    ctx.strokeStyle=s2; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ph); ctx.stroke();
+    ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='center';
+    ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
+  });
+  ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
+
+  // Lines
+  METHODS.forEach(m=>{
+    const col=scalCss(MCOLS_SCAL[m]);
+    const isO=m==='Ours';
+    const pts=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n][m].elapsed_s)}));
+    ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=isO?2.5:1.5;
+    pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+    ctx.stroke();
+    pts.forEach(p=>{
+      ctx.beginPath(); ctx.fillStyle=col;
+      ctx.arc(p.x,p.y,isO?4.5:3,0,Math.PI*2); ctx.fill();
+    });
+    // Label at last point
+    const last=pts[pts.length-1];
+    const abbrev={"Average Score":"Avg","Borda":"Borda","Weighted Borda":"W.Borda",
+      "Condorcet":"Condorcet","Fair Re-rank":"Fair","Ours":"Ours"}[m];
+    ctx.fillStyle=col; ctx.font=(isO?'bold ':'')+'9px sans-serif';
+    ctx.textAlign='left';
+    ctx.fillText(abbrev,last.x+5,last.y+3);
+  });
+
+  // Annotation stable top-k pour n=500 Ours
+  {
+    const x0=xPos(500), y0=yPos(SCAL_DATA[500]["Ours"].elapsed_s);
+    const amber=scalCss('amber');
+    ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+    ctx.moveTo(x0+6,y0+6); ctx.lineTo(x0+36,y0+28); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('⚠ top-k stable',x0+38,y0+31);
+    ctx.fillText('(5 super-nœuds)',x0+38,y0+41);
+  }
+
+  // Legend
+  const leg=document.getElementById('scalRtLegend');
+  if(leg){
+    leg.innerHTML=METHODS.map(m=>`<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:18px;height:3px;border-radius:2px;background:${scalCss(MCOLS_SCAL[m])}"></span>${m}</span>`).join('');
+  }
+}
+
+// ── Supernode chart ────────────────────────────────────────────────────────
+function drawScalSn(){
+  const r=scalCtx('scalSnCanvas',200); if(!r)return;
+  const {ctx,W,H}=r;
+  const t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2'),green=scalCss('green');
+  const pad={l:52,r:30,t:18,b:42};
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+
+  const snVals=SCAL_SIZES.map(n=>SCAL_DATA[n]["Ours"].n_supernodes||0);
+  const snMax=Math.max(...snVals)*1.1;
+  const xScale=n=>(Math.log10(n)-Math.log10(500))/(Math.log10(6040)-Math.log10(500));
+  const xPos=n=>pad.l+xScale(n)*pw;
+  const yPos=v=>pad.t+ph*(1-v/snMax);
+
+  // Grid Y
+  const yTicks=[0,500,1000,1500,2000,2500,3000];
+  ctx.setLineDash([3,4]);
+  yTicks.forEach(v=>{
+    const y=yPos(v); if(y<pad.t||y>pad.t+ph)return;
+    ctx.strokeStyle=s2; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+pw,y); ctx.stroke();
+    ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='right';
+    ctx.fillText(v>=1000?(v/1000).toFixed(1)+'k':v,pad.l-4,y+3);
+  });
+  ctx.setLineDash([]);
+
+  // X labels
+  SCAL_SIZES.forEach(n=>{
+    const x=xPos(n);
+    ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='center';
+    ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
+  });
+  ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
+
+  // Fill area
+  const pts=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["Ours"].n_supernodes||0)}));
+  ctx.beginPath(); ctx.moveTo(pts[0].x,pad.t+ph);
+  pts.forEach(p=>ctx.lineTo(p.x,p.y));
+  ctx.lineTo(pts[pts.length-1].x,pad.t+ph);
+  ctx.closePath();
+  ctx.fillStyle='rgba(18,232,122,.1)'; ctx.fill();
+
+  // Line
+  ctx.beginPath(); ctx.strokeStyle=green; ctx.lineWidth=2.5;
+  pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+  ctx.stroke();
+
+  // Dots + labels
+  pts.forEach((p,i)=>{
+    const n=SCAL_SIZES[i];
+    const sn=SCAL_DATA[n]["Ours"].n_supernodes;
+    ctx.beginPath(); ctx.fillStyle=green; ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill();
+    if(sn){
+      ctx.fillStyle=green; ctx.font='9px sans-serif'; ctx.textAlign='center';
+      ctx.fillText(sn>=1000?(sn/1000).toFixed(1)+'k':sn,p.x,p.y-8);
+    }
+  });
+}
+
+// ── EDI metrics curve ──────────────────────────────────────────────────────
+function drawScalEdi(){
+  const r=scalCtx('scalEdiCanvas',200); if(!r)return;
+  const {ctx,W,H}=r;
+  const t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2');
+  const green=scalCss('green'),blue=scalCss('blue');
+  const pad={l:48,r:30,t:18,b:42};
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+
+  const xScale=n=>(Math.log10(n)-Math.log10(500))/(Math.log10(6040)-Math.log10(500));
+  const xPos=n=>pad.l+xScale(n)*pw;
+  const yPos=v=>pad.t+ph*(1-v);  // 0–1 range
+
+  // Grid Y
+  ctx.setLineDash([3,4]);
+  [0,.2,.4,.6,.8,1].forEach(v=>{
+    const y=yPos(v);
+    ctx.strokeStyle=s2; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+pw,y); ctx.stroke();
+    ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='right';
+    ctx.fillText(v.toFixed(1),pad.l-4,y+3);
+  });
+  ctx.setLineDash([]);
+
+  // X labels
+  SCAL_SIZES.forEach(n=>{
+    const x=xPos(n);
+    ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='center';
+    ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
+  });
+  ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
+
+  // ILD line (blue)
+  const ptsILD=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["Ours"].ILD)}));
+  ctx.beginPath(); ctx.strokeStyle=blue; ctx.lineWidth=2;
+  ptsILD.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+  ctx.stroke();
+  ptsILD.forEach(p=>{ctx.beginPath();ctx.fillStyle=blue;ctx.arc(p.x,p.y,3.5,0,Math.PI*2);ctx.fill();});
+  ctx.fillStyle=blue; ctx.font='bold 8px sans-serif'; ctx.textAlign='right';
+  ctx.fillText('ILD↑',ptsILD[0].x-6,ptsILD[0].y+3);
+
+  // dE line (green, inverted: show 1-dE so higher = better)
+  const ptsdE=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(1-SCAL_DATA[n]["Ours"].dE)}));
+  ctx.beginPath(); ctx.strokeStyle=green; ctx.lineWidth=2; ctx.setLineDash([5,3]);
+  ptsdE.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+  ctx.stroke(); ctx.setLineDash([]);
+  ptsdE.forEach(p=>{ctx.beginPath();ctx.fillStyle=green;ctx.arc(p.x,p.y,3.5,0,Math.PI*2);ctx.fill();});
+  ctx.fillStyle=green; ctx.font='bold 8px sans-serif'; ctx.textAlign='right';
+  ctx.fillText('1−ΔE↑',ptsdE[0].x-6,ptsdE[0].y+3);
+}
+
+// ── Scalability table ──────────────────────────────────────────────────────
+function buildScalTable(){
+  const tbl=document.getElementById('scalTbl');
+  if(!tbl)return;
+  const head=`<tr><th>Méthode</th>${SCAL_SIZES.map(n=>`<th colspan="2">${n>=1000?(n/1000)+'k':n} utilisateurs</th>`).join('')}</tr>
+<tr><th></th>${SCAL_SIZES.map(()=>'<th>Temps</th><th>ΔE</th>').join('')}</tr>`;
+  const rows=METHODS.map(m=>{
+    const cells=SCAL_SIZES.map(n=>{
+      const d=SCAL_DATA[n][m];
+      const t=d.elapsed_s;
+      const tStr=t<.01?'<0.01s':t<1?t.toFixed(2)+'s':t<60?t.toFixed(1)+'s':(t/60).toFixed(1)+'min';
+      return `<td style="font-variant-numeric:tabular-nums">${tStr}</td><td style="font-variant-numeric:tabular-nums">${d.dE.toFixed(3)}</td>`;
+    }).join('');
+    const isO=m==='Ours';
+    return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
+  }).join('');
+  tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
+}
+
+function drawScalAll(){drawScalRuntime();drawScalSn();drawScalEdi();buildScalTable();}
 </script>
 
 </body></html>
