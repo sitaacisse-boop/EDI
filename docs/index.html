@@ -566,24 +566,24 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-scal">
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0">📈</span>
-    <span><b>Expérimentation scalabilité (résultats réels) :</b> sous-ensembles stratifiés du MovieLens 1M (500→6 040 utilisateurs, ratio F/M préservé), k=10, θ=4.0. Weighted Borda mesuré séparément. ⚠ n=500 : phénomène top-k stable (5 super-nœuds, temps ≈ 289s) analogue au cas k=5 sur 1M — normal behavior reprend à n≥1 000.</span>
+    <span><b>Expérimentation scalabilité — vue combinée 100→6 040 utilisateurs (résultats réels) :</b> MovieLens 100k (lignes tiretées, 100→943) + MovieLens 1M (lignes pleines, 500→6 040). k=10, θ=4.0, ratio F/M préservé. Weighted Borda mesuré séparément. ⚠ Phénomène top-k stable à n=700 et n=943 (100k) et n=500 (1M) : le top-10 est très stable → très peu de super-nœuds, temps > 280s. Comportement normal reprend ailleurs.</span>
   </div>
   <div class="card">
-    <div class="card-title">Temps d'exécution vs. nombre d'utilisateurs — échelle log (toutes méthodes)</div>
+    <div class="card-title">Temps d'exécution vs. nombre d'utilisateurs — 100→6 040, échelle log (toutes méthodes)</div>
     <canvas id="scalRtCanvas" style="width:100%;display:block"></canvas>
     <div id="scalRtLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;align-items:center;font-size:.7rem;color:var(--t2)"></div>
-    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Axe Y logarithmique. Weighted Borda mesuré séparément (légèrement plus lent que Borda car il normalise par groupe). ⚠ n=500 : le top-10 est très stable sur un petit sous-ensemble → l'algorithme fusionne librement sans contrainte EDI → 5 super-nœuds, 289s (phénomène analogue au top-k stable observé à k=5 sur 1M complet).</p>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Axe Y log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe). ⚠ Points top-k stable : ML-100k n=700 (289s, 6 super-nœuds) et n=943 (517s, 5 sn) ; ML-1M n=500 (289s, 5 sn). Comportement normal aux autres tailles.</p>
   </div>
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
       <div class="card-title">Compression — super-nœuds de « Ours »</div>
       <canvas id="scalSnCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Nombre de super-nœuds après coarsenisation. Une compression plus forte = graphe plus compact pour le vote Borda.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Taux de compression (super-nœuds / utilisateurs). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Les chutes abruptes correspondent aux phénomènes top-k stable.</p>
     </div>
     <div class="card">
       <div class="card-title">Métriques EDI de « Ours » à travers les échelles</div>
       <canvas id="scalEdiCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">ΔE (vert) et ILD (bleu) de la méthode Ours à k=10. La stabilité des métriques confirme la robustesse de l'approche.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">ΔE (vert, 1−ΔE affiché) et ILD (bleu) pour Ours à k=10. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les deux métriques.</p>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
@@ -1521,9 +1521,7 @@ window.addEventListener('resize',()=>{
 });
 
 // ── SCALABILITÉ DATA ────────────────────────────────────────────────────────
-// Résultats réels (k=10, θ=4.0) — mis à jour après run_scalability.py
-// Résultats réels — run_scalability.py (k=10, θ=4.0, graine=42)
-// Note : n=500 → phénomène top-k stable (5 super-nœuds, 289s — cf. k=5 sur 1M)
+// ML-1M : sous-ensembles stratifiés 500→6040 (run_scalability.py, k=10, θ=4.0)
 const SCAL_DATA={
   500:{n_F:141,n_M:359,n_ratings:88748,
     "Average Score":{elapsed_s:.0041,dE:.0115,ILD:.9732,inc_F:.0043,inc_M:.0019},
@@ -1567,6 +1565,77 @@ const SCAL_DATA={
   }
 };
 const SCAL_SIZES=[500,1000,2000,4000,6040];
+
+// ML-100k : sous-ensembles stratifiés 100→943 (run_scalability_fine.py, k=10, θ=4.0)
+// n=700 et n=943 : phénomène top-k stable (289s et 517s respectivement)
+const SCAL_100K_DATA={
+  100:{n_F:29,n_M:71,n_ratings:9619,
+    "Average Score":{elapsed_s:.002,dE:.0852,ILD:.4376},
+    "Borda":{elapsed_s:.065,dE:.4892,ILD:.3477},
+    "Weighted Borda":{elapsed_s:.072,dE:.3555,ILD:.3317},
+    "Condorcet":{elapsed_s:.012,dE:.4475,ILD:.3528},
+    "Fair Re-rank":{elapsed_s:.144,dE:.0246,ILD:.4738},
+    "Ours":{elapsed_s:.311,dE:.1607,ILD:.5252,n_supernodes:50,ratio:.5}
+  },
+  150:{n_F:43,n_M:107,n_ratings:13953,
+    "Average Score":{elapsed_s:.001,dE:.0072,ILD:.9333},
+    "Borda":{elapsed_s:.093,dE:.458,ILD:.3795},
+    "Weighted Borda":{elapsed_s:.105,dE:.4158,ILD:.3761},
+    "Condorcet":{elapsed_s:.018,dE:.4556,ILD:.3772},
+    "Fair Re-rank":{elapsed_s:.188,dE:.0398,ILD:.4828},
+    "Ours":{elapsed_s:.506,dE:.3615,ILD:.4662,n_supernodes:61,ratio:.407}
+  },
+  200:{n_F:58,n_M:142,n_ratings:20615,
+    "Average Score":{elapsed_s:.002,dE:.0129,ILD:.9872},
+    "Borda":{elapsed_s:.127,dE:.2055,ILD:.3703},
+    "Weighted Borda":{elapsed_s:.143,dE:.1728,ILD:.3314},
+    "Condorcet":{elapsed_s:.026,dE:.1673,ILD:.3635},
+    "Fair Re-rank":{elapsed_s:.234,dE:.0037,ILD:.4186},
+    "Ours":{elapsed_s:.703,dE:.2186,ILD:.4505,n_supernodes:82,ratio:.41}
+  },
+  300:{n_F:87,n_M:213,n_ratings:33475,
+    "Average Score":{elapsed_s:.002,dE:.0096,ILD:.9778},
+    "Borda":{elapsed_s:.188,dE:.4975,ILD:.3216},
+    "Weighted Borda":{elapsed_s:.210,dE:.3732,ILD:.3469},
+    "Condorcet":{elapsed_s:.038,dE:.3732,ILD:.3469},
+    "Fair Re-rank":{elapsed_s:.318,dE:.0906,ILD:.4356},
+    "Ours":{elapsed_s:1.236,dE:.0801,ILD:.5284,n_supernodes:61,ratio:.203}
+  },
+  400:{n_F:116,n_M:284,n_ratings:42612,
+    "Average Score":{elapsed_s:.002,dE:.0032,ILD:.9306},
+    "Borda":{elapsed_s:.263,dE:.4757,ILD:.3674},
+    "Weighted Borda":{elapsed_s:.275,dE:.4343,ILD:.3855},
+    "Condorcet":{elapsed_s:.051,dE:.4757,ILD:.3674},
+    "Fair Re-rank":{elapsed_s:.390,dE:.0796,ILD:.504},
+    "Ours":{elapsed_s:1.615,dE:.3052,ILD:.4727,n_supernodes:80,ratio:.2}
+  },
+  500:{n_F:145,n_M:355,n_ratings:52603,
+    "Average Score":{elapsed_s:.003,dE:.0156,ILD:.9678},
+    "Borda":{elapsed_s:.310,dE:.496,ILD:.3354},
+    "Weighted Borda":{elapsed_s:.341,dE:.4868,ILD:.3289},
+    "Condorcet":{elapsed_s:.063,dE:.496,ILD:.3354},
+    "Fair Re-rank":{elapsed_s:.490,dE:.1896,ILD:.403},
+    "Ours":{elapsed_s:3.908,dE:.26,ILD:.5905,n_supernodes:8,ratio:.016,stable_topk:true}
+  },
+  700:{n_F:203,n_M:497,n_ratings:73879,
+    "Average Score":{elapsed_s:.003,dE:.0071,ILD:.9909},
+    "Borda":{elapsed_s:.437,dE:.3923,ILD:.3512},
+    "Weighted Borda":{elapsed_s:.490,dE:.3923,ILD:.3512},
+    "Condorcet":{elapsed_s:.093,dE:.412,ILD:.3531},
+    "Fair Re-rank":{elapsed_s:.620,dE:.1336,ILD:.3789},
+    "Ours":{elapsed_s:289.304,dE:.2181,ILD:.5213,n_supernodes:6,ratio:.009,stable_topk:true}
+  },
+  943:{n_F:273,n_M:670,n_ratings:100000,
+    "Average Score":{elapsed_s:.004,dE:.0068,ILD:1.0},
+    "Borda":{elapsed_s:.591,dE:.4249,ILD:.354},
+    "Weighted Borda":{elapsed_s:.674,dE:.4249,ILD:.354},
+    "Condorcet":{elapsed_s:.123,dE:.4459,ILD:.3559},
+    "Fair Re-rank":{elapsed_s:.837,dE:.1623,ILD:.4295},
+    "Ours":{elapsed_s:517.138,dE:.3511,ILD:.4482,n_supernodes:5,ratio:.005,stable_topk:true}
+  }
+};
+const SCAL_100K_SIZES=[100,150,200,300,400,500,700,943];
+
 const MCOLS_SCAL={
   "Average Score":"coral","Borda":"blue","Weighted Borda":"cyan",
   "Condorcet":"amber","Fair Re-rank":"purple","Ours":"green"
@@ -1582,18 +1651,17 @@ function scalCtx(id,h){
 }
 function scalCss(v){return getComputedStyle(document.documentElement).getPropertyValue('--'+v).trim();}
 
-// ── Runtime curve ──────────────────────────────────────────────────────────
+// ── Runtime curve — vue combinée 100→6040 ──────────────────────────────────
 function drawScalRuntime(){
-  const r=scalCtx('scalRtCanvas',280); if(!r)return;
+  const r=scalCtx('scalRtCanvas',300); if(!r)return;
   const {ctx,W,H}=r;
-  const t1=scalCss('t1'),t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2');
-  const pad={l:64,r:20,t:18,b:46};
+  const t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2');
+  const pad={l:64,r:80,t:20,b:46};
   const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
 
-  // Log Y scale: 0.001 → 1000
   const logMin=-3,logMax=3;
-  const xScale=n=>(Math.log10(n)-Math.log10(500))/(Math.log10(6040)-Math.log10(500));
-  const xPos=n=>pad.l+xScale(n)*pw;
+  const xLogMin=Math.log10(100), xLogMax=Math.log10(6040);
+  const xPos=n=>pad.l+(Math.log10(n)-xLogMin)/(xLogMax-xLogMin)*pw;
   const yPos=t=>pad.t+ph*(1-(Math.log10(Math.max(t,0.0005))-logMin)/(logMax-logMin));
 
   // Grid Y
@@ -1608,8 +1676,9 @@ function drawScalRuntime(){
   });
   ctx.setLineDash([]);
 
-  // Grid X
-  SCAL_SIZES.forEach(n=>{
+  // Grid X — ticks couvrant 100→6040
+  const xticks=[100,200,400,1000,2000,4000,6040];
+  xticks.forEach(n=>{
     const x=xPos(n);
     ctx.strokeStyle=s2; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ph); ctx.stroke();
@@ -1617,9 +1686,24 @@ function drawScalRuntime(){
     ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
   });
   ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
+  ctx.fillText('Utilisateurs (échelle log)',pad.l+pw/2,H-4);
 
-  // Lines
+  // ML-100k — lignes tiretées, marqueurs creux
+  METHODS.forEach(m=>{
+    const col=scalCss(MCOLS_SCAL[m]);
+    const isO=m==='Ours';
+    const pts=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n][m].elapsed_s),n}));
+    ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=isO?2:1.5;
+    ctx.setLineDash([5,3]);
+    pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+    ctx.stroke(); ctx.setLineDash([]);
+    pts.forEach(p=>{
+      ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=1.5;
+      ctx.arc(p.x,p.y,isO?4:2.5,0,Math.PI*2); ctx.stroke();
+    });
+  });
+
+  // ML-1M — lignes pleines, marqueurs remplis
   METHODS.forEach(m=>{
     const col=scalCss(MCOLS_SCAL[m]);
     const isO=m==='Ours';
@@ -1631,61 +1715,68 @@ function drawScalRuntime(){
       ctx.beginPath(); ctx.fillStyle=col;
       ctx.arc(p.x,p.y,isO?4.5:3,0,Math.PI*2); ctx.fill();
     });
-    // Label at last point
     const last=pts[pts.length-1];
     const abbrev={"Average Score":"Avg","Borda":"Borda","Weighted Borda":"W.Borda",
       "Condorcet":"Condorcet","Fair Re-rank":"Fair","Ours":"Ours"}[m];
-    ctx.fillStyle=col; ctx.font=(isO?'bold ':'')+'9px sans-serif';
-    ctx.textAlign='left';
+    ctx.fillStyle=col; ctx.font=(isO?'bold ':'')+'9px sans-serif'; ctx.textAlign='left';
     ctx.fillText(abbrev,last.x+5,last.y+3);
   });
 
-  // Annotation stable top-k pour n=500 Ours
+  // Annotations top-k stable
+  const amber=scalCss('amber');
+  // 100k n=700 (289s)
+  {
+    const x0=xPos(700), y0=yPos(SCAL_100K_DATA[700]["Ours"].elapsed_s);
+    ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+    ctx.moveTo(x0-8,y0-8); ctx.lineTo(x0-30,y0-26); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='right';
+    ctx.fillText('⚠ top-k stable',x0-32,y0-24);
+    ctx.fillText('100k n=700',x0-32,y0-14);
+  }
+  // 1M n=500 (289s)
   {
     const x0=xPos(500), y0=yPos(SCAL_DATA[500]["Ours"].elapsed_s);
-    const amber=scalCss('amber');
     ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
-    ctx.moveTo(x0+6,y0+6); ctx.lineTo(x0+36,y0+28); ctx.stroke(); ctx.setLineDash([]);
+    ctx.moveTo(x0+6,y0+6); ctx.lineTo(x0+26,y0+22); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='left';
-    ctx.fillText('⚠ top-k stable',x0+38,y0+31);
-    ctx.fillText('(5 super-nœuds)',x0+38,y0+41);
+    ctx.fillText('⚠ 1M n=500',x0+28,y0+26);
   }
 
   // Legend
   const leg=document.getElementById('scalRtLegend');
   if(leg){
-    leg.innerHTML=METHODS.map(m=>`<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:18px;height:3px;border-radius:2px;background:${scalCss(MCOLS_SCAL[m])}"></span>${m}</span>`).join('');
+    const dsLeg=`<span style="display:flex;align-items:center;gap:5px;margin-right:12px"><span style="display:inline-block;width:18px;height:0;border-top:2px dashed var(--t2)"></span><span style="color:var(--t2)">ML-100k</span></span><span style="display:flex;align-items:center;gap:5px;margin-right:16px"><span style="display:inline-block;width:18px;height:3px;background:var(--t2);border-radius:2px"></span><span style="color:var(--t2)">ML-1M</span></span>`;
+    const mLeg=METHODS.map(m=>`<span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:18px;height:3px;border-radius:2px;background:${scalCss(MCOLS_SCAL[m])}"></span>${m}</span>`).join('');
+    leg.innerHTML=dsLeg+mLeg;
   }
 }
 
-// ── Supernode chart ────────────────────────────────────────────────────────
+// ── Compression ratio — deux datasets ──────────────────────────────────────
 function drawScalSn(){
   const r=scalCtx('scalSnCanvas',200); if(!r)return;
   const {ctx,W,H}=r;
   const t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2'),green=scalCss('green');
-  const pad={l:52,r:30,t:18,b:42};
+  const cyan=scalCss('cyan');
+  const pad={l:44,r:24,t:18,b:42};
   const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
 
-  const snVals=SCAL_SIZES.map(n=>SCAL_DATA[n]["Ours"].n_supernodes||0);
-  const snMax=Math.max(...snVals)*1.1;
-  const xScale=n=>(Math.log10(n)-Math.log10(500))/(Math.log10(6040)-Math.log10(500));
-  const xPos=n=>pad.l+xScale(n)*pw;
-  const yPos=v=>pad.t+ph*(1-v/snMax);
+  const xLogMin=Math.log10(100), xLogMax=Math.log10(6040);
+  const xPos=n=>pad.l+(Math.log10(n)-xLogMin)/(xLogMax-xLogMin)*pw;
+  const yPos=v=>pad.t+ph*(1-v);  // ratio 0→1
 
   // Grid Y
-  const yTicks=[0,500,1000,1500,2000,2500,3000];
   ctx.setLineDash([3,4]);
-  yTicks.forEach(v=>{
-    const y=yPos(v); if(y<pad.t||y>pad.t+ph)return;
+  [0,.1,.2,.3,.4,.5].forEach(v=>{
+    const y=yPos(v);
     ctx.strokeStyle=s2; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+pw,y); ctx.stroke();
     ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='right';
-    ctx.fillText(v>=1000?(v/1000).toFixed(1)+'k':v,pad.l-4,y+3);
+    ctx.fillText((v*100).toFixed(0)+'%',pad.l-4,y+3);
   });
   ctx.setLineDash([]);
 
   // X labels
-  SCAL_SIZES.forEach(n=>{
+  [100,200,400,1000,2000,4000,6040].forEach(n=>{
     const x=xPos(n);
     ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='center';
     ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
@@ -1693,43 +1784,50 @@ function drawScalSn(){
   ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
   ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
 
-  // Fill area
-  const pts=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["Ours"].n_supernodes||0)}));
-  ctx.beginPath(); ctx.moveTo(pts[0].x,pad.t+ph);
-  pts.forEach(p=>ctx.lineTo(p.x,p.y));
-  ctx.lineTo(pts[pts.length-1].x,pad.t+ph);
-  ctx.closePath();
-  ctx.fillStyle='rgba(18,232,122,.1)'; ctx.fill();
-
-  // Line
-  ctx.beginPath(); ctx.strokeStyle=green; ctx.lineWidth=2.5;
-  pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-  ctx.stroke();
-
-  // Dots + labels
-  pts.forEach((p,i)=>{
-    const n=SCAL_SIZES[i];
-    const sn=SCAL_DATA[n]["Ours"].n_supernodes;
-    ctx.beginPath(); ctx.fillStyle=green; ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill();
-    if(sn){
-      ctx.fillStyle=green; ctx.font='9px sans-serif'; ctx.textAlign='center';
-      ctx.fillText(sn>=1000?(sn/1000).toFixed(1)+'k':sn,p.x,p.y-8);
-    }
+  // ML-100k — taux de compression, ligne tiretée cyan
+  const pts100k=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n]["Ours"].ratio),n}));
+  ctx.beginPath(); ctx.strokeStyle=cyan; ctx.lineWidth=2; ctx.setLineDash([5,3]);
+  pts100k.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+  ctx.stroke(); ctx.setLineDash([]);
+  pts100k.forEach(p=>{
+    ctx.beginPath(); ctx.strokeStyle=cyan; ctx.lineWidth=1.5;
+    ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.stroke();
   });
+
+  // ML-1M — taux de compression, ligne pleine verte
+  const pts1m=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["Ours"].ratio)}));
+  ctx.beginPath(); ctx.fillStyle='rgba(18,232,122,.08)'; ctx.moveTo(pts1m[0].x,pad.t+ph);
+  pts1m.forEach(p=>ctx.lineTo(p.x,p.y));
+  ctx.lineTo(pts1m[pts1m.length-1].x,pad.t+ph); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.strokeStyle=green; ctx.lineWidth=2.5;
+  pts1m.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+  ctx.stroke();
+  pts1m.forEach((p,i)=>{
+    const v=SCAL_DATA[SCAL_SIZES[i]]["Ours"].ratio;
+    ctx.beginPath(); ctx.fillStyle=green; ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=green; ctx.font='9px sans-serif'; ctx.textAlign='center';
+    ctx.fillText((v*100).toFixed(0)+'%',p.x,p.y-8);
+  });
+
+  // Légende
+  ctx.fillStyle=green; ctx.font='bold 8px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('1M',pad.l+4,pad.t+12);
+  ctx.fillStyle=cyan;
+  ctx.fillText('100k',pad.l+24,pad.t+12);
 }
 
-// ── EDI metrics curve ──────────────────────────────────────────────────────
+// ── EDI metrics — deux datasets ────────────────────────────────────────────
 function drawScalEdi(){
   const r=scalCtx('scalEdiCanvas',200); if(!r)return;
   const {ctx,W,H}=r;
   const t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2');
   const green=scalCss('green'),blue=scalCss('blue');
-  const pad={l:48,r:30,t:18,b:42};
+  const pad={l:44,r:24,t:18,b:42};
   const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
 
-  const xScale=n=>(Math.log10(n)-Math.log10(500))/(Math.log10(6040)-Math.log10(500));
-  const xPos=n=>pad.l+xScale(n)*pw;
-  const yPos=v=>pad.t+ph*(1-v);  // 0–1 range
+  const xLogMin=Math.log10(100), xLogMax=Math.log10(6040);
+  const xPos=n=>pad.l+(Math.log10(n)-xLogMin)/(xLogMax-xLogMin)*pw;
+  const yPos=v=>pad.t+ph*(1-v);
 
   // Grid Y
   ctx.setLineDash([3,4]);
@@ -1743,7 +1841,7 @@ function drawScalEdi(){
   ctx.setLineDash([]);
 
   // X labels
-  SCAL_SIZES.forEach(n=>{
+  [100,200,400,1000,2000,4000,6040].forEach(n=>{
     const x=xPos(n);
     ctx.fillStyle=t2; ctx.font='9px sans-serif'; ctx.textAlign='center';
     ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
@@ -1751,37 +1849,48 @@ function drawScalEdi(){
   ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
   ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
 
-  // ILD line (blue)
-  const ptsILD=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["Ours"].ILD)}));
-  ctx.beginPath(); ctx.strokeStyle=blue; ctx.lineWidth=2;
-  ptsILD.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-  ctx.stroke();
-  ptsILD.forEach(p=>{ctx.beginPath();ctx.fillStyle=blue;ctx.arc(p.x,p.y,3.5,0,Math.PI*2);ctx.fill();});
-  ctx.fillStyle=blue; ctx.font='bold 8px sans-serif'; ctx.textAlign='right';
-  ctx.fillText('ILD↑',ptsILD[0].x-6,ptsILD[0].y+3);
+  // Fonction helper pour tracer une courbe
+  function drawLine(sizes,getData,col,solid,dotFill,r){
+    const pts=sizes.map(n=>({x:xPos(n),y:yPos(getData(n))}));
+    ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=2;
+    if(!solid)ctx.setLineDash([5,3]);
+    pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
+    ctx.stroke(); ctx.setLineDash([]);
+    pts.forEach(p=>{
+      ctx.beginPath();
+      if(dotFill){ctx.fillStyle=col;ctx.arc(p.x,p.y,r||3.5,0,Math.PI*2);ctx.fill();}
+      else{ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.arc(p.x,p.y,r||3,0,Math.PI*2);ctx.stroke();}
+    });
+  }
 
-  // dE line (green, inverted: show 1-dE so higher = better)
-  const ptsdE=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(1-SCAL_DATA[n]["Ours"].dE)}));
-  ctx.beginPath(); ctx.strokeStyle=green; ctx.lineWidth=2; ctx.setLineDash([5,3]);
-  ptsdE.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-  ctx.stroke(); ctx.setLineDash([]);
-  ptsdE.forEach(p=>{ctx.beginPath();ctx.fillStyle=green;ctx.arc(p.x,p.y,3.5,0,Math.PI*2);ctx.fill();});
-  ctx.fillStyle=green; ctx.font='bold 8px sans-serif'; ctx.textAlign='right';
-  ctx.fillText('1−ΔE↑',ptsdE[0].x-6,ptsdE[0].y+3);
+  // ILD — 1M plein bleu, 100k tiretée bleu creux
+  drawLine(SCAL_100K_SIZES, n=>SCAL_100K_DATA[n]["Ours"].ILD, blue, false, false);
+  drawLine(SCAL_SIZES, n=>SCAL_DATA[n]["Ours"].ILD, blue, true, true);
+
+  // 1-ΔE — 1M plein vert, 100k tiretée vert creux
+  drawLine(SCAL_100K_SIZES, n=>1-SCAL_100K_DATA[n]["Ours"].dE, green, false, false);
+  drawLine(SCAL_SIZES, n=>1-SCAL_DATA[n]["Ours"].dE, green, true, true);
+
+  // Labels
+  ctx.fillStyle=blue; ctx.font='bold 8px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('ILD↑',pad.l+4,pad.t+12);
+  ctx.fillStyle=green;
+  ctx.fillText('1−ΔE↑',pad.l+30,pad.t+12);
 }
 
-// ── Scalability table ──────────────────────────────────────────────────────
+// ── Scalability table — ML-1M ──────────────────────────────────────────────
 function buildScalTable(){
   const tbl=document.getElementById('scalTbl');
   if(!tbl)return;
-  const head=`<tr><th>Méthode</th>${SCAL_SIZES.map(n=>`<th colspan="2">${n>=1000?(n/1000)+'k':n} utilisateurs</th>`).join('')}</tr>
+  const head=`<tr><th>Méthode</th>${SCAL_SIZES.map(n=>`<th colspan="2">ML-1M ${n>=1000?(n/1000)+'k':n}</th>`).join('')}</tr>
 <tr><th></th>${SCAL_SIZES.map(()=>'<th>Temps</th><th>ΔE</th>').join('')}</tr>`;
   const rows=METHODS.map(m=>{
     const cells=SCAL_SIZES.map(n=>{
       const d=SCAL_DATA[n][m];
       const t=d.elapsed_s;
       const tStr=t<.01?'<0.01s':t<1?t.toFixed(2)+'s':t<60?t.toFixed(1)+'s':(t/60).toFixed(1)+'min';
-      return `<td style="font-variant-numeric:tabular-nums">${tStr}</td><td style="font-variant-numeric:tabular-nums">${d.dE.toFixed(3)}</td>`;
+      const stk=m==='Ours'&&d.stable_topk?` style="color:var(--amber)"`:''
+      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums">${d.dE.toFixed(3)}</td>`;
     }).join('');
     const isO=m==='Ours';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;

@@ -34,6 +34,7 @@ Données : **MovieLens 1M** — 6 040 utilisateurs (1 709 F / 4 331 M), 3 706 fi
 | `experiments_results.json` | Résultats 100k — 6 méthodes × k ∈ {5,10,20} (ΔE, ILD, inclusion) |
 | `experiments_results_1m.json` | Résultats 1M — 6 méthodes × k ∈ {5,10,20} |
 | `scalability_results.json` | Scalabilité MovieLens 1M — 6 méthodes × 5 tailles (500, 1k, 2k, 4k, 6 040) |
+| `scalability_100k_results.json` | Scalabilité fine-grained ML-100k — 6 méthodes × 8 tailles (100→943 utilisateurs) |
 | `sensitivity_results.json` | Résultats analyse de sensibilité |
 | `fig_edi_baselines.png` | Figure comparative : 6 méthodes × k ∈ {5,10,20} (100k) |
 | `fig_comparison_100k_1m.png` | Comparaison 100k vs 1M — scalabilité |
@@ -109,7 +110,7 @@ Temps de calcul : k=5 → 14.8h (phénomène top-5 stable) ; k=10/20 → ~70s.
 | Phase 3 — Développement algorithme | Juillet | ✅ Terminé | `edi_coarsening.py` |
 | Phase 4 — Implémentation & baselines | Juillet | ✅ Terminé | `edi_baselines.py`, `run_all_experiments.py` |
 | Phase 5 — Évaluation | Juillet | ✅ Terminé | `experiments_results.json`, figures, tables, scalabilité |
-| Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` — 6 méthodes × 5 tailles (500→6 040) |
+| Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` (1M, 500→6 040) + `scalability_100k_results.json` (100k, 100→943) — vue combinée 100→6 040 |
 | Phase 6 — Article de recherche | Juillet–Août | ⏳ En cours | Paper LLNCS (Overleaf) |
 
 ---
