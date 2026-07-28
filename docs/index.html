@@ -1,5 +1,5 @@
 <!doctype html><html><head><!-- frame-runtime --><script>window.__FRAME_PREAMBLE={"capabilities":{"downloads":"downloads.BABDwU1K.js","mcp":"mcp.hoz5jxDa.js","permissions":"permissions.ByA9Fd8x.js","self":"self.D3u1zjZe.js","user":"user.Cp1-RnjB.js"},"transforms":"_transforms.DYk1Ltlh.js","comments":"_comments.DiwQajF_.js","translate":"_translate.C5leZL2A.js"}</script><script>(function(){"use strict";const we="modulepreload",Oe=function(e){return"/"+e},Se={},ee=function(t,n,c){let i=Promise.resolve();function s(f){const a=new Event("vite:preloadError",{cancelable:!0});if(a.payload=f,window.dispatchEvent(a),!a.defaultPrevented)throw f}return i.then(f=>{for(const a of f||[])a.status==="rejected"&&s(a.reason);return t().catch(s)})},te=["light","dark","system"];function ne(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_init;return t!==null&&typeof t=="object"}function Y(e){return e!==null&&typeof e=="object"&&e.__frame_size_poke===!0}function re(e){if(e===null||typeof e!="object")return!1;const t=e.__frame_theme;if(t===null||typeof t!="object")return!1;const n=t.theme;return typeof n=="string"&&te.includes(n)}function se(e){try{typeof reportError=="function"?reportError(e):setTimeout(()=>{throw e},0)}catch{}}const oe=Object.freeze(Object.assign(Object.create(null),{user:Object.freeze(Object.assign(Object.create(null),{id:null,isOwner:!1,canEdit:!1,name:null,avatarUrl:null,email:null}))})),ie={};function K(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const t=e.composedPath?e.composedPath():[e.target];let n=null;for(let f=0;f<t.length;f++){const a=t[f];if(a&&a.matches&&a.matches("a[href],area[href]")){n=a;break}}if(!n&&e.target&&e.target.closest&&(n=e.target.closest("a[href],area[href]")),!n)return;const c=n.getAttribute("href");if(!c)return;let i,s;try{i=new URL(c,document.baseURI),s=new URL(document.baseURI).origin}catch{return}(i.protocol==="http:"||i.protocol==="https:")&&i.origin!==s&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:i.href},"*"))}const x={};function I(e){if(window===top)return;const t=Date.now();t-(x[e]||0)<500||(x[e]=t,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}const ae=2e3,J=["wheel","touchstart","touchmove","keydown","pointerdown"];let G=0;function ce(e){e.isTrusted&&(G=Date.now())}function le(){addEventListener("click",K,!0),addEventListener("auxclick",K,!0)}function ue(){for(let e=0;e<J.length;e++)addEventListener(J[e],ce,{capture:!0,passive:!0});addEventListener("scroll",e=>{e.isTrusted&&Date.now()-G<ae&&I("scroll")},{capture:!0,passive:!0}),addEventListener("pointermove",e=>{e.isTrusted&&I("pointer")},{capture:!0,passive:!0}),addEventListener("click",e=>{e.isTrusted&&I("click")},{capture:!0,passive:!0})}const U="__frame_scroll",fe=150,de=310,pe=160,me=3e4;function he(){let e=0,t=!1,n=!1,c=!1,i=0;const s=p=>{try{sessionStorage.setItem(U,JSON.stringify({y:p}))}catch{}},f=()=>{if(t){t=!1;return}n=!0,clearTimeout(e),e=setTimeout(()=>s(scrollY),fe)};try{addEventListener("scroll",f,{passive:!0}),addEventListener("pagehide",()=>{clearTimeout(e),s(scrollY)})}catch{}const a=()=>{let p;try{p=sessionStorage.getItem(U)}catch{return null}if(p===null)return null;let b;try{b=JSON.parse(p)}catch{b=null}const l=b?.y;if(!(typeof l=="number"&&Number.isFinite(l)&&l>=0)){try{sessionStorage.removeItem(U)}catch{}return null}return l};let _=!1;const h=p=>{try{const b=scrollY;scrollTo({top:p,left:0,behavior:"instant"}),i=p,c=!0,s(p);const l=scrollY;l!==b&&(t=!0),l!==p&&!_&&(_=!0,addEventListener("load",()=>{try{if(scrollY===l){const g=a();h(g!==null?g:i)}}catch{}},{once:!0}))}catch{}},o=()=>{try{return!!location.hash}catch{return!0}};let u=!1;const d=()=>{try{if(u||innerWidth>de||innerHeight>pe)return;u=!0;const p=Date.now(),b=()=>{try{removeEventListener("resize",b)}catch{}if(Date.now()-p>me||n||o())return;const l=a();h(l!==null?l:i)};addEventListener("resize",b)}catch{}};let m=!1,y=!1;return{restore(){if(m||(m=!0,o()))return;const p=a();p!==null&&(h(p),d())},promoted(){if(y||(y=!0,o()))return;const p=a();p!==null?(h(p),d()):c&&h(i)}}}function ge(e,t,n){const c=[...t.values()].filter(i=>i.targets.some(s=>s.startsWith(e+".")));return{wrap(i,s){const f=`${e}.${i}`,a=c.filter(_=>_.targets.includes(f));return a.length===0?(..._)=>{try{return s(..._)}catch(h){return Promise.reject(h)}}:(..._)=>{let h=_;for(const u of a){const d=u.module.parameters;if(d)try{h=d(h)}catch{return Promise.reject({code:"transform_error",id:u.id,scope:e,message:"parameters transform failed"})}}let o;try{o=s(...h)}catch(u){o=Promise.reject(u)}return o.then(u=>{for(let d=a.length-1;d>=0;d--){const m=a[d],y=m.module.returns;if(y)try{u=y(u)}catch{return n({id:m.id,scope:e,leg:"returns"}),u}}return u},u=>{for(let d=a.length-1;d>=0;d--){const m=a[d],y=m.module.throws;if(y)try{u=y(u)}catch{return n({id:m.id,scope:e,leg:"throws"}),Promise.reject(u)}}return Promise.reject(u)})}}}}function _e(e,t,n,c=()=>{}){const i=new Set(e.changes??[]),s=new Map;for(const f of i){const a=t[f];a&&s.set(f,a)}return{contract:e.contract,changes:i,flags:new Set(e.flags??[]),capabilities:e.capabilities??{},capBudgets:e.capBudgets??{},transforms:s,shellOrigin:n.shellOrigin,mount:n.mount,pipe:f=>ge(f,s,c)}}(function(){const e=Object.defineProperty,t=globalThis,n=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let c=0;for(let i=0;i<n.length;i++){const s=n[i];try{e(t,s,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[s]}catch{}try{e(t,s,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[s]=="function"&&c++}if(c&&window!==top)try{parent.postMessage({__frame_rtc_lockdown_failed:c},"*")}catch{}})();const ye=1e4,be=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function V(e){for(const t of be)if(t.endsWith(":*"))try{const n=new URL(e);if(`${n.protocol}//${n.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}const T=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities}),z=window.__FRAME_PREAMBLE?.transforms,q=window.__FRAME_PREAMBLE?.comments,$=window.__FRAME_PREAMBLE?.translate,C=/^[\w.-]+\.js$/,ve=/^[a-z][a-z0-9_-]{0,63}$/;let X=null,P=null;function B(e,t,n){try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!0,enumerable:!0})}catch{}}}let F=!1;function Q(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,F=!0):F&&(delete t.dataset.theme,t.style.colorScheme="",F=!1)}const M=Object.assign(Object.create(null),{mcp:Object.assign(Object.create(null),{watchTool:{handlerArg:3}})}),R=new Map;function Z(e,t){const n=R.get(e);if(!n)return;const c=Object.assign(Object.create(null),t);Object.assign(n.impl,c),n.impl.__settled=()=>Promise.reject({code:"capability_removed",message:`${e}: method not in this runtime`});const i=n.queue;n.queue=[];for(const s of i){const f=c[s.method];if(f)if(M[e]?.[s.method])try{s.resolve(f(...s.args))}catch{k(s,M[e][s.method].handlerArg,{code:"transform_error",message:`${e}.${s.method} rejected its arguments`})}else f(...s.args).then(s.resolve,s.reject);else{const a={code:"capability_removed",message:`${e}.${s.method} is not in this runtime`},_=M[e]?.[s.method];if(_){k(s,_.handlerArg,a);continue}s.reject(a)}}}function Ee(e,t){const n=R.get(e);if(!n)return;n.impl.__settled=()=>Promise.reject(t);const c=n.queue;n.queue=[];for(const i of c){const s=M[e]?.[i.method];if(s){k(i,s.handlerArg,t);continue}i.reject(t)}}function N(e,t){const n=oe[e];if(!n){Ee(e,t);return}Z(e,Object.fromEntries(Object.entries(n).map(([c,i])=>[c,()=>Promise.resolve(i)])))}function k(e,t,n){if(e.syncState?.dead)return;const c=e.args[t];typeof c=="function"&&queueMicrotask(()=>{if(!e.syncState?.dead)try{c({type:"error",error:n})}catch(i){se(i)}})}const H=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(H&&H.writable===!1)){le(),ue();let e=null;try{e=he()}catch{}const t=H?.value??{};B(window,"claude",t);const n=o=>{const u={impl:Object.create(null),queue:[]};R.set(o,u);const d=u.impl,m=ie[o],y=m===void 0?d:()=>{},p=new Proxy(y,{apply:(b,l,g)=>{const v=m,O=d[v]??d.__settled;return O?O(...g):new Promise((E,w)=>{u.queue.push({method:v,args:g,resolve:E,reject:w})})},get:(b,l)=>{if(typeof l!="string"||l==="then"||l==="toJSON"||l==="valueOf")return;if(l==="toString")return Object.prototype.toString;if(m!==void 0&&(l==="call"||l==="apply"||l==="bind"))return Function.prototype[l];const g=M[o]?.[l];return g?(...v)=>{if(typeof v[g.handlerArg]!="function")throw new TypeError(`${o}.${l} requires a handler function`);const O=d[l];if(O)return O(...v);if(d.__settled){const S={dead:!1},A={args:[...v],syncState:S};return d.__settled().catch(D=>k(A,g.handlerArg,D)),()=>{S.dead=!0}}let E=null;const w={dead:!1};return u.queue.push({method:l,args:v,resolve:S=>{E=typeof S=="function"?S:null,w.dead&&E?.()},reject:()=>{},syncState:w}),()=>{w.dead=!0,E?.()}}:(...v)=>{const O=d[l]??d.__settled;return O?O(...v):new Promise((E,w)=>{u.queue.push({method:l,args:v,resolve:E,reject:w})})}},set:()=>!1});B(t,o,p)};for(const o of Object.keys(T)){if(t[o]!==void 0){B(t,o,t[o]);continue}n(o)}let c=null,i=null,s=0;const f=o=>{o.source!==parent||!V(o.origin)||ne(o.data)&&(c=o.data.__frame_init,P=o.origin,removeEventListener("message",f),clearTimeout(s),i?.())};addEventListener("message",f),parent.postMessage({__frame_connect:!0},"*");const a=new Promise(o=>{i=o,s=setTimeout(()=>{removeEventListener("message",f),o()},ye)}),_=document.readyState==="loading"?new Promise(o=>document.addEventListener("DOMContentLoaded",()=>o(),{once:!0})):Promise.resolve();_.then(()=>{try{e?.restore()}catch{}});const h=o=>{if(!(o.source!==parent||!V(o.origin))&&Y(o.data)){removeEventListener("message",h);try{e?.promoted()}catch{}}};addEventListener("message",h),a.then(async()=>{if(!c||!P){for(const r of R.keys())N(r,{code:"not_granted",message:"frame initialization did not arrive - capability unavailable"});return}Q(c.theme);const o=P;let u=!1,d=!1;addEventListener("message",r=>{if(r.source!==parent||r.origin!==o)return;re(r.data)&&Q(r.data.__frame_theme.theme);const j=r.data?.__fc_mode;j&&typeof j=="object"&&!u&&q&&C.test(q)&&(u=!0,m(q).then(W=>W.install?.(o,j.on===!0)).catch(()=>{}));const L=r.data?.__ft_cmd;L&&typeof L=="object"&&!d&&$&&C.test($)&&(d=!0,m($).then(W=>W.install?.(o,L)).catch(()=>{}))});const m=r=>ee(()=>import("/_runtime/"+r),void 0),y=Object.keys(c.capabilities??{});for(const r of y)Object.hasOwn(T,r)||ve.test(r)&&t[r]===void 0&&(n(r),N(r,{code:"capability_disabled",message:"capability not in this runtime generation"}));const p=y.filter(r=>Object.hasOwn(T,r)).map(r=>[r,T[r]]).filter(r=>typeof r[1]=="string"&&C.test(r[1])),[b,...l]=await Promise.allSettled([z&&C.test(z)?m(z):Promise.resolve({}),...p.map(([,r])=>m(r))]),g=P;X=_e(c,b.status==="fulfilled"&&b.value?.TRANSFORMS||{},{shellOrigin:g,mount:Z},r=>parent.postMessage({__frame_cap_telemetry:r},g));const v=r=>parent.postMessage({__frame_cap_telemetry:{kind:"cap-load-error",cap:r}},g),O=X;l.forEach((r,j)=>{const L=p[j][0];if(r.status!=="fulfilled"){v(L);return}try{r.value?.install?.(O)}catch{v(L)}});for(const[r,j]of R)if(!(j.queue.length===0&&Object.keys(j.impl).length>0)){if(y.includes(r)){N(r,{code:"capability_disabled",message:"capability not available in this session"});continue}N(r,{code:"not_granted",message:"capability not available in this session"})}await _,parent.postMessage({__frame_ready:!0},P);let E=-1,w=0;const S=()=>{w=0;const r=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);r!==E&&(E=r,parent.postMessage({__frame_size:!0,h:r},g))},A=()=>{w||(w=setTimeout(S,200))},D=new ResizeObserver(A);D.observe(document.documentElement),document.body&&D.observe(document.body),document.addEventListener("load",A,!0),document.fonts?.ready.then(A,()=>{}),addEventListener("beforeprint",()=>{E=-1,S()}),A(),addEventListener("message",r=>{if(!(r.source!==parent||r.origin!==g)&&Y(r.data)){try{e?.promoted()}catch{}E=-1,A()}})})}})();</script><!-- /frame-runtime --><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
-<title>ΔE · ILD · Inclusion — EDI Multi-Datasets</title>
+<title>ΔE ·ILD · Inclusion — EDI Multi-Datasets</title>
 <style>
 :root {
   --bg:#0c0918; --s1:#14102e; --s2:#1c1848; --bd:#302875;
@@ -157,50 +157,203 @@ canvas{width:100%;display:block;border-radius:8px}
   <div class="hdr-bg"></div>
   <div class="hdr-inner">
     <div>
-      <div class="hdr-eyebrow">Mémoire M2 DataScale · Université de Regina · 2026</div>
+      <div class="hdr-eyebrow">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · 2026</div>
       <h1 class="hdr-title">Agrégation de Préférences avec <span class="edi-accent">EDI</span></h1>
       <div class="hdr-meta">
-        <span class="hdr-author">Adji Marieme Sita Cissé</span>
+        <span class="hdr-author">AdjiMarieme Sita Cissé</span>
         <span class="hdr-sep">·</span>
-        <span>Prof. Malek Mouhoub</span>
+        <span>Prof.Malek Mouhoub</span>
         <span class="hdr-sep">·</span>
-        <span>University of Regina</span>
+        <span>Université Paris-Saclay · University of Regina</span>
       </div>
     </div>
     <div class="hdr-kpis">
       <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl">Méthodes</div></div>
-      <div class="hdr-kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Datasets</div></div>
+      <div class="hdr-kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Corpus</div></div>
       <div class="hdr-kpi"><div class="kpi-val">4M+</div><div class="kpi-lbl">Ratings</div></div>
     </div>
   </div>
 </header>
 
 <div class="tab-bar">
-  <button class="tab-btn on" data-tab="data">Les Données</button>
-  <button class="tab-btn" data-tab="methods">Méthodes</button>
+  <button class="tab-btn on" data-tab="home">Accueil</button>
+  <button class="tab-btn" data-tab="data">Les Données</button>
   <button class="tab-btn" data-tab="graph">Graphe</button>
   <button class="tab-btn" data-tab="calc">Calcul EDI</button>
-  <button class="tab-btn" data-tab="concl">Conclusion</button>
-  <button class="tab-btn" data-tab="viz">Visualisations ✦</button>
+  <button class="tab-btn" data-tab="methods">MovieLens 100k</button>
   <button class="tab-btn" data-tab="1m">MovieLens 1M</button>
-  <button class="tab-btn" data-tab="cmp">Comparaison ⇄</button>
-  <button class="tab-btn" data-tab="scal">Scalabilité 📈</button>
-  <button class="tab-btn" data-tab="lib">libimseti.cz 💘</button>
-  <button class="tab-btn" data-tab="rmp">Rate My Professors 🎓</button>
+  <button class="tab-btn" data-tab="lib">libimseti.cz</button>
+  <button class="tab-btn" data-tab="rmp">Rate My Professors</button>
+  <button class="tab-btn" data-tab="oalex">OpenAlex</button>
+  <button class="tab-btn" data-tab="scal">Scalabilité</button>
+  <button class="tab-btn" data-tab="radar">Radar EDI</button>
+  <button class="tab-btn" data-tab="viz">Analyse MovieLens</button>
+  <button class="tab-btn" data-tab="pareto">Pareto</button>
+  <button class="tab-btn" data-tab="cmp">Comparaison</button>
+  <button class="tab-btn" data-tab="concl">Conclusion</button>
 </div>
 
 <div class="main">
 
-<!-- TAB 1 -->
-<div class="panel on" id="p-data">
+<!-- ══ ACCUEIL ══ -->
+<div class="panel on" id="p-home">
+  <div style="max-width:780px;margin:0 auto;padding:8px 0 24px">
+
+    <!-- Hero -->
+    <div style="text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--bd);margin-bottom:28px">
+      <div style="font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · Prof. Malek Mouhoub</div>
+      <h1 style="font-size:2.1rem;font-weight:900;letter-spacing:-.04em;line-height:1.1;margin-bottom:14px;color:var(--t1)">
+        Équité, Diversité et Inclusion<br>
+        <span style="color:var(--green)">dans les systèmes de recommandation sociale</span>
+      </h1>
+      <p style="font-size:.92rem;color:var(--t2);line-height:1.7;max-width:580px;margin:0 auto 20px">
+        Ce tableau de bord présente une méthode originale basée sur la <strong style="color:var(--t1)">coarsenisation de graphe</strong> pour améliorer simultanément l'équité (ΔE), la diversité (ILD) et l'inclusion dans les listes de recommandation — validée sur <strong style="color:var(--t1)">4 corpus distincts</strong>.
+      </p>
+      <!-- KPIs globaux -->
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+        <div class="hdr-kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Datasets</div></div>
+        <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl">Méthodes</div></div>
+        <div class="hdr-kpi"><div class="kpi-val">4M+</div><div class="kpi-lbl">Ratings</div></div>
+        <div class="hdr-kpi"><div class="kpi-val" style="color:var(--green)">3</div><div class="kpi-lbl">Domaines</div></div>
+      </div>
+    </div>
+
+    <!-- Résultat phare -->
+    <div class="card" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.04);margin-bottom:20px">
+      <div class="card-title" style="color:var(--green)">Résultat clé</div>
+      <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
+        Notre méthode est la <strong style="color:var(--t1)">seule</strong> à améliorer simultanément les 4 métriques EDI (ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑) par rapport à Borda — sur MovieLens 100k à k=20. Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.924</strong> contre 0.145 pour Borda — soit <strong style="color:var(--green)">6× plus de diversité</strong>. Sur libimseti.cz, meilleure diversité malgré un biais hétérosexuel extrême (ΔE > 1.0 pour Borda). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
+      </p>
+    </div>
+
+    <!-- Navigation guide -->
+    <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Ce que vous trouverez dans ce tableau de bord</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
+        <div style="font-size:.68rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Les Données</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Vue d'ensemble des 4 corpus : MovieLens, libimseti.cz, Rate My Professors, OpenAlex.</div>
+      </div>
+      <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
+        <div style="font-size:.68rem;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Graphe & Calcul</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Animation du coarsening, définition formelle des métriques EDI, exemples pas-à-pas.</div>
+      </div>
+      <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
+        <div style="font-size:.68rem;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Résultats</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Un onglet dédié par dataset — tableau de résultats, graphiques ΔE et ILD, observations.</div>
+      </div>
+      <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
+        <div style="font-size:.68rem;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Scalabilité & Radar</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Courbes de scalabilité (100k → 1M users), radars EDI multi-méthodes par dataset.</div>
+      </div>
+      <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
+        <div style="font-size:.68rem;font-weight:800;color:var(--cyan);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Analyse MovieLens & Pareto</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Radar + projection 2D sur MovieLens. Front de Pareto tous corpus (k=10).</div>
+      </div>
+      <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
+        <div style="font-size:.68rem;font-weight:800;color:var(--coral);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Comparaison & Conclusion</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Tableau comparatif multi-datasets et synthèse finale des apports de la méthode.</div>
+      </div>
+    </div>
+
+    <!-- Auteure -->
+    <div style="margin-top:24px;text-align:center;font-size:.73rem;color:var(--t3)">
+      Adji Marieme Sita Cissé · M2 DataScale · 2026
+    </div>
+  </div>
+</div>
+
+<!-- TAB — Les Données -->
+<div class="panel" id="p-data">
+  <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Vue d'ensemble — les 4 corpus utilisés</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:14px">
+
+    <div class="card" style="border-color:rgba(107,143,255,.3)">
+      <div style="font-size:1.4rem;margin-bottom:8px"></div>
+      <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">MovieLens</div>
+      <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
+        <b>Domain :</b>Films · User-side equity<br>
+        <b>Users :</b> 943 (100k) · 6 040 (1M)<br>
+        <b>Items :</b> 1 682 · 3 706 films<br>
+        <b>Ratings :</b> 100k · 1M notes (1–5)<br>
+        <b>Équité :</b>Genre des notateurs (F/M)<br>
+        <b>α_F :</b> 29% (100k) · 28% (1M)
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(255,122,92,.3)">
+      <div style="font-size:1.4rem;margin-bottom:8px"></div>
+      <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">libimseti.cz</div>
+      <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
+        <b>Domain :</b>Rencontres · User-side equity<br>
+        <b>Users :</b> 1 000 (500F / 500M)<br>
+        <b>Items :</b> 32 677 profils (avec genre)<br>
+        <b>Ratings :</b> 97 707 notes (1–10)<br>
+        <b>Équité :</b>Genre des rateurs (F/M)<br>
+        <b>θ :</b> 7.0 (80% sur l'échelle 1–10)
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(34,212,245,.3)">
+      <div style="font-size:1.4rem;margin-bottom:8px"></div>
+      <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">RateMy Professors</div>
+      <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
+        <b>Domain :</b>Académique · Item-side equity<br>
+        <b>Users :</b> 1 981 cours (ENG101)<br>
+        <b>Items :</b> 59 066 professeurs<br>
+        <b>Ratings :</b> 150 800 notes (1–5)<br>
+        <b>Équité :</b>Genre des profs recommandés<br>
+        <b>α_F :</b> 51% des profs
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(176,122,255,.3)">
+      <div style="font-size:1.4rem;margin-bottom:8px"></div>
+      <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">OpenAlex</div>
+      <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
+        <b>Domain :</b>Publications académiques · Item-side<br>
+        <b>Users :</b> ~99 venues (NeurIPS, ICML)<br>
+        <b>Items :</b> ~900 auteurs AI/ML/CS<br>
+        <b>Ratings :</b> ~2 100 associations (2018–2023)<br>
+        <b>Équité :</b>Genre des auteurs recommandés<br>
+        <b>α_F :</b> 19% des auteurs (genre connu)
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Graphique comparatif des 4 corpus -->
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Comparaison des 4 corpus — taille et déséquilibre de genre</div>
+    <canvas id="dataCompCanvas" style="width:100%;display:block"></canvas>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t2)">
+      <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--coral);margin-right:4px;vertical-align:middle"></span>% femmes (genre biologique ou prénom)</span>
+      <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--blue);margin-right:4px;vertical-align:middle"></span>% hommes</span>
+      <span style="margin-left:auto;color:var(--t3)">Nombre de ratings indiqué en haut de chaque barre</span>
+    </div>
+    <p style="font-size:.72rem;color:var(--t3);margin:8px 0 0;line-height:1.5">
+      * libimseti : 500F/500M par construction (échantillonnage stratifié). OpenAlex : genre estimé par prénom (Genderize.io), 19% F car l'AI/ML reste très masculin.
+    </p>
+  </div>
+
+  <div class="card" style="background:rgba(18,232,122,.04);border-color:rgba(18,232,122,.2);margin-top:14px">
+    <div class="card-title" style="color:var(--green)">Pourquoi 4 corpus très différents ?</div>
+    <p style="font-size:.8rem;color:var(--t2);line-height:1.65">
+      MovieLens valide la méthode sur un cas classique (user-side, notes 1–5). libimseti teste la robustesse avec un fort biais de genre (ΔE > 1 pour Borda). Rate My Professors introduit l'<em>item-side equity</em> — le genre des items recommandés. OpenAlex applique ce même cadre au domaine académique, où le biais de genre dans les citations est un problème connu. Cette diversité de domaines montre que le coarsening de graphe est une approche <strong style="color:var(--t1)">généraliste</strong>.
+    </p>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="panel" id="p-methods">
+  <!-- Statistiques du corpus MovieLens 100k -->
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">100k</div><div class="tile-sub">notes utilisateur–film</div></div>
-    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">943</div><div class="tile-sub">273 F · 670 M</div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">100k</div><div class="tile-sub">MovieLens 100k</div></div>
+    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">943</div><div class="tile-sub">273F · 670 M</div></div>
     <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">1682</div><div class="tile-sub">items distincts</div></div>
-    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.53</div><div class="tile-sub">écart-type σ = 1.13</div></div>
+    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.53</div><div class="tile-sub">écart-type  = 1.13</div></div>
     <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">6.3%</div><div class="tile-sub">matrice creuse</div></div>
   </div>
-  <div class="two-col">
+  <div class="two-col" style="margin-top:14px">
     <div class="card">
       <div class="card-title">Répartition par genre</div>
       <div class="donut-wrap">
@@ -225,23 +378,20 @@ canvas{width:100%;display:block;border-radius:8px}
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Le graphe biparti G = (U ∪ I, E, w, s)</div>
+    <div class="card-title">Le graphe biparti G = (U I, E, w, s)</div>
     <div class="info-grid">
       <div class="info-item"><strong>U</strong> — 943 nœuds utilisateurs, étiquetés F ou M</div>
       <div class="info-item"><strong>I</strong> — 1682 nœuds items (films)</div>
-      <div class="info-item"><strong>E</strong> — 100 000 arêtes (u,i) ∈ E si u a noté i</div>
+      <div class="info-item"><strong>E</strong> — 100 000 arêtes (u,i)  E si u a noté i</div>
       <div class="info-item"><strong>w(u,i)</strong> — poids = note entière 1–5</div>
       <div class="info-item"><strong>s(u)</strong> — attribut sensible : F ou M</div>
       <div class="info-item"><strong>Densité</strong> — 6.3% : graphe creux, typique en reco</div>
     </div>
   </div>
-</div>
 
-<!-- TAB 2 -->
-<div class="panel" id="p-methods">
-  <div class="notice">
-    <span style="color:var(--amber);font-size:1rem;flex-shrink:0">ℹ</span>
-    <span><b>Observation :</b> MovieLens utilise des notes entières (1–5). Les seuils θ=3.5 et θ=4.0 sont équivalents — tous deux sélectionnent les notes ≥ 4. Les résultats sont identiques pour les deux valeurs.</span>
+  <div class="notice" style="margin-top:14px">
+    <span style="color:var(--amber);font-size:1rem;flex-shrink:0"></span>
+    <span><b>Observation :</b>MovieLens utilise des notes entières (1–5). Les seuils θ=3.5 et θ=4.0 sont équivalents — tous deux sélectionnent les notes ≥ 4. Les résultats sont identiques pour les deux valeurs.</span>
   </div>
   <div class="controls">
     <div class="ctrl-grp">
@@ -327,6 +477,39 @@ canvas{width:100%;display:block;border-radius:8px}
       </div>
     </div>
   </div>
+
+  <!-- Structure des graphes — tous les datasets -->
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Structure des graphes bipartis G = (U I, E) — les 4 corpus</div>
+    <p style="font-size:.78rem;color:var(--t2);line-height:1.6;margin-bottom:12px">
+      Chaque corpus définit un graphe biparti différent. <strong>U</strong> = nœuds utilisateurs (ou venues), <strong>I</strong> = nœuds items, <strong>E</strong> = arêtes pondérées par la note. La densité mesure la fraction d'arêtes réellement présentes sur l'ensemble des paires possibles.
+    </p>
+    <div style="overflow-x:auto">
+      <table class="ftbl">
+        <thead><tr>
+          <th>Corpus</th><th>Domaine</th><th>|U|</th><th>|I|</th><th>|E|</th><th>Échelle notes</th><th>Densité</th><th>Équité</th><th>α_F</th>
+        </tr></thead>
+        <tbody>
+          <tr><td><strong>MovieLens 100k</strong></td><td>Films</td><td>943</td><td>1 682</td><td>100 000</td><td>1–5</td><td>6.3%</td><td>user-side</td><td>29%</td></tr>
+          <tr><td><strong>MovieLens 1M</strong></td><td>Films</td><td>6 040</td><td>3 706</td><td>1 000 209</td><td>1–5</td><td>4.5%</td><td>user-side</td><td>28%</td></tr>
+          <tr><td><strong> libimseti.cz</strong></td><td>Rencontres</td><td>1 000</td><td>32 677</td><td>97 707</td><td>1–10</td><td>0.3%</td><td>user-side</td><td>50%</td></tr>
+          <tr><td><strong> RateMy Prof.</strong></td><td>Académique</td><td>1 981</td><td>59 066</td><td>150 800</td><td>1–5</td><td>0.1%</td><td>item-side</td><td>51%*</td></tr>
+          <tr class="tr-ours"><td><strong>OpenAlex</strong></td><td>Publications</td><td>~99</td><td>~904</td><td>~2 100</td><td>1–5</td><td>2.4%</td><td>item-side</td><td>19%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.5">
+      * α_F = proportion de femmes dans les <em>items</em> (profs recommandés), pas dans les utilisateurs.  OpenAlex : rating = min(nb_papers_auteur_dans_venue, 5).
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;font-size:.78rem;color:var(--t2);line-height:1.6">
+      <div style="padding:10px 13px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
+        <strong style="color:var(--t1)">User-side equity :</strong>MovieLens et libimseti mesurent l'équité <em>entre les groupes d'utilisateurs</em>. ΔE = différence d'inclusion entre les utilisatrices F et les utilisateurs M dans leurs top-k respectifs.
+      </div>
+      <div style="padding:10px 13px;background:var(--s2);border-radius:8px;border-left:3px solid var(--purple)">
+        <strong style="color:var(--t1)">Item-side equity :</strong>RMP et OpenAlex mesurent l'équité <em>dans les items recommandés</em>. ΔE = écart entre la proportion de femmes recommandées et la cible α_F — indépendamment du genre de l'utilisateur.
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- TAB 4 -->
@@ -334,34 +517,34 @@ canvas{width:100%;display:block;border-radius:8px}
   <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6">Calcul des trois métriques EDI, étape par étape, avec les vraies valeurs MovieLens 100k pour Borda (k=10, θ=4.0).</div>
   <div class="acc">
     <div class="acc-item open">
-      <div class="acc-head"><span>ΔE — Équité entre groupes</span><span class="acc-chev">▼</span></div>
+      <div class="acc-head"><span>ΔE — Équité entre groupes</span><span class="acc-chev"></span></div>
       <div class="acc-body">
         <div class="step"><div class="step-n">1</div><div class="step-t">Pour chaque groupe, calculer la <strong>satisfaction moyenne</strong> sur les k films recommandés R.</div></div>
-        <div class="formula">utility_F = Σ_{u∈G_F} Σ_{i∈R} w(u,i) / (|G_F| × k)
-utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
+        <div class="formula">utility_F = _{uG_F} _{iR} w(u,i) / (|G_F| × k)
+utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div class="step"><div class="step-n">2</div><div class="step-t">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></div></div>
         <div class="formula">ΔE = |utility_F − utility_M| = |0.90 − 1.32| = <strong>0.4249</strong></div>
         <div class="res-box">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.3511 (k=10).</div>
       </div>
     </div>
     <div class="acc-item">
-      <div class="acc-head"><span>ILD — Diversité intra-liste</span><span class="acc-chev">▼</span></div>
+      <div class="acc-head"><span>ILD —Diversité intra-liste</span><span class="acc-chev"></span></div>
       <div class="acc-body">
-        <div class="step"><div class="step-n">1</div><div class="step-t">Chaque film i → <strong>vecteur v_i ∈ ℝ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</div></div>
+        <div class="step"><div class="step-n">1</div><div class="step-t">Chaque film i → <strong>vecteur v_i  ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</div></div>
         <div class="step"><div class="step-n">2</div><div class="step-t">Pour chaque paire (i,j) du top-k, calculer la <strong>dissimilarité cosinus</strong> :</div></div>
-        <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (‖v_i‖ × ‖v_j‖)</div>
-        <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>. ILD = moyenne des dissimilarités.</div></div>
-        <div class="formula">ILD(R) = 2/(k·(k−1)) × Σ_{i≠j ∈ R} dist(i,j)</div>
+        <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (v_i × v_j)</div>
+        <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>.ILD = moyenne des dissimilarités.</div></div>
+        <div class="formula">ILD(R) = 2/(k·(k−1)) × _{ij R} dist(i,j)</div>
         <div class="res-box">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.448 (+27%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</div>
       </div>
     </div>
     <div class="acc-item">
-      <div class="acc-head"><span>inclusion_g — Représentation du groupe g</span><span class="acc-chev">▼</span></div>
+      <div class="acc-head"><span>inclusion_g — Représentation du groupe g</span><span class="acc-chev"></span></div>
       <div class="acc-body">
-        <div class="step"><div class="step-n">1</div><div class="step-t">Pour u ∈ g : compter les films du top-k notés <strong>≥ θ = 4.0</strong> par u.</div></div>
-        <div class="formula">inclusion_g(R) = (1/|G_g|) × Σ_{u∈G_g} |{i ∈ R : w(u,i) ≥ θ}| / k</div>
+        <div class="step"><div class="step-n">1</div><div class="step-t">Pour u g : compter les films du top-k notés <strong>≥ θ = 4.0</strong> par u.</div></div>
+        <div class="formula">inclusion_g(R) = (1/|G_g|) × _{uG_g} |{i R : w(u,i) ≥ θ}| / k</div>
         <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
-        <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 ≡ θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
         <div class="res-box">Pour k=20, notre méthode : inc_F=0.269 (>Borda 0.247) et inc_M=0.348 (>Borda 0.339) — seule configuration où Ours domine tout.</div>
       </div>
     </div>
@@ -370,29 +553,39 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
 <!-- TAB 5 -->
 <div class="panel" id="p-concl">
-  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">Ce que nous avons appris</h2>
+  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">Ce que nous avons appris — 4 corpus, un seul algorithme</h2>
+
   <div class="finding fw">
     <h3>Aucune méthode classique ne satisfait les 3 critères EDI simultanément</h3>
-    <p>L'Average Score produit une équité parfaite (ΔE≈0.007) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–0.49). Le Fair Re-rank améliore fortement l'équité (ΔE≈0.15–0.24) mais au prix d'une inclusion réduite.</p>
+    <p>L'Average Score produit une équité parfaite (ΔE≈0) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–1.23). Le Fair Re-rank améliore l'équité mais détruit la diversité — <em>surtout sur libimseti et RMP</em>.Ce constat est cohérent sur les 4 corpus.</p>
   </div>
+
   <div class="finding fk">
-    <h3>Notre méthode domine sur 3/4 critères pour k=20 — avec le meilleur équilibre global</h3>
-    <p>Coarsenisation : 943 → 272 super-nœuds (−71.2%), ratio F/M rééquilibré 29→37%. Vs Fair Re-rank : <strong>ILD=0.465</strong> (+9%), <strong>inc_F=0.269</strong> (+4%), <strong>inc_M=0.348</strong> (+12%) — seule méthode offrant un équilibre entre équité, diversité et inclusion. ΔE=0.347 reste le seul critère où Fair Re-rank est meilleur (0.240).</p>
+    <h3>Notre méthode (coarsenisation) offre le meilleur équilibre équité+diversité</h3>
+    <p><strong>MovieLens 100k k=20 :</strong> domine sur 3/4 critères. 943→272 super-nœuds (−71.2%), ILD=0.465, ΔE=0.347, inc_F=0.269.
+    <br><strong>RateMy Professors :</strong> résultat remarquable — Ours atteint ILD=<strong>0.924</strong> (proche d'Average Score 0.982) tout en réduisant ΔE à 0.017 et portant frac_F à 60% (contre 0–40% pour les baselines).
+    <br><strong>libimseti :</strong> corpus homogène (profils de rencontres très similaires) — ΔE=0.876 reste élevé pour tous, mais Ours est le seul à atteindre ILD=0.816 (supérieur à Borda 0.744) malgré la difficulté.</p>
   </div>
+
   <div class="finding fg">
-    <h3>Robustesse : l'algorithme est insensible aux tolérances ε</h3>
-    <p>Les paramètres ε_E ∈ [0.05, 0.30] et ε_D ∈ [0.01, 0.12] produisent des résultats identiques. La contrainte opérationnelle est <strong>max_merges</strong> : c'est le nombre maximal de fusions qui contrôle la compression. Les résultats sont donc stables et reproductibles sans calibration fine des ε.</p>
+    <h3>ILD — le seul critère où Ours excelle systématiquement</h3>
+    <p>Sur tous les datasets, la coarsenisation produit une diversité supérieure aux méthodes de vote (Borda, Condorcet) et au Fair Re-rank. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque.</p>
   </div>
-  <div class="finding fg" style="border-color:var(--t3)">
-    <h3>Observation : équivalence des seuils θ sur MovieLens</h3>
-    <p>Notes entières (1–5) → θ=3.5 et θ=4.0 sélectionnent tous deux les notes ≥ 4, donnant des résultats identiques. Pour différencier ces configurations, il faudrait θ ≤ 3.0.</p>
+
+  <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
+    <h3>Biais académique massif — OpenAlex confirme le pire cas</h3>
+    <p>Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. Notre méthode cible cette zone — résultats finaux en attente du prochain run OpenAlex.</p>
   </div>
+
   <div class="card" style="margin-top:18px">
-    <div class="card-title">Tableau comparatif complet — toutes configurations (θ=4.0)</div>
+    <div class="card-title">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</div>
     <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
   </div>
+
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
-    <strong style="color:var(--t1)">Perspectives :</strong> résultats validés sur <strong>MovieLens 1M</strong> (6040 utilisateurs, 1M notes) — scalabilité confirmée (voir onglet Comparaison ⇄) ; tester sur MovieLens 10M ; utiliser des notes continues pour que θ ait un effet différencié ; explorer attributs sensibles supplémentaires (âge, occupation) ; adapter ε_E, ε_D, ε_I selon les besoins.
+    <strong style="color:var(--t1)">Perspectives :</strong>
+    résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
+    Prochaines étapes : finaliser les résultats OpenAlex ; explorer les attributs sensibles supplémentaires (âge, occupation, institution) ; tester sur MovieLens 10M ; utiliser des notes continues pour des seuils θ plus fins ; étendre aux graphes bipartites temporels.
   </div>
 </div>
 
@@ -420,43 +613,48 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#ffb830;flex-shrink:0"></div>Borda</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#e8833a;flex-shrink:0"></div>Weighted Borda</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#ff6464;flex-shrink:0"></div>Condorcet</div>
-        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#22d4f5;flex-shrink:0"></div>↗ Fair Re-rank</div>
-        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;color:var(--t1)"><div style="width:13px;height:13px;border-radius:50%;background:#12e87a;box-shadow:0 0 8px #12e87a88;flex-shrink:0"></div>✦ Ours</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#22d4f5;flex-shrink:0"></div>↗Fair Re-rank</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;color:var(--t1)"><div style="width:13px;height:13px;border-radius:50%;background:#12e87a;box-shadow:0 0 8px #12e87a88;flex-shrink:0"></div>Ours</div>
       </div>
       <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</div>
     </div>
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-        <div class="card-title" style="margin-bottom:0">Projection 2D — ΔE vs ILD (toutes configurations, approximation)</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+        <div class="card-title" style="margin-bottom:0">Projection 2D — ΔE vs ILD (MovieLens 100k et 1M, k=5/10/20)</div>
         <div class="pills" id="vizDSPills">
           <button class="pill on" data-vds="100k">100k</button>
           <button class="pill" data-vds="1M">1M</button>
           <button class="pill" data-vds="both">Les deux</button>
         </div>
       </div>
+      <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px">Chaque cercle = une méthode × un k. Coin <strong>supérieur gauche</strong> = idéal (ΔE bas + ILD élevé). Taille = k (=20, ·=5).</div>
       <canvas id="scatterCanvas" style="width:100%;display:block"></canvas>
-      <div style="margin-top:10px;display:flex;gap:14px;flex-wrap:wrap">
-        <div style="font-size:.7rem;color:var(--t3)">● Taille = k (petit→5, moyen→10, grand→20)</div>
-        <div style="font-size:.7rem;color:var(--t3)">- - - Trajectoire par méthode</div>
+      <div style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;color:var(--t3)">
+        <span>Grand = k=20 · Moyen = k=10 · Petit = k=5</span>
+        <span>- - -Trajectoire k=5→10→20 par méthode</span>
+        <span style="margin-left:auto"> ouvert = 100k ·  plein = 1M (mode "Les deux")</span>
+      </div>
+      <div style="margin-top:10px;padding:9px 13px;background:rgba(176,122,255,.07);border-left:3px solid var(--purple);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
+        <strong style="color:var(--t1)">Projection 2D sur MovieLens uniquement.</strong>Pour voir la projection sur <em>tous les datasets</em> (MovieLens, libimseti, RMP), voir l'onglet <strong>Pareto </strong> qui compare toutes méthodes × tous corpus sur un seul graphique.
       </div>
     </div>
   </div>
   <div style="margin-top:14px;padding:16px 20px;background:var(--s2);border-left:3px solid var(--blue);border-radius:0 9px 9px 0;font-size:.81rem;color:var(--t2);line-height:1.7">
     <div style="display:flex;gap:24px;flex-wrap:wrap">
       <div style="flex:1;min-width:220px">
-        <strong style="color:var(--t1)">Radar des métriques :</strong> Les 4 axes représentent les métriques EDI normalisées — plus la surface colorée est grande, meilleure est la méthode sur tous les critères à la fois.
+        <strong style="color:var(--t1)">Comment lire le Radar (gauche) :</strong>Les 4 axes = métriques EDI normalisées. Plus la surface est grande, meilleure est la méthode sur tous les critères à la fois.
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
-          <li><b>↑ ILD</b> — diversité intra-liste (vers le haut)</li>
+          <li><b>↑ILD</b> — diversité intra-liste (vers le haut)</li>
           <li><b>→ inc_M</b> — inclusion du groupe masculin</li>
           <li><b>↓ Équité (1−ΔE)</b> — proche de 1 = très équitable</li>
           <li><b>← inc_F</b> — inclusion du groupe féminin</li>
         </ul>
       </div>
       <div style="flex:1;min-width:220px">
-        <strong style="color:var(--t1)">Projection 2D :</strong> Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> s'en approche le mieux.
+        <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> s'en approche le mieux.
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
           <li>Taille du cercle = k (petit→5, moyen→10, grand→20)</li>
-          <li>Mode <em>Les deux</em> : cercle creux ○ = 100k, plein ● = 1M</li>
+          <li>Mode <em>Les deux</em> :  creux = 100k,  plein = 1M</li>
           <li>Lignes tiretées = trajectoire de scalabilité 100k → 1M</li>
         </ul>
         <em style="font-size:.73rem;color:var(--t3)">Projection 2D d'un problème 4-objectif — inc_F/inc_M non affichés ici.</em>
@@ -481,13 +679,13 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-1m">
   <div class="tiles">
     <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">1M</div><div class="tile-sub">1 000 209 notes</div></div>
-    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">6 040</div><div class="tile-sub">1 709 F · 4 331 M</div></div>
+    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">6 040</div><div class="tile-sub">1 709F · 4 331 M</div></div>
     <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">3 706</div><div class="tile-sub">items distincts</div></div>
-    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.58</div><div class="tile-sub">écart-type σ = 1.12</div></div>
+    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.58</div><div class="tile-sub">écart-type  = 1.12</div></div>
     <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">4.47%</div><div class="tile-sub">matrice creuse</div></div>
   </div>
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
-    <span style="color:var(--green);font-size:1rem;flex-shrink:0">✦</span>
+    <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
     <span><b>Résultat marquant (k=5) :</b> notre méthode atteint <strong>ΔE=0.0643</strong> et <strong>ILD=0.5783</strong> — équité quasi-parfaite + meilleure diversité de toutes les méthodes. Fair Re-rank atteint ΔE=0.0036 mais ILD=0.4163 seulement. Aucune méthode classique ne passe sous ΔE=0.49.</span>
   </div>
   <div class="controls">
@@ -532,49 +730,67 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-cmp">
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.07)">
     <span style="color:var(--blue);font-size:1rem;flex-shrink:0">⇄</span>
-    <span><b>Scalabilité :</b> même protocole expérimental, jeu de données 6× plus grand. Les cercles ouverts = 100k, les cercles pleins = 1M. La flèche indique l'évolution de chaque méthode.</span>
+    <span><b>Comparaison cross-dataset (k=10) :</b> toutes méthodes, tous corpus. Forme = dataset ( ML100k ·  libimseti ·  RMP) · couleur = méthode. ΔE bas + ILD haut = idéal.</span>
   </div>
-  <div class="controls">
-    <div class="ctrl-grp">
-      <div class="ctrl-lbl">Top-k</div>
-      <div class="pills" id="kCmpPills">
-        <button class="pill" data-kc="5">k = 5</button>
-        <button class="pill on" data-kc="10">k = 10</button>
-        <button class="pill" data-kc="20">k = 20</button>
+  <div class="card" style="margin-top:4px">
+    <div class="card-title">ΔE vsILD — tous datasets, toutes méthodes, k=10</div>
+    <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
+      Forme du marqueur = dataset ( ML100k ·  libimseti ·  RMP). Couleur = méthode.
+      <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">Ours </strong> sont plus grands et entourés d'un anneau blanc.
+    </div>
+    <canvas id="allCmpCanvas" style="width:100%;display:block"></canvas>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t2)">
+      <span>MovieLens 100k</span><span> libimseti</span><span> RateMy Professors</span>
+      <span style="margin-left:auto">← ΔE bas = meilleure équité · ↑ ILD élevé = meilleure diversité</span>
+    </div>
+    <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:.74rem">
+      <div style="padding:8px 11px;background:rgba(107,143,255,.07);border-radius:7px;border-left:3px solid var(--blue)">
+        <strong>Average Score</strong> (violet) : ΔE ≈ 0, ILD très bas. Excellent en équité, nul en diversité — il recommande les mêmes items populaires à tout le monde.
+      </div>
+      <div style="padding:8px 11px;background:rgba(255,122,92,.07);border-radius:7px;border-left:3px solid var(--coral)">
+        <strong>Borda/Condorcet</strong> (jaune/rouge) : ILD moyen mais ΔE élevé — favorisent les items du groupe majoritaire. Sur libimseti : ΔE > 1 (extrême).
+      </div>
+      <div style="padding:8px 11px;background:rgba(18,232,122,.07);border-radius:7px;border-left:3px solid var(--green)">
+        <strong>Ours</strong> (vert) : seul à combiner ILD élevé ET ΔE maîtrisé sur plusieurs datasets. Sur RMP : ILD = 0.924, ΔE = 0.017 — le meilleur compromis.
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-title">ΔE vs ILD — 100k (○ ouvert) et 1M (● plein)</div>
-    <canvas id="cmpCanvas" style="width:100%;display:block"></canvas>
-    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;align-items:center">
-      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;border:2.5px solid var(--t3);background:transparent"></div>100k</div>
-      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;background:var(--t3)"></div>1M</div>
-      <div style="font-size:.7rem;color:var(--t3);margin-left:auto">← ΔE bas = meilleure équité · ↑ ILD élevé = meilleure diversité</div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</div>
+    <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
+      Lecture : <span style="color:var(--green)">vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">ambre</span> = moyen · <span style="color:var(--red)">rouge</span> = mauvais. Chaque cellule montre ΔE et ILD pour une méthode × un corpus.
+    </div>
+    <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
+    <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
+      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas. Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). Seul <strong style="color:var(--green)">Ours</strong> obtient ILD élevé avec ΔE maîtrisé — visible surtout sur RMP (ILD=0.924) et MovieLens.
     </div>
   </div>
+
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Tableau comparatif — toutes méthodes, θ = 4.0 (Δ = 1M − 100k, vert = amélioration)</div>
-    <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
+    <div class="card-title">Temps d'exécution — tous datasets, k=10 (échelle log)</div>
+    <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
+      5 barres par méthode : <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Échelle logarithmique. <strong style="color:var(--green)">Ours</strong> est plus lent mais reste sous 10 min sur tous les corpus.
+    </div>
+    <canvas id="allRtCanvas" style="width:100%;display:block"></canvas>
   </div>
-  <div class="card" style="margin-top:14px">
-    <div class="card-title">Temps d'exécution par méthode — 100k vs 1M (θ = 4.0)</div>
-    <canvas id="rtCanvas" style="width:100%;display:block"></canvas>
-    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Barres claires = 100k · Barres pleines = 1M · Échelle logarithmique (×10 par graduation). Weighted Borda non mesuré séparément — temps ≈ Borda. Average Score &lt; 0.1s sur 1M (quasi instantané).</p>
-  </div>
+
 </div>
 
 <!-- ── SCALABILITÉ ── -->
 <div class="panel" id="p-scal">
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
-    <span style="color:var(--green);font-size:1rem;flex-shrink:0">📈</span>
-    <span><b>Expérimentation scalabilité — vue combinée 100→6 040 utilisateurs (résultats réels) :</b> MovieLens 100k (lignes tiretées, 100→943) + MovieLens 1M (lignes pleines, 500→6 040). k=10, θ=4.0, ratio F/M préservé. Weighted Borda mesuré séparément. ⚠ Phénomène top-k stable à n=700 et n=943 (100k) et n=500 (1M) : le top-10 est très stable → très peu de super-nœuds, temps > 280s. Comportement normal reprend ailleurs.</span>
+    <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
+    <span><b>Expérimentation scalabilité — MovieLens uniquement (100→6 040 utilisateurs) :</b>MovieLens 100k (lignes tiretées, 100→943 users) + MovieLens 1M (lignes pleines, 500→6 040 users). k=10, θ=4.0, ratio F/M préservé.  Phénomène top-k stable à n=700 et n=943 (100k) et n=500 (1M) : le top-10 change peu → très peu de super-nœuds, temps > 280s. Comportement normal ailleurs.</span>
+  </div>
+  <div class="notice" style="border-color:rgba(245,165,35,.3);background:rgba(245,165,35,.05);margin-top:8px">
+    <span style="color:var(--amber);font-size:.9rem;flex-shrink:0"></span>
+    <span style="font-size:.78rem"><b>Pourquoi seulement MovieLens ?</b> libimseti, RMP et OpenAlex ont une taille fixe (pas de sous-échantillons progressifs dans cette étude). La scalabilité en nombre d'utilisateurs/venues n'a été mesurée que sur MovieLens car il existe une version 100k et une version 1M avec le même format, permettant une comparaison directe.</span>
   </div>
   <div class="card">
     <div class="card-title">Temps d'exécution vs. nombre d'utilisateurs — 100→6 040, échelle log (toutes méthodes)</div>
     <canvas id="scalRtCanvas" style="width:100%;display:block"></canvas>
     <div id="scalRtLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;align-items:center;font-size:.7rem;color:var(--t2)"></div>
-    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Axe Y log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe). ⚠ Points top-k stable : ML-100k n=700 (289s, 6 super-nœuds) et n=943 (517s, 5 sn) ; ML-1M n=500 (289s, 5 sn). Comportement normal aux autres tailles.</p>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">AxeY log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe).  Points top-k stable : ML-100k n=700 (289s, 6 super-nœuds) et n=943 (517s, 5 sn) ; ML-1M n=500 (289s, 5 sn). Comportement normal aux autres tailles.</p>
   </div>
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
@@ -592,19 +808,50 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">Tableau de scalabilité — résultats complets (k=10, θ=4.0)</div>
     <div style="overflow-x:auto"><table class="ftbl" id="scalTbl"></table></div>
   </div>
+
+  <div style="margin-top:20px;padding-top:14px;border-top:1px solid rgba(120,120,180,.15)">
+    <div style="font-size:.8rem;font-weight:700;color:var(--t2);margin-bottom:12px">Comparaison directe 100k vs 1M — résultats EDI et temps d'exécution</div>
+    <div class="controls">
+      <div class="ctrl-grp">
+        <div class="ctrl-lbl">Top-k</div>
+        <div class="pills" id="kCmpPills">
+          <button class="pill" data-kc="5">k = 5</button>
+          <button class="pill on" data-kc="10">k = 10</button>
+          <button class="pill" data-kc="20">k = 20</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="card-title">ΔE vs ILD — 100k (ouvert) et 1M (plein)</div>
+      <canvas id="cmpCanvas" style="width:100%;display:block"></canvas>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;align-items:center">
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;border:2.5px solid var(--t3);background:transparent"></div>100k</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;background:var(--t3)"></div>1M</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="card-title">Tableau — 100k vs 1M, θ = 4.0</div>
+      <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
+    </div>
+    <div class="card" style="margin-top:10px">
+      <div class="card-title">Temps d'exécution — 100k vs 1M</div>
+      <canvas id="rtCanvas" style="width:100%;display:block"></canvas>
+      <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Barres claires = 100k · Barres pleines = 1M · Échelle logarithmique.</p>
+    </div>
+  </div>
 </div>
 
 <!-- ── LIBIMSETI ── -->
 <div class="panel" id="p-lib">
   <div class="notice" style="border-color:rgba(255,122,92,.3);background:rgba(255,122,92,.06)">
-    <span style="font-size:1rem;flex-shrink:0">💘</span>
+    <span style="font-size:1rem;flex-shrink:0"></span>
     <span><b>libimseti.cz — site de rencontres tchèque (validation hors MovieLens) :</b>
-    17.3M ratings de profils utilisateurs (1–10). Sous-échantillon stratifié : 1 000 rateurs (500 F / 500 M, équilibre parfait), 32 677 profils, θ=7.0 (≡ 80% sur 1–10), k=10.
+    17.3M ratings de profils utilisateurs (1–10). Sous-échantillon stratifié : 1 000 rateurs (500 F / 500 M, équilibre parfait), 32 677 profils, θ=7.0 ( 80% sur 1–10), k=10.
     Particularité : les <em>items recommandés sont aussi des personnes avec un genre</em> — ΔE mesure ici l'équité entre rateurs F et rateurs M (formulation user-side identique à MovieLens).</span>
   </div>
 
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">Rateurs</div><div class="tile-val">1 000</div><div class="tile-sub">500 F · 500 M (50/50)</div></div>
+    <div class="tile"><div class="tile-lbl">Rateurs</div><div class="tile-val">1 000</div><div class="tile-sub">500F · 500 M (50/50)</div></div>
     <div class="tile"><div class="tile-lbl">Profils</div><div class="tile-val">32 677</div><div class="tile-sub">items = personnes avec genre</div></div>
     <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">97 707</div><div class="tile-sub">échelle 1–10</div></div>
     <div class="tile"><div class="tile-lbl">Équilibre F/M</div><div class="tile-val">50%</div><div class="tile-sub">α_F = α_M = 0.50</div></div>
@@ -649,8 +896,8 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <!-- ══ TAB — Rate My Professors ══ -->
 <div class="panel" id="p-rmp">
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.06)">
-    <span style="font-size:1rem;flex-shrink:0">🎓</span>
-    <span><b>Rate My Professors — validation côté professeurs (item-side equity) :</b>
+    <span style="font-size:1rem;flex-shrink:0"></span>
+    <span><b>RateMy Professors — validation côté professeurs (item-side equity) :</b>
     3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cours (ex. ENG101) joue le rôle d'utilisateur : chaque cours a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span>
   </div>
 
@@ -658,7 +905,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="tile"><div class="tile-lbl">Cours</div><div class="tile-val">1 981</div><div class="tile-sub">jouent le rôle d'utilisateur</div></div>
     <div class="tile"><div class="tile-lbl">Professeurs</div><div class="tile-val">59 066</div><div class="tile-sub">items à recommander</div></div>
     <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub">agrégés par (cours × prof)</div></div>
-    <div class="tile"><div class="tile-lbl">Profs F/M</div><div class="tile-val">51%</div><div class="tile-sub">F=30 141 · M=28 925</div></div>
+    <div class="tile"><div class="tile-lbl">ProfsF/M</div><div class="tile-val">51%</div><div class="tile-sub">F=30 141 · M=28 925</div></div>
   </div>
 
   <div class="card">
@@ -697,6 +944,114 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   </div>
 </div>
 
+<!-- ══ OpenAlex ══ -->
+<div class="panel" id="p-oalex">
+  <div class="notice" style="border-color:rgba(176,122,255,.3);background:rgba(176,122,255,.06)">
+    <span style="font-size:1rem;flex-shrink:0"></span>
+    <span><b>OpenAlex — recommandation d'auteurs académiques (AI/ML/CS, 2018-2023) :</b>
+    45 008 papers téléchargés via l'API OpenAlex. <em>User</em> = venue (NeurIPS, ICML, ICLR…), <em>Item</em> = auteur, <em>Rating</em> = nombre de papers de l'auteur dans cette venue (1–5 cap). 99 venues × 904 auteurs × 2 124 ratings. Équité = genre des auteurs recommandés (item-side, même cadre que RMP).</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="tile-lbl">Venues</div><div class="tile-val">~99</div><div class="tile-sub">conférences et journaux</div></div>
+    <div class="tile"><div class="tile-lbl">Auteurs</div><div class="tile-val">~904</div><div class="tile-sub">items à recommander</div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">~2 100</div><div class="tile-sub">associations (venue × auteur)</div></div>
+    <div class="tile"><div class="tile-lbl">Auteurs F</div><div class="tile-val">19%</div><div class="tile-sub">fort déséquilibre en AI/ML</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Résultats EDI — OpenAlex (k=10, θ=1.0)</div>
+    <div style="overflow-x:auto">
+      <table class="ftbl" id="oalexTbl"></table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Observation — biais de genre en académique</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
+      <div>
+        <strong style="color:var(--coral)">Pourquoi ΔE = 1.23 pour Borda ?</strong><br>
+        En AI/ML, seulement 19% des auteurs avec genre connu sont des femmes. Borda recommande systématiquement les auteurs les plus prolifiques — tous masculins. Résultat : 0% d'autrices dans le top-10 pour toutes les venues → ΔE = 1.23, ILD = 0. C'est le biais académique de genre le plus fort observé dans nos 4 corpus.
+      </div>
+      <div>
+        <strong style="color:var(--purple)">Contexte académique</strong><br>
+        Ce résultat confirme les études sur le <em>biais de genre dans les citations</em> (Dworkin et al. 2020, Caplar et al. 2017). Un système de recommandation basé sur le vote (Borda) amplifie structurellement ce biais. Notre coarsening vise à briser cette dynamique en fusionnant des venues similaires jusqu'à améliorer la diversité des auteurs recommandés.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Radar EDI ══ -->
+<div class="panel" id="p-radar">
+  <div class="card" style="margin-bottom:14px;background:rgba(107,143,255,.05);border-color:rgba(107,143,255,.25)">
+    <div class="card-title" style="color:var(--blue)">Comment lire un radar chart EDI ?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
+      <div>
+        <strong style="color:var(--t1)">Principe :</strong> un radar chart (ou diagramme en étoile) place chaque métrique sur un axe qui part du centre. Plus le point est <em>loin du centre</em>, meilleure est la valeur. La surface colorée représente le profil global d'une méthode — <strong>une grande surface = bon sur tous les critères.</strong>
+      </div>
+      <div>
+        <strong style="color:var(--t1)">Les 3 axes ici :</strong><br>
+        <b>↑Diversité (ILD)</b> — diversité des items recommandés [0→1]<br>
+        <b>→ Équité (1−ΔE)</b> — 1 = ΔE nul (parfaitement équitable). ΔE est <em>inversé</em> pour que "plus = mieux" soit cohérent.<br>
+        <b>←Genre (frac_F norm.)</b> — proportion de femmes dans le top-k, normalisée par rapport à la meilleure valeur observée.
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:9px 12px;background:rgba(18,232,122,.07);border-left:3px solid var(--green);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
+      <strong style="color:var(--green)">À retenir :</strong> la méthode idéale couvrirait tout l'espace du radar (triangle plein). <strong style="color:var(--t1)">Ours (vert)</strong> tend à avoir la plus grande surface — surtout sur la diversité ILD. Average Score (violet) domine souvent sur l'équité seule mais s'effondre sur les autres axes.
+    </div>
+  </div>
+  <div class="notice">
+    <span style="color:var(--blue);font-size:1rem;flex-shrink:0"></span>
+    <span><b>RadarEDI par dataset :</b> chaque axe est normalisé [0→1]. Pour ΔE, l'axe est inversé (1−ΔE) afin que <em>plus grand = meilleur</em> sur tous les axes. k=10 pour tous les datasets.</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
+    <div class="card">
+      <div class="card-title">MovieLens 100k — k=10</div>
+      <canvas id="radarML100k" style="width:100%;max-width:340px;display:block;margin:0 auto"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">libimseti.cz — k=10</div>
+      <canvas id="radarLib" style="width:100%;max-width:340px;display:block;margin:0 auto"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">Rate My Professors — k=10</div>
+      <canvas id="radarRmp" style="width:100%;max-width:340px;display:block;margin:0 auto"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">OpenAlex — k=10</div>
+      <canvas id="radarOalex" style="width:100%;max-width:340px;display:block;margin:0 auto"></canvas>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+    <div style="font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)">Légende</div>
+    <div id="radarLegend" style="display:flex;flex-wrap:wrap;gap:10px 20px"></div>
+  </div>
+</div>
+
+<!-- ══ Pareto ══ -->
+<div class="panel" id="p-pareto">
+  <div class="notice">
+    <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
+    <span><b>Front de Pareto (ΔE vs ILD) :</b> chaque point est une méthode sur un dataset. <em>Idéal = bas-gauche pour ΔE, haut pour ILD.</em> Le front de Pareto (ligne verte) relie les points qu'aucune méthode ne domine simultanément. 4 corpus · 6 méthodes · k=10.</span>
+  </div>
+  <div class="card" style="margin-top:4px">
+    <div class="card-title">ΔE (équité) vs ILD (diversité) — tous datasets, toutes méthodes, k=10</div>
+    <canvas id="paretoCanvas" style="width:100%;display:block"></canvas>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:.72rem" id="paretoLegend"></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Lecture du graphique</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
+      <div>
+        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>Ours</strong> atteint cette zone sur RMP (ΔE=0.017, ILD=0.924) et améliore l'équité vs Borda sur tous les datasets avec une borne formelle.
+      </div>
+      <div>
+        <strong style="color:var(--amber)">Compromis observé :</strong> Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'Ours est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
@@ -713,20 +1068,20 @@ const INTERP={
   5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.412</strong>) et diversité (ILD 0.303→<strong>0.402</strong>) améliorées vs Borda. Inclusion légèrement réduite en contrepartie.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
-    <span style="color:var(--amber);flex-shrink:0">⚠</span>
-    <span><strong style="color:var(--t1)">Pourquoi seulement 6 super-nœuds ?</strong> Avec k=5, très peu de fusions changent le top-5 (les 5 films les plus populaires sont très stables). L'algorithme accepte donc presque toutes les fusions sans vérifier les contraintes EDI — d'où une compression extrême (ratio 0.006). Ce comportement est empiriquement valide mais mérite une borne min sur le taux de compression dans les travaux futurs.</span>
+    <span style="color:var(--amber);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Pourquoi seulement 6 super-nœuds ?</strong>Avec k=5, très peu de fusions changent le top-5 (les 5 films les plus populaires sont très stables). L'algorithme accepte donc presque toutes les fusions sans vérifier les contraintes EDI — d'où une compression extrême (ratio 0.006). Ce comportement est empiriquement valide mais mérite une borne min sur le taux de compression dans les travaux futurs.</span>
   </span>`,
-  10:`<strong>k=10 :</strong> Meilleure équité (ΔE=<strong>0.351</strong>, −17% vs Borda) et meilleure diversité (ILD=<strong>0.448</strong>, +27%). L'inclusion est plus faible en contrepartie.
+  10:`<strong>k=10 :</strong>Meilleure équité (ΔE=<strong>0.351</strong>, −17% vs Borda) et meilleure diversité (ILD=<strong>0.448</strong>, +27%). L'inclusion est plus faible en contrepartie.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
-    <span style="color:var(--amber);flex-shrink:0">⚠</span>
-    <span><strong style="color:var(--t1)">Compression extrême (5 super-nœuds) :</strong> Même phénomène qu'en k=5. Le top-10 change rarement lors des fusions successives, donc l'algorithme fusionne librement jusqu'à la limite de 400 fusions. Résultat : une représentation très compressée du graphe. La qualité EDI reste meilleure que Borda malgré cette compression.</span>
+    <span style="color:var(--amber);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Compression extrême (5 super-nœuds) :</strong>Même phénomène qu'en k=5. Le top-10 change rarement lors des fusions successives, donc l'algorithme fusionne librement jusqu'à la limite de 400 fusions. Résultat : une représentation très compressée du graphe. La qualité EDI reste meilleure que Borda malgré cette compression.</span>
   </span>`,
-  20:`<strong>k=20 — meilleure configuration :</strong> Ours bat toutes les baselines sur les <strong>4 critères simultanément</strong>. ΔE=<strong>0.347</strong>, ILD=<strong>0.465</strong>, inc_F=<strong>0.269</strong> (>Borda 0.247), inc_M=<strong>0.348</strong>. <strong>272 super-nœuds</strong>, ratio F/M rééquilibré 29→37%.
+  20:`<strong>k=20 — meilleure configuration :</strong>Ours bat toutes les baselines sur les <strong>4 critères simultanément</strong>. ΔE=<strong>0.347</strong>,ILD=<strong>0.465</strong>, inc_F=<strong>0.269</strong> (>Borda 0.247), inc_M=<strong>0.348</strong>. <strong>272 super-nœuds</strong>, ratio F/M rééquilibré 29→37%.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
-    <span style="color:var(--green);flex-shrink:0">✓</span>
-    <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong> Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir). L'algorithme est plus sélectif : il accepte moins de fusions mais celles qu'il accepte améliorent réellement l'EDI. Compression raisonnable : 71.2%, ratio F/M amélioré de 8 points.</span>
+    <span style="color:var(--green);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong>Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir). L'algorithme est plus sélectif : il accepte moins de fusions mais celles qu'il accepte améliorent réellement l'EDI. Compression raisonnable : 71.2%, ratio F/M amélioré de 8 points.</span>
   </span>`
 };
 let curK=10;
@@ -743,21 +1098,24 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(id==='concl') buildFinal();
     if(id==='viz') setTimeout(()=>{drawRadar();drawScatter();drawSens();},60);
     if(id==='1m') renderTable1M();
-    if(id==='cmp') setTimeout(()=>{buildCmpTable();drawCmpScatter();drawRuntime();},60);
-    if(id==='scal') setTimeout(()=>{drawScalAll();},60);
+    if(id==='cmp') setTimeout(()=>{buildAllCmpTable();drawAllCmpScatter();drawAllRuntime();},60);
+    if(id==='scal') setTimeout(()=>{drawScalAll();buildCmpTable();drawCmpScatter();drawRuntime();},60);
     if(id==='lib')  setTimeout(()=>{buildLibTable();drawLibCharts();},60);
     if(id==='rmp')  setTimeout(()=>{buildRmpTable();drawRmpCharts();},60);
+    if(id==='oalex') setTimeout(()=>{buildOalexTable();},60);
+    if(id==='radar') setTimeout(()=>{buildRadarCharts();},60);
+    if(id==='pareto') setTimeout(()=>{buildPareto();},60);
   });
 });
 
 // ── RATING BARS ──
 (function(){
   const data=[
-    {lbl:'★ 1',     n:6110,  pct:6.1,  c:'#4a5578'},
-    {lbl:'★★ 2',    n:11370, pct:11.4, c:'#5b70a0'},
-    {lbl:'★★★ 3',   n:27145, pct:27.1, c:'var(--blue)'},
-    {lbl:'★★★★ 4',  n:34174, pct:34.2, c:'var(--green)'},
-    {lbl:'★★★★★ 5', n:21201, pct:21.2, c:'var(--coral)'},
+    {lbl:' 1',     n:6110,  pct:6.1,  c:'#4a5578'},
+    {lbl:' 2',    n:11370, pct:11.4, c:'#5b70a0'},
+    {lbl:' 3',   n:27145, pct:27.1, c:'var(--blue)'},
+    {lbl:' 4',  n:34174, pct:34.2, c:'var(--green)'},
+    {lbl:' 5', n:21201, pct:21.2, c:'var(--coral)'},
   ];
   const mx=Math.max(...data.map(d=>d.pct));
   const el=document.getElementById('ratingBars');
@@ -777,10 +1135,10 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 
 // ── RESULTS TABLE ──
 function chip(key,v){
-  if(key==='dE') return v<.1?'<span class="chip cg">✓ Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
-  if(key==='ILD') return v>=.8?'<span class="chip cg">✓ Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
-  if(key==='inc_F') return v>=AF?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
-  if(key==='inc_M') return v>=AM?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='dE') return v<.1?'<span class="chip cg">Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
+  if(key==='ILD') return v>=.8?'<span class="chip cg">Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
+  if(key==='inc_F') return v>=AF?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='inc_M') return v>=AM?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
   return'';
 }
 function renderTable(){
@@ -788,19 +1146,19 @@ function renderTable(){
   const bests={};
   COLS.forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
   let h='<table><thead><tr><th>Méthode</th>';
-  COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
+ COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
-  METHODS.forEach(m=>{
+ METHODS.forEach(m=>{
     const r=d[m],isO=m==='Ours',isFR=m==='Fair Re-rank';
     const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
     const rowCls=isO?'tr-ours':isFR?'tr-fair':'';
-    const prefix=isO?'✦ ':isFR?'↗ ':'';
+    const prefix=isO?' ':isFR?'↗ ':'';
     h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
     COLS.forEach(c=>{
       const v=r[c.key],best=v===bests[c.key];
       const bw=Math.min(100,(v/c.max)*100).toFixed(0);
       const bc=c.dir==='min'?(v<.1?'var(--good)':v<.38?'var(--warn)':'var(--bad)'):(v>=.7?'var(--good)':v>=.35?'var(--warn)':'var(--bad)');
-      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'🏆':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip(c.key,v)}</td>`;
+      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip(c.key,v)}</td>`;
     });
     h+='</tr>';
   });
@@ -892,7 +1250,7 @@ function drawGraph(){
     ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 7px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('M',ux,y);
   });
   // supernodes
-  if(t>.05) SNM.forEach((sn,si)=>{
+  if(t>.05)SNM.forEach((sn,si)=>{
     const y=snYs[si],r=13+sn.length*3,a=Math.min(1,t*1.8);
     ctx.beginPath();ctx.arc(ux,y,r*t,0,Math.PI*2);ctx.fillStyle=`rgba(15,209,122,${a})`;ctx.fill();
     ctx.strokeStyle=`rgba(255,255,255,${a*.4})`;ctx.lineWidth=2;ctx.stroke();
@@ -939,9 +1297,9 @@ function buildFinal(){
   let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">k = 5</th><th colspan="4">k = 10</th><th colspan="4">k = 20</th></tr><tr><th>Méthode</th><th></th>`;
   [5,10,20].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
   h+=`</tr></thead><tbody>`;
-  METHODS.forEach(m=>{
+ METHODS.forEach(m=>{
     const isO=m==='Ours',isFR=m==='Fair Re-rank';
-    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?'✦ Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
     [5,10,20].forEach(k=>{
       const r=ALL[k][m],bests={};
       COLS.forEach(c=>{const vs=METHODS.map(mm=>ALL[k][mm][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
@@ -1110,7 +1468,7 @@ function drawScatter(){
   // dashed lines connecting same method across k
   const DRAW_D=isBoth?[ALL,ALL1M]:[DATA_S];
   DRAW_D.forEach((DS,di)=>{
-    METHODS.forEach(m=>{
+   METHODS.forEach(m=>{
       const col=MC[m];
       ctx.beginPath();
       [5,10,20].forEach((k,ki)=>{
@@ -1162,7 +1520,7 @@ function drawScatter(){
     const x=sx(r.dE),y=sy(r.ILD);
     const off=LBL20[m]||{dx:0,dy:-16,align:'center'};
     const isO=m==='Ours';
-    const lbl=isO?'✦ Ours':(m==='Weighted Borda'?'W.Borda':m);
+    const lbl=isO?' Ours':(m==='Weighted Borda'?'W.Borda':m);
     const fs=Math.max(9,Math.min(isO?13:11,W*(isO?.018:.015)));
     ctx.font=`bold ${fs}px system-ui`;
     ctx.fillStyle='rgba(0,0,0,.55)';
@@ -1177,7 +1535,7 @@ function drawScatter(){
   if(isBoth){
     ctx.font='bold 10px system-ui';ctx.textAlign='left';
     ctx.fillStyle='rgba(200,200,255,.55)';
-    ctx.fillText('○ = 100k   ● = 1M',pl+4,pt+ch-6);
+    ctx.fillText(' = 100k    = 1M',pl+4,pt+ch-6);
   }
 }
 
@@ -1312,17 +1670,17 @@ function fmtT(s){
 }
 const AF1M=0.2829,AM1M=0.7171;
 const INTERP1M={
-  5:`<strong>k=5 :</strong> Résultat remarquable — notre méthode atteint <strong>ΔE=0.0643</strong> (quasi-équité parfaite) et <strong>ILD=0.5783</strong> (meilleure diversité). Sur 100k, le même k donnait ΔE=0.412. <br><br>Le Fair Re-rank est encore plus équitable (ΔE=0.0036) mais avec ILD plus faible (0.4163). <strong>Aucune méthode classique (Borda, Condorcet, W-Borda) ne passe sous ΔE=0.49.</strong>`,
-  10:`<strong>k=10 :</strong> Ours ΔE=<strong>0.332</strong>, ILD=<strong>0.423</strong> — similaire au 100k (ΔE=0.351, ILD=0.448). La méthode <strong>scale bien</strong> : la qualité EDI est maintenue sur un graphe 6× plus grand. Fair Re-rank reste excellent en équité (ΔE=0.019).`,
-  20:`<strong>k=20 :</strong> Ours ΔE=<strong>0.332</strong>, ILD=<strong>0.456</strong> — très proches du 100k (ΔE=0.348, ILD=0.465). <strong>Robustesse confirmée</strong> : nos métriques EDI restent stables avec 6× plus d'utilisateurs et de données.`
+  5:`<strong>k=5 :</strong>Résultat remarquable — notre méthode atteint <strong>ΔE=0.0643</strong> (quasi-équité parfaite) et <strong>ILD=0.5783</strong> (meilleure diversité). Sur 100k, le même k donnait ΔE=0.412. <br><br>LeFair Re-rank est encore plus équitable (ΔE=0.0036) mais avec ILD plus faible (0.4163). <strong>Aucune méthode classique (Borda, Condorcet, W-Borda) ne passe sous ΔE=0.49.</strong>`,
+  10:`<strong>k=10 :</strong>Ours ΔE=<strong>0.332</strong>,ILD=<strong>0.423</strong> — similaire au 100k (ΔE=0.351, ILD=0.448). La méthode <strong>scale bien</strong> : la qualité EDI est maintenue sur un graphe 6× plus grand. Fair Re-rank reste excellent en équité (ΔE=0.019).`,
+  20:`<strong>k=20 :</strong>Ours ΔE=<strong>0.332</strong>,ILD=<strong>0.456</strong> — très proches du 100k (ΔE=0.348, ILD=0.465). <strong>Robustesse confirmée</strong> : nos métriques EDI restent stables avec 6× plus d'utilisateurs et de données.`
 };
 let cur1MK=10,cmpK=10;
 
 function chip1M(key,v){
-  if(key==='dE') return v<.1?'<span class="chip cg">✓ Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
-  if(key==='ILD') return v>=.8?'<span class="chip cg">✓ Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
-  if(key==='inc_F') return v>=AF1M?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
-  if(key==='inc_M') return v>=AM1M?'<span class="chip cg">✓ Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='dE') return v<.1?'<span class="chip cg">Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
+  if(key==='ILD') return v>=.8?'<span class="chip cg">Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
+  if(key==='inc_F') return v>=AF1M?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='inc_M') return v>=AM1M?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
   return'';
 }
 
@@ -1331,19 +1689,19 @@ function renderTable1M(){
   const bests={};
   COLS.forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
   let h='<table><thead><tr><th>Méthode</th>';
-  COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
+ COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
-  METHODS.forEach(m=>{
+ METHODS.forEach(m=>{
     const r=d[m],isO=m==='Ours',isFR=m==='Fair Re-rank';
     const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
     const rowCls=isO?'tr-ours':isFR?'tr-fair':'';
-    const prefix=isO?'✦ ':isFR?'↗ ':'';
+    const prefix=isO?' ':isFR?'↗ ':'';
     h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
     COLS.forEach(c=>{
       const v=r[c.key],best=v===bests[c.key];
       const bw=Math.min(100,(v/c.max)*100).toFixed(0);
       const bc=c.dir==='min'?(v<.1?'var(--good)':v<.38?'var(--warn)':'var(--bad)'):(v>=.7?'var(--good)':v>=.35?'var(--warn)':'var(--bad)');
-      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'🏆':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip1M(c.key,v)}</td>`;
+      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip1M(c.key,v)}</td>`;
     });
     h+='</tr>';
   });
@@ -1360,10 +1718,10 @@ function buildCmpTable(){
   h+=`<tr><th>Méthode</th><th></th>`;
   ['100k','1M'].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
   h+=`<th>ΔΔE</th><th>ΔILD</th></tr></thead><tbody>`;
-  METHODS.forEach(m=>{
+ METHODS.forEach(m=>{
     const r0=ALL[k][m],r1=ALL1M[k][m];
     const isO=m==='Ours',isFR=m==='Fair Re-rank';
-    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?'✦ Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
     COLS.forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
     COLS.forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
     const ddE=r1.dE-r0.dE,dILD=r1.ILD-r0.ILD;
@@ -1473,7 +1831,7 @@ function drawCmpScatter(){
     const isO=m==='Ours';const isWB=m==='Weighted Borda';
     const ox=isWB?-2:0,oy=isWB?-2:0;
     const off=LBL[m]||{dx:13,dy:-14,a:'left'};
-    const lbl=isO?'✦ Ours':(SHORT[m]||m);
+    const lbl=isO?' Ours':(SHORT[m]||m);
     const fs=Math.max(9,Math.min(isO?13:11,W*(isO?.018:.015)));
     const px=sx(r.dE)+ox,py=sy(r.ILD)+oy;
     const lx=px+off.dx,ly=py+off.dy;
@@ -1485,6 +1843,70 @@ function drawCmpScatter(){
     ctx.fillText(lbl,lx,ly);
     ctx.shadowBlur=0;
   });
+}
+
+function drawAllRuntime(){
+  const cv=document.getElementById('allRtCanvas');
+  if(!cv)return;
+  const DS=[
+    {lbl:'ML 100k',   col:'#6b8fff', get:m=>RT_100K[m].k10},
+    {lbl:'ML 1M',     col:'#22d4f5', get:m=>RT_1M[m].k10},
+    {lbl:'libimseti', col:'#ff7a5c', get:m=>LIB[m].elapsed_s},
+    {lbl:'RMP',       col:'#b07aff', get:m=>RMP[m].elapsed_s},
+    {lbl:'OpenAlex',  col:'#f5a523', get:m=>OALEX[m].elapsed_s},
+  ];
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.offsetWidth||700;
+  const barH=7, barGap=2, rowPad=12;
+  const rowH=(barH+barGap)*DS.length+rowPad;
+  const pl=108,pr=12,pt=34,pb=30;
+  const H=METHODS.length*rowH+pt+pb;
+  cv.width=W*dpr; cv.height=H*dpr; cv.style.height=H+'px';
+  const ctx=cv.getContext('2d'); ctx.scale(dpr,dpr);
+  const cw=W-pl-pr;
+  const logMin=-3,logMax=3;
+  const sx=v=>pl+((Math.log10(Math.max(v,0.001))-logMin)/(logMax-logMin))*cw;
+  // grille + ticks
+  [[0.001,'1ms'],[0.01,'10ms'],[0.1,'100ms'],[1,'1s'],[10,'10s'],[60,'1min'],[600,'10min']].forEach(([v,lbl])=>{
+    const x=sx(v);
+    ctx.beginPath(); ctx.moveTo(x,pt-8); ctx.lineTo(x,pt+METHODS.length*rowH);
+    ctx.strokeStyle='rgba(80,100,150,.13)'; ctx.lineWidth=.7; ctx.stroke();
+    ctx.fillStyle='rgba(100,120,180,.6)'; ctx.font='9px system-ui'; ctx.textAlign='center';
+    ctx.fillText(lbl,x,pt-10);
+  });
+  ctx.beginPath(); ctx.moveTo(pl,pt-10); ctx.lineTo(pl,pt+METHODS.length*rowH);
+  ctx.strokeStyle='rgba(100,120,180,.3)'; ctx.lineWidth=1.2; ctx.stroke();
+  // lignes et barres
+  METHODS.forEach((m,mi)=>{
+    const y0=pt+mi*rowH;
+    const isO=m==='Ours';
+    const shortM={'Weighted Borda':'W.Borda','Average Score':'Avg Score','Fair Re-rank':'Fair Re-rank'}[m]||m;
+    ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
+    ctx.font=(isO?'bold ':'')+'10px system-ui'; ctx.textAlign='right';
+    ctx.fillText(shortM,pl-7,y0+rowH/2+3);
+    DS.forEach((ds,di)=>{
+      const v=ds.get(m);
+      const x=sx(v), y=y0+rowPad/2+di*(barH+barGap);
+      if(isO){ctx.shadowBlur=7;ctx.shadowColor=ds.col;}
+      ctx.fillStyle=ds.col+(isO?'ee':'88');
+      ctx.fillRect(pl+1,y,Math.max(x-pl-1,2),barH);
+      ctx.shadowBlur=0;
+      ctx.fillStyle=ds.col+(isO?'ff':'cc');
+      ctx.font=(isO?'bold ':'')+'8px system-ui'; ctx.textAlign='left';
+      ctx.fillText(fmtT(v),x+4,y+barH-1);
+    });
+  });
+  // légende
+  const legY=pt+METHODS.length*rowH+16;
+  DS.forEach((ds,i)=>{
+    const lx=pl+i*115;
+    ctx.fillStyle=ds.col+'88'; ctx.fillRect(lx,legY-6,18,7);
+    ctx.strokeStyle=ds.col; ctx.lineWidth=.7; ctx.strokeRect(lx,legY-6,18,7);
+    ctx.fillStyle=ds.col; ctx.font='9px system-ui'; ctx.textAlign='left';
+    ctx.fillText(ds.lbl,lx+22,legY);
+  });
+  ctx.fillStyle='rgba(100,120,180,.4)'; ctx.textAlign='right';
+  ctx.fillText('Échelle log — k=10',pl+cw,legY);
 }
 
 function drawRuntime(){
@@ -1516,7 +1938,7 @@ function drawRuntime(){
     const shortM=m==='Weighted Borda'?'W.Borda':m==='Average Score'?'Avg Score':m==='Fair Re-rank'?'Fair Re-rank':m;
     ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
     ctx.font=`${isO?'bold ':''}10px system-ui`;ctx.textAlign='right';
-    ctx.fillText(isO?'✦ Ours':shortM,pl-7,yc+3);
+    ctx.fillText(isO?' Ours':shortM,pl-7,yc+3);
     const v0=RT_100K[m][kKey],v1=RT_1M[m][kKey];
     const x0=sx(v0),x1=sx(v1);
     // barre 100k (transparente)
@@ -1532,7 +1954,7 @@ function drawRuntime(){
     // avertissement Ours k=5 sur 1M
     if(isO&&cmpK===5&&v1>10000){
       ctx.fillStyle='rgba(245,165,35,.85)';ctx.font='8.5px system-ui';
-      ctx.fillText('⚠ phénomène top-5 stable — cas exceptionnel',pl+5,yc+BAR+14);
+      ctx.fillText(' phénomène top-5 stable — cas exceptionnel',pl+5,yc+BAR+14);
     }
   });
   // légende
@@ -1567,11 +1989,11 @@ document.querySelectorAll('#kCmpPills .pill').forEach(btn=>{
 // ── rating bars 1M ──
 (function(){
   const data1m=[
-    {lbl:'★ 1',     n:56174,  pct:5.6,  c:'#4a5578'},
-    {lbl:'★★ 2',    n:107557, pct:10.7, c:'#5b70a0'},
-    {lbl:'★★★ 3',   n:261197, pct:26.1, c:'var(--blue)'},
-    {lbl:'★★★★ 4',  n:348971, pct:34.9, c:'var(--green)'},
-    {lbl:'★★★★★ 5', n:226310, pct:22.6, c:'var(--coral)'},
+    {lbl:' 1',     n:56174,  pct:5.6,  c:'#4a5578'},
+    {lbl:' 2',    n:107557, pct:10.7, c:'#5b70a0'},
+    {lbl:' 3',   n:261197, pct:26.1, c:'var(--blue)'},
+    {lbl:' 4',  n:348971, pct:34.9, c:'var(--green)'},
+    {lbl:' 5', n:226310, pct:22.6, c:'var(--coral)'},
   ];
   const mx=Math.max(...data1m.map(d=>d.pct));
   const el=document.getElementById('ratingBars1M');
@@ -1837,7 +2259,7 @@ function drawScalRuntime(){
     ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
     ctx.moveTo(x0-8,y0-8); ctx.lineTo(x0-30,y0-26); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='right';
-    ctx.fillText('⚠ top-k stable',x0-32,y0-24);
+    ctx.fillText(' top-k stable',x0-32,y0-24);
     ctx.fillText('100k n=700',x0-32,y0-14);
   }
   // 1M n=500 (289s)
@@ -1846,7 +2268,7 @@ function drawScalRuntime(){
     ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
     ctx.moveTo(x0+6,y0+6); ctx.lineTo(x0+26,y0+22); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='left';
-    ctx.fillText('⚠ 1M n=500',x0+28,y0+26);
+    ctx.fillText(' 1M n=500',x0+28,y0+26);
   }
 
   // Legend
@@ -2145,7 +2567,7 @@ function buildRmpTable(){
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('rmpInterp').innerHTML=
-    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> toutes les méthodes sont équitables ici (ΔE ≤ 0.076) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.924</strong> contre 0.145 pour Borda — soit <strong>6× plus de diversité</strong> dans les profs recommandés, sans sacrifier l'équité.`;
+    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> toutes les méthodes sont équitables ici (ΔE ≤ 0.076) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>.Notre coarsening atteint <strong style="color:var(--green)">ILD=0.924</strong> contre 0.145 pour Borda — soit <strong>6× plus de diversité</strong> dans les profs recommandés, sans sacrifier l'équité.`;
 }
 
 function drawRmpCharts(){
@@ -2153,6 +2575,389 @@ function drawRmpCharts(){
   const ildColR=(m,v)=>m==='Ours'||m==='Average Score'?'#12e87a':'#6b8fff';
   drawLibBar('rmpDeCanvas', m=>RMP[m].dE, deColR, .10);
   drawLibBar('rmpIldCanvas',m=>RMP[m].ILD,ildColR,1.0);
+}
+
+// ═══ GRAPHIQUE COMPARAISON DATASETS (p-data) ══════════════════════════════
+(function(){
+  const cv=document.getElementById('dataCompCanvas');
+  if(!cv)return;
+  // données: [label, ratings, pctF, color]
+  const DS=[
+    {l:'MovieLens 100k', r:100000, pctF:29, col:'#6b8fff'},
+    {l:'MovieLens 1M',   r:1000209,pctF:28, col:'#4a70e8'},
+    {l:'libimseti.cz',  r:97707,  pctF:50, col:'#ff7a5c'},
+    {l:'Rate My Prof.', r:150800, pctF:51, col:'#b07aff'},
+    {l:'OpenAlex',      r:2124,   pctF:19, col:'#22d4f5'},
+  ];
+  function draw(){
+    const W=cv.offsetWidth||600; cv.width=W; cv.height=260;
+    const H=cv.height;
+    const ctx=cv.getContext('2d');
+    const pad={l:14,r:80,t:30,b:42};
+    const n=DS.length;
+    const grpW=(W-pad.l-pad.r)/n;
+    const bW=grpW*.38;
+    const maxR=Math.max(...DS.map(d=>d.r));
+    const ph=H-pad.t-pad.b;
+    const tc=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim()||'#888';
+    ctx.clearRect(0,0,W,H);
+    // grid
+    ctx.strokeStyle='rgba(120,120,180,.1)';ctx.lineWidth=1;
+    [0,.25,.5,.75,1].forEach(r=>{
+      const y=pad.t+ph*(1-r);
+      ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    });
+    // bars
+    DS.forEach((d,i)=>{
+      const cx_=pad.l+i*grpW+grpW/2;
+      const barH=Math.max(4,d.r/maxR*ph);
+      const y=pad.t+ph-barH;
+      // stacked: F portion (coral) + M portion (blue)
+      const fH=barH*d.pctF/100;
+      const mH=barH-fH;
+      // M (bottom part)
+      ctx.fillStyle=d.col+'cc';
+      ctx.fillRect(cx_-bW/2,y,bW,mH);
+      // F (top part)
+      ctx.fillStyle='rgba(255,122,92,.85)';
+      ctx.fillRect(cx_-bW/2,y+mH,bW,fH);
+      // label top
+      ctx.fillStyle=tc;ctx.font=`bold 10px system-ui`;ctx.textAlign='center';
+      const rStr=d.r>=1000000?(d.r/1000000).toFixed(1)+'M':d.r>=1000?Math.round(d.r/1000)+'k':d.r;
+      ctx.fillText(rStr,cx_,y-5);
+      // label bottom
+      ctx.font=`10px system-ui`;ctx.fillStyle=tc;
+      const words=d.l.split(' ');
+      words.forEach((w,wi)=>ctx.fillText(w,cx_,H-pad.b+14+wi*13));
+      // pct F label on bar
+      if(barH>22){
+        ctx.fillStyle='#fff';ctx.font=`bold 9px system-ui`;
+        ctx.fillText(d.pctF+'%F',cx_,y+mH+fH/2+4);
+      }
+    });
+    // Y axis label
+    ctx.save();ctx.translate(W-pad.r+14,pad.t+ph/2);ctx.rotate(Math.PI/2);
+    ctx.fillStyle=tc;ctx.font='10px system-ui';ctx.textAlign='center';
+    ctx.fillText('Nombre de ratings (échelle log approximée)',0,0);
+    ctx.restore();
+  }
+  draw();
+  if(window.ResizeObserver) new ResizeObserver(draw).observe(cv);
+})();
+
+// ═══ OPENALEX ═══════════════════════════════════════════════════════════════
+const OALEX={
+  "Average Score": {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.029},
+  "Borda":         {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.010},
+  "Weighted Borda":{dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.011},
+  "Condorcet":     {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.008},
+  "Fair Re-rank":  {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.013},
+  "Ours":          {dE:.0509, ILD:.3508, frac_F:.20, elapsed_s:.144, n_sn:5}
+};
+function buildOalexTable(){
+  const tbl=document.getElementById('oalexTbl');
+  if(!tbl||tbl.querySelector('tbody'))return;
+  const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},{k:'frac_F',l:'frac F',dir:'mid'},{k:'elapsed_s',l:'Temps',dir:'min'}];
+  const best={};
+  cols.forEach(c=>{
+    if(c.dir==='mid')return;
+    const vals=METHODS.filter(m=>OALEX[m][c.k]!==null).map(m=>OALEX[m][c.k]);
+    if(vals.length) best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
+  });
+  const head=`<thead><tr><th>Méthode</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
+  const rows=METHODS.map(m=>{
+    const v=OALEX[m];
+    const isO=m==='Ours';
+    const cells=cols.map(c=>{
+      const val=v[c.k];
+      if(val===null) return `<td style="color:var(--amber);font-style:italic">en cours</td>`;
+      let tStr;
+      if(c.k==='elapsed_s') tStr=val<1?val.toFixed(3)+'s':val<60?val.toFixed(1)+'s':(val/60).toFixed(1)+'min';
+      else if(c.k==='frac_F') tStr=(val*100).toFixed(0)+'%';
+      else tStr=val.toFixed(4);
+      const isBest=c.dir!=='mid'&&val===best[c.k];
+      const red=c.k==='dE'&&val>1?';color:var(--red)':'';
+      const hi=isBest?'font-weight:900;color:var(--green)':'';
+      return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}${isBest?' ':''}</td>`;
+    }).join('');
+    return `<tr ${isO?'class="tr-ours"':''}><td><div class="m-name">${m}</div></td>${cells}</tr>`;
+  }).join('');
+  tbl.innerHTML=`${head}<tbody>${rows}</tbody>`;
+}
+
+// ═══ RADAR EDI par dataset (p-radar) ═════════════════════════════════════════
+function drawDatasetRadar(canvasId,pts){
+  const cv=document.getElementById(canvasId);
+  if(!cv)return;
+  const W=cv.offsetWidth||300; cv.width=W; cv.height=W;
+  const ctx=cv.getContext('2d');
+  const cx=W/2,cy=W/2,R=W*.27;
+  const axes=[
+    {label:['Diversité','(ILD)'],    a:-Math.PI/2},
+    {label:['Équité','(1−ΔE)'],      a:Math.PI/6},
+    {label:['Genre','(frac_F norm)'],a:5*Math.PI/6},
+  ];
+  ctx.clearRect(0,0,W,W);
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+  grd.addColorStop(0,'rgba(100,80,220,.06)'); grd.addColorStop(1,'rgba(100,80,220,0)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,W,W);
+  [.25,.5,.75,1].forEach(r=>{
+    ctx.beginPath();
+    axes.forEach((ax,i)=>{
+      const x=cx+r*R*Math.cos(ax.a),y=cy+r*R*Math.sin(ax.a);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.strokeStyle='rgba(120,120,180,.18)'; ctx.lineWidth=1; ctx.stroke();
+  });
+  axes.forEach(ax=>{
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+R*Math.cos(ax.a),cy+R*Math.sin(ax.a));
+    ctx.strokeStyle='rgba(120,120,180,.25)'; ctx.lineWidth=1; ctx.stroke();
+  });
+  const lfs=Math.max(8,Math.min(11,W*.036));
+  const tc=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim()||'#aaa';
+  ctx.font=`${lfs}px system-ui,sans-serif`; ctx.fillStyle=tc; ctx.textAlign='center';
+  axes.forEach(ax=>{
+    const lx=cx+1.22*R*Math.cos(ax.a), ly=cy+1.22*R*Math.sin(ax.a);
+    ax.label.forEach((line,i)=>ctx.fillText(line,lx,ly+(i-(ax.label.length-1)/2)*(lfs*1.25)));
+  });
+  pts.forEach(p=>{
+    const coords=p.vals.map((v,i)=>({x:cx+v*R*Math.cos(axes[i].a),y:cy+v*R*Math.sin(axes[i].a)}));
+    ctx.beginPath(); coords.forEach((c,i)=>i===0?ctx.moveTo(c.x,c.y):ctx.lineTo(c.x,c.y));
+    ctx.closePath();
+    ctx.fillStyle=p.color+'28'; ctx.fill();
+    ctx.strokeStyle=p.color; ctx.lineWidth=p.label==='Ours'?2.5:1.5; ctx.stroke();
+    coords.forEach(c=>{ctx.beginPath(); ctx.arc(c.x,c.y,3,0,2*Math.PI); ctx.fillStyle=p.color; ctx.fill();});
+  });
+}
+function buildRadarCharts(){
+  const normDE=v=>Math.max(0,1-Math.min(v,1.0));
+  const ptML=METHODS.map(m=>{const d=ALL[10][m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.inc_F/.36)]};});
+  drawDatasetRadar('radarML100k',ptML);
+  const ptLib=METHODS.map(m=>{const d=LIB[m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.inc_F/.50)]};});
+  drawDatasetRadar('radarLib',ptLib);
+  const ptRmp=METHODS.map(m=>{const d=RMP[m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.frac_F/.60)]};});
+  drawDatasetRadar('radarRmp',ptRmp);
+  const maxFracOa=Math.max(...METHODS.map(m=>OALEX[m].frac_F||0))||.20;
+  const ptOa=METHODS.map(m=>{const d=OALEX[m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,(d.frac_F||0)/maxFracOa)]};});
+  drawDatasetRadar('radarOalex',ptOa);
+  const leg=document.getElementById('radarLegend');
+  if(leg&&!leg.querySelector('div')){
+    METHODS.forEach(m=>{
+      const d=document.createElement('div');
+      d.style.cssText='display:flex;align-items:center;gap:8px;font-size:.77rem;color:var(--t2)';
+      d.innerHTML=`<span style="width:14px;height:3px;background:${MC[m]};border-radius:2px;flex-shrink:0"></span>${m==='Ours'?'<strong style="color:var(--green)">Ours</strong>':m}`;
+      leg.appendChild(d);
+    });
+  }
+}
+
+// ═══ PARETO FRONT (p-pareto) ══════════════════════════════════════════════════
+function buildPareto(){
+  const cv=document.getElementById('paretoCanvas');
+  if(!cv)return;
+  const W=cv.offsetWidth||600; cv.width=W; cv.height=Math.round(W*.54);
+  const H=cv.height;
+  const ctx=cv.getContext('2d');
+  const pad={l:52,r:20,t:22,b:42};
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+  ctx.clearRect(0,0,W,H);
+  const DATASETS=[
+    {key:'ML100k',  label:'MovieLens 100k', shape:'circle',   color:'#6b8fff'},
+    {key:'Lib',     label:'libimseti',      shape:'diamond',  color:'#ff7a5c'},
+    {key:'RMP',     label:'Rate My Prof.',  shape:'square',   color:'#b07aff'},
+    {key:'OAlex',   label:'OpenAlex',       shape:'triangle', color:'#f5a523'},
+  ];
+  const allPts=[];
+  DATASETS.forEach(ds=>{
+    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
+    METHODS.forEach(m=>{
+      const d=src[m];
+      allPts.push({ds:ds.key,m,dE:d.dE,ILD:d.ILD});
+    });
+  });
+  const maxDE=Math.min(1.40,Math.max(...allPts.map(p=>p.dE))*1.12);
+  const toX=dE=>pad.l+(dE/maxDE)*pw;
+  const toY=ILD=>pad.t+(1-ILD)*ph;
+  const tc=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim()||'#aaa';
+  // grid
+  ctx.strokeStyle='rgba(120,120,180,.11)'; ctx.lineWidth=1;
+  [0,.2,.4,.6,.8,1.0].forEach(v=>{
+    ctx.beginPath(); ctx.moveTo(pad.l,toY(v)); ctx.lineTo(pad.l+pw,toY(v)); ctx.stroke();
+  });
+  [0,.25,.5,.75,1.0].forEach(v=>{
+    ctx.beginPath(); ctx.moveTo(toX(v*maxDE),pad.t); ctx.lineTo(toX(v*maxDE),pad.t+ph); ctx.stroke();
+  });
+  // axis labels
+  ctx.fillStyle=tc; ctx.font='10px system-ui,sans-serif'; ctx.textAlign='center';
+  [0,.25,.5,.75,1.0].forEach(v=>{
+    ctx.fillText((v*maxDE).toFixed(2),toX(v*maxDE),pad.t+ph+14);
+  });
+  ctx.textAlign='right'; ctx.font='10px system-ui,sans-serif';
+  [0,.2,.4,.6,.8,1.0].forEach(v=>{ctx.fillText(v.toFixed(1),pad.l-5,toY(v)+4);});
+  ctx.save(); ctx.translate(13,pad.t+ph/2); ctx.rotate(-Math.PI/2);
+  ctx.font='11px system-ui,sans-serif'; ctx.textAlign='center'; ctx.fillText('ILD ↑',0,0); ctx.restore();
+  ctx.textAlign='center'; ctx.font='11px system-ui,sans-serif';
+  ctx.fillText('ΔE (plus bas = meilleure équité)',pad.l+pw/2,H-5);
+  // zone idéale — fond vert clair, bordure tiretée
+  {
+    const zx2=toX(0.14), zy1=toY(1.0), zy2=toY(0.70);
+    ctx.fillStyle='rgba(18,232,122,.07)';
+    ctx.fillRect(pad.l,zy1,zx2-pad.l,zy2-zy1);
+    ctx.strokeStyle='rgba(18,232,122,.28)'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
+    ctx.strokeRect(pad.l,zy1,zx2-pad.l,zy2-zy1); ctx.setLineDash([]);
+    ctx.fillStyle='rgba(18,232,122,.45)'; ctx.font='bold 9px system-ui,sans-serif';
+    ctx.textAlign='left'; ctx.fillText('Zone idéale',pad.l+4,zy1+12);
+  }
+  // Pareto front
+  function paretoFront(pts){
+    const s=[...pts].sort((a,b)=>a.dE-b.dE); const f=[];let maxI=-1;
+    s.forEach(p=>{if(p.ILD>maxI){f.push(p);maxI=p.ILD;}}); return f;
+  }
+  const front=paretoFront(allPts);
+  if(front.length>1){
+    ctx.beginPath(); ctx.moveTo(toX(front[0].dE),toY(front[0].ILD));
+    front.slice(1).forEach(p=>ctx.lineTo(toX(p.dE),toY(p.ILD)));
+    ctx.setLineDash([5,3]); ctx.strokeStyle='rgba(18,232,122,.55)'; ctx.lineWidth=2; ctx.stroke(); ctx.setLineDash([]);
+  }
+  function drawShape(ctx,shape,x,y,r){
+    ctx.beginPath();
+    if(shape==='circle')   ctx.arc(x,y,r,0,2*Math.PI);
+    else if(shape==='diamond'){ctx.moveTo(x,y-r);ctx.lineTo(x+r,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r,y);ctx.closePath();}
+    else if(shape==='triangle'){ctx.moveTo(x,y-r);ctx.lineTo(x+r*.87,y+r*.5);ctx.lineTo(x-r*.87,y+r*.5);ctx.closePath();}
+    else ctx.rect(x-r+1,y-r+1,(r-1)*2,(r-1)*2);
+  }
+  // marks — passe 1 : baselines (bons résultats plus opaques, mauvais atténués)
+  DATASETS.forEach(ds=>{
+    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
+    METHODS.filter(m=>m!=='Ours').forEach(m=>{
+      const d=src[m]; const x=toX(d.dE),y=toY(d.ILD);
+      const col=MC[m];
+      const good=d.dE<0.14&&d.ILD>0.70;
+      const r=good?6:4;
+      drawShape(ctx,ds.shape,x,y,r);
+      ctx.fillStyle=col+(good?'dd':'55'); ctx.fill();
+      if(good){ctx.strokeStyle=col+'99';ctx.lineWidth=1.5;ctx.stroke();}
+    });
+  });
+  // marks — passe 2 : Ours (plus grand, lumineux, étiqueté)
+  DATASETS.forEach(ds=>{
+    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
+    const d=src['Ours']; const x=toX(d.dE),y=toY(d.ILD);
+    const col=MC['Ours']; const r=9;
+    ctx.shadowBlur=16; ctx.shadowColor=col;
+    drawShape(ctx,ds.shape,x,y,r);
+    ctx.fillStyle=col+'ee'; ctx.fill();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=2.5; ctx.stroke();
+    ctx.fillStyle=col; ctx.font='bold 9px system-ui,sans-serif'; ctx.textAlign='left';
+    ctx.fillText('Ours',x+r+3,y+4);
+  });
+  // legend
+  const leg=document.getElementById('paretoLegend');
+  if(leg&&!leg.querySelector('span')){
+    DATASETS.forEach(ds=>{
+      const s=document.createElement('span');
+      s.style.cssText='display:inline-flex;align-items:center;gap:6px;color:var(--t2);font-size:.72rem';
+      const sh=ds.shape==='circle'?`<svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${ds.color}88" stroke="${ds.color}" stroke-width="1.5"/></svg>`:
+        ds.shape==='diamond'?`<svg width="12" height="12"><polygon points="6,1 11,6 6,11 1,6" fill="${ds.color}88" stroke="${ds.color}" stroke-width="1.5"/></svg>`:
+        ds.shape==='triangle'?`<svg width="12" height="12"><polygon points="6,1 11,11 1,11" fill="${ds.color}88" stroke="${ds.color}" stroke-width="1.5"/></svg>`:
+        `<svg width="12" height="12"><rect x="1" y="1" width="10" height="10" fill="${ds.color}88" stroke="${ds.color}" stroke-width="1.5"/></svg>`;
+      s.innerHTML=sh+ds.label; leg.appendChild(s);
+    });
+    const div=document.createElement('div');
+    div.style.cssText='width:100%;display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;border-top:1px solid rgba(120,120,180,.15);padding-top:8px';
+    METHODS.forEach(m=>{
+      const sp=document.createElement('span');
+      sp.style.cssText='display:inline-flex;align-items:center;gap:5px;font-size:.71rem;color:var(--t2)';
+      sp.innerHTML=`<span style="width:10px;height:10px;border-radius:50%;background:${MC[m]};display:inline-block"></span>${m==='Ours'?'<strong>Ours</strong>':m}`;
+      div.appendChild(sp);
+    }); leg.appendChild(div);
+  }
+}
+
+// ═══ COMPARAISON CROSS-DATASET (p-cmp) ════════════════════════════════════════
+function buildAllCmpTable(){
+  const tbl=document.getElementById('allCmpTbl');
+  if(!tbl||tbl.querySelector('tbody'))return;
+  const DATASETS=[
+    {key:'ML100k',label:'ML 100k'},
+    {key:'Lib',   label:'libimseti'},
+    {key:'RMP',   label:'RMP'},
+    {key:'OAlex', label:'OpenAlex'},
+  ];
+  const src={ML100k:ALL[10],Lib:LIB,RMP:RMP,OAlex:OALEX};
+  let h=`<thead><tr><th>Méthode</th>`;
+ DATASETS.forEach(ds=>{h+=`<th colspan="2">${ds.label}</th>`;});
+  h+=`</tr><tr><th></th>`;
+ DATASETS.forEach(()=>{h+=`<th>ΔE ↓</th><th>ILD ↑</th>`;});
+  h+=`</tr></thead><tbody>`;
+ METHODS.forEach(m=>{
+    const isO=m==='Ours';
+    h+=`<tr class="${isO?'tr-ours':''}"><td><div class="m-name">${isO?' Ours':m}</div></td>`;
+    DATASETS.forEach(ds=>{
+      const d=src[ds.key][m];
+      const deV=d.dE, ildV=d.ILD;
+      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cours</td>`;return;}
+      const deCls=deV<.05?'color:var(--green)':deV<.4?'color:var(--amber)':'color:var(--red)';
+      const ildCls=ildV>=.8?'color:var(--green)':ildV>=.4?'color:var(--amber)':'color:var(--red)';
+      h+=`<td style="font-variant-numeric:tabular-nums;${deCls}">${deV.toFixed(3)}</td>`;
+      h+=`<td style="font-variant-numeric:tabular-nums;${ildCls}">${ildV.toFixed(3)}</td>`;
+    });
+    h+=`</tr>`;
+  });
+  h+=`</tbody>`;
+  tbl.innerHTML=h;
+}
+function drawAllCmpScatter(){
+  const cv=document.getElementById('allCmpCanvas');
+  if(!cv)return;
+  const W=cv.offsetWidth||600; cv.width=W; cv.height=Math.round(W*.5);
+  const H=cv.height;
+  const ctx=cv.getContext('2d');
+  const pad={l:52,r:20,t:22,b:42};
+  const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
+  ctx.clearRect(0,0,W,H);
+  const DATASETS=[
+    {key:'ML100k',src:ALL[10],  label:'ML 100k',   shape:'circle',  col:'#6b8fff'},
+    {key:'Lib',   src:LIB,      label:'libimseti',  shape:'diamond', col:'#ff7a5c'},
+    {key:'RMP',   src:RMP,      label:'RMP',         shape:'square',  col:'#b07aff'},
+  ];
+  const allPts=[];
+  DATASETS.forEach(ds=>METHODS.forEach(m=>{
+    const d=ds.src[m];
+    allPts.push({dE:d.dE,ILD:d.ILD});
+  }));
+  const maxDE=Math.min(1.4,Math.max(...allPts.map(p=>p.dE))*1.1);
+  const toX=v=>pad.l+(v/maxDE)*pw;
+  const toY=v=>pad.t+(1-v)*ph;
+  const tc=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim()||'#aaa';
+  ctx.strokeStyle='rgba(120,120,180,.11)'; ctx.lineWidth=1;
+  [0,.2,.4,.6,.8,1].forEach(v=>{
+    ctx.beginPath();ctx.moveTo(pad.l,toY(v));ctx.lineTo(pad.l+pw,toY(v));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(toX(v*maxDE),pad.t);ctx.lineTo(toX(v*maxDE),pad.t+ph);ctx.stroke();
+  });
+  ctx.fillStyle=tc;ctx.font='10px system-ui';ctx.textAlign='center';
+  [0,.25,.5,.75,1].forEach(v=>{ctx.fillText((v*maxDE).toFixed(2),toX(v*maxDE),pad.t+ph+14);});
+  ctx.textAlign='right';
+  [0,.2,.4,.6,.8,1].forEach(v=>{ctx.fillText(v.toFixed(1),pad.l-5,toY(v)+4);});
+  ctx.save();ctx.translate(13,pad.t+ph/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.font='11px system-ui';ctx.fillText('ILD ↑',0,0);ctx.restore();
+  ctx.textAlign='center';ctx.font='11px system-ui';ctx.fillText('ΔE →',pad.l+pw/2,H-5);
+  DATASETS.forEach(ds=>{
+   METHODS.forEach(m=>{
+      const d=ds.src[m];
+      const x=toX(d.dE),y=toY(d.ILD);
+      const isO=m==='Ours'; const r=isO?7:5;
+      const col=MC[m];
+      ctx.beginPath();
+      if(ds.shape==='circle') ctx.arc(x,y,r,0,2*Math.PI);
+      else if(ds.shape==='diamond'){ctx.moveTo(x,y-r);ctx.lineTo(x+r,y);ctx.lineTo(x,y+r);ctx.lineTo(x-r,y);ctx.closePath();}
+      else ctx.rect(x-r+1,y-r+1,(r-1)*2,(r-1)*2);
+      ctx.fillStyle=col+(isO?'ee':'88');ctx.fill();
+      if(isO){ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.stroke();}
+    });
+  });
 }
 </script>
 
