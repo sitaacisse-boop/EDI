@@ -25,7 +25,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 /* ── HEADER ── */
 .hdr{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
-.hdr-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 140% at 92% 50%,rgba(107,143,255,.08) 0%,transparent 60%),radial-gradient(ellipse 45% 100% at 4% 95%,rgba(18,232,122,.06) 0%,transparent 55%),radial-gradient(circle at 1px 1px,rgba(107,143,255,.06) 1px,transparent 0);background-size:auto,auto,26px 26px;pointer-events:none}
+.hdr-bg{display:none}
+#aurora-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;filter:blur(16px) saturate(1.25);opacity:.85}
 .hdr-inner{max-width:980px;margin:0 auto;padding:24px 32px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1;flex-wrap:wrap}
 .hdr-eyebrow{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
 .hdr-title{font-size:1.65rem;font-weight:900;letter-spacing:-.035em;line-height:1.1;color:var(--t1);margin:0}
@@ -147,14 +148,36 @@ canvas{width:100%;display:block;border-radius:8px}
 .ftbl th:first-child{text-align:left}
 .ftbl td{padding:8px 8px;border-bottom:1px solid var(--s2);text-align:right;color:var(--t2)}
 .ftbl td:first-child{text-align:left;font-weight:700;color:var(--t1)}
-.ftbl .tor td{color:var(--green);font-weight:700}
-.ftbl .tfair td{color:var(--cyan)}
-.ftbl .best{color:var(--blue);font-weight:800}
+.ftbl .tor td{color:var(--green);font-weight:700;text-shadow:0 0 10px rgba(18,232,122,.5)}
+.ftbl .tor{box-shadow:inset 0 1px 0 rgba(18,232,122,.18),inset 0 -1px 0 rgba(18,232,122,.18)}
+.ftbl .tfair td{color:var(--cyan);text-shadow:0 0 8px rgba(34,212,245,.35)}
+.ftbl .best{color:var(--blue);font-weight:800;text-shadow:0 0 10px rgba(107,143,255,.55)}
 .ftbl .ghdr th{background:var(--s2);font-size:.56rem;text-align:center}
+
+/* ── Glow global (mode sombre uniquement) ── */
+@media(prefers-color-scheme:dark){
+  .kpi-val{text-shadow:0 0 22px rgba(107,143,255,.65)}
+  .tile-val{text-shadow:0 0 18px rgba(107,143,255,.45)}
+  .edi-accent{text-shadow:0 0 36px rgba(18,232,122,.7)!important}
+  .tab-btn.on{text-shadow:0 0 14px rgba(107,143,255,.7)}
+  .finding.fg{box-shadow:var(--sh),0 0 22px rgba(18,232,122,.12)}
+  .finding.fk{box-shadow:var(--sh),0 0 18px rgba(107,143,255,.12)}
+  .card-title{text-shadow:0 0 12px rgba(107,143,255,.25)}
+  canvas:not(#aurora-canvas){filter:saturate(1.15) brightness(1.03)}
+}
+:root[data-theme="dark"] .kpi-val{text-shadow:0 0 22px rgba(107,143,255,.65)}
+:root[data-theme="dark"] .tile-val{text-shadow:0 0 18px rgba(107,143,255,.45)}
+:root[data-theme="dark"] .edi-accent{text-shadow:0 0 36px rgba(18,232,122,.7)!important}
+:root[data-theme="dark"] .tab-btn.on{text-shadow:0 0 14px rgba(107,143,255,.7)}
+:root[data-theme="dark"] .finding.fg{box-shadow:var(--sh),0 0 22px rgba(18,232,122,.12)}
+:root[data-theme="dark"] .finding.fk{box-shadow:var(--sh),0 0 18px rgba(107,143,255,.12)}
+:root[data-theme="dark"] .card-title{text-shadow:0 0 12px rgba(107,143,255,.25)}
+:root[data-theme="dark"] canvas:not(#aurora-canvas){filter:saturate(1.15) brightness(1.03)}
+.tab-btn.on{color:var(--blue)}
 </style>
 
 <header class="hdr">
-  <div class="hdr-bg"></div>
+  <canvas id="aurora-canvas"></canvas>
   <div class="hdr-inner">
     <div>
       <div class="hdr-eyebrow">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · 2026</div>
@@ -577,7 +600,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
     <h3>Biais académique massif — OpenAlex confirme le pire cas</h3>
-    <p>Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. Notre méthode cible cette zone — résultats finaux en attente du prochain run OpenAlex.</p>
+    <p>Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. AURORA atteint ΔE=0.051 (−28% vs Average Score) tout en maintenant frac_F=20% — seule méthode à corriger ce biais extrême tout en préservant la représentation féminine.</p>
   </div>
 
   <div class="card" style="margin-top:18px">
@@ -588,7 +611,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
     <strong style="color:var(--t1)">Perspectives :</strong>
     résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
-    Prochaines étapes : finaliser les résultats OpenAlex ; explorer les attributs sensibles supplémentaires (âge, occupation, institution) ; tester sur MovieLens 10M ; utiliser des notes continues pour des seuils θ plus fins ; étendre aux graphes bipartites temporels.
+    Prochaines étapes : explorer les attributs sensibles supplémentaires (âge, occupation, institution) ; tester sur MovieLens 10M ; utiliser des notes continues pour des seuils θ plus fins ; étendre aux graphes bipartites temporels.
   </div>
 </div>
 
@@ -1334,6 +1357,9 @@ function drawRadar(){
   const W=cv.offsetWidth||300; cv.width=W; cv.height=W;
   const DATA=radarDS==='1M'?ALL1M:ALL;
   const ctx=cv.getContext('2d');
+  const isDark=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  const txLabel=isDark?'rgba(230,215,255,.95)':'rgba(25,15,60,.88)';
+  const txRing=isDark?'rgba(180,160,255,.55)':'rgba(80,55,140,.5)';
   // R réduit et pad contrôlé pour que les labels restent dans le canvas
   const cx=W/2,cy=W/2,R=W*.27;
   const pad=W*.115;
@@ -1359,7 +1385,7 @@ function drawRadar(){
     ctx.strokeStyle=ri===3?'rgba(176,140,255,.5)':'rgba(176,140,255,.18)';
     ctx.lineWidth=ri===3?1.8:1;ctx.stroke();
     if(ri<3){
-      ctx.fillStyle='rgba(180,160,255,.55)';ctx.font=`${lfs}px system-ui`;
+      ctx.fillStyle=txRing;ctx.font=`${lfs}px system-ui`;
       ctx.textAlign='center';ctx.fillText(`${r*100|0}%`,cx+4,cy-r*R-4);
     }
   });
@@ -1397,7 +1423,7 @@ function drawRadar(){
   axes.forEach(ax=>{
     const lx=cx+(R+pad)*Math.cos(ax.a);
     const ly=cy+(R+pad)*Math.sin(ax.a);
-    ctx.fillStyle='rgba(230,215,255,.95)';
+    ctx.fillStyle=txLabel;
     ctx.font=`bold ${afs}px system-ui`;
     ctx.textAlign='center';
     ax.label.forEach((ln,li)=>{
@@ -1536,8 +1562,9 @@ function drawScatter(){
   });
   // dataset label
   if(isBoth){
+    const isDark2=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia('(prefers-color-scheme:dark)').matches);
     ctx.font='bold 10px system-ui';ctx.textAlign='left';
-    ctx.fillStyle='rgba(200,200,255,.55)';
+    ctx.fillStyle=isDark2?'rgba(200,200,255,.55)':'rgba(60,40,120,.55)';
     ctx.fillText(' = 100k    = 1M',pl+4,pt+ch-6);
   }
 }
@@ -1851,6 +1878,10 @@ function drawCmpScatter(){
 function drawAllRuntime(){
   const cv=document.getElementById('allRtCanvas');
   if(!cv)return;
+  const isDark=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  const txMain=isDark?'rgba(220,220,255,.95)':'rgba(25,15,60,.88)';
+  const txMuted=isDark?'rgba(180,190,230,.65)':'rgba(70,55,120,.7)';
+  const axisCol=isDark?'rgba(100,120,180,.6)':'rgba(70,55,120,.55)';
   const DS=[
     {lbl:'ML 100k',   col:'#6b8fff', get:m=>RT_100K[m].k10},
     {lbl:'ML 1M',     col:'#22d4f5', get:m=>RT_1M[m].k10},
@@ -1874,7 +1905,7 @@ function drawAllRuntime(){
     const x=sx(v);
     ctx.beginPath(); ctx.moveTo(x,pt-8); ctx.lineTo(x,pt+METHODS.length*rowH);
     ctx.strokeStyle='rgba(80,100,150,.13)'; ctx.lineWidth=.7; ctx.stroke();
-    ctx.fillStyle='rgba(100,120,180,.6)'; ctx.font='9px system-ui'; ctx.textAlign='center';
+    ctx.fillStyle=axisCol; ctx.font='9px system-ui'; ctx.textAlign='center';
     ctx.fillText(lbl,x,pt-10);
   });
   ctx.beginPath(); ctx.moveTo(pl,pt-10); ctx.lineTo(pl,pt+METHODS.length*rowH);
@@ -1884,7 +1915,7 @@ function drawAllRuntime(){
     const y0=pt+mi*rowH;
     const isO=m==='AURORA';
     const shortM={'Weighted Borda':'W.Borda','Average Score':'Avg Score','Fair Re-rank':'Fair Re-rank'}[m]||m;
-    ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
+    ctx.fillStyle=isO?txMain:txMuted;
     ctx.font=(isO?'bold ':'')+'10px system-ui'; ctx.textAlign='right';
     ctx.fillText(shortM,pl-7,y0+rowH/2+3);
     DS.forEach((ds,di)=>{
@@ -1908,7 +1939,7 @@ function drawAllRuntime(){
     ctx.fillStyle=ds.col; ctx.font='9px system-ui'; ctx.textAlign='left';
     ctx.fillText(ds.lbl,lx+22,legY);
   });
-  ctx.fillStyle='rgba(100,120,180,.4)'; ctx.textAlign='right';
+  ctx.fillStyle=axisCol; ctx.textAlign='right';
   ctx.fillText('Échelle log — k=10',pl+cw,legY);
 }
 
@@ -1918,6 +1949,11 @@ function drawRuntime(){
   const W=cv.offsetWidth||700; cv.width=W; cv.height=300;
   const ctx=cv.getContext('2d');
   ctx.clearRect(0,0,W,300);
+  const isDark=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  const txMain=isDark?'rgba(220,220,255,.95)':'rgba(25,15,60,.88)';
+  const txMuted=isDark?'rgba(180,190,230,.65)':'rgba(70,55,120,.7)';
+  const txVal=isDark?'#d8e4ff':'rgba(25,15,60,.8)';
+  const axisCol=isDark?'rgba(100,120,180,.6)':'rgba(70,55,120,.55)';
   const pl=108,pr=8,pt=28,pb=26;
   const cw=W-pl-pr,ch=300-pt-pb;
   const logMin=-2,logMax=5.5,logRange=logMax-logMin;
@@ -1927,7 +1963,7 @@ function drawRuntime(){
     const x=sx(v);
     ctx.beginPath();ctx.moveTo(x,pt-6);ctx.lineTo(x,pt+ch);
     ctx.strokeStyle='rgba(80,100,150,.13)';ctx.lineWidth=.7;ctx.stroke();
-    ctx.fillStyle='rgba(100,120,180,.6)';ctx.font='9px system-ui';ctx.textAlign='center';
+    ctx.fillStyle=axisCol;ctx.font='9px system-ui';ctx.textAlign='center';
     ctx.fillText(lbl,x,pt-10);
   });
   ctx.beginPath();ctx.moveTo(pl,pt-8);ctx.lineTo(pl,pt+ch);ctx.lineTo(pl+cw,pt+ch);
@@ -1939,7 +1975,7 @@ function drawRuntime(){
     const yc=pt+mi*rowH+rowH/2;
     const col=MC[m];const isO=m==='AURORA';
     const shortM=m==='Weighted Borda'?'W.Borda':m==='Average Score'?'Avg Score':m==='Fair Re-rank'?'Fair Re-rank':m;
-    ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
+    ctx.fillStyle=isO?txMain:txMuted;
     ctx.font=`${isO?'bold ':''}10px system-ui`;ctx.textAlign='right';
     ctx.fillText(isO?' AURORA':shortM,pl-7,yc+3);
     const v0=RT_100K[m][kKey],v1=RT_1M[m][kKey];
@@ -1953,7 +1989,7 @@ function drawRuntime(){
     // étiquettes valeurs
     ctx.font='bold 9px system-ui';ctx.textAlign='left';
     ctx.fillStyle=col+'95';ctx.fillText(fmtT(v0),x0+4,yc-BAR/2+2);
-    ctx.fillStyle='#d8e4ff';ctx.fillText(fmtT(v1),x1+4,yc+2+BAR/2+3);
+    ctx.fillStyle=txVal;ctx.fillText(fmtT(v1),x1+4,yc+2+BAR/2+3);
     // avertissement AURORA k=5 sur 1M
     if(isO&&cmpK===5&&v1>10000){
       ctx.fillStyle='rgba(245,165,35,.85)';ctx.font='8.5px system-ui';
@@ -1962,13 +1998,13 @@ function drawRuntime(){
   });
   // légende
   const ly=pt+ch+16;
-  ctx.fillStyle='rgba(180,190,230,.3)';ctx.fillRect(pl,ly-7,22,6);
-  ctx.strokeStyle='rgba(180,190,230,.5)';ctx.lineWidth=.7;ctx.strokeRect(pl,ly-7,22,6);
-  ctx.fillStyle='rgba(180,190,230,.7)';ctx.font='9px system-ui';ctx.textAlign='left';
+  ctx.fillStyle=isDark?'rgba(180,190,230,.3)':'rgba(100,90,160,.2)';ctx.fillRect(pl,ly-7,22,6);
+  ctx.strokeStyle=isDark?'rgba(180,190,230,.5)':'rgba(100,90,160,.4)';ctx.lineWidth=.7;ctx.strokeRect(pl,ly-7,22,6);
+  ctx.fillStyle=txMuted;ctx.font='9px system-ui';ctx.textAlign='left';
   ctx.fillText('100k',pl+26,ly);
-  ctx.fillStyle='rgba(180,190,230,.8)';ctx.fillRect(pl+58,ly-7,22,6);
+  ctx.fillStyle=isDark?'rgba(180,190,230,.8)':'rgba(100,90,160,.45)';ctx.fillRect(pl+58,ly-7,22,6);
   ctx.fillText('1M',pl+84,ly);
-  ctx.fillStyle='rgba(100,120,180,.4)';ctx.textAlign='right';
+  ctx.fillStyle=axisCol;ctx.textAlign='right';
   ctx.fillText('Échelle log (×10 par graduation)',pl+cw,ly);
 }
 
@@ -2226,12 +2262,14 @@ function drawScalRuntime(){
     const isO=m==='AURORA';
     const pts=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n][m].elapsed_s),n}));
     ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=isO?2:1.5;
+    ctx.shadowColor=col; ctx.shadowBlur=isO?10:4;
     ctx.setLineDash([5,3]);
     pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-    ctx.stroke(); ctx.setLineDash([]);
+    ctx.stroke(); ctx.setLineDash([]); ctx.shadowBlur=0;
     pts.forEach(p=>{
       ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=1.5;
-      ctx.arc(p.x,p.y,isO?4:2.5,0,Math.PI*2); ctx.stroke();
+      ctx.shadowColor=col; ctx.shadowBlur=isO?8:3;
+      ctx.arc(p.x,p.y,isO?4:2.5,0,Math.PI*2); ctx.stroke(); ctx.shadowBlur=0;
     });
   });
 
@@ -2241,11 +2279,13 @@ function drawScalRuntime(){
     const isO=m==='AURORA';
     const pts=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n][m].elapsed_s)}));
     ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=isO?2.5:1.5;
+    ctx.shadowColor=col; ctx.shadowBlur=isO?12:5;
     pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-    ctx.stroke();
+    ctx.stroke(); ctx.shadowBlur=0;
     pts.forEach(p=>{
       ctx.beginPath(); ctx.fillStyle=col;
-      ctx.arc(p.x,p.y,isO?4.5:3,0,Math.PI*2); ctx.fill();
+      ctx.shadowColor=col; ctx.shadowBlur=isO?10:4;
+      ctx.arc(p.x,p.y,isO?4.5:3,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
     });
     const last=pts[pts.length-1];
     const abbrev={"Average Score":"Avg","Borda":"Borda","Weighted Borda":"W.Borda",
@@ -2318,12 +2358,15 @@ function drawScalSn(){
 
   // ML-100k — taux de compression, ligne tiretée cyan
   const pts100k=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n]["AURORA"].ratio),n}));
-  ctx.beginPath(); ctx.strokeStyle=cyan; ctx.lineWidth=2; ctx.setLineDash([5,3]);
+  ctx.beginPath(); ctx.strokeStyle=cyan; ctx.lineWidth=2;
+  ctx.shadowColor=cyan; ctx.shadowBlur=6;
+  ctx.setLineDash([5,3]);
   pts100k.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-  ctx.stroke(); ctx.setLineDash([]);
+  ctx.stroke(); ctx.setLineDash([]); ctx.shadowBlur=0;
   pts100k.forEach(p=>{
     ctx.beginPath(); ctx.strokeStyle=cyan; ctx.lineWidth=1.5;
-    ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.stroke();
+    ctx.shadowColor=cyan; ctx.shadowBlur=5;
+    ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.stroke(); ctx.shadowBlur=0;
   });
 
   // ML-1M — taux de compression, ligne pleine verte
@@ -2332,11 +2375,14 @@ function drawScalSn(){
   pts1m.forEach(p=>ctx.lineTo(p.x,p.y));
   ctx.lineTo(pts1m[pts1m.length-1].x,pad.t+ph); ctx.closePath(); ctx.fill();
   ctx.beginPath(); ctx.strokeStyle=green; ctx.lineWidth=2.5;
+  ctx.shadowColor=green; ctx.shadowBlur=10;
   pts1m.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-  ctx.stroke();
+  ctx.stroke(); ctx.shadowBlur=0;
   pts1m.forEach((p,i)=>{
     const v=SCAL_DATA[SCAL_SIZES[i]]["AURORA"].ratio;
-    ctx.beginPath(); ctx.fillStyle=green; ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.fillStyle=green;
+    ctx.shadowColor=green; ctx.shadowBlur=8;
+    ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
     ctx.fillStyle=green; ctx.font='9px sans-serif'; ctx.textAlign='center';
     ctx.fillText((v*100).toFixed(0)+'%',p.x,p.y-8);
   });
@@ -2384,14 +2430,15 @@ function drawScalEdi(){
   // Fonction helper pour tracer une courbe
   function drawLine(sizes,getData,col,solid,dotFill,r){
     const pts=sizes.map(n=>({x:xPos(n),y:yPos(getData(n))}));
-    ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=solid?2.5:2;
+    ctx.shadowColor=col; ctx.shadowBlur=solid?10:5;
     if(!solid)ctx.setLineDash([5,3]);
     pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
-    ctx.stroke(); ctx.setLineDash([]);
+    ctx.stroke(); ctx.setLineDash([]); ctx.shadowBlur=0;
     pts.forEach(p=>{
       ctx.beginPath();
-      if(dotFill){ctx.fillStyle=col;ctx.arc(p.x,p.y,r||3.5,0,Math.PI*2);ctx.fill();}
-      else{ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.arc(p.x,p.y,r||3,0,Math.PI*2);ctx.stroke();}
+      if(dotFill){ctx.fillStyle=col;ctx.shadowColor=col;ctx.shadowBlur=10;ctx.arc(p.x,p.y,r||4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+      else{ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.shadowColor=col;ctx.shadowBlur=5;ctx.arc(p.x,p.y,r||3,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;}
     });
   }
 
@@ -2962,6 +3009,54 @@ function drawAllCmpScatter(){
     });
   });
 }
+</script>
+<script>
+(function(){
+  var cv=document.getElementById('aurora-canvas');
+  if(!cv)return;
+  var ctx=cv.getContext('2d');
+  var reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* bandes : base (fraction H), amplitude, fréquence, vitesse, couleur rgb, épaisseur, alpha */
+  var bands=[
+    {base:.52,amp:.24,freq:2.2,spd:.00032,rgb:'18,232,122', thick:.62,a:.70},
+    {base:.36,amp:.18,freq:3.1,spd:.00022,rgb:'155,110,255',thick:.50,a:.58},
+    {base:.68,amp:.14,freq:4.0,spd:.00048,rgb:'34,212,245', thick:.42,a:.45},
+    {base:.26,amp:.10,freq:5.2,spd:.00016,rgb:'107,143,255',thick:.34,a:.38},
+    {base:.60,amp:.13,freq:3.7,spd:.00028,rgb:'255,100,160',thick:.32,a:.40},
+  ];
+
+  function resize(){
+    var p=cv.parentElement;
+    cv.width=p.offsetWidth||980;
+    cv.height=p.offsetHeight||160;
+  }
+
+  function frame(ts){
+    var W=cv.width, H=cv.height;
+    ctx.clearRect(0,0,W,H);
+    for(var bi=0;bi<bands.length;bi++){
+      var b=bands[bi];
+      var cy0=b.base*H, amp=b.amp*H, half=b.thick*H*.5;
+      for(var x=0;x<W;x+=5){
+        var cy=cy0+amp*Math.sin(x*.006*b.freq+ts*b.spd);
+        var g=ctx.createLinearGradient(0,cy-half,0,cy+half);
+        g.addColorStop(0,  'rgba('+b.rgb+',0)');
+        g.addColorStop(.28,'rgba('+b.rgb+','+b.a*.42+')');
+        g.addColorStop(.5, 'rgba('+b.rgb+','+b.a+')');
+        g.addColorStop(.72,'rgba('+b.rgb+','+b.a*.42+')');
+        g.addColorStop(1,  'rgba('+b.rgb+',0)');
+        ctx.fillStyle=g;
+        ctx.fillRect(x,cy-half,5,half*2);
+      }
+    }
+    if(!reduced) requestAnimationFrame(frame);
+  }
+
+  resize();
+  try{new ResizeObserver(resize).observe(cv.parentElement);}catch(e){window.addEventListener('resize',resize);}
+  requestAnimationFrame(frame);
+})();
 </script>
 
 </body></html>
