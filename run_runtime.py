@@ -142,7 +142,7 @@ METHODS = {
     "Borda":         lambda k: top_k_borda(ratings, k),
     "Condorcet":     lambda k: top_k_condorcet(ratings, k),
     "Fair Re-rank":  lambda k: top_k_fair_rerank(ratings, gender_map, k, THETA),
-    "Ours":          lambda k: run_coarsening(ratings, gender_map, k, THETA),
+    "AURORA":          lambda k: run_coarsening(ratings, gender_map, k, THETA),
 }
 
 runtime_results = {}

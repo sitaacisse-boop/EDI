@@ -227,7 +227,7 @@ for k in [5, 10, 20]:
         print("  Fair Re-rank...")
         fair_items  = top_k_fair_rerank(ratings, gender_map, k, theta)
         print("  Coarsening...")
-        ours_m = run_coarsening(ratings, gender_map, k, theta)
+        AURORA_m = run_coarsening(ratings, gender_map, k, theta)
         results["experiments"][key] = {
             "k": k, "theta": theta,
             "Average Score":   edi_metrics(ratings, avg_items,   gender_map, theta),
@@ -235,10 +235,10 @@ for k in [5, 10, 20]:
             "Weighted Borda":  edi_metrics(ratings, wb_items,    gender_map, theta),
             "Condorcet":       edi_metrics(ratings, cond_items,  gender_map, theta),
             "Fair Re-rank":    edi_metrics(ratings, fair_items,  gender_map, theta),
-            "Ours":            ours_m,
+            "AURORA":            AURORA_m,
         }
         r = results["experiments"][key]
-        for m in ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"]:
+        for m in ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"]:
             v = r[m]
             print(f"  {m:16s}: dE={v['dE']} ILD={v['ILD']} inc_F={v['inc_F']} inc_M={v['inc_M']}")
 

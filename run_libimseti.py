@@ -270,7 +270,7 @@ if __name__ == "__main__":
         "experiments": {}
     }
 
-    METHODS = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"]
+    METHODS = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"]
 
     for k in K_VALUES:
         print(f"\n{'='*60}")
@@ -294,9 +294,9 @@ if __name__ == "__main__":
             exp[method_name] = m
             print(f" {rt:.3f}s | dE={m['dE']:.4f} ILD={m['ILD']:.4f}")
 
-        print(f"  Ours (coarsening, max_merges=400)...", end="", flush=True)
+        print(f"  AURORA (coarsening, max_merges=400)...", end="", flush=True)
         m = run_coarsening(ratings, gender_map, k, THETA, max_merges=400)
-        exp["Ours"] = m
+        exp["AURORA"] = m
         print(f" {m['elapsed_s']}s => {m['n_supernodes']} super-noeuds | dE={m['dE']:.4f} ILD={m['ILD']:.4f}")
 
         results["experiments"][key] = exp

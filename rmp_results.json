@@ -3,7 +3,7 @@
     "dataset": "Rate My Professors",
     "source": "github.com/vxuv/ratemyprofessor-dataset",
     "formulation": "item-side equity",
-    "user": "code de cours (ex. ENG101)",
+    "user": "code de cAURORA (ex. ENG101)",
     "item": "professeur (genre infere depuis prenom)",
     "n_users": 1981,
     "n_items": 59066,
@@ -68,7 +68,7 @@
         "frac_M": 0.5,
         "elapsed_s": 1.4553
       },
-      "Ours": {
+      "AURORA": {
         "dE": 0.0169,
         "ILD": 0.9244,
         "inc_F": 1.0,

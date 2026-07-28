@@ -223,7 +223,7 @@ if __name__ == "__main__":
                  "description": "Scalabilite fine : 100 a 943 utilisateurs"},
         "experiments": {}
     }
-    METHODS = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"]
+    METHODS = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"]
 
     for n_users in SIZES:
         print(f"\n{'='*50}\nn_users = {n_users}")
@@ -257,9 +257,9 @@ if __name__ == "__main__":
             print(f" {rt:.3f}s")
 
         max_m = max(30, round(400 * len(gender_map) / 943))
-        print(f"  Ours (max_merges={max_m})...", end="", flush=True)
+        print(f"  AURORA (max_merges={max_m})...", end="", flush=True)
         m = run_coarsening(ratings, gender_map, K, THETA, max_merges=max_m)
-        exp["Ours"] = m
+        exp["AURORA"] = m
         print(f" {m['elapsed_s']}s => {m['n_supernodes']} super-noeuds")
 
         results["experiments"][str(n_users)] = exp

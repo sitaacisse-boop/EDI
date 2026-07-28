@@ -255,7 +255,7 @@ def build_matrix(raw, venue_names, author_gender):
 
 
 # ── Métriques EDI (item-side) ─────────────────────────────────────────────────
-METHODS_LIST = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"]
+METHODS_LIST = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"]
 
 def _avg_scores(ratings: dict[int,dict[str,float]]) -> dict[str,float]:
     acc: dict[str,float] = defaultdict(float)
@@ -508,15 +508,15 @@ def run_experiments(ratings, gender_map, alpha_F, alpha_M):
         print(f"  Fair Re-rank... {mtr['elapsed_s']}s | "
               f"ΔE={mtr['dE']:.4f} ILD={mtr['ILD']:.4f} F={mtr['frac_F']:.2f}")
 
-        # 6. Ours
-        print(f"  Ours (coarsening, max_merges=400)...")
-        topk_ours, n_sn, elapsed = run_coarsening_item(
+        # 6. AURORA
+        print(f"  AURORA (coarsening, max_merges=400)...")
+        topk_AURORA, n_sn, elapsed = run_coarsening_item(
             ratings, gender_map, alpha_F, alpha_M, k, max_merges=400
         )
-        mtr = edi_metrics_item(topk_ours, gender_map, alpha_F, alpha_M)
+        mtr = edi_metrics_item(topk_AURORA, gender_map, alpha_F, alpha_M)
         mtr["elapsed_s"] = round(elapsed, 3)
         mtr["n_supernodes"] = n_sn
-        results[key]["Ours"] = mtr
+        results[key]["AURORA"] = mtr
         print(f"  → {elapsed:.3f}s | ΔE={mtr['dE']:.4f} ILD={mtr['ILD']:.4f} "
               f"F={mtr['frac_F']:.2f} ({n_sn} super-nœuds)")
 

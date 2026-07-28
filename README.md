@@ -1,7 +1,7 @@
 # Projet de Recherche — EDI & Graph Summarization
 **Auteure :** Adji Marieme Sita Cissé  
 **Directeur :** Prof. Malek Mouhoub — Université Paris-Saclay · University of Regina  
-**Période :** Mai – Octobre 2026 | Bourse DataIA Mobilité Internationale
+**Période :** Mai – Octobre 2026 | BAURORAe DataIA Mobilité Internationale
 
 ---
 
@@ -15,7 +15,7 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | **MovieLens 100k** | genre côté utilisateur (F/M) | 943 (273F/670M) | 1 682 films | 100 000 |
 | **MovieLens 1M** | genre côté utilisateur (F/M) | 6 040 (1 709F/4 331M) | 3 706 films | 1 000 209 |
 | **libimseti.cz** | genre côté utilisateur (F/M) | réseau de rencontres social | — | scores de séduction |
-| **Rate My Professors** | genre côté item (prof. F/M) | étudiants (venues) | 18 000+ professeurs | notes de cours |
+| **Rate My Professors** | genre côté item (prof. F/M) | étudiants (venues) | 18 000+ professeurs | notes de cAURORA |
 | **OpenAlex** | genre côté item (auteur·e F/M) | 99 venues IA/ML/CS | 904 auteur·e·s | 2 124 (2018–2023) |
 
 **Tableau de bord interactif :** https://sitaacisse-boop.github.io/EDI/
@@ -28,7 +28,7 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | Fichier | Description |
 |---|---|
 | `edi_coarsening.py` | Algorithme de coarsening EDI-contraint — cœur de la méthode proposée |
-| `edi_baselines.py` | 6 baselines : Average Score, Borda, Weighted Borda, Condorcet, Fair Re-rank, Ours |
+| `edi_baselines.py` | 6 baselines : Average Score, Borda, Weighted Borda, Condorcet, Fair Re-rank, AURORA |
 | `run_all_experiments.py` | Lance toutes les expériences 100k (6 méthodes × k ∈ {5,10,20} × θ ∈ {3.5, 4.0}) |
 | `run_experiments_1m.py` | Lance toutes les expériences MovieLens 1M |
 | `run_libimseti.py` | Expériences sur libimseti.cz — équité côté utilisateur |
@@ -94,8 +94,8 @@ Paramètres MovieLens : seuil θ = 4.0, α_F = 0.289, α_M = 0.711
 | Weighted Borda | 10 | 0.4249 | 0.354 | 0.293 | 0.392 |
 | Condorcet | 10 | 0.4459 | 0.356 | 0.292 | 0.394 |
 | Fair Re-rank | 10 | 0.1623 | 0.430 | 0.271 | 0.313 |
-| **Ours** | 10 | 0.3511 | **0.448** | 0.248 | 0.325 |
-| **Ours** | 20 | 0.3475 | **0.465** | **0.269** | **0.348** |
+| **AURORA** | 10 | 0.3511 | **0.448** | 0.248 | 0.325 |
+| **AURORA** | 20 | 0.3475 | **0.465** | **0.269** | **0.348** |
 
 À k=20 (100k), notre méthode domine sur ILD, inc_F et inc_M.  
 Compression : 943 → 272 super-nœuds (−71.2%), ratio F/M rééquilibré 29% → 37%.
@@ -109,10 +109,10 @@ Compression : 943 → 272 super-nœuds (−71.2%), ratio F/M rééquilibré 29% 
 | Weighted Borda | 10 | 0.371 | 0.413 | 0.324 | 0.404 |
 | Condorcet | 10 | 0.487 | 0.408 | 0.305 | 0.412 |
 | Fair Re-rank | 10 | 0.019 | 0.452 | 0.336 | 0.343 |
-| **Ours** | 5 | **0.064** | **0.578** | 0.277 | 0.295 |
-| **Ours** | 10 | 0.332 | 0.423 | 0.317 | 0.390 |
+| **AURORA** | 5 | **0.064** | **0.578** | 0.277 | 0.295 |
+| **AURORA** | 10 | 0.332 | 0.423 | 0.317 | 0.390 |
 
-Résultat marquant : Ours k=5 sur 1M atteint ΔE=0.064 + ILD=0.578 (meilleure diversité de toutes les méthodes).
+Résultat marquant : AURORA k=5 sur 1M atteint ΔE=0.064 + ILD=0.578 (meilleure diversité de toutes les méthodes).
 
 ### libimseti.cz — équité côté utilisateur
 
@@ -123,7 +123,7 @@ Résultat marquant : Ours k=5 sur 1M atteint ΔE=0.064 + ILD=0.578 (meilleure di
 | Weighted Borda | 1.218 | 0.744 | **0.147** | **0.024** | 0.705s |
 | Condorcet | 1.296 | 0.746 | 0.157 | 0.024 | 0.257s |
 | Fair Re-rank | 0.144 | 0.719 | 0.039 | 0.024 | 0.807s |
-| **Ours** | 0.876 | 0.816 | 0.112 | 0.024 | 402.5s |
+| **AURORA** | 0.876 | 0.816 | 0.112 | 0.024 | 402.5s |
 
 ### Rate My Professors — équité côté item (frac_F)
 
@@ -134,9 +134,9 @@ Résultat marquant : Ours k=5 sur 1M atteint ΔE=0.064 + ILD=0.578 (meilleure di
 | Weighted Borda | 0.008 | 0.145 | 0.40 | 41.3s |
 | Condorcet | 0.076 | 0.253 | 0.30 | 0.289s |
 | Fair Re-rank | **0.000** | 0.196 | 0.50 | 1.455s |
-| **Ours** | 0.017 | 0.924 | **0.60** | 46.6s |
+| **AURORA** | 0.017 | 0.924 | **0.60** | 46.6s |
 
-Ours est la seule méthode à atteindre ILD ≈ 0.924 (proche d'Average Score) tout en augmentant frac_F à 60%.
+AURORA est la seule méthode à atteindre ILD ≈ 0.924 (proche d'Average Score) tout en augmentant frac_F à 60%.
 
 ### OpenAlex (IA/ML/CS 2018–2023) — équité côté item (frac_F auteur·e·s)
 
@@ -149,9 +149,9 @@ Ours est la seule méthode à atteindre ILD ≈ 0.924 (proche d'Average Score) t
 | Weighted Borda | 1.233 | 0.000 | 0.00 | 0.011s |
 | Condorcet | 1.233 | 0.000 | 0.00 | 0.008s |
 | Fair Re-rank | 0.071 | 0.356 | 0.20 | 0.013s |
-| **Ours** | **0.051** | 0.351 | **0.20** | 0.144s |
+| **AURORA** | **0.051** | 0.351 | **0.20** | 0.144s |
 
-Ours obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'équité inter-groupes tout en maintenant la représentation féminine (frac_F=20%). Borda/WBorda/Condorcet ne recommandent aucune auteure (frac_F=0%).
+AURORA obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'équité inter-groupes tout en maintenant la représentation féminine (frac_F=20%). Borda/WBorda/Condorcet ne recommandent aucune auteure (frac_F=0%).
 
 ---
 
@@ -166,7 +166,7 @@ Ours obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'équ
 | Phase 5 — Évaluation MovieLens | Juillet | ✅ Terminé | `experiments_results.json`, figures, tables, scalabilité |
 | Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` (1M, 500→6 040) + `scalability_100k_results.json` (100k, 100→943) |
 | Phase 5c — Corpus multi-domaines | Juillet | ✅ Terminé | `libimseti_results.json`, `rmp_results.json`, `openalex_results.json` |
-| Phase 6 — Article de recherche | Juillet–Août | ⏳ En cours | Paper LLNCS (Overleaf) |
+| Phase 6 — Article de recherche | Juillet–Août | ⏳ En cAURORA | Paper LLNCS (Overleaf) |
 
 ---
 

@@ -116,6 +116,6 @@ if os.path.exists(json_1m):
     ratings_1m, gmap_1m = load_1m()
     patch_json(json_1m, ratings_1m, gmap_1m)
 else:
-    print("experiments_results_1m.json introuvable — ignoré (run_experiments_1m.py toujours en cours ?)")
+    print("experiments_results_1m.json introuvable — ignoré (run_experiments_1m.py toujAURORA en cAURORA ?)")
 
 print("Terminé.")

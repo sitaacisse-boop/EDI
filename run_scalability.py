@@ -247,7 +247,7 @@ if __name__ == "__main__":
         "experiments": {}
     }
 
-    METHODS = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"]
+    METHODS = ["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"]
 
     for n_users in SIZES:
         print(f"\n{'='*60}")
@@ -297,12 +297,12 @@ if __name__ == "__main__":
         m = edi_metrics(ratings, items, gender_map, THETA); m["elapsed_s"] = round(rt, 4)
         exp["Fair Re-rank"] = m; print(f" {rt:.3f}s")
 
-        # Ours — max_merges proportionnel à n_users pour éviter le paradoxe
+        # AURORA — max_merges proportionnel à n_users pour éviter le paradoxe
         # (petit dataset = top-k très stable = plus de paires à parcourir)
         max_m = max(50, round(400 * len(gender_map) / 6040))
-        print(f"  Ours (coarsening, max_merges={max_m})...", end="", flush=True)
+        print(f"  AURORA (coarsening, max_merges={max_m})...", end="", flush=True)
         m = run_coarsening(ratings, gender_map, K, THETA, max_merges=max_m)
-        exp["Ours"] = m
+        exp["AURORA"] = m
         print(f" {m['elapsed_s']}s => {m['n_supernodes']} super-noeuds "
               f"(ratio {m['ratio']:.1%})")
 

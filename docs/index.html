@@ -105,8 +105,8 @@ tbody tr:last-child td{border-bottom:none}
 .cg{background:rgba(15,209,122,.12);color:var(--good)}
 .cw{background:rgba(245,165,35,.12);color:var(--warn)}
 .cb{background:rgba(239,84,84,.12);color:var(--bad)}
-.tr-ours td{background:rgba(15,209,122,.04)}
-.tr-ours .m-name{color:var(--green)}
+.tr-AURORA td{background:rgba(15,209,122,.04)}
+.tr-AURORA .m-name{color:var(--green)}
 .tr-fair td{background:rgba(6,182,212,.04)}
 
 .interp{margin-top:14px;padding:16px 18px;background:var(--s2);border-left:3px solid var(--green);border-radius:0 9px 9px 0;font-size:.82rem;color:var(--t2);line-height:1.65}
@@ -301,7 +301,7 @@ canvas{width:100%;display:block;border-radius:8px}
       <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">RateMy Professors</div>
       <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
         <b>Domain :</b>Académique · Item-side equity<br>
-        <b>Users :</b> 1 981 cours (ENG101)<br>
+        <b>Users :</b> 1 981 cAURORA (ENG101)<br>
         <b>Items :</b> 59 066 professeurs<br>
         <b>Ratings :</b> 150 800 notes (1–5)<br>
         <b>Équité :</b>Genre des profs recommandés<br>
@@ -497,7 +497,7 @@ canvas{width:100%;display:block;border-radius:8px}
           <tr><td><strong>MovieLens 1M</strong></td><td>Films</td><td>6 040</td><td>3 706</td><td>1 000 209</td><td>1–5</td><td>4.5%</td><td>user-side</td><td>28%</td></tr>
           <tr><td><strong> libimseti.cz</strong></td><td>Rencontres</td><td>1 000</td><td>32 677</td><td>97 707</td><td>1–10</td><td>0.3%</td><td>user-side</td><td>50%</td></tr>
           <tr><td><strong> RateMy Prof.</strong></td><td>Académique</td><td>1 981</td><td>59 066</td><td>150 800</td><td>1–5</td><td>0.1%</td><td>item-side</td><td>51%*</td></tr>
-          <tr class="tr-ours"><td><strong>OpenAlex</strong></td><td>Publications</td><td>~99</td><td>~904</td><td>~2 100</td><td>1–5</td><td>2.4%</td><td>item-side</td><td>19%</td></tr>
+          <tr class="tr-AURORA"><td><strong>OpenAlex</strong></td><td>Publications</td><td>~99</td><td>~904</td><td>~2 100</td><td>1–5</td><td>2.4%</td><td>item-side</td><td>19%</td></tr>
         </tbody>
       </table>
     </div>
@@ -548,7 +548,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div class="formula">inclusion_g(R) = (1/|G_g|) × _{uG_g} |{i R : w(u,i) ≥ θ}| / k</div>
         <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
         <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
-        <div class="res-box">Pour k=20, notre méthode : inc_F=0.269 (>Borda 0.247) et inc_M=0.348 (>Borda 0.339) — seule configuration où Ours domine tout.</div>
+        <div class="res-box">Pour k=20, notre méthode : inc_F=0.269 (>Borda 0.247) et inc_M=0.348 (>Borda 0.339) — seule configuration où AURORA domine tout.</div>
       </div>
     </div>
   </div>
@@ -566,12 +566,12 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div class="finding fk">
     <h3>Notre méthode (coarsenisation) offre le meilleur équilibre équité+diversité</h3>
     <p><strong>MovieLens 100k k=20 :</strong> domine sur 3/4 critères. 943→272 super-nœuds (−71.2%), ILD=0.465, ΔE=0.347, inc_F=0.269.
-    <br><strong>RateMy Professors :</strong> résultat remarquable — Ours atteint ILD=<strong>0.924</strong> (proche d'Average Score 0.982) tout en réduisant ΔE à 0.017 et portant frac_F à 60% (contre 0–40% pour les baselines).
-    <br><strong>libimseti :</strong> corpus homogène (profils de rencontres très similaires) — ΔE=0.876 reste élevé pour tous, mais Ours est le seul à atteindre ILD=0.816 (supérieur à Borda 0.744) malgré la difficulté.</p>
+    <br><strong>RateMy Professors :</strong> résultat remarquable — AURORA atteint ILD=<strong>0.924</strong> (proche d'Average Score 0.982) tout en réduisant ΔE à 0.017 et portant frac_F à 60% (contre 0–40% pour les baselines).
+    <br><strong>libimseti :</strong> corpus homogène (profils de rencontres très similaires) — ΔE=0.876 reste élevé pour tous, mais AURORA est le seul à atteindre ILD=0.816 (supérieur à Borda 0.744) malgré la difficulté.</p>
   </div>
 
   <div class="finding fg">
-    <h3>ILD — le seul critère où Ours excelle systématiquement</h3>
+    <h3>ILD — le seul critère où AURORA excelle systématiquement</h3>
     <p>Sur tous les datasets, la coarsenisation produit une diversité supérieure aux méthodes de vote (Borda, Condorcet) et au Fair Re-rank. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque.</p>
   </div>
 
@@ -617,7 +617,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#e8833a;flex-shrink:0"></div>Weighted Borda</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#ff6464;flex-shrink:0"></div>Condorcet</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#22d4f5;flex-shrink:0"></div>↗Fair Re-rank</div>
-        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;color:var(--t1)"><div style="width:13px;height:13px;border-radius:50%;background:#12e87a;box-shadow:0 0 8px #12e87a88;flex-shrink:0"></div>Ours</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;color:var(--t1)"><div style="width:13px;height:13px;border-radius:50%;background:#12e87a;box-shadow:0 0 8px #12e87a88;flex-shrink:0"></div>AURORA</div>
       </div>
       <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</div>
     </div>
@@ -654,7 +654,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         </ul>
       </div>
       <div style="flex:1;min-width:220px">
-        <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">Ours k=20</strong> s'en approche le mieux.
+        <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">AURORA k=20</strong> s'en approche le mieux.
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
           <li>Taille du cercle = k (petit→5, moyen→10, grand→20)</li>
           <li>Mode <em>Les deux</em> :  creux = 100k,  plein = 1M</li>
@@ -739,7 +739,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">ΔE vsILD — tous datasets, toutes méthodes, k=10</div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
       Forme du marqueur = dataset ( ML100k ·  libimseti ·  RMP). Couleur = méthode.
-      <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">Ours </strong> sont plus grands et entourés d'un anneau blanc.
+      <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">AURORA </strong> sont plus grands et entourés d'un anneau blanc.
     </div>
     <canvas id="allCmpCanvas" style="width:100%;display:block"></canvas>
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t2)">
@@ -754,7 +754,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <strong>Borda/Condorcet</strong> (jaune/rouge) : ILD moyen mais ΔE élevé — favorisent les items du groupe majoritaire. Sur libimseti : ΔE > 1 (extrême).
       </div>
       <div style="padding:8px 11px;background:rgba(18,232,122,.07);border-radius:7px;border-left:3px solid var(--green)">
-        <strong>Ours</strong> (vert) : seul à combiner ILD élevé ET ΔE maîtrisé sur plusieurs datasets. Sur RMP : ILD = 0.924, ΔE = 0.017 — le meilleur compromis.
+        <strong>AURORA</strong> (vert) : seul à combiner ILD élevé ET ΔE maîtrisé sur plusieurs datasets. Sur RMP : ILD = 0.924, ΔE = 0.017 — le meilleur compromis.
       </div>
     </div>
   </div>
@@ -765,14 +765,14 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
-      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas. Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). Seul <strong style="color:var(--green)">Ours</strong> obtient ILD élevé avec ΔE maîtrisé — visible surtout sur RMP (ILD=0.924) et MovieLens.
+      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas. Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). Seul <strong style="color:var(--green)">AURORA</strong> obtient ILD élevé avec ΔE maîtrisé — visible surtout sur RMP (ILD=0.924) et MovieLens.
     </div>
   </div>
 
   <div class="card" style="margin-top:14px">
     <div class="card-title">Temps d'exécution — tous datasets, k=10 (échelle log)</div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      5 barres par méthode : <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Échelle logarithmique. <strong style="color:var(--green)">Ours</strong> est plus lent mais reste sous 10 min sur tous les corpus.
+      5 barres par méthode : <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Échelle logarithmique. <strong style="color:var(--green)">AURORA</strong> est plus lent mais reste sous 10 min sur tous les corpus.
     </div>
     <canvas id="allRtCanvas" style="width:100%;display:block"></canvas>
   </div>
@@ -797,14 +797,14 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
-      <div class="card-title">Compression — super-nœuds de « Ours »</div>
+      <div class="card-title">Compression — super-nœuds de « AURORA »</div>
       <canvas id="scalSnCanvas" style="width:100%;display:block"></canvas>
       <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Taux de compression (super-nœuds / utilisateurs). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Les chutes abruptes correspondent aux phénomènes top-k stable.</p>
     </div>
     <div class="card">
-      <div class="card-title">Métriques EDI de « Ours » à travers les échelles</div>
+      <div class="card-title">Métriques EDI de « AURORA » à travers les échelles</div>
       <canvas id="scalEdiCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">ΔE (vert, 1−ΔE affiché) et ILD (bleu) pour Ours à k=10. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les deux métriques.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">ΔE (vert, 1−ΔE affiché) et ILD (bleu) pour AURORA à k=10. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les deux métriques.</p>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
@@ -889,7 +889,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         Sur libimseti, les rateurs M notent majoritairement des profils F (et vice versa — biais hétérosexuel). Le vote par Borda agrège toutes les préférences : le top-10 résultant est dominé par des profils F (très bien notés par les M). Les rateuses F obtiennent donc une utilité quasi nulle sur ce top-10 → écart d'équité &gt;1.
       </div>
       <div>
-        <strong style="color:var(--green)">Notre méthode (Ours)</strong><br>
+        <strong style="color:var(--green)">Notre méthode (AURORA)</strong><br>
         Coarsening : 1 000 → 10 super-nœuds (compression 99%, phénomène top-k stable). ΔE=0.876, ILD=0.816 — meilleure diversité que toutes les baselines. Le coarsening produit des recommandations plus diversifiées mais l'équité reste challengeante sur ce domaine très polarisé.
       </div>
     </div>
@@ -901,13 +901,13 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.06)">
     <span style="font-size:1rem;flex-shrink:0"></span>
     <span><b>RateMy Professors — validation côté professeurs (item-side equity) :</b>
-    3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cours (ex. ENG101) joue le rôle d'utilisateur : chaque cours a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span>
+    3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cAURORA (ex. ENG101) joue le rôle d'utilisateur : chaque cAURORA a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span>
   </div>
 
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">Cours</div><div class="tile-val">1 981</div><div class="tile-sub">jouent le rôle d'utilisateur</div></div>
+    <div class="tile"><div class="tile-lbl">CAURORA</div><div class="tile-val">1 981</div><div class="tile-sub">jouent le rôle d'utilisateur</div></div>
     <div class="tile"><div class="tile-lbl">Professeurs</div><div class="tile-val">59 066</div><div class="tile-sub">items à recommander</div></div>
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub">agrégés par (cours × prof)</div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub">agrégés par (cAURORA × prof)</div></div>
     <div class="tile"><div class="tile-lbl">ProfsF/M</div><div class="tile-val">51%</div><div class="tile-sub">F=30 141 · M=28 925</div></div>
   </div>
 
@@ -937,11 +937,11 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
       <div>
         <strong style="color:var(--blue)">Pourquoi ILD s'effondre avec Borda/Condorcet ?</strong><br>
-        Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cours → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.
+        Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cAURORA → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.
       </div>
       <div>
-        <strong style="color:var(--green)">Notre méthode (Ours)</strong><br>
-        Coarsening : 1 981 cours → 261 super-nœuds. ILD=0.924 — profs <em>diversifiés et pertinents</em>. ΔE=0.017 (faible), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 46s pour 59 066 professeurs.
+        <strong style="color:var(--green)">Notre méthode (AURORA)</strong><br>
+        Coarsening : 1 981 cAURORA → 261 super-nœuds. ILD=0.924 — profs <em>diversifiés et pertinents</em>. ΔE=0.017 (faible), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 46s pour 59 066 professeurs.
       </div>
     </div>
   </div>
@@ -1000,7 +1000,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       </div>
     </div>
     <div style="margin-top:10px;padding:9px 12px;background:rgba(18,232,122,.07);border-left:3px solid var(--green);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
-      <strong style="color:var(--green)">À retenir :</strong> la méthode idéale couvrirait tout l'espace du radar (triangle plein). <strong style="color:var(--t1)">Ours (vert)</strong> tend à avoir la plus grande surface — surtout sur la diversité ILD. Average Score (violet) domine souvent sur l'équité seule mais s'effondre sur les autres axes.
+      <strong style="color:var(--green)">À retenir :</strong> la méthode idéale couvrirait tout l'espace du radar (triangle plein). <strong style="color:var(--t1)">AURORA (vert)</strong> tend à avoir la plus grande surface — surtout sur la diversité ILD. Average Score (violet) domine souvent sur l'équité seule mais s'effondre sur les autres axes.
     </div>
   </div>
   <div class="notice">
@@ -1046,10 +1046,10 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">Lecture du graphique</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>Ours</strong> atteint cette zone sur RMP (ΔE=0.017, ILD=0.924) et améliore l'équité vs Borda sur tous les datasets avec une borne formelle.
+        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> atteint cette zone sur RMP (ΔE=0.017, ILD=0.924) et améliore l'équité vs Borda sur tous les datasets avec une borne formelle.
       </div>
       <div>
-        <strong style="color:var(--amber)">Compromis observé :</strong> Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'Ours est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.
+        <strong style="color:var(--amber)">Compromis observé :</strong> Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.
       </div>
     </div>
   </div>
@@ -1059,14 +1059,14 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
 <script>
 const ALL={
-  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"Ours":{dE:.4123,ILD:.4019,inc_F:.2989,inc_M:.3922,n_sn:6,ratio:.006}},
-  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"Ours":{dE:.3511,ILD:.4482,inc_F:.2484,inc_M:.3249,n_sn:5,ratio:.005}},
-  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Weighted Borda":{dE:.3933,ILD:.3904,inc_F:.2548,inc_M:.3444},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"Ours":{dE:.3475,ILD:.4646,inc_F:.269,inc_M:.3477,n_sn:272,ratio:.288}}
+  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"AURORA":{dE:.4123,ILD:.4019,inc_F:.2989,inc_M:.3922,n_sn:6,ratio:.006}},
+  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"AURORA":{dE:.3511,ILD:.4482,inc_F:.2484,inc_M:.3249,n_sn:5,ratio:.005}},
+  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Weighted Borda":{dE:.3933,ILD:.3904,inc_F:.2548,inc_M:.3444},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"AURORA":{dE:.3475,ILD:.4646,inc_F:.269,inc_M:.3477,n_sn:272,ratio:.288}}
 };
 const AF=0.289,AM=0.710;
-const METHODS=["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","Ours"];
+const METHODS=["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"];
 const COLS=[{key:'dE',lbl:'ΔE (Équité)',dir:'min',max:.55},{key:'ILD',lbl:'ILD (Diversité)',dir:'max',max:1},{key:'inc_F',lbl:'inc_F ↑',dir:'max',max:.45},{key:'inc_M',lbl:'inc_M ↑',dir:'max',max:.55}];
-const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Weighted Borda":"Borda pondéré par groupe","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","Ours":"Coarsenisation EDI"};
+const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Weighted Borda":"Borda pondéré par groupe","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","AURORA":"Coarsenisation EDI"};
 const INTERP={
   5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.412</strong>) et diversité (ILD 0.303→<strong>0.402</strong>) améliorées vs Borda. Inclusion légèrement réduite en contrepartie.
   <br><br>
@@ -1080,7 +1080,7 @@ const INTERP={
     <span style="color:var(--amber);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Compression extrême (5 super-nœuds) :</strong>Même phénomène qu'en k=5. Le top-10 change rarement lors des fusions successives, donc l'algorithme fusionne librement jusqu'à la limite de 400 fusions. Résultat : une représentation très compressée du graphe. La qualité EDI reste meilleure que Borda malgré cette compression.</span>
   </span>`,
-  20:`<strong>k=20 — meilleure configuration :</strong>Ours bat toutes les baselines sur les <strong>4 critères simultanément</strong>. ΔE=<strong>0.347</strong>,ILD=<strong>0.465</strong>, inc_F=<strong>0.269</strong> (>Borda 0.247), inc_M=<strong>0.348</strong>. <strong>272 super-nœuds</strong>, ratio F/M rééquilibré 29→37%.
+  20:`<strong>k=20 — meilleure configuration :</strong>AURORA bat toutes les baselines sur les <strong>4 critères simultanément</strong>. ΔE=<strong>0.347</strong>,ILD=<strong>0.465</strong>, inc_F=<strong>0.269</strong> (>Borda 0.247), inc_M=<strong>0.348</strong>. <strong>272 super-nœuds</strong>, ratio F/M rééquilibré 29→37%.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--green);flex-shrink:0"></span>
@@ -1152,9 +1152,9 @@ function renderTable(){
  COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
  METHODS.forEach(m=>{
-    const r=d[m],isO=m==='Ours',isFR=m==='Fair Re-rank';
+    const r=d[m],isO=m==='AURORA',isFR=m==='Fair Re-rank';
     const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
-    const rowCls=isO?'tr-ours':isFR?'tr-fair':'';
+    const rowCls=isO?'tr-AURORA':isFR?'tr-fair':'';
     const prefix=isO?' ':isFR?'↗ ':'';
     h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
     COLS.forEach(c=>{
@@ -1301,8 +1301,8 @@ function buildFinal(){
   [5,10,20].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
   h+=`</tr></thead><tbody>`;
  METHODS.forEach(m=>{
-    const isO=m==='Ours',isFR=m==='Fair Re-rank';
-    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    const isO=m==='AURORA',isFR=m==='Fair Re-rank';
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' AURORA':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
     [5,10,20].forEach(k=>{
       const r=ALL[k][m],bests={};
       COLS.forEach(c=>{const vs=METHODS.map(mm=>ALL[k][mm][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
@@ -1317,7 +1317,7 @@ function buildFinal(){
 }
 
 // ── VISUALISATIONS ──
-const MC={"Average Score":"#b07aff","Borda":"#ffb830","Weighted Borda":"#e8833a","Condorcet":"#ff6464","Fair Re-rank":"#22d4f5","Ours":"#12e87a"};
+const MC={"Average Score":"#b07aff","Borda":"#ffb830","Weighted Borda":"#e8833a","Condorcet":"#ff6464","Fair Re-rank":"#22d4f5","AURORA":"#12e87a"};
 let radarK=10,radarDS='100k',scatterDS='100k';
 
 function rNorm(key,v){
@@ -1369,10 +1369,10 @@ function drawRadar(){
     ctx.lineTo(cx+R*Math.cos(ax.a),cy+R*Math.sin(ax.a));
     ctx.strokeStyle='rgba(176,140,255,.28)';ctx.lineWidth=1.2;ctx.stroke();
   });
-  // data areas — baselines first, Ours on top
-  const order=[...METHODS.filter(m=>m!=='Ours'),'Ours'];
+  // data areas — baselines first, AURORA on top
+  const order=[...METHODS.filter(m=>m!=='AURORA'),'AURORA'];
   order.forEach(m=>{
-    const r=DATA[radarK][m],col=MC[m],isO=m==='Ours';
+    const r=DATA[radarK][m],col=MC[m],isO=m==='AURORA';
     const pts=axes.map(ax=>{
       const v=rNorm(ax.key,r[ax.key]);
       return{x:cx+v*R*Math.cos(ax.a),y:cy+v*R*Math.sin(ax.a)};
@@ -1489,7 +1489,7 @@ function drawScatter(){
       METHODS.forEach(m=>{
         const r=DS[k][m],col=MC[m];
         const x=sx(r.dE),y=sy(r.ILD),rad=KR[k];
-        const isO=m==='Ours';
+        const isO=m==='AURORA';
         if(isBoth&&di===0){
           // 100k: open circle
           ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
@@ -1515,15 +1515,15 @@ function drawScatter(){
     "Weighted Borda": {dx:-13, dy:-15, align:'right'},
     "Condorcet":      {dx:13,  dy:-13, align:'left'},
     "Fair Re-rank":   {dx:13,  dy:-14, align:'left'},
-    "Ours":           {dx:13,  dy:-15, align:'left'},
+    "AURORA":           {dx:13,  dy:-15, align:'left'},
   };
   const LABEL_DS=isBoth?ALL1M:DATA_S;
   METHODS.forEach(m=>{
     const r=LABEL_DS[20][m],col=MC[m];
     const x=sx(r.dE),y=sy(r.ILD);
     const off=LBL20[m]||{dx:0,dy:-16,align:'center'};
-    const isO=m==='Ours';
-    const lbl=isO?' Ours':(m==='Weighted Borda'?'W.Borda':m);
+    const isO=m==='AURORA';
+    const lbl=isO?' AURORA':(m==='Weighted Borda'?'W.Borda':m);
     const fs=Math.max(9,Math.min(isO?13:11,W*(isO?.018:.015)));
     ctx.font=`bold ${fs}px system-ui`;
     ctx.fillStyle='rgba(0,0,0,.55)';
@@ -1629,7 +1629,7 @@ const ALL1M={
     "Weighted Borda":{dE:.4895,ILD:.3857,inc_F:.336,inc_M:.4445},
     "Condorcet":{dE:.6335,ILD:.3616,inc_F:.3133,inc_M:.4497},
     "Fair Re-rank":{dE:.0036,ILD:.4163,inc_F:.3627,inc_M:.3655},
-    "Ours":{dE:.0643,ILD:.5783,inc_F:.2774,inc_M:.2945,n_sn:6,ratio:.001}
+    "AURORA":{dE:.0643,ILD:.5783,inc_F:.2774,inc_M:.2945,n_sn:6,ratio:.001}
   },
   10:{
     "Average Score":{dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
@@ -1637,7 +1637,7 @@ const ALL1M={
     "Weighted Borda":{dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
     "Condorcet":{dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
     "Fair Re-rank":{dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
-    "Ours":{dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_sn:2755,ratio:.456}
+    "AURORA":{dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_sn:2755,ratio:.456}
   },
   20:{
     "Average Score":{dE:.0703,ILD:.9582,inc_F:.0638,inc_M:.0787},
@@ -1645,7 +1645,7 @@ const ALL1M={
     "Weighted Borda":{dE:.3923,ILD:.436,inc_F:.2874,inc_M:.3742},
     "Condorcet":{dE:.4371,ILD:.432,inc_F:.2838,inc_M:.3787},
     "Fair Re-rank":{dE:.0998,ILD:.4768,inc_F:.2903,inc_M:.3146},
-    "Ours":{dE:.3317,ILD:.4558,inc_F:.2872,inc_M:.3605,n_sn:4318,ratio:.715}
+    "AURORA":{dE:.3317,ILD:.4558,inc_F:.2872,inc_M:.3605,n_sn:4318,ratio:.715}
   }
 };
 const RT_100K={
@@ -1654,7 +1654,7 @@ const RT_100K={
   "Weighted Borda":{k5:.68,k10:.66,k20:.65},
   "Condorcet":{k5:.122,k10:.123,k20:.123},
   "Fair Re-rank":{k5:.871,k10:.865,k20:.875},
-  "Ours":{k5:505.238,k10:517.138,k20:4.068}
+  "AURORA":{k5:505.238,k10:517.138,k20:4.068}
 };
 const RT_1M={
   "Average Score":{k5:.05,k10:.05,k20:.05},
@@ -1662,7 +1662,7 @@ const RT_1M={
   "Weighted Borda":{k5:4.5,k10:4.6,k20:4.5},
   "Condorcet":{k5:1.2,k10:1.2,k20:1.2},
   "Fair Re-rank":{k5:5.6,k10:5.2,k20:5.2},
-  "Ours":{k5:53140.4,k10:71.3,k20:65.6}
+  "AURORA":{k5:53140.4,k10:71.3,k20:65.6}
 };
 function fmtT(s){
   if(s<.1)return'<0.1s';
@@ -1674,8 +1674,8 @@ function fmtT(s){
 const AF1M=0.2829,AM1M=0.7171;
 const INTERP1M={
   5:`<strong>k=5 :</strong>Résultat remarquable — notre méthode atteint <strong>ΔE=0.0643</strong> (quasi-équité parfaite) et <strong>ILD=0.5783</strong> (meilleure diversité). Sur 100k, le même k donnait ΔE=0.412. <br><br>LeFair Re-rank est encore plus équitable (ΔE=0.0036) mais avec ILD plus faible (0.4163). <strong>Aucune méthode classique (Borda, Condorcet, W-Borda) ne passe sous ΔE=0.49.</strong>`,
-  10:`<strong>k=10 :</strong>Ours ΔE=<strong>0.332</strong>,ILD=<strong>0.423</strong> — similaire au 100k (ΔE=0.351, ILD=0.448). La méthode <strong>scale bien</strong> : la qualité EDI est maintenue sur un graphe 6× plus grand. Fair Re-rank reste excellent en équité (ΔE=0.019).`,
-  20:`<strong>k=20 :</strong>Ours ΔE=<strong>0.332</strong>,ILD=<strong>0.456</strong> — très proches du 100k (ΔE=0.348, ILD=0.465). <strong>Robustesse confirmée</strong> : nos métriques EDI restent stables avec 6× plus d'utilisateurs et de données.`
+  10:`<strong>k=10 :</strong>AURORA ΔE=<strong>0.332</strong>,ILD=<strong>0.423</strong> — similaire au 100k (ΔE=0.351, ILD=0.448). La méthode <strong>scale bien</strong> : la qualité EDI est maintenue sur un graphe 6× plus grand. Fair Re-rank reste excellent en équité (ΔE=0.019).`,
+  20:`<strong>k=20 :</strong>AURORA ΔE=<strong>0.332</strong>,ILD=<strong>0.456</strong> — très proches du 100k (ΔE=0.348, ILD=0.465). <strong>Robustesse confirmée</strong> : nos métriques EDI restent stables avec 6× plus d'utilisateurs et de données.`
 };
 let cur1MK=10,cmpK=10;
 
@@ -1695,9 +1695,9 @@ function renderTable1M(){
  COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
  METHODS.forEach(m=>{
-    const r=d[m],isO=m==='Ours',isFR=m==='Fair Re-rank';
+    const r=d[m],isO=m==='AURORA',isFR=m==='Fair Re-rank';
     const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
-    const rowCls=isO?'tr-ours':isFR?'tr-fair':'';
+    const rowCls=isO?'tr-AURORA':isFR?'tr-fair':'';
     const prefix=isO?' ':isFR?'↗ ':'';
     h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
     COLS.forEach(c=>{
@@ -1723,8 +1723,8 @@ function buildCmpTable(){
   h+=`<th>ΔΔE</th><th>ΔILD</th></tr></thead><tbody>`;
  METHODS.forEach(m=>{
     const r0=ALL[k][m],r1=ALL1M[k][m];
-    const isO=m==='Ours',isFR=m==='Fair Re-rank';
-    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' Ours':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    const isO=m==='AURORA',isFR=m==='Fair Re-rank';
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' AURORA':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
     COLS.forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
     COLS.forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
     const ddE=r1.dE-r0.dE,dILD=r1.ILD-r0.ILD;
@@ -1792,7 +1792,7 @@ function drawCmpScatter(){
   // 1M — filled circles (W.Borda décalé de 2px pour montrer superposition éventuelle)
   METHODS.forEach(m=>{
     const r=ALL1M[k][m],col=MC[m];
-    const isO=m==='Ours';const isWB=m==='Weighted Borda';
+    const isO=m==='AURORA';const isWB=m==='Weighted Borda';
     const ox=isWB?-2:0,oy=isWB?-2:0;
     if(isO){ctx.shadowBlur=12;ctx.shadowColor=col+'aa';}
     ctx.beginPath();ctx.arc(sx(r.dE)+ox,sy(r.ILD)+oy,RAD,0,Math.PI*2);
@@ -1808,7 +1808,7 @@ function drawCmpScatter(){
       "Weighted Borda":{dx:13,dy:-14,a:'left'},
       "Condorcet":{dx:-13,dy:-13,a:'right'},
       "Fair Re-rank":{dx:13,dy:-14,a:'left'},
-      "Ours":{dx:13,dy:-15,a:'left'}
+      "AURORA":{dx:13,dy:-15,a:'left'}
     },
     10:{
       "Average Score":{dx:13,dy:15,a:'left'},
@@ -1816,7 +1816,7 @@ function drawCmpScatter(){
       "Weighted Borda":{dx:-14,dy:18,a:'right'},
       "Condorcet":{dx:13,dy:19,a:'left'},
       "Fair Re-rank":{dx:13,dy:-13,a:'left'},
-      "Ours":{dx:-14,dy:-15,a:'right'}
+      "AURORA":{dx:-14,dy:-15,a:'right'}
     },
     20:{
       "Average Score":{dx:13,dy:15,a:'left'},
@@ -1824,17 +1824,17 @@ function drawCmpScatter(){
       "Weighted Borda":{dx:-14,dy:-15,a:'right'},
       "Condorcet":{dx:13,dy:19,a:'left'},
       "Fair Re-rank":{dx:13,dy:-13,a:'left'},
-      "Ours":{dx:13,dy:19,a:'left'}
+      "AURORA":{dx:13,dy:19,a:'left'}
     }
   };
   const LBL=LBL_K[k]||LBL_K[10];
   const SHORT={"Weighted Borda":"W.Borda"};
   METHODS.forEach(m=>{
     const r=ALL1M[k][m],col=MC[m];
-    const isO=m==='Ours';const isWB=m==='Weighted Borda';
+    const isO=m==='AURORA';const isWB=m==='Weighted Borda';
     const ox=isWB?-2:0,oy=isWB?-2:0;
     const off=LBL[m]||{dx:13,dy:-14,a:'left'};
-    const lbl=isO?' Ours':(SHORT[m]||m);
+    const lbl=isO?' AURORA':(SHORT[m]||m);
     const fs=Math.max(9,Math.min(isO?13:11,W*(isO?.018:.015)));
     const px=sx(r.dE)+ox,py=sy(r.ILD)+oy;
     const lx=px+off.dx,ly=py+off.dy;
@@ -1882,7 +1882,7 @@ function drawAllRuntime(){
   // lignes et barres
   METHODS.forEach((m,mi)=>{
     const y0=pt+mi*rowH;
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     const shortM={'Weighted Borda':'W.Borda','Average Score':'Avg Score','Fair Re-rank':'Fair Re-rank'}[m]||m;
     ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
     ctx.font=(isO?'bold ':'')+'10px system-ui'; ctx.textAlign='right';
@@ -1937,11 +1937,11 @@ function drawRuntime(){
   const BAR=Math.max(5,Math.floor(rowH*.3));
   METHODS.forEach((m,mi)=>{
     const yc=pt+mi*rowH+rowH/2;
-    const col=MC[m];const isO=m==='Ours';
+    const col=MC[m];const isO=m==='AURORA';
     const shortM=m==='Weighted Borda'?'W.Borda':m==='Average Score'?'Avg Score':m==='Fair Re-rank'?'Fair Re-rank':m;
     ctx.fillStyle=isO?'rgba(220,220,255,.95)':'rgba(180,190,230,.65)';
     ctx.font=`${isO?'bold ':''}10px system-ui`;ctx.textAlign='right';
-    ctx.fillText(isO?' Ours':shortM,pl-7,yc+3);
+    ctx.fillText(isO?' AURORA':shortM,pl-7,yc+3);
     const v0=RT_100K[m][kKey],v1=RT_1M[m][kKey];
     const x0=sx(v0),x1=sx(v1);
     // barre 100k (transparente)
@@ -1954,7 +1954,7 @@ function drawRuntime(){
     ctx.font='bold 9px system-ui';ctx.textAlign='left';
     ctx.fillStyle=col+'95';ctx.fillText(fmtT(v0),x0+4,yc-BAR/2+2);
     ctx.fillStyle='#d8e4ff';ctx.fillText(fmtT(v1),x1+4,yc+2+BAR/2+3);
-    // avertissement Ours k=5 sur 1M
+    // avertissement AURORA k=5 sur 1M
     if(isO&&cmpK===5&&v1>10000){
       ctx.fillStyle='rgba(245,165,35,.85)';ctx.font='8.5px system-ui';
       ctx.fillText(' phénomène top-5 stable — cas exceptionnel',pl+5,yc+BAR+14);
@@ -2061,7 +2061,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:.3668,dE:.1196,ILD:.4085,inc_F:.3688,inc_M:.3969},
     "Condorcet":{elapsed_s:.1063,dE:.31,ILD:.395,inc_F:.3482,inc_M:.4131},
     "Fair Re-rank":{elapsed_s:.4949,dE:.0115,ILD:.453,inc_F:.3397,inc_M:.3538},
-    "Ours":{elapsed_s:289.412,dE:.1242,ILD:.5704,inc_F:.2674,inc_M:.2905,n_supernodes:5,ratio:.01,stable_topk:true}
+    "AURORA":{elapsed_s:289.412,dE:.1242,ILD:.5704,inc_F:.2674,inc_M:.2905,n_supernodes:5,ratio:.01,stable_topk:true}
   },
   1000:{n_F:283,n_M:717,n_ratings:162306,
     "Average Score":{elapsed_s:.0067,dE:.0075,ILD:.9889,inc_F:.0025,inc_M:.001},
@@ -2069,7 +2069,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:.7146,dE:.3618,ILD:.4131,inc_F:.3254,inc_M:.3976},
     "Condorcet":{elapsed_s:.1923,dE:.3982,ILD:.4129,inc_F:.3219,inc_M:.4038},
     "Fair Re-rank":{elapsed_s:.8893,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
-    "Ours":{elapsed_s:8.075,dE:.1829,ILD:.5484,inc_F:.2633,inc_M:.2999,n_supernodes:97,ratio:.097}
+    "AURORA":{elapsed_s:8.075,dE:.1829,ILD:.5484,inc_F:.2633,inc_M:.2999,n_supernodes:97,ratio:.097}
   },
   2000:{n_F:566,n_M:1434,n_ratings:326612,
     "Average Score":{elapsed_s:.0123,dE:.0023,ILD:1.0,inc_F:.0002,inc_M:.0006},
@@ -2077,7 +2077,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:1.4417,dE:.3237,ILD:.416,inc_F:.3327,inc_M:.4016},
     "Condorcet":{elapsed_s:.3802,dE:.3981,ILD:.416,inc_F:.3196,inc_M:.404},
     "Fair Re-rank":{elapsed_s:1.7224,dE:.0011,ILD:.4873,inc_F:.326,inc_M:.3273},
-    "Ours":{elapsed_s:17.613,dE:.1688,ILD:.4551,inc_F:.3246,inc_M:.3637,n_supernodes:352,ratio:.176}
+    "AURORA":{elapsed_s:17.613,dE:.1688,ILD:.4551,inc_F:.3246,inc_M:.3637,n_supernodes:352,ratio:.176}
   },
   4000:{n_F:1132,n_M:2868,n_ratings:664230,
     "Average Score":{elapsed_s:.0252,dE:.0011,ILD:.9872,inc_F:.0005,inc_M:.0003},
@@ -2085,7 +2085,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:2.8903,dE:.3752,ILD:.4126,inc_F:.3211,inc_M:.4045},
     "Condorcet":{elapsed_s:.8404,dE:.4912,ILD:.4092,inc_F:.3024,inc_M:.411},
     "Fair Re-rank":{elapsed_s:4.2139,dE:.001,ILD:.4794,inc_F:.3266,inc_M:.3326},
-    "Ours":{elapsed_s:43.234,dE:.1496,ILD:.4526,inc_F:.317,inc_M:.3552,n_supernodes:1149,ratio:.287}
+    "AURORA":{elapsed_s:43.234,dE:.1496,ILD:.4526,inc_F:.317,inc_M:.3552,n_supernodes:1149,ratio:.287}
   },
   6040:{n_F:1709,n_M:4331,n_ratings:1000209,
     "Average Score":{elapsed_s:.0354,dE:.0001,ILD:1.0,inc_F:.0002,inc_M:.0002},
@@ -2093,7 +2093,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:4.4758,dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
     "Condorcet":{elapsed_s:1.1828,dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
     "Fair Re-rank":{elapsed_s:5.129,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
-    "Ours":{elapsed_s:76.334,dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_supernodes:2755,ratio:.456}
+    "AURORA":{elapsed_s:76.334,dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_supernodes:2755,ratio:.456}
   }
 };
 const SCAL_SIZES=[500,1000,2000,4000,6040];
@@ -2107,7 +2107,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.072,dE:.3555,ILD:.3317},
     "Condorcet":{elapsed_s:.012,dE:.4475,ILD:.3528},
     "Fair Re-rank":{elapsed_s:.144,dE:.0246,ILD:.4738},
-    "Ours":{elapsed_s:.311,dE:.1607,ILD:.5252,n_supernodes:50,ratio:.5}
+    "AURORA":{elapsed_s:.311,dE:.1607,ILD:.5252,n_supernodes:50,ratio:.5}
   },
   150:{n_F:43,n_M:107,n_ratings:13953,
     "Average Score":{elapsed_s:.001,dE:.0072,ILD:.9333},
@@ -2115,7 +2115,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.105,dE:.4158,ILD:.3761},
     "Condorcet":{elapsed_s:.018,dE:.4556,ILD:.3772},
     "Fair Re-rank":{elapsed_s:.188,dE:.0398,ILD:.4828},
-    "Ours":{elapsed_s:.506,dE:.3615,ILD:.4662,n_supernodes:61,ratio:.407}
+    "AURORA":{elapsed_s:.506,dE:.3615,ILD:.4662,n_supernodes:61,ratio:.407}
   },
   200:{n_F:58,n_M:142,n_ratings:20615,
     "Average Score":{elapsed_s:.002,dE:.0129,ILD:.9872},
@@ -2123,7 +2123,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.143,dE:.1728,ILD:.3314},
     "Condorcet":{elapsed_s:.026,dE:.1673,ILD:.3635},
     "Fair Re-rank":{elapsed_s:.234,dE:.0037,ILD:.4186},
-    "Ours":{elapsed_s:.703,dE:.2186,ILD:.4505,n_supernodes:82,ratio:.41}
+    "AURORA":{elapsed_s:.703,dE:.2186,ILD:.4505,n_supernodes:82,ratio:.41}
   },
   300:{n_F:87,n_M:213,n_ratings:33475,
     "Average Score":{elapsed_s:.002,dE:.0096,ILD:.9778},
@@ -2131,7 +2131,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.210,dE:.3732,ILD:.3469},
     "Condorcet":{elapsed_s:.038,dE:.3732,ILD:.3469},
     "Fair Re-rank":{elapsed_s:.318,dE:.0906,ILD:.4356},
-    "Ours":{elapsed_s:1.236,dE:.0801,ILD:.5284,n_supernodes:61,ratio:.203}
+    "AURORA":{elapsed_s:1.236,dE:.0801,ILD:.5284,n_supernodes:61,ratio:.203}
   },
   400:{n_F:116,n_M:284,n_ratings:42612,
     "Average Score":{elapsed_s:.002,dE:.0032,ILD:.9306},
@@ -2139,7 +2139,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.275,dE:.4343,ILD:.3855},
     "Condorcet":{elapsed_s:.051,dE:.4757,ILD:.3674},
     "Fair Re-rank":{elapsed_s:.390,dE:.0796,ILD:.504},
-    "Ours":{elapsed_s:1.615,dE:.3052,ILD:.4727,n_supernodes:80,ratio:.2}
+    "AURORA":{elapsed_s:1.615,dE:.3052,ILD:.4727,n_supernodes:80,ratio:.2}
   },
   500:{n_F:145,n_M:355,n_ratings:52603,
     "Average Score":{elapsed_s:.003,dE:.0156,ILD:.9678},
@@ -2147,7 +2147,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.341,dE:.4868,ILD:.3289},
     "Condorcet":{elapsed_s:.063,dE:.496,ILD:.3354},
     "Fair Re-rank":{elapsed_s:.490,dE:.1896,ILD:.403},
-    "Ours":{elapsed_s:3.908,dE:.26,ILD:.5905,n_supernodes:8,ratio:.016,stable_topk:true}
+    "AURORA":{elapsed_s:3.908,dE:.26,ILD:.5905,n_supernodes:8,ratio:.016,stable_topk:true}
   },
   700:{n_F:203,n_M:497,n_ratings:73879,
     "Average Score":{elapsed_s:.003,dE:.0071,ILD:.9909},
@@ -2155,7 +2155,7 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.490,dE:.3923,ILD:.3512},
     "Condorcet":{elapsed_s:.093,dE:.412,ILD:.3531},
     "Fair Re-rank":{elapsed_s:.620,dE:.1336,ILD:.3789},
-    "Ours":{elapsed_s:289.304,dE:.2181,ILD:.5213,n_supernodes:6,ratio:.009,stable_topk:true}
+    "AURORA":{elapsed_s:289.304,dE:.2181,ILD:.5213,n_supernodes:6,ratio:.009,stable_topk:true}
   },
   943:{n_F:273,n_M:670,n_ratings:100000,
     "Average Score":{elapsed_s:.004,dE:.0068,ILD:1.0},
@@ -2163,14 +2163,14 @@ const SCAL_100K_DATA={
     "Weighted Borda":{elapsed_s:.674,dE:.4249,ILD:.354},
     "Condorcet":{elapsed_s:.123,dE:.4459,ILD:.3559},
     "Fair Re-rank":{elapsed_s:.837,dE:.1623,ILD:.4295},
-    "Ours":{elapsed_s:517.138,dE:.3511,ILD:.4482,n_supernodes:5,ratio:.005,stable_topk:true}
+    "AURORA":{elapsed_s:517.138,dE:.3511,ILD:.4482,n_supernodes:5,ratio:.005,stable_topk:true}
   }
 };
 const SCAL_100K_SIZES=[100,150,200,300,400,500,700,943];
 
 const MCOLS_SCAL={
   "Average Score":"coral","Borda":"blue","Weighted Borda":"cyan",
-  "Condorcet":"amber","Fair Re-rank":"purple","Ours":"green"
+  "Condorcet":"amber","Fair Re-rank":"purple","AURORA":"green"
 };
 
 function scalCtx(id,h){
@@ -2223,7 +2223,7 @@ function drawScalRuntime(){
   // ML-100k — lignes tiretées, marqueurs creux
   METHODS.forEach(m=>{
     const col=scalCss(MCOLS_SCAL[m]);
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     const pts=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n][m].elapsed_s),n}));
     ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=isO?2:1.5;
     ctx.setLineDash([5,3]);
@@ -2238,7 +2238,7 @@ function drawScalRuntime(){
   // ML-1M — lignes pleines, marqueurs remplis
   METHODS.forEach(m=>{
     const col=scalCss(MCOLS_SCAL[m]);
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     const pts=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n][m].elapsed_s)}));
     ctx.beginPath(); ctx.strokeStyle=col; ctx.lineWidth=isO?2.5:1.5;
     pts.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
@@ -2249,7 +2249,7 @@ function drawScalRuntime(){
     });
     const last=pts[pts.length-1];
     const abbrev={"Average Score":"Avg","Borda":"Borda","Weighted Borda":"W.Borda",
-      "Condorcet":"Condorcet","Fair Re-rank":"Fair","Ours":"Ours"}[m];
+      "Condorcet":"Condorcet","Fair Re-rank":"Fair","AURORA":"AURORA"}[m];
     ctx.fillStyle=col; ctx.font=(isO?'bold ':'')+'9px sans-serif'; ctx.textAlign='left';
     ctx.fillText(abbrev,last.x+5,last.y+3);
   });
@@ -2258,7 +2258,7 @@ function drawScalRuntime(){
   const amber=scalCss('amber');
   // 100k n=700 (289s)
   {
-    const x0=xPos(700), y0=yPos(SCAL_100K_DATA[700]["Ours"].elapsed_s);
+    const x0=xPos(700), y0=yPos(SCAL_100K_DATA[700]["AURORA"].elapsed_s);
     ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
     ctx.moveTo(x0-8,y0-8); ctx.lineTo(x0-30,y0-26); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='right';
@@ -2267,7 +2267,7 @@ function drawScalRuntime(){
   }
   // 1M n=500 (289s)
   {
-    const x0=xPos(500), y0=yPos(SCAL_DATA[500]["Ours"].elapsed_s);
+    const x0=xPos(500), y0=yPos(SCAL_DATA[500]["AURORA"].elapsed_s);
     ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
     ctx.moveTo(x0+6,y0+6); ctx.lineTo(x0+26,y0+22); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='left';
@@ -2317,7 +2317,7 @@ function drawScalSn(){
   ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
 
   // ML-100k — taux de compression, ligne tiretée cyan
-  const pts100k=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n]["Ours"].ratio),n}));
+  const pts100k=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n]["AURORA"].ratio),n}));
   ctx.beginPath(); ctx.strokeStyle=cyan; ctx.lineWidth=2; ctx.setLineDash([5,3]);
   pts100k.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
   ctx.stroke(); ctx.setLineDash([]);
@@ -2327,7 +2327,7 @@ function drawScalSn(){
   });
 
   // ML-1M — taux de compression, ligne pleine verte
-  const pts1m=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["Ours"].ratio)}));
+  const pts1m=SCAL_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_DATA[n]["AURORA"].ratio)}));
   ctx.beginPath(); ctx.fillStyle='rgba(18,232,122,.08)'; ctx.moveTo(pts1m[0].x,pad.t+ph);
   pts1m.forEach(p=>ctx.lineTo(p.x,p.y));
   ctx.lineTo(pts1m[pts1m.length-1].x,pad.t+ph); ctx.closePath(); ctx.fill();
@@ -2335,7 +2335,7 @@ function drawScalSn(){
   pts1m.forEach((p,i)=>(i?ctx.lineTo:ctx.moveTo).call(ctx,p.x,p.y));
   ctx.stroke();
   pts1m.forEach((p,i)=>{
-    const v=SCAL_DATA[SCAL_SIZES[i]]["Ours"].ratio;
+    const v=SCAL_DATA[SCAL_SIZES[i]]["AURORA"].ratio;
     ctx.beginPath(); ctx.fillStyle=green; ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill();
     ctx.fillStyle=green; ctx.font='9px sans-serif'; ctx.textAlign='center';
     ctx.fillText((v*100).toFixed(0)+'%',p.x,p.y-8);
@@ -2396,12 +2396,12 @@ function drawScalEdi(){
   }
 
   // ILD — 1M plein bleu, 100k tiretée bleu creux
-  drawLine(SCAL_100K_SIZES, n=>SCAL_100K_DATA[n]["Ours"].ILD, blue, false, false);
-  drawLine(SCAL_SIZES, n=>SCAL_DATA[n]["Ours"].ILD, blue, true, true);
+  drawLine(SCAL_100K_SIZES, n=>SCAL_100K_DATA[n]["AURORA"].ILD, blue, false, false);
+  drawLine(SCAL_SIZES, n=>SCAL_DATA[n]["AURORA"].ILD, blue, true, true);
 
   // 1-ΔE — 1M plein vert, 100k tiretée vert creux
-  drawLine(SCAL_100K_SIZES, n=>1-SCAL_100K_DATA[n]["Ours"].dE, green, false, false);
-  drawLine(SCAL_SIZES, n=>1-SCAL_DATA[n]["Ours"].dE, green, true, true);
+  drawLine(SCAL_100K_SIZES, n=>1-SCAL_100K_DATA[n]["AURORA"].dE, green, false, false);
+  drawLine(SCAL_SIZES, n=>1-SCAL_DATA[n]["AURORA"].dE, green, true, true);
 
   // Labels
   ctx.fillStyle=blue; ctx.font='bold 8px sans-serif'; ctx.textAlign='left';
@@ -2421,10 +2421,10 @@ function buildScalTable(){
       const d=SCAL_DATA[n][m];
       const t=d.elapsed_s;
       const tStr=t<.01?'<0.01s':t<1?t.toFixed(2)+'s':t<60?t.toFixed(1)+'s':(t/60).toFixed(1)+'min';
-      const stk=m==='Ours'&&d.stable_topk?` style="color:var(--amber)"`:''
+      const stk=m==='AURORA'&&d.stable_topk?` style="color:var(--amber)"`:''
       return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums">${d.dE.toFixed(3)}</td>`;
     }).join('');
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
@@ -2439,7 +2439,7 @@ const LIB={
   "Weighted Borda":{dE:1.2182,ILD:.7436,inc_F:.1466,inc_M:.0244,elapsed_s:.705},
   "Condorcet":    {dE:1.296, ILD:.7462,inc_F:.157, inc_M:.0244,elapsed_s:.257},
   "Fair Re-rank": {dE:.144,  ILD:.7194,inc_F:.0386,inc_M:.0236,elapsed_s:.807},
-  "Ours":         {dE:.8764, ILD:.816, inc_F:.112, inc_M:.0238,elapsed_s:402.5,n_sn:10,ratio:.01}
+  "AURORA":         {dE:.8764, ILD:.816, inc_F:.112, inc_M:.0238,elapsed_s:402.5,n_sn:10,ratio:.01}
 };
 
 function buildLibTable(){
@@ -2463,7 +2463,7 @@ function buildLibTable(){
       const red=c.k==='dE'&&val>1?`;color:var(--red)`:'' ;
       return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}</td>`;
     }).join('');
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
@@ -2507,12 +2507,12 @@ function drawLibBar(canvasId, getter, colorFn, maxVal){
     ctx.fillStyle=col;
     ctx.fillRect(pad.l,y,Math.max(barW,2),barH);
     // nom méthode (gauche)
-    ctx.fillStyle=m==='Ours'?col:cT2;
-    ctx.font=`${m==='Ours'?'700':'400'} 11px -apple-system,sans-serif`;
+    ctx.fillStyle=m==='AURORA'?col:cT2;
+    ctx.font=`${m==='AURORA'?'700':'400'} 11px -apple-system,sans-serif`;
     ctx.textAlign='right'; ctx.textBaseline='middle';
     ctx.fillText(m, pad.l-6, y+barH/2);
     // valeur numérique (droite)
-    ctx.fillStyle=m==='Ours'?col:cT1;
+    ctx.fillStyle=m==='AURORA'?col:cT1;
     ctx.font=`600 11px -apple-system,sans-serif`;
     ctx.textAlign='left'; ctx.textBaseline='middle';
     ctx.fillText(val.toFixed(4), pad.l+barW+5, y+barH/2);
@@ -2521,8 +2521,8 @@ function drawLibBar(canvasId, getter, colorFn, maxVal){
 
 function drawLibCharts(){
   const deMax=1.4;
-  const deCol=(m,v)=>v>1?'#ff6464':(m==='Ours'?'#12e87a':'#6b8fff');
-  const ildCol=(m,v)=>m==='Ours'?'#12e87a':'#6b8fff';
+  const deCol=(m,v)=>v>1?'#ff6464':(m==='AURORA'?'#12e87a':'#6b8fff');
+  const ildCol=(m,v)=>m==='AURORA'?'#12e87a':'#6b8fff';
   drawLibBar('libDeCanvas',m=>LIB[m].dE,deCol,deMax);
   drawLibBar('libIldCanvas',m=>LIB[m].ILD,ildCol,1.0);
 }
@@ -2534,7 +2534,7 @@ const RMP={
   "Weighted Borda":{dE:.0083,ILD:.1448,frac_F:.40,elapsed_s:41.288},
   "Condorcet":     {dE:.0757,ILD:.2533,frac_F:.30,elapsed_s:.289},
   "Fair Re-rank":  {dE:.0000,ILD:.1956,frac_F:.50,elapsed_s:1.455},
-  "Ours":          {dE:.0169,ILD:.9244,frac_F:.60,elapsed_s:46.556,n_sn:261}
+  "AURORA":          {dE:.0169,ILD:.9244,frac_F:.60,elapsed_s:46.556,n_sn:261}
 };
 
 function buildRmpTable(){
@@ -2565,7 +2565,7 @@ function buildRmpTable(){
       const hi=isBest?'font-weight:900;color:var(--green)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}">${tStr}</td>`;
     }).join('');
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
@@ -2574,8 +2574,8 @@ function buildRmpTable(){
 }
 
 function drawRmpCharts(){
-  const deColR=(m,v)=>m==='Fair Re-rank'||m==='Average Score'?'#22d4f5':(m==='Ours'?'#12e87a':'#6b8fff');
-  const ildColR=(m,v)=>m==='Ours'||m==='Average Score'?'#12e87a':'#6b8fff';
+  const deColR=(m,v)=>m==='Fair Re-rank'||m==='Average Score'?'#22d4f5':(m==='AURORA'?'#12e87a':'#6b8fff');
+  const ildColR=(m,v)=>m==='AURORA'||m==='Average Score'?'#12e87a':'#6b8fff';
   drawLibBar('rmpDeCanvas', m=>RMP[m].dE, deColR, .10);
   drawLibBar('rmpIldCanvas',m=>RMP[m].ILD,ildColR,1.0);
 }
@@ -2655,7 +2655,7 @@ const OALEX={
   "Weighted Borda":{dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.011},
   "Condorcet":     {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.008},
   "Fair Re-rank":  {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.013},
-  "Ours":          {dE:.0509, ILD:.3508, frac_F:.20, elapsed_s:.144, n_sn:5}
+  "AURORA":          {dE:.0509, ILD:.3508, frac_F:.20, elapsed_s:.144, n_sn:5}
 };
 function buildOalexTable(){
   const tbl=document.getElementById('oalexTbl');
@@ -2670,10 +2670,10 @@ function buildOalexTable(){
   const head=`<thead><tr><th>Méthode</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
   const rows=METHODS.map(m=>{
     const v=OALEX[m];
-    const isO=m==='Ours';
+    const isO=m==='AURORA';
     const cells=cols.map(c=>{
       const val=v[c.k];
-      if(val===null) return `<td style="color:var(--amber);font-style:italic">en cours</td>`;
+      if(val===null) return `<td style="color:var(--amber);font-style:italic">en cAURORA</td>`;
       let tStr;
       if(c.k==='elapsed_s') tStr=val<1?val.toFixed(3)+'s':val<60?val.toFixed(1)+'s':(val/60).toFixed(1)+'min';
       else if(c.k==='frac_F') tStr=(val*100).toFixed(0)+'%';
@@ -2683,7 +2683,7 @@ function buildOalexTable(){
       const hi=isBest?'font-weight:900;color:var(--green)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}${isBest?' ':''}</td>`;
     }).join('');
-    return `<tr ${isO?'class="tr-ours"':''}><td><div class="m-name">${m}</div></td>${cells}</tr>`;
+    return `<tr ${isO?'class="tr-AURORA"':''}><td><div class="m-name">${m}</div></td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`${head}<tbody>${rows}</tbody>`;
 }
@@ -2730,7 +2730,7 @@ function drawDatasetRadar(canvasId,pts){
     ctx.beginPath(); coords.forEach((c,i)=>i===0?ctx.moveTo(c.x,c.y):ctx.lineTo(c.x,c.y));
     ctx.closePath();
     ctx.fillStyle=p.color+'28'; ctx.fill();
-    ctx.strokeStyle=p.color; ctx.lineWidth=p.label==='Ours'?2.5:1.5; ctx.stroke();
+    ctx.strokeStyle=p.color; ctx.lineWidth=p.label==='AURORA'?2.5:1.5; ctx.stroke();
     coords.forEach(c=>{ctx.beginPath(); ctx.arc(c.x,c.y,3,0,2*Math.PI); ctx.fillStyle=p.color; ctx.fill();});
   });
 }
@@ -2750,7 +2750,7 @@ function buildRadarCharts(){
     METHODS.forEach(m=>{
       const d=document.createElement('div');
       d.style.cssText='display:flex;align-items:center;gap:8px;font-size:.77rem;color:var(--t2)';
-      d.innerHTML=`<span style="width:14px;height:3px;background:${MC[m]};border-radius:2px;flex-shrink:0"></span>${m==='Ours'?'<strong style="color:var(--green)">Ours</strong>':m}`;
+      d.innerHTML=`<span style="width:14px;height:3px;background:${MC[m]};border-radius:2px;flex-shrink:0"></span>${m==='AURORA'?'<strong style="color:var(--green)">AURORA</strong>':m}`;
       leg.appendChild(d);
     });
   }
@@ -2834,7 +2834,7 @@ function buildPareto(){
   // marks — passe 1 : baselines (bons résultats plus opaques, mauvais atténués)
   DATASETS.forEach(ds=>{
     const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
-    METHODS.filter(m=>m!=='Ours').forEach(m=>{
+    METHODS.filter(m=>m!=='AURORA').forEach(m=>{
       const d=src[m]; const x=toX(d.dE),y=toY(d.ILD);
       const col=MC[m];
       const good=d.dE<0.14&&d.ILD>0.70;
@@ -2844,18 +2844,18 @@ function buildPareto(){
       if(good){ctx.strokeStyle=col+'99';ctx.lineWidth=1.5;ctx.stroke();}
     });
   });
-  // marks — passe 2 : Ours (plus grand, lumineux, étiqueté)
+  // marks — passe 2 : AURORA (plus grand, lumineux, étiqueté)
   DATASETS.forEach(ds=>{
     const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
-    const d=src['Ours']; const x=toX(d.dE),y=toY(d.ILD);
-    const col=MC['Ours']; const r=9;
+    const d=src['AURORA']; const x=toX(d.dE),y=toY(d.ILD);
+    const col=MC['AURORA']; const r=9;
     ctx.shadowBlur=16; ctx.shadowColor=col;
     drawShape(ctx,ds.shape,x,y,r);
     ctx.fillStyle=col+'ee'; ctx.fill();
     ctx.shadowBlur=0;
     ctx.strokeStyle='rgba(255,255,255,.9)'; ctx.lineWidth=2.5; ctx.stroke();
     ctx.fillStyle=col; ctx.font='bold 9px system-ui,sans-serif'; ctx.textAlign='left';
-    ctx.fillText('Ours',x+r+3,y+4);
+    ctx.fillText('AURORA',x+r+3,y+4);
   });
   // legend
   const leg=document.getElementById('paretoLegend');
@@ -2874,7 +2874,7 @@ function buildPareto(){
     METHODS.forEach(m=>{
       const sp=document.createElement('span');
       sp.style.cssText='display:inline-flex;align-items:center;gap:5px;font-size:.71rem;color:var(--t2)';
-      sp.innerHTML=`<span style="width:10px;height:10px;border-radius:50%;background:${MC[m]};display:inline-block"></span>${m==='Ours'?'<strong>Ours</strong>':m}`;
+      sp.innerHTML=`<span style="width:10px;height:10px;border-radius:50%;background:${MC[m]};display:inline-block"></span>${m==='AURORA'?'<strong>AURORA</strong>':m}`;
       div.appendChild(sp);
     }); leg.appendChild(div);
   }
@@ -2897,12 +2897,12 @@ function buildAllCmpTable(){
  DATASETS.forEach(()=>{h+=`<th>ΔE ↓</th><th>ILD ↑</th>`;});
   h+=`</tr></thead><tbody>`;
  METHODS.forEach(m=>{
-    const isO=m==='Ours';
-    h+=`<tr class="${isO?'tr-ours':''}"><td><div class="m-name">${isO?' Ours':m}</div></td>`;
+    const isO=m==='AURORA';
+    h+=`<tr class="${isO?'tr-AURORA':''}"><td><div class="m-name">${isO?' AURORA':m}</div></td>`;
     DATASETS.forEach(ds=>{
       const d=src[ds.key][m];
       const deV=d.dE, ildV=d.ILD;
-      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cours</td>`;return;}
+      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cAURORA</td>`;return;}
       const deCls=deV<.05?'color:var(--green)':deV<.4?'color:var(--amber)':'color:var(--red)';
       const ildCls=ildV>=.8?'color:var(--green)':ildV>=.4?'color:var(--amber)':'color:var(--red)';
       h+=`<td style="font-variant-numeric:tabular-nums;${deCls}">${deV.toFixed(3)}</td>`;
@@ -2951,7 +2951,7 @@ function drawAllCmpScatter(){
    METHODS.forEach(m=>{
       const d=ds.src[m];
       const x=toX(d.dE),y=toY(d.ILD);
-      const isO=m==='Ours'; const r=isO?7:5;
+      const isO=m==='AURORA'; const r=isO?7:5;
       const col=MC[m];
       ctx.beginPath();
       if(ds.shape==='circle') ctx.arc(x,y,r,0,2*Math.PI);

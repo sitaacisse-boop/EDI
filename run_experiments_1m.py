@@ -287,8 +287,8 @@ if __name__ == "__main__":
             fair_items = top_k_fair_rerank(ratings, gender_map, k, theta)
             print(f" {time.time()-t0:.1f}s")
             print("  Coarsening...", end="", flush=True)
-            ours_m = run_coarsening(ratings, gender_map, k, theta)
-            print(f" {ours_m['elapsed_s']}s")
+            AURORA_m = run_coarsening(ratings, gender_map, k, theta)
+            print(f" {AURORA_m['elapsed_s']}s")
 
             results["experiments"][key] = {
                 "k": k, "theta": theta,
@@ -297,11 +297,11 @@ if __name__ == "__main__":
                 "Weighted Borda": edi_metrics(ratings, wb_items,     gender_map, theta),
                 "Condorcet":      edi_metrics(ratings, cond_items,   gender_map, theta),
                 "Fair Re-rank":   edi_metrics(ratings, fair_items,   gender_map, theta),
-                "Ours":           ours_m,
+                "AURORA":           AURORA_m,
             }
             r = results["experiments"][key]
             print(f"  {'Méthode':<16} {'dE':>7} {'ILD':>7} {'inc_F':>7} {'inc_M':>7}")
-            for m in ["Average Score", "Borda", "Weighted Borda", "Condorcet", "Fair Re-rank", "Ours"]:
+            for m in ["Average Score", "Borda", "Weighted Borda", "Condorcet", "Fair Re-rank", "AURORA"]:
                 v = r[m]
                 print(f"  {m:<14} {v['dE']:>7.4f} {v['ILD']:>7.4f} "
                       f"{v['inc_F']:>7.4f} {v['inc_M']:>7.4f}")
