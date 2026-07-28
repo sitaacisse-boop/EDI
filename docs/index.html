@@ -220,7 +220,10 @@ canvas{width:100%;display:block;border-radius:8px}
 
     <!-- Résultat phare -->
     <div class="card" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.04);margin-bottom:20px">
-      <div class="card-title" style="color:var(--green)">Résultat clé</div>
+      <div class="card-title" style="color:var(--green)">Résultats clés</div>
+      <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:10px">
+        Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : une coarsenisation de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
+      </p>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
         Notre méthode est la <strong style="color:var(--t1)">seule</strong> à améliorer simultanément les 4 métriques EDI (ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑) par rapport à Borda — sur MovieLens 100k à k=20. Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.924</strong> contre 0.145 pour Borda — soit <strong style="color:var(--green)">6× plus de diversité</strong>. Sur libimseti.cz, meilleure diversité malgré un biais hétérosexuel extrême (ΔE > 1.0 pour Borda). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
       </p>
