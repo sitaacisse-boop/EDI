@@ -26,7 +26,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 /* ── HEADER ── */
 .hdr{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
 .hdr-bg{display:none}
-#aurora-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;filter:blur(16px) saturate(1.18);opacity:.74}
+#aurora-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;filter:blur(16px) saturate(1.28);opacity:.82}
 .hdr-inner{max-width:980px;margin:0 auto;padding:24px 32px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1;flex-wrap:wrap}
 .hdr-eyebrow{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:7px}
 .hdr-title{font-size:1.65rem;font-weight:900;letter-spacing:-.035em;line-height:1.1;color:var(--t1);margin:0}
@@ -3033,11 +3033,11 @@ function drawAllCmpScatter(){
 
   /* bandes : base (fraction H), amplitude, fréquence, vitesse, couleur rgb, épaisseur, alpha */
   var bands=[
-    {base:.52,amp:.23,freq:2.2,spd:.00032,rgb:'18,232,122', thick:.59,a:.62},
-    {base:.36,amp:.17,freq:3.1,spd:.00022,rgb:'155,110,255',thick:.47,a:.50},
-    {base:.68,amp:.13,freq:4.0,spd:.00048,rgb:'34,212,245', thick:.40,a:.38},
-    {base:.26,amp:.09,freq:5.2,spd:.00016,rgb:'107,143,255',thick:.32,a:.32},
-    {base:.60,amp:.12,freq:3.7,spd:.00028,rgb:'255,100,160',thick:.30,a:.35},
+    {base:.52,amp:.23,freq:2.2,spd:.00032,rgb:'18,232,122', thick:.59,a:.68},
+    {base:.36,amp:.17,freq:3.1,spd:.00022,rgb:'155,110,255',thick:.47,a:.56},
+    {base:.68,amp:.13,freq:4.0,spd:.00048,rgb:'34,212,245', thick:.40,a:.43},
+    {base:.26,amp:.09,freq:5.2,spd:.00016,rgb:'107,143,255',thick:.32,a:.36},
+    {base:.60,amp:.12,freq:3.7,spd:.00028,rgb:'255,100,160',thick:.30,a:.40},
   ];
 
   function resize(){
