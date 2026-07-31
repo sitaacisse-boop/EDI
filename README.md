@@ -1,7 +1,7 @@
 # Projet de Recherche — EDI & Graph Summarization
 **Auteure :** Adji Marieme Sita Cissé  
 **Directeur :** Prof. Malek Mouhoub — Université Paris-Saclay · University of Regina  
-**Période :** Mai – Octobre 2026 | BAURORAe DataIA Mobilité Internationale
+**Période :** Mai – Octobre 2026 | Bourse DataIA Mobilité Internationale
 
 ---
 
