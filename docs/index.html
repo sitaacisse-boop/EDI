@@ -338,7 +338,7 @@ canvas{width:100%;display:block;border-radius:8px}
       <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">RateMy Professors</div>
       <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
         <b>Domain :</b>Académique · Item-side equity<br>
-        <b>Users :</b> 1 981 cAURORA (ENG101)<br>
+        <b>Users :</b> 1 981 cours (ENG101)<br>
         <b>Items :</b> 59 066 professeurs<br>
         <b>Ratings :</b> 150 800 notes (1–5)<br>
         <b>Équité :</b>Genre des profs recommandés<br>
@@ -938,13 +938,13 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.06)">
     <span style="font-size:1rem;flex-shrink:0"></span>
     <span><b>RateMy Professors — validation côté professeurs (item-side equity) :</b>
-    3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cAURORA (ex. ENG101) joue le rôle d'utilisateur : chaque cAURORA a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span>
+    3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cours (ex. ENG101) joue le rôle d'utilisateur : chaque cours a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span>
   </div>
 
   <div class="tiles">
     <div class="tile"><div class="tile-lbl">CAURORA</div><div class="tile-val">1 981</div><div class="tile-sub">jouent le rôle d'utilisateur</div></div>
     <div class="tile"><div class="tile-lbl">Professeurs</div><div class="tile-val">59 066</div><div class="tile-sub">items à recommander</div></div>
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub">agrégés par (cAURORA × prof)</div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub">agrégés par (cours × prof)</div></div>
     <div class="tile"><div class="tile-lbl">ProfsF/M</div><div class="tile-val">51%</div><div class="tile-sub">F=30 141 · M=28 925</div></div>
   </div>
 
@@ -974,11 +974,11 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
       <div>
         <strong style="color:var(--blue)">Pourquoi ILD s'effondre avec Borda/Condorcet ?</strong><br>
-        Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cAURORA → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.
+        Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cours → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.
       </div>
       <div>
         <strong style="color:var(--green)">Notre méthode (AURORA)</strong><br>
-        Coarsening : 1 981 cAURORA → 261 super-nœuds. ILD=0.924 — profs <em>diversifiés et pertinents</em>. ΔE=0.017 (faible), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 46s pour 59 066 professeurs.
+        Coarsening : 1 981 cours → 261 super-nœuds. ILD=0.924 — profs <em>diversifiés et pertinents</em>. ΔE=0.017 (faible), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 46s pour 59 066 professeurs.
       </div>
     </div>
   </div>
@@ -2734,7 +2734,7 @@ function buildOalexTable(){
     const isO=m==='AURORA';
     const cells=cols.map(c=>{
       const val=v[c.k];
-      if(val===null) return `<td style="color:var(--amber);font-style:italic">en cAURORA</td>`;
+      if(val===null) return `<td style="color:var(--amber);font-style:italic">en cours</td>`;
       let tStr;
       if(c.k==='elapsed_s') tStr=val<1?val.toFixed(3)+'s':val<60?val.toFixed(1)+'s':(val/60).toFixed(1)+'min';
       else if(c.k==='frac_F') tStr=(val*100).toFixed(0)+'%';
@@ -2963,7 +2963,7 @@ function buildAllCmpTable(){
     DATASETS.forEach(ds=>{
       const d=src[ds.key][m];
       const deV=d.dE, ildV=d.ILD;
-      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cAURORA</td>`;return;}
+      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cours</td>`;return;}
       const deCls=deV<.05?'color:var(--green)':deV<.4?'color:var(--amber)':'color:var(--red)';
       const ildCls=ildV>=.8?'color:var(--green)':ildV>=.4?'color:var(--amber)':'color:var(--red)';
       h+=`<td style="font-variant-numeric:tabular-nums;${deCls}">${deV.toFixed(3)}</td>`;

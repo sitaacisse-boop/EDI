@@ -15,7 +15,7 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | **MovieLens 100k** | genre côté utilisateur (F/M) | 943 (273F/670M) | 1 682 films | 100 000 |
 | **MovieLens 1M** | genre côté utilisateur (F/M) | 6 040 (1 709F/4 331M) | 3 706 films | 1 000 209 |
 | **libimseti.cz** | genre côté utilisateur (F/M) | réseau de rencontres social | — | scores de séduction |
-| **Rate My Professors** | genre côté item (prof. F/M) | étudiants (venues) | 18 000+ professeurs | notes de cAURORA |
+| **Rate My Professors** | genre côté item (prof. F/M) | étudiants (venues) | 18 000+ professeurs | notes de cours |
 | **OpenAlex** | genre côté item (auteur·e F/M) | 99 venues IA/ML/CS | 904 auteur·e·s | 2 124 (2018–2023) |
 
 **Tableau de bord interactif :** https://sitaacisse-boop.github.io/EDI/
@@ -166,7 +166,7 @@ AURORA obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'é
 | Phase 5 — Évaluation MovieLens | Juillet | ✅ Terminé | `experiments_results.json`, figures, tables, scalabilité |
 | Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` (1M, 500→6 040) + `scalability_100k_results.json` (100k, 100→943) |
 | Phase 5c — Corpus multi-domaines | Juillet | ✅ Terminé | `libimseti_results.json`, `rmp_results.json`, `openalex_results.json` |
-| Phase 6 — Article de recherche | Juillet–Août | ⏳ En cAURORA | Paper LLNCS (Overleaf) |
+| Phase 6 — Article de recherche | Juillet–Août | ⏳ En cours | Paper LLNCS (Overleaf) |
 
 ---
 

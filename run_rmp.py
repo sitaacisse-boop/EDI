@@ -3,7 +3,7 @@ Experiences EDI — Rate My Professors (dataset vxuv/ratemyprofessor-dataset)
 3.26M avis d'etudiants sur des professeurs (echelle quality 1-5)
 
 Particularite : aucun identifiant etudiant → equite mesuree cote ITEMS (profs)
-- user_id = code de cAURORA (ex. ENG101) → les etudiants de ce cAURORA ont note plusieurs profs
+- user_id = code de cours (ex. ENG101) → les etudiants de ce cours ont note plusieurs profs
 - item_id = identifiant professeur
 - gender_map = professeur → M/F (infere depuis le prenom, gender_guesser)
 
@@ -13,8 +13,8 @@ Formulation item-side EDI :
   inclusion_g = fraction profs-g avec mean_quality ≥ θ dans top-k
 
 theta = 4.0  (meme echelle 1-5 que MovieLens)
-N_CLASSES = 2000 cAURORA les plus notes (= utilisateurs)
-Filtre profs : classes = genre connu (M/F) + avoir ete note dans ≥ 2 cAURORA top
+N_CLASSES = 2000 cours les plus notes (= utilisateurs)
+Filtre profs : classes = genre connu (M/F) + avoir ete note dans ≥ 2 cours top
 
 Resultats -> rmp_results.json
 """
@@ -30,9 +30,9 @@ import gender_guesser.detector as gd
 # ─── Parametres ──────────────────────────────────────────────────────────────
 DATA_FILE  = os.path.join(os.path.dirname(__file__), "data", "rmp", "reviews.csv")
 SEED       = 42
-N_CLASSES  = 2000   # nombre de codes-cAURORA (= utilisateurs) a conserver
-MIN_PROFS  = 2      # un cAURORA doit avoir note ≥ MIN_PROFS profs differents
-MIN_CLASSES = 2     # un prof doit avoir ete note dans ≥ MIN_CLASSES cAURORA du top
+N_CLASSES  = 2000   # nombre de codes-cours (= utilisateurs) a conserver
+MIN_PROFS  = 2      # un cours doit avoir note ≥ MIN_PROFS profs differents
+MIN_CLASSES = 2     # un prof doit avoir ete note dans ≥ MIN_CLASSES cours du top
 K_VALUES   = [10]
 THETA      = 4.0    # seuil "bon prof" (1-5, identique a MovieLens)
 MAX_MERGES = 400
@@ -66,8 +66,8 @@ def load_and_build(n_classes=N_CLASSES, min_profs=MIN_PROFS, min_classes=MIN_CLA
                              usecols=cols + ["class"],
                              chunksize=500_000,
                              dtype={"id": "int32", "quality": "float32"}):
-        chunk = chunk.rename(columns={"class": "cAURORAe"})
-        chunk = chunk.dropna(subset=["quality", "cAURORAe"])
+        chunk = chunk.rename(columns={"class": "course"})
+        chunk = chunk.dropna(subset=["quality", "course"])
         chunks.append(chunk)
         print(f"  {sum(len(c) for c in chunks):,} lignes lues...", end="\r")
     df = pd.concat(chunks, ignore_index=True)
@@ -90,28 +90,28 @@ def load_and_build(n_classes=N_CLASSES, min_profs=MIN_PROFS, min_classes=MIN_CLA
     n_M = len(gender_map_full) - n_F
     print(f"  Profs avec genre clair: {len(gender_map_full):,}  M={n_M:,} F={n_F:,}")
 
-    # ── Sélection des N_CLASSES cAURORA les plus notes ──────────────────────────
-    print(f"Selection des {n_classes} cAURORA les plus notes...")
-    cAURORAe_counts = df["cAURORAe"].value_counts()
-    top_cAURORAes = set(cAURORAe_counts.head(n_classes).index.tolist())
-    df = df[df["cAURORAe"].isin(top_cAURORAes)].copy()
+    # ── Sélection des N_CLASSES cours les plus notes ──────────────────────────
+    print(f"Selection des {n_classes} cours les plus notes...")
+    course_counts = df["course"].value_counts()
+    top_courses = set(course_counts.head(n_classes).index.tolist())
+    df = df[df["course"].isin(top_courses)].copy()
 
-    # ── Agregation : (cAURORAe, professor) → mean_quality ─────────────────────
-    agg = (df.groupby(["cAURORAe", "id"])["quality"]
+    # ── Agregation : (course, professor) → mean_quality ─────────────────────
+    agg = (df.groupby(["course", "id"])["quality"]
               .mean()
               .reset_index()
-              .rename(columns={"cAURORAe": "user_id", "id": "item_id",
+              .rename(columns={"course": "user_id", "id": "item_id",
                                "quality": "rating"}))
     agg["rating"] = agg["rating"].astype(float)
 
     # ── Filtrage par connectivite ─────────────────────────────────────────────
-    print(f"Filtrage : cAURORA avec ≥{min_profs} profs, profs dans ≥{min_classes} cAURORA...")
+    print(f"Filtrage : cours avec ≥{min_profs} profs, profs dans ≥{min_classes} cours...")
     for _ in range(3):  # iterations pour stabiliser la matrice
-        profs_per_cAURORAe = agg.groupby("user_id")["item_id"].nunique()
-        valid_cAURORAes = profs_per_cAURORAe[profs_per_cAURORAe >= min_profs].index
-        agg = agg[agg["user_id"].isin(valid_cAURORAes)]
-        cAURORAes_per_prof = agg.groupby("item_id")["user_id"].nunique()
-        valid_profs2 = cAURORAes_per_prof[cAURORAes_per_prof >= min_classes].index
+        profs_per_course = agg.groupby("user_id")["item_id"].nunique()
+        valid_courses = profs_per_course[profs_per_course >= min_profs].index
+        agg = agg[agg["user_id"].isin(valid_courses)]
+        courses_per_prof = agg.groupby("item_id")["user_id"].nunique()
+        valid_profs2 = courses_per_prof[courses_per_prof >= min_classes].index
         agg = agg[agg["item_id"].isin(valid_profs2)]
 
     gender_map = {p: gender_map_full[p] for p in agg["item_id"].unique()
@@ -125,7 +125,7 @@ def load_and_build(n_classes=N_CLASSES, min_profs=MIN_PROFS, min_classes=MIN_CLA
     alpha_F   = round(n_F_items / len(gender_map), 4)
     alpha_M   = round(n_M_items / len(gender_map), 4)
 
-    print(f"  Matrice finale: {n_users} cAURORA × {n_items} profs, {len(agg):,} ratings")
+    print(f"  Matrice finale: {n_users} cours × {n_items} profs, {len(agg):,} ratings")
     print(f"  Profs F={n_F_items} ({alpha_F*100:.1f}%), M={n_M_items} ({alpha_M*100:.1f}%)")
 
     return agg, gender_map, alpha_F, alpha_M
@@ -139,7 +139,7 @@ def top_k_avg(ratings, k):
 
 
 def top_k_borda(ratings, k):
-    """Borda : chaque cAURORA-utilisateur vote par rang."""
+    """Borda : chaque cours-utilisateur vote par rang."""
     def borda_user(g):
         r = g.sort_values("rating", ascending=False).reset_index(drop=True)
         r["borda"] = range(len(r), 0, -1)
@@ -164,7 +164,7 @@ def top_k_weighted_borda(ratings, gender_map, k):
 
 
 def top_k_condorcet(ratings, k):
-    """Condorcet : comptage des victoires pairwise par cAURORA."""
+    """Condorcet : comptage des victoires pairwise par cours."""
     wins = {}
     for _, g in ratings.groupby("user_id"):
         items  = g["item_id"].values
@@ -214,7 +214,7 @@ def edi_metrics_item(ratings, top_k, gender_map, theta):
     """
     Formulation item-side :
       - ΔE = |mean_quality(F_profs in top-k) - mean_quality(M_profs in top-k)|
-      - ILD = diversite cosinus des vecteurs de notation (cAURORA × profs)
+      - ILD = diversite cosinus des vecteurs de notation (cours × profs)
       - inclusion_g = fraction de profs-g dans top-k avec mean_quality ≥ θ
     """
     s = set(top_k); k = len(top_k)
@@ -262,7 +262,7 @@ def edi_metrics_item(ratings, top_k, gender_map, theta):
 def run_coarsening_item(ratings, gender_map, k, theta, max_merges=MAX_MERGES):
     """
     Coarsening adapte pour equite cote items (professeurs) :
-    - Fusionne des cAURORA-utilisateurs similaires (pas de contrainte de genre sur les users)
+    - Fusionne des cours-utilisateurs similaires (pas de contrainte de genre sur les users)
     - Verifie que le top-k resultant maintient l'equite de genre des profs recommandes
     """
     t0 = time.time()
@@ -306,8 +306,8 @@ def run_coarsening_item(ratings, gender_map, k, theta, max_merges=MAX_MERGES):
     ref_dE = m_ref["dE"]; ref_ild = m_ref["ILD"]; ref_fF = m_ref["frac_F"]
     cur = list(ref_topk)
 
-    # Similarite cosinus entre cAURORA-utilisateurs
-    print(f"    Similarite cosinus entre cAURORA...", end="", flush=True)
+    # Similarite cosinus entre cours-utilisateurs
+    print(f"    Similarite cosinus entre cours...", end="", flush=True)
     M2 = pivot.values.astype(np.float32)
     nu = np.linalg.norm(M2, axis=1, keepdims=True); nu[nu == 0] = 1
     sim = (M2 / nu) @ (M2 / nu).T
@@ -389,7 +389,7 @@ if __name__ == "__main__":
             "dataset": "Rate My Professors",
             "source": "github.com/vxuv/ratemyprofessor-dataset",
             "formulation": "item-side equity",
-            "user": "code de cAURORA (ex. ENG101)",
+            "user": "code de cours (ex. ENG101)",
             "item": "professeur (genre infere depuis prenom)",
             "n_users": int(n_users),
             "n_items": int(n_items),
