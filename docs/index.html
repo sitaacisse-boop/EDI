@@ -585,7 +585,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div class="formula">inclusion_g(R) = (1/|G_g|) × _{uG_g} |{i R : w(u,i) ≥ θ}| / k</div>
         <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
         <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
-        <div class="res-box">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda/Weighted Borda/Condorcet sur les 4 critères ; Fair Re-rank reste plus précis sur ΔE seul.</div>
+        <div class="res-box">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique : 0.344 vs 0.344). Fair Re-rank reste plus précis sur ΔE seul.</div>
       </div>
     </div>
   </div>
@@ -602,7 +602,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fk">
     <h3>Notre méthode (coarsenisation) offre le meilleur équilibre équité+diversité</h3>
-    <p><strong>MovieLens 100k k=20 :</strong> bat Borda/Weighted Borda/Condorcet sur les 4 critères. 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <p><strong>MovieLens 100k k=20 :</strong> bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique). 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
     <br><strong>RateMy Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 30–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
     <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour toutes les méthodes, y compris les baselines, ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.</p>
   </div>
