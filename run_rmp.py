@@ -35,7 +35,7 @@ MIN_PROFS  = 2      # un cours doit avoir note ≥ MIN_PROFS profs differents
 MIN_CLASSES = 2     # un prof doit avoir ete note dans ≥ MIN_CLASSES cours du top
 K_VALUES   = [10]
 THETA      = 4.0    # seuil "bon prof" (1-5, identique a MovieLens)
-MAX_MERGES = 400
+MAX_MERGES = 991
 
 
 # ─── 1. Chargement et nettoyage ──────────────────────────────────────────────
@@ -357,7 +357,8 @@ def run_coarsening_item(ratings, gender_map, k, theta, max_merges=MAX_MERGES):
             del sn_s[snb], sn_c[snb], sb[snb], sn_m[snb]
             active.discard(snb)
             if nt != cur:
-                cur = nt; n_accepted += 1
+                cur = nt
+            n_accepted += 1
         else:
             for iid, sc in bm.items():      cb[iid] = cb.get(iid, 0) - sc
             for iid, sc in sb[snb].items(): cb[iid] = cb.get(iid, 0) + sc

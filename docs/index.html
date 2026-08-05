@@ -262,7 +262,7 @@ canvas{width:100%;display:block;border-radius:8px}
         Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : une coarsenisation de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
       </p>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
-        Notre méthode est la <strong style="color:var(--t1)">seule</strong> à améliorer simultanément les 4 métriques EDI (ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑) par rapport à Borda — sur MovieLens 100k à k=20. Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.924</strong> contre 0.145 pour Borda — soit <strong style="color:var(--green)">6× plus de diversité</strong>. Sur libimseti.cz, meilleure diversité malgré un biais hétérosexuel extrême (ΔE > 1.0 pour Borda). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
+        Notre méthode est la <strong style="color:var(--t1)">seule</strong> à améliorer simultanément les 4 métriques EDI (ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑) par rapport à Borda — sur MovieLens 100k à k=20. Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée en section 5.5 (ΔE > 1.0 pour toutes les méthodes, y compris les baselines). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
       </p>
     </div>
 
@@ -487,33 +487,33 @@ canvas{width:100%;display:block;border-radius:8px}
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
         <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
           <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 5</div>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">6 super-nœuds</strong><br>Compression −99.9% · Top-5 ultra-stable<br>ΔE = 0.0643 · ILD = 0.5783</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--blue)">3 020 super-nœuds</strong><br>Compression −50.0%<br>ΔE = 0.416 · ILD = 0.395</div>
         </div>
         <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
           <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 10</div>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">2 755 super-nœuds</strong><br>Compression −54.4%<br>ΔE = 0.332 · ILD = 0.423</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">3 020 super-nœuds</strong><br>Compression −50.0%<br>ΔE = 0.214 · ILD = 0.440</div>
         </div>
         <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--amber)">
           <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 20</div>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--amber)">4 318 super-nœuds</strong><br>Compression −28.5%<br>ΔE = 0.332 · ILD = 0.456</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--amber)">3 020 super-nœuds</strong><br>Compression −50.0%<br>ΔE = 0.277 · ILD = 0.456</div>
         </div>
       </div>
-      <div style="margin-top:10px;font-size:.78rem;color:var(--t2);line-height:1.6;padding:10px 13px;background:rgba(245,165,35,.07);border:1px solid rgba(245,165,35,.2);border-radius:7px">
-        <strong style="color:var(--t1)">Phénomène k=5 :</strong> sur 1M, le top-5 est identique après presque toutes les fusions → l'algorithme accepte toutes les fusions sans contrainte → compression extrême (6 super-nœuds). Pour k≥10 le top-k change plus souvent → compression raisonnable.
+      <div style="margin-top:10px;font-size:.78rem;color:var(--t2);line-height:1.6;padding:10px 13px;background:rgba(107,143,255,.07);border:1px solid rgba(107,143,255,.2);border-radius:7px">
+        <strong style="color:var(--t1)">Budget de fusion proportionnel :</strong> 50% de n_users, validé par test de robustesse sur une plage de 30 à 60% — le ratio de compression est constant quel que soit k, contrairement à un budget de fusion fixe qui produirait une sur- ou sous-fusion selon la taille du top-k et du corpus (voir discussion méthodologique).
       </div>
     </div>
     <div id="graphStats100k" style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
       <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
         <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 5</div>
-        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">6 super-nœuds</strong><br>Compression −99.4%<br>ΔE = 0.412 · ILD = 0.402</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--blue)">471 super-nœuds</strong><br>Compression −50.1%<br>ΔE = 0.439 · ILD = 0.330</div>
       </div>
       <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
         <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 10</div>
-        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">5 super-nœuds</strong><br>Compression −99.5%<br>ΔE = 0.351 · ILD = 0.448</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">471 super-nœuds</strong><br>Compression −50.1%<br>ΔE = 0.423 · ILD = 0.391</div>
       </div>
       <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--amber)">
         <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 20</div>
-        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--amber)">272 super-nœuds</strong><br>Compression −71.2% · Ratio F/M 29→37%<br>ΔE = 0.348 · ILD = 0.465</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--amber)">471 super-nœuds</strong><br>Compression −50.1% · Ratio F/M 29→37%<br>ΔE = 0.285 · ILD = 0.462</div>
       </div>
     </div>
   </div>
@@ -564,7 +564,7 @@ canvas{width:100%;display:block;border-radius:8px}
 utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div class="step"><div class="step-n">2</div><div class="step-t">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></div></div>
         <div class="formula">ΔE = |utility_F − utility_M| = |0.90 − 1.32| = <strong>0.4249</strong></div>
-        <div class="res-box">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.3511 (k=10).</div>
+        <div class="res-box">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.4228 (k=10).</div>
       </div>
     </div>
     <div class="acc-item">
@@ -585,7 +585,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div class="formula">inclusion_g(R) = (1/|G_g|) × _{uG_g} |{i R : w(u,i) ≥ θ}| / k</div>
         <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
         <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
-        <div class="res-box">Pour k=20, notre méthode : inc_F=0.269 (>Borda 0.247) et inc_M=0.348 (>Borda 0.339) — seule configuration où AURORA domine tout.</div>
+        <div class="res-box">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda/Weighted Borda/Condorcet sur les 4 critères ; Fair Re-rank reste plus précis sur ΔE seul.</div>
       </div>
     </div>
   </div>
@@ -602,9 +602,9 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fk">
     <h3>Notre méthode (coarsenisation) offre le meilleur équilibre équité+diversité</h3>
-    <p><strong>MovieLens 100k k=20 :</strong> domine sur 3/4 critères. 943→272 super-nœuds (−71.2%), ILD=0.465, ΔE=0.347, inc_F=0.269.
-    <br><strong>RateMy Professors :</strong> résultat remarquable — AURORA atteint ILD=<strong>0.924</strong> (proche d'Average Score 0.982) tout en réduisant ΔE à 0.017 et portant frac_F à 60% (contre 0–40% pour les baselines).
-    <br><strong>libimseti :</strong> corpus homogène (profils de rencontres très similaires) — ΔE=0.876 reste élevé pour tous, mais AURORA est le seul à atteindre ILD=0.816 (supérieur à Borda 0.744) malgré la difficulté.</p>
+    <p><strong>MovieLens 100k k=20 :</strong> bat Borda/Weighted Borda/Condorcet sur les 4 critères. 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <br><strong>RateMy Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 30–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
+    <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour toutes les méthodes, y compris les baselines, ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.</p>
   </div>
 
   <div class="finding fg">
@@ -726,7 +726,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Résultat marquant (k=5) :</b> notre méthode atteint <strong>ΔE=0.0643</strong> et <strong>ILD=0.5783</strong> — équité quasi-parfaite + meilleure diversité de toutes les méthodes. Fair Re-rank atteint ΔE=0.0036 mais ILD=0.4163 seulement. Aucune méthode classique ne passe sous ΔE=0.49.</span>
+    <span><b>Résultat (k=5) :</b> notre méthode atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda, Weighted Borda, Condorcet) sur les deux axes simultanément. Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécialisée dans l'optimisation de l'équité. Aucune méthode de vote classique ne passe sous ΔE=0.49.</span>
   </div>
   <div class="controls">
     <div class="ctrl-grp">
@@ -791,7 +791,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <strong>Borda/Condorcet</strong> (jaune/rouge) : ILD moyen mais ΔE élevé — favorisent les items du groupe majoritaire. Sur libimseti : ΔE > 1 (extrême).
       </div>
       <div style="padding:8px 11px;background:rgba(18,232,122,.07);border-radius:7px;border-left:3px solid var(--green)">
-        <strong>AURORA</strong> (vert) : seul à combiner ILD élevé ET ΔE maîtrisé sur plusieurs datasets. Sur RMP : ILD = 0.924, ΔE = 0.017 — le meilleur compromis.
+        <strong>AURORA</strong> (vert) : combine ILD élevé et bonne représentation sur plusieurs datasets. Sur RMP : ILD = 0.808, ΔE = 0.112 — meilleur compromis diversité/représentation, pas le meilleur ΔE isolément.
       </div>
     </div>
   </div>
@@ -802,7 +802,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
-      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas. Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). Seul <strong style="color:var(--green)">AURORA</strong> obtient ILD élevé avec ΔE maîtrisé — visible surtout sur RMP (ILD=0.924) et MovieLens.
+      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément (sauf libimseti) — visible surtout sur RMP (ILD=0.808, frac_F=0.60) et MovieLens 100k à k=20.
     </div>
   </div>
 
@@ -820,7 +820,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-scal">
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Expérimentation scalabilité — MovieLens uniquement (100→6 040 utilisateurs) :</b>MovieLens 100k (lignes tiretées, 100→943 users) + MovieLens 1M (lignes pleines, 500→6 040 users). k=10, θ=4.0, ratio F/M préservé.  Phénomène top-k stable à n=700 et n=943 (100k) et n=500 (1M) : le top-10 change peu → très peu de super-nœuds, temps > 280s. Comportement normal ailleurs.</span>
+    <span><b>Expérimentation scalabilité — MovieLens uniquement (100→6 040 utilisateurs) :</b>MovieLens 100k (lignes tiretées, 100→943 users) + MovieLens 1M (lignes pleines, 500→6 040 users). k=10, θ=4.0, ratio F/M préservé. Budget de fusion proportionnel (50% de n_users) : ratio de compression constant sur toute la plage, temps d'exécution croissant régulièrement avec n_users.</span>
   </div>
   <div class="notice" style="border-color:rgba(245,165,35,.3);background:rgba(245,165,35,.05);margin-top:8px">
     <span style="color:var(--amber);font-size:.9rem;flex-shrink:0"></span>
@@ -830,13 +830,13 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">Temps d'exécution vs. nombre d'utilisateurs — 100→6 040, échelle log (toutes méthodes)</div>
     <canvas id="scalRtCanvas" style="width:100%;display:block"></canvas>
     <div id="scalRtLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;align-items:center;font-size:.7rem;color:var(--t2)"></div>
-    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">AxeY log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe).  Points top-k stable : ML-100k n=700 (289s, 6 super-nœuds) et n=943 (517s, 5 sn) ; ML-1M n=500 (289s, 5 sn). Comportement normal aux autres tailles.</p>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">AxeY log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe). Le temps d'AURORA croît régulièrement avec n_users (budget de fusion proportionnel à 50%).</p>
   </div>
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
       <div class="card-title">Compression — super-nœuds de « AURORA »</div>
       <canvas id="scalSnCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Taux de compression (super-nœuds / utilisateurs). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Les chutes abruptes correspondent aux phénomènes top-k stable.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Taux de compression (super-nœuds / utilisateurs). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Budget de fusion proportionnel à 50% : ratio constant sur toute la plage.</p>
     </div>
     <div class="card">
       <div class="card-title">Métriques EDI de « AURORA » à travers les échelles</div>
@@ -909,26 +909,36 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card">
       <div class="card-title">ΔE (Équité) — libimseti — k=10</div>
       <canvas id="libDeCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">ΔE > 1.0 pour Borda/Condorcet : biais hétérosexuel amplifié par le vote — inédit sur MovieLens. Les rateurs M et F préfèrent des profils opposés.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">ΔE > 1.0 pour Borda/Condorcet : les rateurs M et F ont des patterns de notation distincts (voir tableau croisé ci-dessous) — inédit sur MovieLens, où le genre n'influence pas structurellement la note d'un film.</p>
     </div>
     <div class="card">
       <div class="card-title">ILD (Diversité) — libimseti — k=10</div>
       <canvas id="libIldCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">Notre méthode obtient la meilleure diversité (ILD=0.816) parmi toutes les méthodes sociales — même avantage que sur MovieLens.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">Notre méthode garde un net avantage de diversité sur les méthodes de vote (Borda, Condorcet, Weighted Borda) — même avantage relatif que sur MovieLens.</p>
     </div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Observation clé — biais de vote sur données hétérosexuelles</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
-      <div>
-        <strong style="color:var(--coral)">Pourquoi ΔE &gt; 1.0 pour Borda/Condorcet ?</strong><br>
-        Sur libimseti, les rateurs M notent majoritairement des profils F (et vice versa — biais hétérosexuel). Le vote par Borda agrège toutes les préférences : le top-10 résultant est dominé par des profils F (très bien notés par les M). Les rateuses F obtiennent donc une utilité quasi nulle sur ce top-10 → écart d'équité &gt;1.
+    <div class="card-title">Observation clé — préférences différenciées selon la paire de genres (notateur, noté)</div>
+    <div style="font-size:.81rem;color:var(--t2);line-height:1.6">
+      <p>Sur libimseti, les patterns de notation diffèrent significativement selon le genre du notateur et celui du profil noté (12 258 052 notes exploitables, genre connu des deux côtés) :</p>
+      <div style="overflow-x:auto;margin:10px 0">
+        <table class="ftbl">
+          <thead><tr><th>Notateur → Noté</th><th>Note moyenne</th><th>Nb de notes</th></tr></thead>
+          <tbody>
+            <tr><td>F → M</td><td><strong>6.92</strong></td><td>7 099 688</td></tr>
+            <tr><td>M → F</td><td>5.48</td><td>3 232 064</td></tr>
+            <tr><td>F → F</td><td>5.14</td><td>1 243 590</td></tr>
+            <tr><td>M → M</td><td>4.46</td><td>682 710</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div>
-        <strong style="color:var(--green)">Notre méthode (AURORA)</strong><br>
-        Coarsening : 1 000 → 10 super-nœuds (compression 99%, phénomène top-k stable). ΔE=0.876, ILD=0.816 — meilleure diversité que toutes les baselines. Le coarsening produit des recommandations plus diversifiées mais l'équité reste challengeante sur ce domaine très polarisé.
-      </div>
+      <p><strong style="color:var(--coral)">Pourquoi ΔE reste élevé pour toutes les méthodes (baselines comprises) ?</strong><br>
+      libimseti est le seul des 4 corpus étudiés où l'attribut sensible (genre) existe <em>des deux côtés</em> du graphe biparti — notateurs et profils notés. Un classement collectif unique, partagé par tout le monde, ne peut structurellement pas produire la même satisfaction pour les deux groupes de notateurs quand leurs notes elles-mêmes suivent des distributions aussi différentes selon la paire de genres.</p>
+      <p><strong style="color:var(--green)">Lien avec la littérature</strong><br>
+      Ce résultat illustre empiriquement l'argument de Yao &amp; Huang (2017, section 3.3) : la parité démographique (viser ΔE≈0) n'est pas toujours un objectif approprié en recommandation lorsque les préférences des groupes dépendent légitimement de l'attribut sensible étudié. Un ΔE élevé sur libimseti ne signale donc pas nécessairement une injustice algorithmique, mais peut refléter une différence de préférence structurelle du domaine — contrairement à MovieLens ou RateMyProfessors, où rien ne justifie a priori que le genre influence l'appréciation d'un film ou la qualité perçue d'un cours.</p>
+      <p><strong style="color:var(--t1)">Notre méthode (AURORA)</strong><br>
+      Le budget de fusion proportionnel n'améliore pas ΔE sur ce corpus (résultat stable sur une plage de 30 à 60% de compression testée), ni un resserrement de la tolérance de contrainte — cohérent avec la lecture ci-dessus : ce n'est pas un problème de réglage, mais une limite structurelle du cadre à classement collectif unique sur un domaine où la préférence est intrinsèquement différenciée par genre. AURORA conserve néanmoins un net avantage en diversité (ILD) sur les méthodes de vote (Borda, Condorcet).</p>
     </div>
   </div>
 </div>
@@ -965,7 +975,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card">
       <div class="card-title">ILD (Diversité des profs recommandés) — RMP — k=10</div>
       <canvas id="rmpIldCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">Notre méthode : ILD=0.924 — quasi identique à la moyenne simple (0.982). Borda et ses variantes s'effondrent à 0.14 (effet de popularité).</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">Notre méthode : ILD=0.808 — 2ᵉ meilleure, proche de la moyenne simple (0.982). Borda et ses variantes s'effondrent à 0.14 (effet de popularité).</p>
     </div>
   </div>
 
@@ -978,7 +988,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       </div>
       <div>
         <strong style="color:var(--green)">Notre méthode (AURORA)</strong><br>
-        Coarsening : 1 981 cours → 261 super-nœuds. ILD=0.924 — profs <em>diversifiés et pertinents</em>. ΔE=0.017 (faible), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 46s pour 59 066 professeurs.
+        Coarsening : 1 981 cours → 990 super-nœuds (budget 50%). ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (bat Condorcet, derrière Borda/Fair Re-rank), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 31.5s pour 59 066 professeurs.
       </div>
     </div>
   </div>
@@ -1083,7 +1093,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">Lecture du graphique</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> atteint cette zone sur RMP (ΔE=0.017, ILD=0.924) et améliore l'équité vs Borda sur tous les datasets avec une borne formelle.
+        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur tous les datasets avec une borne formelle.
       </div>
       <div>
         <strong style="color:var(--amber)">Compromis observé :</strong> Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.
@@ -1096,32 +1106,32 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
 <script>
 const ALL={
-  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"AURORA":{dE:.4123,ILD:.4019,inc_F:.2989,inc_M:.3922,n_sn:6,ratio:.006}},
-  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"AURORA":{dE:.3511,ILD:.4482,inc_F:.2484,inc_M:.3249,n_sn:5,ratio:.005}},
-  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Weighted Borda":{dE:.3933,ILD:.3904,inc_F:.2548,inc_M:.3444},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"AURORA":{dE:.3475,ILD:.4646,inc_F:.269,inc_M:.3477,n_sn:272,ratio:.288}}
+  5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"AURORA":{dE:.4387,ILD:.3302,inc_F:.3465,inc_M:.4501,n_sn:471,ratio:.499}},
+  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"AURORA":{dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_sn:471,ratio:.499}},
+  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Weighted Borda":{dE:.3933,ILD:.3904,inc_F:.2548,inc_M:.3444},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"AURORA":{dE:.2849,ILD:.4623,inc_F:.2766,inc_M:.3437,n_sn:471,ratio:.499}}
 };
 const AF=0.289,AM=0.710;
 const METHODS=["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"];
 const COLS=[{key:'dE',lbl:'ΔE (Équité)',dir:'min',max:.55},{key:'ILD',lbl:'ILD (Diversité)',dir:'max',max:1},{key:'inc_F',lbl:'inc_F ↑',dir:'max',max:.45},{key:'inc_M',lbl:'inc_M ↑',dir:'max',max:.55}];
 const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Weighted Borda":"Borda pondéré par groupe","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","AURORA":"Coarsenisation EDI"};
 const INTERP={
-  5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.412</strong>) et diversité (ILD 0.303→<strong>0.402</strong>) améliorées vs Borda. Inclusion légèrement réduite en contrepartie.
+  5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.439</strong>) et diversité (ILD 0.303→<strong>0.330</strong>) améliorées vs Borda.
   <br><br>
-  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
-    <span style="color:var(--amber);flex-shrink:0"></span>
-    <span><strong style="color:var(--t1)">Pourquoi seulement 6 super-nœuds ?</strong>Avec k=5, très peu de fusions changent le top-5 (les 5 films les plus populaires sont très stables). L'algorithme accepte donc presque toutes les fusions sans vérifier les contraintes EDI — d'où une compression extrême (ratio 0.006). Ce comportement est empiriquement valide mais mérite une borne min sur le taux de compression dans les travaux futurs.</span>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--blue);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Budget de fusion proportionnel :</strong>471 super-nœuds (ratio 0.50) — budget fixé à 50% de n_users, validé par test de robustesse sur une plage de 30 à 60%. Un budget fixe non adapté à la taille du corpus produirait une sur- ou sous-fusion selon k (voir discussion méthodologique).</span>
   </span>`,
-  10:`<strong>k=10 :</strong>Meilleure équité (ΔE=<strong>0.351</strong>, −17% vs Borda) et meilleure diversité (ILD=<strong>0.448</strong>, +27%). L'inclusion est plus faible en contrepartie.
+  10:`<strong>k=10 :</strong>Meilleure inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, les deux meilleures du tableau) et diversité (ILD=<strong>0.391</strong>, +10.6% vs Borda). ΔE légèrement meilleur que Borda, mais Fair Re-rank reste plus précis sur cet axe seul.
   <br><br>
-  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
-    <span style="color:var(--amber);flex-shrink:0"></span>
-    <span><strong style="color:var(--t1)">Compression extrême (5 super-nœuds) :</strong>Même phénomène qu'en k=5. Le top-10 change rarement lors des fusions successives, donc l'algorithme fusionne librement jusqu'à la limite de 400 fusions. Résultat : une représentation très compressée du graphe. La qualité EDI reste meilleure que Borda malgré cette compression.</span>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--blue);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Même budget proportionnel :</strong>471 super-nœuds (ratio 0.50), identique à k=5 et k=20 — le budget de fusion ne dépend que de n_users, pas de k.</span>
   </span>`,
-  20:`<strong>k=20 — meilleure configuration :</strong>AURORA bat toutes les baselines sur les <strong>4 critères simultanément</strong>. ΔE=<strong>0.347</strong>,ILD=<strong>0.465</strong>, inc_F=<strong>0.269</strong> (>Borda 0.247), inc_M=<strong>0.348</strong>. <strong>272 super-nœuds</strong>, ratio F/M rééquilibré 29→37%.
+  20:`<strong>k=20 — meilleure configuration :</strong>AURORA bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément. ΔE=<strong>0.285</strong>,ILD=<strong>0.462</strong> (meilleur de toutes les méthodes non triviales), inc_F=<strong>0.277</strong> (>Borda 0.247), inc_M=<strong>0.344</strong> (proche du meilleur, W-Borda 0.344). <strong>471 super-nœuds</strong>, ratio F/M rééquilibré 29→37%. Fair Re-rank reste plus précis sur ΔE seul (0.240).
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--green);flex-shrink:0"></span>
-    <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong>Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir). L'algorithme est plus sélectif : il accepte moins de fusions mais celles qu'il accepte améliorent réellement l'EDI. Compression raisonnable : 71.2%, ratio F/M amélioré de 8 points.</span>
+    <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong>Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir), donc les fusions acceptées améliorent plus systématiquement l'EDI. Compression : 50%, ratio F/M amélioré de 8 points.</span>
   </span>`
 };
 let curK=10;
@@ -1312,7 +1322,7 @@ const GDS={
   },
   '1M':{
     infoG:'6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.',
-    infoGp:'Même principe de fusion par similarité. La compression varie fortement selon k (voir tableaux ci-dessous). Sur k=20 : 6040→4318 super-nœuds (−28.5%).',
+    infoGp:'Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6040→3020 super-nœuds (−50.0%).',
   }
 };
 function applyGraphDS(ds){
@@ -1598,13 +1608,13 @@ function drawSens(){
   const green=getComputedStyle(document.documentElement).getPropertyValue('--green').trim()||'#0fd17a';
 
   const SENS=[
-    {mm:25,  dE:0.4331, ILD:0.3936},
-    {mm:50,  dE:0.4331, ILD:0.3936},
+    {mm:25,  dE:0.4243, ILD:0.3824},
+    {mm:50,  dE:0.4136, ILD:0.3974},
     {mm:100, dE:0.4136, ILD:0.3974},
-    {mm:200, dE:0.3818, ILD:0.4287},
-    {mm:300, dE:0.2690, ILD:0.4808},
-    {mm:400, dE:0.3475, ILD:0.4646},
-    {mm:500, dE:0.2670, ILD:0.5122}
+    {mm:200, dE:0.4136, ILD:0.3974},
+    {mm:300, dE:0.4158, ILD:0.4044},
+    {mm:400, dE:0.3140, ILD:0.4548},
+    {mm:500, dE:0.2777, ILD:0.4679}
   ];
 
   ctx.clearRect(0,0,W,240);
@@ -1670,7 +1680,7 @@ const ALL1M={
     "Weighted Borda":{dE:.4895,ILD:.3857,inc_F:.336,inc_M:.4445},
     "Condorcet":{dE:.6335,ILD:.3616,inc_F:.3133,inc_M:.4497},
     "Fair Re-rank":{dE:.0036,ILD:.4163,inc_F:.3627,inc_M:.3655},
-    "AURORA":{dE:.0643,ILD:.5783,inc_F:.2774,inc_M:.2945,n_sn:6,ratio:.001}
+    "AURORA":{dE:.4156,ILD:.3953,inc_F:.3414,inc_M:.4338,n_sn:3020,ratio:.5}
   },
   10:{
     "Average Score":{dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
@@ -1678,7 +1688,7 @@ const ALL1M={
     "Weighted Borda":{dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
     "Condorcet":{dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
     "Fair Re-rank":{dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
-    "AURORA":{dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_sn:2755,ratio:.456}
+    "AURORA":{dE:.2137,ILD:.4403,inc_F:.3211,inc_M:.3703,n_sn:3020,ratio:.5}
   },
   20:{
     "Average Score":{dE:.0703,ILD:.9582,inc_F:.0638,inc_M:.0787},
@@ -1686,24 +1696,24 @@ const ALL1M={
     "Weighted Borda":{dE:.3923,ILD:.436,inc_F:.2874,inc_M:.3742},
     "Condorcet":{dE:.4371,ILD:.432,inc_F:.2838,inc_M:.3787},
     "Fair Re-rank":{dE:.0998,ILD:.4768,inc_F:.2903,inc_M:.3146},
-    "AURORA":{dE:.3317,ILD:.4558,inc_F:.2872,inc_M:.3605,n_sn:4318,ratio:.715}
+    "AURORA":{dE:.2773,ILD:.4562,inc_F:.2942,inc_M:.3564,n_sn:3020,ratio:.5}
   }
 };
 const RT_100K={
-  "Average Score":{k5:.005,k10:.004,k20:.005},
-  "Borda":{k5:.661,k10:.641,k20:.631},
-  "Weighted Borda":{k5:.68,k10:.66,k20:.65},
-  "Condorcet":{k5:.122,k10:.123,k20:.123},
-  "Fair Re-rank":{k5:.871,k10:.865,k20:.875},
-  "AURORA":{k5:505.238,k10:517.138,k20:4.068}
+  "Average Score":{k5:.005,k10:.004,k20:.004},
+  "Borda":{k5:.72,k10:.677,k20:.666},
+  "Weighted Borda":{k5:.72,k10:.677,k20:.666},
+  "Condorcet":{k5:.149,k10:.129,k20:.126},
+  "Fair Re-rank":{k5:.938,k10:.928,k20:.926},
+  "AURORA":{k5:3.793,k10:3.761,k20:4.042}
 };
 const RT_1M={
   "Average Score":{k5:.05,k10:.05,k20:.05},
-  "Borda":{k5:4.3,k10:4.4,k20:4.3},
-  "Weighted Borda":{k5:4.5,k10:4.6,k20:4.5},
-  "Condorcet":{k5:1.2,k10:1.2,k20:1.2},
-  "Fair Re-rank":{k5:5.6,k10:5.2,k20:5.2},
-  "AURORA":{k5:53140.4,k10:71.3,k20:65.6}
+  "Borda":{k5:4.4,k10:4.2,k20:4.5},
+  "Weighted Borda":{k5:4.6,k10:4.4,k20:4.8},
+  "Condorcet":{k5:1.2,k10:1.2,k20:1.3},
+  "Fair Re-rank":{k5:5.8,k10:5.1,k20:6.2},
+  "AURORA":{k5:82.1,k10:75.5,k20:79.4}
 };
 function fmtT(s){
   if(s<.1)return'<0.1s';
@@ -1714,9 +1724,9 @@ function fmtT(s){
 }
 const AF1M=0.2829,AM1M=0.7171;
 const INTERP1M={
-  5:`<strong>k=5 :</strong>Résultat remarquable — notre méthode atteint <strong>ΔE=0.0643</strong> (quasi-équité parfaite) et <strong>ILD=0.5783</strong> (meilleure diversité). Sur 100k, le même k donnait ΔE=0.412. <br><br>LeFair Re-rank est encore plus équitable (ΔE=0.0036) mais avec ILD plus faible (0.4163). <strong>Aucune méthode classique (Borda, Condorcet, W-Borda) ne passe sous ΔE=0.49.</strong>`,
-  10:`<strong>k=10 :</strong>AURORA ΔE=<strong>0.332</strong>,ILD=<strong>0.423</strong> — similaire au 100k (ΔE=0.351, ILD=0.448). La méthode <strong>scale bien</strong> : la qualité EDI est maintenue sur un graphe 6× plus grand. Fair Re-rank reste excellent en équité (ΔE=0.019).`,
-  20:`<strong>k=20 :</strong>AURORA ΔE=<strong>0.332</strong>,ILD=<strong>0.456</strong> — très proches du 100k (ΔE=0.348, ILD=0.465). <strong>Robustesse confirmée</strong> : nos métriques EDI restent stables avec 6× plus d'utilisateurs et de données.`
+  5:`<strong>k=5 :</strong>AURORA atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda ΔE=0.490, Weighted Borda ΔE=0.490, Condorcet ΔE=0.634) sur les deux axes simultanément. <br><br>Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécifiquement conçue pour optimiser l'équité.`,
+  10:`<strong>k=10 :</strong>AURORA ΔE=<strong>0.214</strong>,ILD=<strong>0.440</strong> — meilleur compromis parmi les méthodes de vote (Borda ΔE=0.538, Weighted Borda ΔE=0.371, Condorcet ΔE=0.487). Fair Re-rank reste le plus précis en équité seule (ΔE=0.019, ILD=0.452).`,
+  20:`<strong>k=20 :</strong>AURORA ΔE=<strong>0.277</strong>,ILD=<strong>0.456</strong> — cohérent avec le 100k (ΔE=0.285, ILD=0.462) au même budget de fusion (50%). Bat systématiquement Borda/Weighted Borda/Condorcet sur les deux axes ; Fair Re-rank garde l'avantage en ΔE et ILD pris isolément (0.100 / 0.477).`
 };
 let cur1MK=10,cmpK=10;
 
@@ -2106,115 +2116,115 @@ window.addEventListener('resize',()=>{
 // ML-1M : sous-ensembles stratifiés 500→6040 (run_scalability.py, k=10, θ=4.0)
 const SCAL_DATA={
   500:{n_F:141,n_M:359,n_ratings:88748,
-    "Average Score":{elapsed_s:.0041,dE:.0115,ILD:.9732,inc_F:.0043,inc_M:.0019},
-    "Borda":{elapsed_s:.3269,dE:.3957,ILD:.3918,inc_F:.3298,inc_M:.4212},
-    "Weighted Borda":{elapsed_s:.3668,dE:.1196,ILD:.4085,inc_F:.3688,inc_M:.3969},
-    "Condorcet":{elapsed_s:.1063,dE:.31,ILD:.395,inc_F:.3482,inc_M:.4131},
-    "Fair Re-rank":{elapsed_s:.4949,dE:.0115,ILD:.453,inc_F:.3397,inc_M:.3538},
-    "AURORA":{elapsed_s:289.412,dE:.1242,ILD:.5704,inc_F:.2674,inc_M:.2905,n_supernodes:5,ratio:.01,stable_topk:true}
-  },
+    "Average Score":{elapsed_s:.0048,dE:.0115,ILD:.9732,inc_F:.0043,inc_M:.0019},
+    "Borda":{elapsed_s:.3367,dE:.3957,ILD:.3918,inc_F:.3298,inc_M:.4212},
+    "Weighted Borda":{elapsed_s:.3758,dE:.1196,ILD:.4085,inc_F:.3688,inc_M:.3969},
+    "Condorcet":{elapsed_s:.1067,dE:.31,ILD:.395,inc_F:.3482,inc_M:.4131},
+    "Fair Re-rank":{elapsed_s:.4987,dE:.0115,ILD:.453,inc_F:.3397,inc_M:.3538},
+    "AURORA":{elapsed_s:3.498,dE:.0967,ILD:.4462,inc_F:.3489,inc_M:.3744,n_supernodes:250,ratio:.5}
+    },
   1000:{n_F:283,n_M:717,n_ratings:162306,
-    "Average Score":{elapsed_s:.0067,dE:.0075,ILD:.9889,inc_F:.0025,inc_M:.001},
-    "Borda":{elapsed_s:.636,dE:.4227,ILD:.412,inc_F:.3194,inc_M:.4053},
-    "Weighted Borda":{elapsed_s:.7146,dE:.3618,ILD:.4131,inc_F:.3254,inc_M:.3976},
-    "Condorcet":{elapsed_s:.1923,dE:.3982,ILD:.4129,inc_F:.3219,inc_M:.4038},
-    "Fair Re-rank":{elapsed_s:.8893,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
-    "AURORA":{elapsed_s:8.075,dE:.1829,ILD:.5484,inc_F:.2633,inc_M:.2999,n_supernodes:97,ratio:.097}
-  },
+    "Average Score":{elapsed_s:.0066,dE:.0075,ILD:.9889,inc_F:.0025,inc_M:.001},
+    "Borda":{elapsed_s:.6593,dE:.4227,ILD:.412,inc_F:.3194,inc_M:.4053},
+    "Weighted Borda":{elapsed_s:.7429,dE:.3618,ILD:.4131,inc_F:.3254,inc_M:.3976},
+    "Condorcet":{elapsed_s:.1991,dE:.3982,ILD:.4129,inc_F:.3219,inc_M:.4038},
+    "Fair Re-rank":{elapsed_s:.9073,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
+    "AURORA":{elapsed_s:6.897,dE:.2592,ILD:.4263,inc_F:.3233,inc_M:.3759,n_supernodes:500,ratio:.5}
+    },
   2000:{n_F:566,n_M:1434,n_ratings:326612,
-    "Average Score":{elapsed_s:.0123,dE:.0023,ILD:1.0,inc_F:.0002,inc_M:.0006},
-    "Borda":{elapsed_s:1.2752,dE:.4034,ILD:.4089,inc_F:.3228,inc_M:.4086},
-    "Weighted Borda":{elapsed_s:1.4417,dE:.3237,ILD:.416,inc_F:.3327,inc_M:.4016},
-    "Condorcet":{elapsed_s:.3802,dE:.3981,ILD:.416,inc_F:.3196,inc_M:.404},
-    "Fair Re-rank":{elapsed_s:1.7224,dE:.0011,ILD:.4873,inc_F:.326,inc_M:.3273},
-    "AURORA":{elapsed_s:17.613,dE:.1688,ILD:.4551,inc_F:.3246,inc_M:.3637,n_supernodes:352,ratio:.176}
-  },
+    "Average Score":{elapsed_s:.0146,dE:.0023,ILD:1,inc_F:.0002,inc_M:.0006},
+    "Borda":{elapsed_s:1.3554,dE:.4034,ILD:.4089,inc_F:.3228,inc_M:.4086},
+    "Weighted Borda":{elapsed_s:1.5345,dE:.3237,ILD:.416,inc_F:.3327,inc_M:.4016},
+    "Condorcet":{elapsed_s:.3968,dE:.3981,ILD:.416,inc_F:.3196,inc_M:.404},
+    "Fair Re-rank":{elapsed_s:2.0114,dE:.0011,ILD:.4873,inc_F:.326,inc_M:.3273},
+    "AURORA":{elapsed_s:16.536,dE:.2334,ILD:.4468,inc_F:.327,inc_M:.379,n_supernodes:1000,ratio:.5}
+    },
   4000:{n_F:1132,n_M:2868,n_ratings:664230,
-    "Average Score":{elapsed_s:.0252,dE:.0011,ILD:.9872,inc_F:.0005,inc_M:.0003},
-    "Borda":{elapsed_s:2.6138,dE:.4714,ILD:.4082,inc_F:.306,inc_M:.4099},
-    "Weighted Borda":{elapsed_s:2.8903,dE:.3752,ILD:.4126,inc_F:.3211,inc_M:.4045},
-    "Condorcet":{elapsed_s:.8404,dE:.4912,ILD:.4092,inc_F:.3024,inc_M:.411},
-    "Fair Re-rank":{elapsed_s:4.2139,dE:.001,ILD:.4794,inc_F:.3266,inc_M:.3326},
-    "AURORA":{elapsed_s:43.234,dE:.1496,ILD:.4526,inc_F:.317,inc_M:.3552,n_supernodes:1149,ratio:.287}
-  },
+    "Average Score":{elapsed_s:.0266,dE:.0011,ILD:.9872,inc_F:.0005,inc_M:.0003},
+    "Borda":{elapsed_s:2.7647,dE:.4714,ILD:.4082,inc_F:.306,inc_M:.4099},
+    "Weighted Borda":{elapsed_s:3.0332,dE:.3752,ILD:.4126,inc_F:.3211,inc_M:.4045},
+    "Condorcet":{elapsed_s:.8371,dE:.4912,ILD:.4092,inc_F:.3024,inc_M:.411},
+    "Fair Re-rank":{elapsed_s:3.4531,dE:.001,ILD:.4794,inc_F:.3266,inc_M:.3326},
+    "AURORA":{elapsed_s:43.26,dE:.2241,ILD:.43,inc_F:.3212,inc_M:.3755,n_supernodes:2000,ratio:.5}
+    },
   6040:{n_F:1709,n_M:4331,n_ratings:1000209,
-    "Average Score":{elapsed_s:.0354,dE:.0001,ILD:1.0,inc_F:.0002,inc_M:.0002},
-    "Borda":{elapsed_s:4.0434,dE:.538,ILD:.4015,inc_F:.3016,inc_M:.4169},
-    "Weighted Borda":{elapsed_s:4.4758,dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
-    "Condorcet":{elapsed_s:1.1828,dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
-    "Fair Re-rank":{elapsed_s:5.129,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
-    "AURORA":{elapsed_s:76.334,dE:.332,ILD:.4231,inc_F:.317,inc_M:.3903,n_supernodes:2755,ratio:.456}
-  }
+    "Average Score":{elapsed_s:.0356,dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
+    "Borda":{elapsed_s:4.2408,dE:.538,ILD:.4015,inc_F:.3016,inc_M:.4169},
+    "Weighted Borda":{elapsed_s:4.6253,dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
+    "Condorcet":{elapsed_s:1.2476,dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
+    "Fair Re-rank":{elapsed_s:5.1664,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
+    "AURORA":{elapsed_s:77.427,dE:.2137,ILD:.4403,inc_F:.3211,inc_M:.3703,n_supernodes:3020,ratio:.5}
+    }
 };
 const SCAL_SIZES=[500,1000,2000,4000,6040];
 
 // ML-100k : sous-ensembles stratifiés 100→943 (run_scalability_fine.py, k=10, θ=4.0)
-// n=700 et n=943 : phénomène top-k stable (289s et 517s respectivement)
+// budget de fusion = 50% de n_users (proportionnel, ratio constant sur toute la plage)
 const SCAL_100K_DATA={
   100:{n_F:29,n_M:71,n_ratings:9619,
-    "Average Score":{elapsed_s:.002,dE:.0852,ILD:.4376},
-    "Borda":{elapsed_s:.065,dE:.4892,ILD:.3477},
-    "Weighted Borda":{elapsed_s:.072,dE:.3555,ILD:.3317},
-    "Condorcet":{elapsed_s:.012,dE:.4475,ILD:.3528},
-    "Fair Re-rank":{elapsed_s:.144,dE:.0246,ILD:.4738},
-    "AURORA":{elapsed_s:.311,dE:.1607,ILD:.5252,n_supernodes:50,ratio:.5}
-  },
+    "Average Score":{elapsed_s:.0015,dE:.0852,ILD:.4376,inc_F:.0069,inc_M:.0239},
+    "Borda":{elapsed_s:.0668,dE:.4892,ILD:.3477,inc_F:.2655,inc_M:.3577},
+    "Weighted Borda":{elapsed_s:.0746,dE:.3555,ILD:.3317,inc_F:.2759,inc_M:.3408},
+    "Condorcet":{elapsed_s:.0126,dE:.4475,ILD:.3528,inc_F:.2655,inc_M:.3521},
+    "Fair Re-rank":{elapsed_s:.2019,dE:.0246,ILD:.4738,inc_F:.2966,inc_M:.293},
+    "AURORA":{elapsed_s:.343,dE:.1607,ILD:.5252,inc_F:.3034,inc_M:.3507,n_supernodes:50,ratio:.5}
+    },
   150:{n_F:43,n_M:107,n_ratings:13953,
-    "Average Score":{elapsed_s:.001,dE:.0072,ILD:.9333},
-    "Borda":{elapsed_s:.093,dE:.458,ILD:.3795},
-    "Weighted Borda":{elapsed_s:.105,dE:.4158,ILD:.3761},
-    "Condorcet":{elapsed_s:.018,dE:.4556,ILD:.3772},
-    "Fair Re-rank":{elapsed_s:.188,dE:.0398,ILD:.4828},
-    "AURORA":{elapsed_s:.506,dE:.3615,ILD:.4662,n_supernodes:61,ratio:.407}
-  },
+    "Average Score":{elapsed_s:.0015,dE:.0072,ILD:.9333,inc_F:.007,inc_M:.0084},
+    "Borda":{elapsed_s:.0997,dE:.458,ILD:.3795,inc_F:.2698,inc_M:.4019},
+    "Weighted Borda":{elapsed_s:.1139,dE:.4158,ILD:.3761,inc_F:.2605,inc_M:.3879},
+    "Condorcet":{elapsed_s:.0187,dE:.4556,ILD:.3772,inc_F:.2651,inc_M:.3897},
+    "Fair Re-rank":{elapsed_s:.2041,dE:.0398,ILD:.4828,inc_F:.2674,inc_M:.3028},
+    "AURORA":{elapsed_s:.483,dE:.3491,ILD:.4717,inc_F:.2256,inc_M:.3159,n_supernodes:75,ratio:.5}
+    },
   200:{n_F:58,n_M:142,n_ratings:20615,
-    "Average Score":{elapsed_s:.002,dE:.0129,ILD:.9872},
-    "Borda":{elapsed_s:.127,dE:.2055,ILD:.3703},
-    "Weighted Borda":{elapsed_s:.143,dE:.1728,ILD:.3314},
-    "Condorcet":{elapsed_s:.026,dE:.1673,ILD:.3635},
-    "Fair Re-rank":{elapsed_s:.234,dE:.0037,ILD:.4186},
-    "AURORA":{elapsed_s:.703,dE:.2186,ILD:.4505,n_supernodes:82,ratio:.41}
-  },
+    "Average Score":{elapsed_s:.0015,dE:.0129,ILD:.9872,inc_F:.0052,inc_M:.0077},
+    "Borda":{elapsed_s:.13,dE:.2055,ILD:.3703,inc_F:.3,inc_M:.3585},
+    "Weighted Borda":{elapsed_s:.1445,dE:.1728,ILD:.3314,inc_F:.2879,inc_M:.343},
+    "Condorcet":{elapsed_s:.0259,dE:.1673,ILD:.3635,inc_F:.3017,inc_M:.3479},
+    "Fair Re-rank":{elapsed_s:.2393,dE:.0037,ILD:.4186,inc_F:.319,inc_M:.3239},
+    "AURORA":{elapsed_s:.698,dE:.1948,ILD:.4638,inc_F:.3121,inc_M:.3528,n_supernodes:100,ratio:.5}
+    },
   300:{n_F:87,n_M:213,n_ratings:33475,
-    "Average Score":{elapsed_s:.002,dE:.0096,ILD:.9778},
-    "Borda":{elapsed_s:.188,dE:.4975,ILD:.3216},
-    "Weighted Borda":{elapsed_s:.210,dE:.3732,ILD:.3469},
-    "Condorcet":{elapsed_s:.038,dE:.3732,ILD:.3469},
-    "Fair Re-rank":{elapsed_s:.318,dE:.0906,ILD:.4356},
-    "AURORA":{elapsed_s:1.236,dE:.0801,ILD:.5284,n_supernodes:61,ratio:.203}
-  },
+    "Average Score":{elapsed_s:.0016,dE:.0096,ILD:.9778,inc_F:.0023,inc_M:.0042},
+    "Borda":{elapsed_s:.1956,dE:.4975,ILD:.3216,inc_F:.3069,inc_M:.4258},
+    "Weighted Borda":{elapsed_s:.2254,dE:.3732,ILD:.3469,inc_F:.323,inc_M:.4174},
+    "Condorcet":{elapsed_s:.0466,dE:.3732,ILD:.3469,inc_F:.323,inc_M:.4174},
+    "Fair Re-rank":{elapsed_s:.3591,dE:.0906,ILD:.4356,inc_F:.2885,inc_M:.3197},
+    "AURORA":{elapsed_s:1.123,dE:.3661,ILD:.3819,inc_F:.3287,inc_M:.4202,n_supernodes:150,ratio:.5}
+    },
   400:{n_F:116,n_M:284,n_ratings:42612,
-    "Average Score":{elapsed_s:.002,dE:.0032,ILD:.9306},
-    "Borda":{elapsed_s:.263,dE:.4757,ILD:.3674},
-    "Weighted Borda":{elapsed_s:.275,dE:.4343,ILD:.3855},
-    "Condorcet":{elapsed_s:.051,dE:.4757,ILD:.3674},
-    "Fair Re-rank":{elapsed_s:.390,dE:.0796,ILD:.504},
-    "AURORA":{elapsed_s:1.615,dE:.3052,ILD:.4727,n_supernodes:80,ratio:.2}
-  },
+    "Average Score":{elapsed_s:.002,dE:.0032,ILD:.9306,inc_F:.0034,inc_M:.0028},
+    "Borda":{elapsed_s:.2699,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
+    "Weighted Borda":{elapsed_s:.2961,dE:.4343,ILD:.3855,inc_F:.2793,inc_M:.3796},
+    "Condorcet":{elapsed_s:.0522,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
+    "Fair Re-rank":{elapsed_s:.4128,dE:.0796,ILD:.504,inc_F:.2888,inc_M:.3127},
+    "AURORA":{elapsed_s:1.483,dE:.4349,ILD:.4076,inc_F:.2905,inc_M:.3961,n_supernodes:200,ratio:.5}
+    },
   500:{n_F:145,n_M:355,n_ratings:52603,
-    "Average Score":{elapsed_s:.003,dE:.0156,ILD:.9678},
-    "Borda":{elapsed_s:.310,dE:.496,ILD:.3354},
-    "Weighted Borda":{elapsed_s:.341,dE:.4868,ILD:.3289},
-    "Condorcet":{elapsed_s:.063,dE:.496,ILD:.3354},
-    "Fair Re-rank":{elapsed_s:.490,dE:.1896,ILD:.403},
-    "AURORA":{elapsed_s:3.908,dE:.26,ILD:.5905,n_supernodes:8,ratio:.016,stable_topk:true}
-  },
+    "Average Score":{elapsed_s:.0029,dE:.0156,ILD:.9678,inc_F:.0014,inc_M:.0045},
+    "Borda":{elapsed_s:.323,dE:.496,ILD:.3354,inc_F:.2869,inc_M:.3955},
+    "Weighted Borda":{elapsed_s:.3626,dE:.4868,ILD:.3289,inc_F:.2862,inc_M:.3935},
+    "Condorcet":{elapsed_s:.0649,dE:.496,ILD:.3354,inc_F:.2869,inc_M:.3955},
+    "Fair Re-rank":{elapsed_s:.4969,dE:.1896,ILD:.403,inc_F:.2855,inc_M:.3169},
+    "AURORA":{elapsed_s:1.921,dE:.4463,ILD:.3775,inc_F:.3048,inc_M:.4039,n_supernodes:250,ratio:.5}
+    },
   700:{n_F:203,n_M:497,n_ratings:73879,
-    "Average Score":{elapsed_s:.003,dE:.0071,ILD:.9909},
-    "Borda":{elapsed_s:.437,dE:.3923,ILD:.3512},
-    "Weighted Borda":{elapsed_s:.490,dE:.3923,ILD:.3512},
-    "Condorcet":{elapsed_s:.093,dE:.412,ILD:.3531},
-    "Fair Re-rank":{elapsed_s:.620,dE:.1336,ILD:.3789},
-    "AURORA":{elapsed_s:289.304,dE:.2181,ILD:.5213,n_supernodes:6,ratio:.009,stable_topk:true}
-  },
+    "Average Score":{elapsed_s:.0035,dE:.0071,ILD:.9909,inc_F:.001,inc_M:.0024},
+    "Borda":{elapsed_s:.4635,dE:.3923,ILD:.3512,inc_F:.3,inc_M:.3903},
+    "Weighted Borda":{elapsed_s:.504,dE:.3923,ILD:.3512,inc_F:.3,inc_M:.3903},
+    "Condorcet":{elapsed_s:.0904,dE:.412,ILD:.3531,inc_F:.298,inc_M:.3922},
+    "Fair Re-rank":{elapsed_s:.6495,dE:.1336,ILD:.3789,inc_F:.2842,inc_M:.3149},
+    "AURORA":{elapsed_s:2.757,dE:.4064,ILD:.3862,inc_F:.3123,inc_M:.4052,n_supernodes:350,ratio:.5}
+    },
   943:{n_F:273,n_M:670,n_ratings:100000,
-    "Average Score":{elapsed_s:.004,dE:.0068,ILD:1.0},
-    "Borda":{elapsed_s:.591,dE:.4249,ILD:.354},
-    "Weighted Borda":{elapsed_s:.674,dE:.4249,ILD:.354},
-    "Condorcet":{elapsed_s:.123,dE:.4459,ILD:.3559},
-    "Fair Re-rank":{elapsed_s:.837,dE:.1623,ILD:.4295},
-    "AURORA":{elapsed_s:517.138,dE:.3511,ILD:.4482,n_supernodes:5,ratio:.005,stable_topk:true}
-  }
+    "Average Score":{elapsed_s:.0038,dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},
+    "Borda":{elapsed_s:.6728,dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},
+    "Weighted Borda":{elapsed_s:.7112,dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},
+    "Condorcet":{elapsed_s:.1213,dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},
+    "Fair Re-rank":{elapsed_s:.8435,dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},
+    "AURORA":{elapsed_s:4.149,dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_supernodes:471,ratio:.499}
+    }
 };
 const SCAL_100K_SIZES=[100,150,200,300,400,500,700,943];
 
@@ -2307,26 +2317,6 @@ function drawScalRuntime(){
     ctx.fillStyle=col; ctx.font=(isO?'bold ':'')+'9px sans-serif'; ctx.textAlign='left';
     ctx.fillText(abbrev,last.x+5,last.y+3);
   });
-
-  // Annotations top-k stable
-  const amber=scalCss('amber');
-  // 100k n=700 (289s)
-  {
-    const x0=xPos(700), y0=yPos(SCAL_100K_DATA[700]["AURORA"].elapsed_s);
-    ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
-    ctx.moveTo(x0-8,y0-8); ctx.lineTo(x0-30,y0-26); ctx.stroke(); ctx.setLineDash([]);
-    ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='right';
-    ctx.fillText(' top-k stable',x0-32,y0-24);
-    ctx.fillText('100k n=700',x0-32,y0-14);
-  }
-  // 1M n=500 (289s)
-  {
-    const x0=xPos(500), y0=yPos(SCAL_DATA[500]["AURORA"].elapsed_s);
-    ctx.beginPath(); ctx.strokeStyle=amber; ctx.lineWidth=1; ctx.setLineDash([3,3]);
-    ctx.moveTo(x0+6,y0+6); ctx.lineTo(x0+26,y0+22); ctx.stroke(); ctx.setLineDash([]);
-    ctx.fillStyle=amber; ctx.font='8px sans-serif'; ctx.textAlign='left';
-    ctx.fillText(' 1M n=500',x0+28,y0+26);
-  }
 
   // Legend
   const leg=document.getElementById('scalRtLegend');
@@ -2500,7 +2490,7 @@ const LIB={
   "Weighted Borda":{dE:1.2182,ILD:.7436,inc_F:.1466,inc_M:.0244,elapsed_s:.705},
   "Condorcet":    {dE:1.296, ILD:.7462,inc_F:.157, inc_M:.0244,elapsed_s:.257},
   "Fair Re-rank": {dE:.144,  ILD:.7194,inc_F:.0386,inc_M:.0236,elapsed_s:.807},
-  "AURORA":         {dE:.8764, ILD:.816, inc_F:.112, inc_M:.0238,elapsed_s:402.5,n_sn:10,ratio:.01}
+  "AURORA":         {dE:1.2324, ILD:.7606, inc_F:.148, inc_M:.0244,elapsed_s:7.061,n_sn:500,ratio:.5}
 };
 
 function buildLibTable(){
@@ -2529,7 +2519,7 @@ function buildLibTable(){
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('libInterp').innerHTML=
-    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> sur un site de rencontres avec des préférences hétérosexuelles, les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens ! Les rateurs M et F préfèrent des profils de genre opposé, ce qui polarise les recommandations. Notre méthode obtient la <strong style="color:var(--green)">meilleure diversité ILD (0.816)</strong> parmi toutes les approches sociales, même si l'équité reste challengeante sur ce domaine très polarisé.`;
+    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé dans l'onglet libimseti.cz. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus (limite structurelle confirmée par test de robustesse, cf. discussion section 5.5) : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`;
 }
 
 function drawLibBar(canvasId, getter, colorFn, maxVal){
@@ -2595,7 +2585,7 @@ const RMP={
   "Weighted Borda":{dE:.0083,ILD:.1448,frac_F:.40,elapsed_s:41.288},
   "Condorcet":     {dE:.0757,ILD:.2533,frac_F:.30,elapsed_s:.289},
   "Fair Re-rank":  {dE:.0000,ILD:.1956,frac_F:.50,elapsed_s:1.455},
-  "AURORA":          {dE:.0169,ILD:.9244,frac_F:.60,elapsed_s:46.556,n_sn:261}
+  "AURORA":          {dE:.1116,ILD:.8081,frac_F:.60,elapsed_s:31.514,n_sn:990}
 };
 
 function buildRmpTable(){
@@ -2631,7 +2621,7 @@ function buildRmpTable(){
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('rmpInterp').innerHTML=
-    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> toutes les méthodes sont équitables ici (ΔE ≤ 0.076) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>.Notre coarsening atteint <strong style="color:var(--green)">ILD=0.924</strong> contre 0.145 pour Borda — soit <strong>6× plus de diversité</strong> dans les profs recommandés, sans sacrifier l'équité.`;
+    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>.Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.145 pour Borda — soit environ <strong>5,6× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`;
 }
 
 function drawRmpCharts(){

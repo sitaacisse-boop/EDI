@@ -30,7 +30,7 @@
         "inc_M": 1.0,
         "frac_F": 0.4,
         "frac_M": 0.6,
-        "elapsed_s": 0.0116
+        "elapsed_s": 0.0142
       },
       "Borda": {
         "dE": 0.0083,
@@ -39,7 +39,7 @@
         "inc_M": 1.0,
         "frac_F": 0.4,
         "frac_M": 0.6,
-        "elapsed_s": 1.3081
+        "elapsed_s": 1.4364
       },
       "Weighted Borda": {
         "dE": 0.0083,
@@ -48,7 +48,7 @@
         "inc_M": 1.0,
         "frac_F": 0.4,
         "frac_M": 0.6,
-        "elapsed_s": 41.2882
+        "elapsed_s": 44.3723
       },
       "Condorcet": {
         "dE": 0.0757,
@@ -57,7 +57,7 @@
         "inc_M": 0.9841,
         "frac_F": 0.3,
         "frac_M": 0.7,
-        "elapsed_s": 0.2889
+        "elapsed_s": 0.3711
       },
       "Fair Re-rank": {
         "dE": 0.0,
@@ -66,18 +66,18 @@
         "inc_M": 1.0,
         "frac_F": 0.5,
         "frac_M": 0.5,
-        "elapsed_s": 1.4553
+        "elapsed_s": 1.9641
       },
       "AURORA": {
-        "dE": 0.0169,
-        "ILD": 0.9244,
+        "dE": 0.1116,
+        "ILD": 0.8081,
         "inc_F": 1.0,
-        "inc_M": 1.0,
+        "inc_M": 0.9583,
         "frac_F": 0.6,
         "frac_M": 0.4,
-        "ratio": 0.132,
-        "n_supernodes": 261,
-        "elapsed_s": 46.556
+        "ratio": 0.5,
+        "n_supernodes": 990,
+        "elapsed_s": 31.514
       }
     }
   }

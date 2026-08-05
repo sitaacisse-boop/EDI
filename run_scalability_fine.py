@@ -196,7 +196,8 @@ def run_coarsening(ratings, gender_map, k, theta, max_merges=400):
             sn_m[sna] |= sn_m[snb]
             del sn_s[snb], sn_c[snb], sb[snb], sn_m[snb]
             active.discard(snb)
-            if nt != cur: cur = nt; na += 1
+            if nt != cur: cur = nt
+            na += 1
         else:
             for iid, sc in bm.items():      cb[iid] = cb.get(iid,0) - sc
             for iid, sc in sb[snb].items(): cb[iid] = cb.get(iid,0) + sc
@@ -256,7 +257,7 @@ if __name__ == "__main__":
             exp[method_name] = m
             print(f" {rt:.3f}s")
 
-        max_m = max(30, round(400 * len(gender_map) / 943))
+        max_m = round(0.50 * len(gender_map))
         print(f"  AURORA (max_merges={max_m})...", end="", flush=True)
         m = run_coarsening(ratings, gender_map, K, THETA, max_merges=max_m)
         exp["AURORA"] = m

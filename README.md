@@ -85,6 +85,8 @@ Paramètres MovieLens : seuil θ = 4.0, α_F = 0.289, α_M = 0.711
 
 ## Résultats principaux (θ = 4.0, k = 10 sauf indication)
 
+Budget de fusion : 50% de n_users sur tous les corpus (valeur validée par test de robustesse sur une plage de 30 à 60%, cf. section méthodologique). Corrige un bug de comptage antérieur qui faussait la compression réelle sur les corpus de tailles différentes.
+
 ### MovieLens 100k — équité côté utilisateur
 
 | Méthode | k | ΔE | ILD | inc_F | inc_M |
@@ -94,11 +96,11 @@ Paramètres MovieLens : seuil θ = 4.0, α_F = 0.289, α_M = 0.711
 | Weighted Borda | 10 | 0.4249 | 0.354 | 0.293 | 0.392 |
 | Condorcet | 10 | 0.4459 | 0.356 | 0.292 | 0.394 |
 | Fair Re-rank | 10 | 0.1623 | 0.430 | 0.271 | 0.313 |
-| **AURORA** | 10 | 0.3511 | **0.448** | 0.248 | 0.325 |
-| **AURORA** | 20 | 0.3475 | **0.465** | **0.269** | **0.348** |
+| **AURORA** | 10 | 0.4228 | 0.391 | **0.307** | **0.405** |
+| **AURORA** | 20 | 0.2849 | **0.462** | **0.277** | 0.344 |
 
-À k=20 (100k), notre méthode domine sur ILD, inc_F et inc_M.  
-Compression : 943 → 272 super-nœuds (−71.2%), ratio F/M rééquilibré 29% → 37%.
+À k=20, AURORA bat toutes les méthodes de vote (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient le meilleur ILD toutes méthodes non-triviales confondues. Fair Re-rank reste plus précis sur ΔE seul.  
+Compression : 943 → 471 super-nœuds (ratio 0.50, budget uniforme 50%).
 
 ### MovieLens 1M — validation scalabilité
 
@@ -109,34 +111,37 @@ Compression : 943 → 272 super-nœuds (−71.2%), ratio F/M rééquilibré 29% 
 | Weighted Borda | 10 | 0.371 | 0.413 | 0.324 | 0.404 |
 | Condorcet | 10 | 0.487 | 0.408 | 0.305 | 0.412 |
 | Fair Re-rank | 10 | 0.019 | 0.452 | 0.336 | 0.343 |
-| **AURORA** | 5 | **0.064** | **0.578** | 0.277 | 0.295 |
-| **AURORA** | 10 | 0.332 | 0.423 | 0.317 | 0.390 |
+| **AURORA** | 5 | 0.416 | 0.395 | 0.341 | 0.434 |
+| **AURORA** | 10 | 0.214 | 0.440 | 0.321 | 0.370 |
+| **AURORA** | 20 | 0.277 | 0.456 | 0.294 | 0.356 |
 
-Résultat marquant : AURORA k=5 sur 1M atteint ΔE=0.064 + ILD=0.578 (meilleure diversité de toutes les méthodes).
+AURORA bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD à tout k testé. Fair Re-rank reste la méthode la plus précise sur ΔE seul (0.019 à k=10), mais avec un ILD inférieur à AURORA à k=20.
 
 ### libimseti.cz — équité côté utilisateur
 
 | Méthode | ΔE ↓ | ILD ↑ | inc_F ↑ | inc_M ↑ | Temps |
 |---|---|---|---|---|---|
 | Average Score | **0.016** | **0.867** | 0.002 | 0.000 | 0.009s |
-| Borda | 1.218 | 0.744 | **0.147** | **0.024** | 0.667s |
-| Weighted Borda | 1.218 | 0.744 | **0.147** | **0.024** | 0.705s |
-| Condorcet | 1.296 | 0.746 | 0.157 | 0.024 | 0.257s |
+| Borda | 1.218 | 0.744 | 0.147 | **0.024** | 0.667s |
+| Weighted Borda | 1.218 | 0.744 | 0.147 | **0.024** | 0.705s |
+| Condorcet | 1.296 | 0.746 | **0.157** | 0.024 | 0.257s |
 | Fair Re-rank | 0.144 | 0.719 | 0.039 | 0.024 | 0.807s |
-| **AURORA** | 0.876 | 0.816 | 0.112 | 0.024 | 402.5s |
+| AURORA | 1.232 | 0.761 | 0.148 | 0.024 | 7.1s |
+
+AURORA n'améliore aucune métrique sur ce corpus — vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, section 5.5).
 
 ### Rate My Professors — équité côté item (frac_F)
 
 | Méthode | ΔE ↓ | ILD ↑ | frac_F ↑ | Temps |
 |---|---|---|---|---|
 | Average Score | **0.000** | **0.982** | 0.40 | 0.012s |
-| Borda | 0.008 | 0.145 | 0.40 | 1.308s |
-| Weighted Borda | 0.008 | 0.145 | 0.40 | 41.3s |
-| Condorcet | 0.076 | 0.253 | 0.30 | 0.289s |
-| Fair Re-rank | **0.000** | 0.196 | 0.50 | 1.455s |
-| **AURORA** | 0.017 | 0.924 | **0.60** | 46.6s |
+| Borda | 0.008 | 0.145 | 0.40 | 1.4s |
+| Weighted Borda | 0.008 | 0.145 | 0.40 | 44.4s |
+| Condorcet | 0.076 | 0.253 | 0.30 | 0.4s |
+| Fair Re-rank | **0.000** | 0.196 | 0.50 | 2.0s |
+| **AURORA** | 0.112 | 0.808 | **0.60** | 31.5s |
 
-AURORA est la seule méthode à atteindre ILD ≈ 0.924 (proche d'Average Score) tout en augmentant frac_F à 60%.
+AURORA reste la seule méthode combinant haute diversité (ILD=0.808, 2e meilleure derrière Average Score) et forte représentation (frac_F=0.60) ; son ΔE bat Condorcet mais reste derrière Borda/Fair Re-rank.
 
 ### OpenAlex (IA/ML/CS 2018–2023) — équité côté item (frac_F auteur·e·s)
 

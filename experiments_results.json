@@ -516,6 +516,12 @@
         "inc_F": 0.337,
         "inc_M": 0.4531
       },
+      "Weighted Borda": {
+        "dE": 0.4912,
+        "ILD": 0.3034,
+        "inc_F": 0.337,
+        "inc_M": 0.4531
+      },
       "Condorcet": {
         "dE": 0.4777,
         "ILD": 0.3399,
@@ -529,21 +535,15 @@
         "inc_M": 0.3325
       },
       "AURORA": {
-        "dE": 0.4123,
-        "ILD": 0.4019,
-        "inc_F": 0.2989,
-        "inc_M": 0.3922,
-        "ratio": 0.006,
-        "n_supernodes": 6,
-        "elapsed_s": 520.6,
-        "n_F_sn": 2,
-        "n_M_sn": 4
-      },
-      "Weighted Borda": {
-        "dE": 0.4912,
-        "ILD": 0.3034,
-        "inc_F": 0.337,
-        "inc_M": 0.4531
+        "dE": 0.4387,
+        "ILD": 0.3302,
+        "inc_F": 0.3465,
+        "inc_M": 0.4501,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 4.0,
+        "n_F_sn": 174,
+        "n_M_sn": 297
       }
     },
     "k5_t4_0": {
@@ -561,6 +561,12 @@
         "inc_F": 0.337,
         "inc_M": 0.4531
       },
+      "Weighted Borda": {
+        "dE": 0.4912,
+        "ILD": 0.3034,
+        "inc_F": 0.337,
+        "inc_M": 0.4531
+      },
       "Condorcet": {
         "dE": 0.4777,
         "ILD": 0.3399,
@@ -574,21 +580,15 @@
         "inc_M": 0.3325
       },
       "AURORA": {
-        "dE": 0.4123,
-        "ILD": 0.4019,
-        "inc_F": 0.2989,
-        "inc_M": 0.3922,
-        "ratio": 0.006,
-        "n_supernodes": 6,
-        "elapsed_s": 530.2,
-        "n_F_sn": 2,
-        "n_M_sn": 4
-      },
-      "Weighted Borda": {
-        "dE": 0.4912,
-        "ILD": 0.3034,
-        "inc_F": 0.337,
-        "inc_M": 0.4531
+        "dE": 0.4387,
+        "ILD": 0.3302,
+        "inc_F": 0.3465,
+        "inc_M": 0.4501,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 3.8,
+        "n_F_sn": 174,
+        "n_M_sn": 297
       }
     },
     "k10_t3_5": {
@@ -606,6 +606,12 @@
         "inc_F": 0.293,
         "inc_M": 0.3924
       },
+      "Weighted Borda": {
+        "dE": 0.4249,
+        "ILD": 0.354,
+        "inc_F": 0.293,
+        "inc_M": 0.3924
+      },
       "Condorcet": {
         "dE": 0.4459,
         "ILD": 0.3559,
@@ -619,21 +625,15 @@
         "inc_M": 0.3128
       },
       "AURORA": {
-        "dE": 0.3511,
-        "ILD": 0.4482,
-        "inc_F": 0.2484,
-        "inc_M": 0.3249,
-        "ratio": 0.005,
-        "n_supernodes": 5,
-        "elapsed_s": 522.8,
-        "n_F_sn": 3,
-        "n_M_sn": 2
-      },
-      "Weighted Borda": {
-        "dE": 0.4249,
-        "ILD": 0.354,
-        "inc_F": 0.293,
-        "inc_M": 0.3924
+        "dE": 0.4228,
+        "ILD": 0.3914,
+        "inc_F": 0.3073,
+        "inc_M": 0.4051,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 3.8,
+        "n_F_sn": 174,
+        "n_M_sn": 297
       }
     },
     "k10_t4_0": {
@@ -651,6 +651,12 @@
         "inc_F": 0.293,
         "inc_M": 0.3924
       },
+      "Weighted Borda": {
+        "dE": 0.4249,
+        "ILD": 0.354,
+        "inc_F": 0.293,
+        "inc_M": 0.3924
+      },
       "Condorcet": {
         "dE": 0.4459,
         "ILD": 0.3559,
@@ -664,21 +670,15 @@
         "inc_M": 0.3128
       },
       "AURORA": {
-        "dE": 0.3511,
-        "ILD": 0.4482,
-        "inc_F": 0.2484,
-        "inc_M": 0.3249,
-        "ratio": 0.005,
-        "n_supernodes": 5,
-        "elapsed_s": 513.0,
-        "n_F_sn": 3,
-        "n_M_sn": 2
-      },
-      "Weighted Borda": {
-        "dE": 0.4249,
-        "ILD": 0.354,
-        "inc_F": 0.293,
-        "inc_M": 0.3924
+        "dE": 0.4228,
+        "ILD": 0.3914,
+        "inc_F": 0.3073,
+        "inc_M": 0.4051,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 3.8,
+        "n_F_sn": 174,
+        "n_M_sn": 297
       }
     },
     "k20_t3_5": {
@@ -696,6 +696,12 @@
         "inc_F": 0.2467,
         "inc_M": 0.3394
       },
+      "Weighted Borda": {
+        "dE": 0.3933,
+        "ILD": 0.3904,
+        "inc_F": 0.2548,
+        "inc_M": 0.3444
+      },
       "Condorcet": {
         "dE": 0.4408,
         "ILD": 0.3802,
@@ -709,21 +715,15 @@
         "inc_M": 0.3103
       },
       "AURORA": {
-        "dE": 0.3475,
-        "ILD": 0.4646,
-        "inc_F": 0.269,
-        "inc_M": 0.3477,
-        "ratio": 0.288,
-        "n_supernodes": 272,
-        "elapsed_s": 4.0,
-        "n_F_sn": 101,
-        "n_M_sn": 171
-      },
-      "Weighted Borda": {
-        "dE": 0.3933,
-        "ILD": 0.3904,
-        "inc_F": 0.2548,
-        "inc_M": 0.3444
+        "dE": 0.2849,
+        "ILD": 0.4623,
+        "inc_F": 0.2766,
+        "inc_M": 0.3437,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 3.9,
+        "n_F_sn": 174,
+        "n_M_sn": 297
       }
     },
     "k20_t4_0": {
@@ -741,6 +741,12 @@
         "inc_F": 0.2467,
         "inc_M": 0.3394
       },
+      "Weighted Borda": {
+        "dE": 0.3933,
+        "ILD": 0.3904,
+        "inc_F": 0.2548,
+        "inc_M": 0.3444
+      },
       "Condorcet": {
         "dE": 0.4408,
         "ILD": 0.3802,
@@ -754,21 +760,15 @@
         "inc_M": 0.3103
       },
       "AURORA": {
-        "dE": 0.3475,
-        "ILD": 0.4646,
-        "inc_F": 0.269,
-        "inc_M": 0.3477,
-        "ratio": 0.288,
-        "n_supernodes": 272,
-        "elapsed_s": 4.2,
-        "n_F_sn": 101,
-        "n_M_sn": 171
-      },
-      "Weighted Borda": {
-        "dE": 0.3933,
-        "ILD": 0.3904,
-        "inc_F": 0.2548,
-        "inc_M": 0.3444
+        "dE": 0.2849,
+        "ILD": 0.4623,
+        "inc_F": 0.2766,
+        "inc_M": 0.3437,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 3.9,
+        "n_F_sn": 174,
+        "n_M_sn": 297
       }
     }
   }

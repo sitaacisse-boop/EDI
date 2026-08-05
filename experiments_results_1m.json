@@ -28,6 +28,12 @@
         "inc_F": 0.336,
         "inc_M": 0.4445
       },
+      "Weighted Borda": {
+        "dE": 0.4895,
+        "ILD": 0.3857,
+        "inc_F": 0.336,
+        "inc_M": 0.4445
+      },
       "Condorcet": {
         "dE": 0.6335,
         "ILD": 0.3616,
@@ -41,19 +47,13 @@
         "inc_M": 0.3655
       },
       "AURORA": {
-        "dE": 0.0643,
-        "ILD": 0.5783,
-        "inc_F": 0.2774,
-        "inc_M": 0.2945,
-        "ratio": 0.001,
-        "n_supernodes": 6,
-        "elapsed_s": 53140.4
-      },
-      "Weighted Borda": {
-        "dE": 0.4895,
-        "ILD": 0.3857,
-        "inc_F": 0.336,
-        "inc_M": 0.4445
+        "dE": 0.4156,
+        "ILD": 0.3953,
+        "inc_F": 0.3414,
+        "inc_M": 0.4338,
+        "ratio": 0.5,
+        "n_supernodes": 3020,
+        "elapsed_s": 82.1
       }
     },
     "k10_t4_0": {
@@ -71,6 +71,12 @@
         "inc_F": 0.3016,
         "inc_M": 0.4169
       },
+      "Weighted Borda": {
+        "dE": 0.3709,
+        "ILD": 0.4129,
+        "inc_F": 0.3235,
+        "inc_M": 0.4039
+      },
       "Condorcet": {
         "dE": 0.4872,
         "ILD": 0.4079,
@@ -84,19 +90,13 @@
         "inc_M": 0.3427
       },
       "AURORA": {
-        "dE": 0.332,
-        "ILD": 0.4231,
-        "inc_F": 0.317,
-        "inc_M": 0.3903,
-        "ratio": 0.456,
-        "n_supernodes": 2755,
-        "elapsed_s": 71.3
-      },
-      "Weighted Borda": {
-        "dE": 0.3709,
-        "ILD": 0.4129,
-        "inc_F": 0.3235,
-        "inc_M": 0.4039
+        "dE": 0.2137,
+        "ILD": 0.4403,
+        "inc_F": 0.3211,
+        "inc_M": 0.3703,
+        "ratio": 0.5,
+        "n_supernodes": 3020,
+        "elapsed_s": 75.5
       }
     },
     "k20_t4_0": {
@@ -114,6 +114,12 @@
         "inc_F": 0.2853,
         "inc_M": 0.3788
       },
+      "Weighted Borda": {
+        "dE": 0.3923,
+        "ILD": 0.436,
+        "inc_F": 0.2874,
+        "inc_M": 0.3742
+      },
       "Condorcet": {
         "dE": 0.4371,
         "ILD": 0.432,
@@ -127,19 +133,13 @@
         "inc_M": 0.3146
       },
       "AURORA": {
-        "dE": 0.3317,
-        "ILD": 0.4558,
-        "inc_F": 0.2872,
-        "inc_M": 0.3605,
-        "ratio": 0.715,
-        "n_supernodes": 4318,
-        "elapsed_s": 65.6
-      },
-      "Weighted Borda": {
-        "dE": 0.3923,
-        "ILD": 0.436,
-        "inc_F": 0.2874,
-        "inc_M": 0.3742
+        "dE": 0.2773,
+        "ILD": 0.4562,
+        "inc_F": 0.2942,
+        "inc_M": 0.3564,
+        "ratio": 0.5,
+        "n_supernodes": 3020,
+        "elapsed_s": 79.4
       }
     }
   }

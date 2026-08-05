@@ -157,7 +157,7 @@ def edi_metrics(ratings, top_k, gender_map, theta):
     return dict(dE=round(dE,4), ILD=round(ild,4),
                 inc_F=round(inc(f_u),4), inc_M=round(inc(m_u),4))
 
-def run_coarsening(ratings, gender_map, k, theta, max_merges=400):
+def run_coarsening(ratings, gender_map, k, theta, max_merges=500):
     import heapq
     from edi_coarsening import precompute_edi, fast_delta_E, fast_ILD, fast_inc_F
     # Renommer profile_id -> item_id pour compatibilite avec edi_coarsening
@@ -213,7 +213,7 @@ def run_coarsening(ratings, gender_map, k, theta, max_merges=400):
         nt = gtk()
         if nt == cur: ok = True
         else:
-            ok = (fast_delta_E(nt,cache) <= rdE+0.10 and
+            ok = (fast_delta_E(nt,cache) <= rdE+0.02 and
                   fast_ILD(nt,cache)     >= rILD-0.05 and
                   fast_inc_F(nt,cache)   >= riF-0.05)
         if ok:
@@ -222,7 +222,8 @@ def run_coarsening(ratings, gender_map, k, theta, max_merges=400):
             sn_m[sna] |= sn_m[snb]
             del sn_s[snb], sn_c[snb], sb[snb], sn_m[snb]
             active.discard(snb)
-            if nt != cur: cur = nt; na += 1
+            if nt != cur: cur = nt
+            na += 1
         else:
             for iid, sc in bm.items():      cb[iid] = cb.get(iid,0) - sc
             for iid, sc in sb[snb].items(): cb[iid] = cb.get(iid,0) + sc
@@ -294,8 +295,8 @@ if __name__ == "__main__":
             exp[method_name] = m
             print(f" {rt:.3f}s | dE={m['dE']:.4f} ILD={m['ILD']:.4f}")
 
-        print(f"  AURORA (coarsening, max_merges=400)...", end="", flush=True)
-        m = run_coarsening(ratings, gender_map, k, THETA, max_merges=400)
+        print(f"  AURORA (coarsening, max_merges=500)...", end="", flush=True)
+        m = run_coarsening(ratings, gender_map, k, THETA, max_merges=500)
         exp["AURORA"] = m
         print(f" {m['elapsed_s']}s => {m['n_supernodes']} super-noeuds | dE={m['dE']:.4f} ILD={m['ILD']:.4f}")
 

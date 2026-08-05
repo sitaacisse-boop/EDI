@@ -115,7 +115,7 @@ def sn_borda_scores(sn_sums, sn_cnts, sn_id):
 # ── Algorithme principal ──────────────────────────────────────────────────────
 def edi_coarsening(ratings, gender_map, k=10, theta=4.0,
                    eps_E=0.10, eps_D=0.05, eps_I=0.05,
-                   max_merges=400, intragroup_first=True, verbose=True):
+                   max_merges=472, intragroup_first=True, verbose=True):
     """
     Coarsenisation EDI-contrainte du graphe biparti de preferences.
 
@@ -351,7 +351,7 @@ if __name__ == "__main__":
         eps_E=0.10,   # on tolere +0.10 sur ΔE (par rapport a Borda)
         eps_D=0.05,   # on tolere -0.05 sur ILD
         eps_I=0.05,   # on tolere -0.05 sur inc_F
-        max_merges=400,
+        max_merges=472,
         intragroup_first=True,
         verbose=True,
     )

@@ -74,7 +74,7 @@ def top_k_fair_rerank(ratings, gender_map, k, theta, pool=40):
         selected.append(best); remaining.remove(best)
     return selected
 
-def run_coarsening(ratings, gender_map, k, theta, max_merges=400):
+def run_coarsening(ratings, gender_map, k, theta, max_merges=472):
     from edi_coarsening import precompute_edi, fast_delta_E, fast_ILD, fast_inc_F
     from itertools import combinations as comb
     cache = precompute_edi(ratings, gender_map, theta)
@@ -130,7 +130,8 @@ def run_coarsening(ratings, gender_map, k, theta, max_merges=400):
             for u in sn_m[snb]: u2s[u] = sna
             sn_m[sna] |= sn_m[snb]
             del sn_s[snb], sn_c[snb], sb[snb], sn_m[snb]; active.discard(snb)
-            if nt != cur: cur = nt; na += 1
+            if nt != cur: cur = nt
+            na += 1
         else:
             for iid, sc in bm.items(): cb[iid] = cb.get(iid, 0) - sc
             for iid, sc in sb[snb].items(): cb[iid] = cb.get(iid, 0) + sc

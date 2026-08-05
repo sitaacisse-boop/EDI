@@ -39,7 +39,7 @@ def edi_metrics(ratings, top_k, gender_map, theta):
         return gr.groupby("user_id")["item_id"].nunique().reindex(gu,fill_value=0).sum()/(len(gu)*k)
     return dict(dE=round(dE,4),ILD=round(ild,4),inc_F=round(inc(f_u),4),inc_M=round(inc(m_u),4))
 
-def run_coarsening_eps(ratings, gender_map, k, theta, eps_E, eps_D, eps_inc, max_merges=400):
+def run_coarsening_eps(ratings, gender_map, k, theta, eps_E, eps_D, eps_inc, max_merges=472):
     from edi_coarsening import precompute_edi, fast_delta_E, fast_ILD, fast_inc_F
     cache = precompute_edi(ratings, gender_map, theta)
     users_list = list(gender_map.keys())
@@ -88,7 +88,8 @@ def run_coarsening_eps(ratings, gender_map, k, theta, eps_E, eps_D, eps_inc, max
             for u in sn_m[snb]: u2s[u]=sna
             sn_m[sna]|=sn_m[snb]
             del sn_s[snb],sn_c[snb],sb[snb],sn_m[snb]; active.discard(snb)
-            if nt!=cur: cur=nt; na+=1
+            if nt!=cur: cur=nt
+            na+=1
         else:
             for iid,sc in bm.items(): cb[iid]=cb.get(iid,0)-sc
             for iid,sc in sb[snb].items(): cb[iid]=cb.get(iid,0)+sc

@@ -4,81 +4,426 @@
     "k": 10,
     "theta": 4.0,
     "seed": 42,
-    "sizes": [100, 150, 200, 300, 400, 500, 700, 943],
-    "description": "Scalabilite fine-grained : 100 a 943 utilisateurs. n=943 AURORA mesure depuis experiments_results.json (elapsed=517s, stable top-k)."
+    "sizes": [
+      100,
+      150,
+      200,
+      300,
+      400,
+      500,
+      700,
+      943
+    ],
+    "description": "Scalabilite fine : 100 a 943 utilisateurs"
   },
   "experiments": {
     "100": {
-      "n_users": 100, "n_F": 29, "n_M": 71, "n_ratings": 9619,
-      "Average Score": {"dE": 0.0852, "ILD": 0.4376, "elapsed_s": 0.002},
-      "Borda":         {"dE": 0.4892, "ILD": 0.3477, "elapsed_s": 0.065},
-      "Weighted Borda":{"dE": 0.3555, "ILD": 0.3317, "elapsed_s": 0.072},
-      "Condorcet":     {"dE": 0.4475, "ILD": 0.3528, "elapsed_s": 0.012},
-      "Fair Re-rank":  {"dE": 0.0246, "ILD": 0.4738, "elapsed_s": 0.144},
-      "AURORA":          {"dE": 0.1607, "ILD": 0.5252, "elapsed_s": 0.311, "n_supernodes": 50, "ratio": 0.5}
+      "n_users": 100,
+      "n_F": 29,
+      "n_M": 71,
+      "n_items": 1242,
+      "n_ratings": 9619,
+      "Average Score": {
+        "dE": 0.0852,
+        "ILD": 0.4376,
+        "inc_F": 0.0069,
+        "inc_M": 0.0239,
+        "elapsed_s": 0.0015
+      },
+      "Borda": {
+        "dE": 0.4892,
+        "ILD": 0.3477,
+        "inc_F": 0.2655,
+        "inc_M": 0.3577,
+        "elapsed_s": 0.0668
+      },
+      "Weighted Borda": {
+        "dE": 0.3555,
+        "ILD": 0.3317,
+        "inc_F": 0.2759,
+        "inc_M": 0.3408,
+        "elapsed_s": 0.0746
+      },
+      "Condorcet": {
+        "dE": 0.4475,
+        "ILD": 0.3528,
+        "inc_F": 0.2655,
+        "inc_M": 0.3521,
+        "elapsed_s": 0.0126
+      },
+      "Fair Re-rank": {
+        "dE": 0.0246,
+        "ILD": 0.4738,
+        "inc_F": 0.2966,
+        "inc_M": 0.293,
+        "elapsed_s": 0.2019
+      },
+      "AURORA": {
+        "dE": 0.1607,
+        "ILD": 0.5252,
+        "inc_F": 0.3034,
+        "inc_M": 0.3507,
+        "ratio": 0.5,
+        "n_supernodes": 50,
+        "elapsed_s": 0.343
+      }
     },
     "150": {
-      "n_users": 150, "n_F": 43, "n_M": 107, "n_ratings": 13953,
-      "Average Score": {"dE": 0.0072, "ILD": 0.9333, "elapsed_s": 0.001},
-      "Borda":         {"dE": 0.458,  "ILD": 0.3795, "elapsed_s": 0.093},
-      "Weighted Borda":{"dE": 0.4158, "ILD": 0.3761, "elapsed_s": 0.105},
-      "Condorcet":     {"dE": 0.4556, "ILD": 0.3772, "elapsed_s": 0.018},
-      "Fair Re-rank":  {"dE": 0.0398, "ILD": 0.4828, "elapsed_s": 0.188},
-      "AURORA":          {"dE": 0.3615, "ILD": 0.4662, "elapsed_s": 0.506, "n_supernodes": 61, "ratio": 0.407}
+      "n_users": 150,
+      "n_F": 43,
+      "n_M": 107,
+      "n_items": 1252,
+      "n_ratings": 13953,
+      "Average Score": {
+        "dE": 0.0072,
+        "ILD": 0.9333,
+        "inc_F": 0.007,
+        "inc_M": 0.0084,
+        "elapsed_s": 0.0015
+      },
+      "Borda": {
+        "dE": 0.458,
+        "ILD": 0.3795,
+        "inc_F": 0.2698,
+        "inc_M": 0.4019,
+        "elapsed_s": 0.0997
+      },
+      "Weighted Borda": {
+        "dE": 0.4158,
+        "ILD": 0.3761,
+        "inc_F": 0.2605,
+        "inc_M": 0.3879,
+        "elapsed_s": 0.1139
+      },
+      "Condorcet": {
+        "dE": 0.4556,
+        "ILD": 0.3772,
+        "inc_F": 0.2651,
+        "inc_M": 0.3897,
+        "elapsed_s": 0.0187
+      },
+      "Fair Re-rank": {
+        "dE": 0.0398,
+        "ILD": 0.4828,
+        "inc_F": 0.2674,
+        "inc_M": 0.3028,
+        "elapsed_s": 0.2041
+      },
+      "AURORA": {
+        "dE": 0.3491,
+        "ILD": 0.4717,
+        "inc_F": 0.2256,
+        "inc_M": 0.3159,
+        "ratio": 0.5,
+        "n_supernodes": 75,
+        "elapsed_s": 0.483
+      }
     },
     "200": {
-      "n_users": 200, "n_F": 58, "n_M": 142, "n_ratings": 20615,
-      "Average Score": {"dE": 0.0129, "ILD": 0.9872, "elapsed_s": 0.002},
-      "Borda":         {"dE": 0.2055, "ILD": 0.3703, "elapsed_s": 0.127},
-      "Weighted Borda":{"dE": 0.1728, "ILD": 0.3314, "elapsed_s": 0.143},
-      "Condorcet":     {"dE": 0.1673, "ILD": 0.3635, "elapsed_s": 0.026},
-      "Fair Re-rank":  {"dE": 0.0037, "ILD": 0.4186, "elapsed_s": 0.234},
-      "AURORA":          {"dE": 0.2186, "ILD": 0.4505, "elapsed_s": 0.703, "n_supernodes": 82, "ratio": 0.41}
+      "n_users": 200,
+      "n_F": 58,
+      "n_M": 142,
+      "n_items": 1462,
+      "n_ratings": 20615,
+      "Average Score": {
+        "dE": 0.0129,
+        "ILD": 0.9872,
+        "inc_F": 0.0052,
+        "inc_M": 0.0077,
+        "elapsed_s": 0.0015
+      },
+      "Borda": {
+        "dE": 0.2055,
+        "ILD": 0.3703,
+        "inc_F": 0.3,
+        "inc_M": 0.3585,
+        "elapsed_s": 0.13
+      },
+      "Weighted Borda": {
+        "dE": 0.1728,
+        "ILD": 0.3314,
+        "inc_F": 0.2879,
+        "inc_M": 0.343,
+        "elapsed_s": 0.1445
+      },
+      "Condorcet": {
+        "dE": 0.1673,
+        "ILD": 0.3635,
+        "inc_F": 0.3017,
+        "inc_M": 0.3479,
+        "elapsed_s": 0.0259
+      },
+      "Fair Re-rank": {
+        "dE": 0.0037,
+        "ILD": 0.4186,
+        "inc_F": 0.319,
+        "inc_M": 0.3239,
+        "elapsed_s": 0.2393
+      },
+      "AURORA": {
+        "dE": 0.1948,
+        "ILD": 0.4638,
+        "inc_F": 0.3121,
+        "inc_M": 0.3528,
+        "ratio": 0.5,
+        "n_supernodes": 100,
+        "elapsed_s": 0.698
+      }
     },
     "300": {
-      "n_users": 300, "n_F": 87, "n_M": 213, "n_ratings": 33475,
-      "Average Score": {"dE": 0.0096, "ILD": 0.9778, "elapsed_s": 0.002},
-      "Borda":         {"dE": 0.4975, "ILD": 0.3216, "elapsed_s": 0.188},
-      "Weighted Borda":{"dE": 0.3732, "ILD": 0.3469, "elapsed_s": 0.210},
-      "Condorcet":     {"dE": 0.3732, "ILD": 0.3469, "elapsed_s": 0.038},
-      "Fair Re-rank":  {"dE": 0.0906, "ILD": 0.4356, "elapsed_s": 0.318},
-      "AURORA":          {"dE": 0.0801, "ILD": 0.5284, "elapsed_s": 1.236, "n_supernodes": 61, "ratio": 0.203}
+      "n_users": 300,
+      "n_F": 87,
+      "n_M": 213,
+      "n_items": 1515,
+      "n_ratings": 33475,
+      "Average Score": {
+        "dE": 0.0096,
+        "ILD": 0.9778,
+        "inc_F": 0.0023,
+        "inc_M": 0.0042,
+        "elapsed_s": 0.0016
+      },
+      "Borda": {
+        "dE": 0.4975,
+        "ILD": 0.3216,
+        "inc_F": 0.3069,
+        "inc_M": 0.4258,
+        "elapsed_s": 0.1956
+      },
+      "Weighted Borda": {
+        "dE": 0.3732,
+        "ILD": 0.3469,
+        "inc_F": 0.323,
+        "inc_M": 0.4174,
+        "elapsed_s": 0.2254
+      },
+      "Condorcet": {
+        "dE": 0.3732,
+        "ILD": 0.3469,
+        "inc_F": 0.323,
+        "inc_M": 0.4174,
+        "elapsed_s": 0.0466
+      },
+      "Fair Re-rank": {
+        "dE": 0.0906,
+        "ILD": 0.4356,
+        "inc_F": 0.2885,
+        "inc_M": 0.3197,
+        "elapsed_s": 0.3591
+      },
+      "AURORA": {
+        "dE": 0.3661,
+        "ILD": 0.3819,
+        "inc_F": 0.3287,
+        "inc_M": 0.4202,
+        "ratio": 0.5,
+        "n_supernodes": 150,
+        "elapsed_s": 1.123
+      }
     },
     "400": {
-      "n_users": 400, "n_F": 116, "n_M": 284, "n_ratings": 42612,
-      "Average Score": {"dE": 0.0032, "ILD": 0.9306, "elapsed_s": 0.002},
-      "Borda":         {"dE": 0.4757, "ILD": 0.3674, "elapsed_s": 0.263},
-      "Weighted Borda":{"dE": 0.4343, "ILD": 0.3855, "elapsed_s": 0.275},
-      "Condorcet":     {"dE": 0.4757, "ILD": 0.3674, "elapsed_s": 0.051},
-      "Fair Re-rank":  {"dE": 0.0796, "ILD": 0.504,  "elapsed_s": 0.390},
-      "AURORA":          {"dE": 0.3052, "ILD": 0.4727, "elapsed_s": 1.615, "n_supernodes": 80, "ratio": 0.2}
+      "n_users": 400,
+      "n_F": 116,
+      "n_M": 284,
+      "n_items": 1554,
+      "n_ratings": 42612,
+      "Average Score": {
+        "dE": 0.0032,
+        "ILD": 0.9306,
+        "inc_F": 0.0034,
+        "inc_M": 0.0028,
+        "elapsed_s": 0.002
+      },
+      "Borda": {
+        "dE": 0.4757,
+        "ILD": 0.3674,
+        "inc_F": 0.2741,
+        "inc_M": 0.3842,
+        "elapsed_s": 0.2699
+      },
+      "Weighted Borda": {
+        "dE": 0.4343,
+        "ILD": 0.3855,
+        "inc_F": 0.2793,
+        "inc_M": 0.3796,
+        "elapsed_s": 0.2961
+      },
+      "Condorcet": {
+        "dE": 0.4757,
+        "ILD": 0.3674,
+        "inc_F": 0.2741,
+        "inc_M": 0.3842,
+        "elapsed_s": 0.0522
+      },
+      "Fair Re-rank": {
+        "dE": 0.0796,
+        "ILD": 0.504,
+        "inc_F": 0.2888,
+        "inc_M": 0.3127,
+        "elapsed_s": 0.4128
+      },
+      "AURORA": {
+        "dE": 0.4349,
+        "ILD": 0.4076,
+        "inc_F": 0.2905,
+        "inc_M": 0.3961,
+        "ratio": 0.5,
+        "n_supernodes": 200,
+        "elapsed_s": 1.483
+      }
     },
     "500": {
-      "n_users": 500, "n_F": 145, "n_M": 355, "n_ratings": 52603,
-      "Average Score": {"dE": 0.0156, "ILD": 0.9678, "elapsed_s": 0.003},
-      "Borda":         {"dE": 0.496,  "ILD": 0.3354, "elapsed_s": 0.310},
-      "Weighted Borda":{"dE": 0.4868, "ILD": 0.3289, "elapsed_s": 0.341},
-      "Condorcet":     {"dE": 0.496,  "ILD": 0.3354, "elapsed_s": 0.063},
-      "Fair Re-rank":  {"dE": 0.1896, "ILD": 0.403,  "elapsed_s": 0.490},
-      "AURORA":          {"dE": 0.26,   "ILD": 0.5905, "elapsed_s": 3.908, "n_supernodes": 8, "ratio": 0.016, "stable_topk": true}
+      "n_users": 500,
+      "n_F": 145,
+      "n_M": 355,
+      "n_items": 1556,
+      "n_ratings": 52603,
+      "Average Score": {
+        "dE": 0.0156,
+        "ILD": 0.9678,
+        "inc_F": 0.0014,
+        "inc_M": 0.0045,
+        "elapsed_s": 0.0029
+      },
+      "Borda": {
+        "dE": 0.496,
+        "ILD": 0.3354,
+        "inc_F": 0.2869,
+        "inc_M": 0.3955,
+        "elapsed_s": 0.323
+      },
+      "Weighted Borda": {
+        "dE": 0.4868,
+        "ILD": 0.3289,
+        "inc_F": 0.2862,
+        "inc_M": 0.3935,
+        "elapsed_s": 0.3626
+      },
+      "Condorcet": {
+        "dE": 0.496,
+        "ILD": 0.3354,
+        "inc_F": 0.2869,
+        "inc_M": 0.3955,
+        "elapsed_s": 0.0649
+      },
+      "Fair Re-rank": {
+        "dE": 0.1896,
+        "ILD": 0.403,
+        "inc_F": 0.2855,
+        "inc_M": 0.3169,
+        "elapsed_s": 0.4969
+      },
+      "AURORA": {
+        "dE": 0.4463,
+        "ILD": 0.3775,
+        "inc_F": 0.3048,
+        "inc_M": 0.4039,
+        "ratio": 0.5,
+        "n_supernodes": 250,
+        "elapsed_s": 1.921
+      }
     },
     "700": {
-      "n_users": 700, "n_F": 203, "n_M": 497, "n_ratings": 73879,
-      "Average Score": {"dE": 0.0071, "ILD": 0.9909, "elapsed_s": 0.003},
-      "Borda":         {"dE": 0.3923, "ILD": 0.3512, "elapsed_s": 0.437},
-      "Weighted Borda":{"dE": 0.3923, "ILD": 0.3512, "elapsed_s": 0.490},
-      "Condorcet":     {"dE": 0.412,  "ILD": 0.3531, "elapsed_s": 0.093},
-      "Fair Re-rank":  {"dE": 0.1336, "ILD": 0.3789, "elapsed_s": 0.620},
-      "AURORA":          {"dE": 0.2181, "ILD": 0.5213, "elapsed_s": 289.304, "n_supernodes": 6, "ratio": 0.009, "stable_topk": true}
+      "n_users": 700,
+      "n_F": 203,
+      "n_M": 497,
+      "n_items": 1635,
+      "n_ratings": 73879,
+      "Average Score": {
+        "dE": 0.0071,
+        "ILD": 0.9909,
+        "inc_F": 0.001,
+        "inc_M": 0.0024,
+        "elapsed_s": 0.0035
+      },
+      "Borda": {
+        "dE": 0.3923,
+        "ILD": 0.3512,
+        "inc_F": 0.3,
+        "inc_M": 0.3903,
+        "elapsed_s": 0.4635
+      },
+      "Weighted Borda": {
+        "dE": 0.3923,
+        "ILD": 0.3512,
+        "inc_F": 0.3,
+        "inc_M": 0.3903,
+        "elapsed_s": 0.504
+      },
+      "Condorcet": {
+        "dE": 0.412,
+        "ILD": 0.3531,
+        "inc_F": 0.298,
+        "inc_M": 0.3922,
+        "elapsed_s": 0.0904
+      },
+      "Fair Re-rank": {
+        "dE": 0.1336,
+        "ILD": 0.3789,
+        "inc_F": 0.2842,
+        "inc_M": 0.3149,
+        "elapsed_s": 0.6495
+      },
+      "AURORA": {
+        "dE": 0.4064,
+        "ILD": 0.3862,
+        "inc_F": 0.3123,
+        "inc_M": 0.4052,
+        "ratio": 0.5,
+        "n_supernodes": 350,
+        "elapsed_s": 2.757
+      }
     },
     "943": {
-      "n_users": 943, "n_F": 273, "n_M": 670, "n_ratings": 100000,
-      "Average Score": {"dE": 0.0068, "ILD": 1.0,    "elapsed_s": 0.004},
-      "Borda":         {"dE": 0.4249, "ILD": 0.354,  "elapsed_s": 0.591},
-      "Weighted Borda":{"dE": 0.4249, "ILD": 0.354,  "elapsed_s": 0.674},
-      "Condorcet":     {"dE": 0.4459, "ILD": 0.3559, "elapsed_s": 0.123},
-      "Fair Re-rank":  {"dE": 0.1623, "ILD": 0.4295, "elapsed_s": 0.837},
-      "AURORA":          {"dE": 0.3511, "ILD": 0.4482, "elapsed_s": 517.138, "n_supernodes": 5, "ratio": 0.005, "stable_topk": true}
+      "n_users": 943,
+      "n_F": 273,
+      "n_M": 670,
+      "n_items": 1682,
+      "n_ratings": 100000,
+      "Average Score": {
+        "dE": 0.0068,
+        "ILD": 1.0,
+        "inc_F": 0.0007,
+        "inc_M": 0.0021,
+        "elapsed_s": 0.0038
+      },
+      "Borda": {
+        "dE": 0.4249,
+        "ILD": 0.354,
+        "inc_F": 0.293,
+        "inc_M": 0.3924,
+        "elapsed_s": 0.6728
+      },
+      "Weighted Borda": {
+        "dE": 0.4249,
+        "ILD": 0.354,
+        "inc_F": 0.293,
+        "inc_M": 0.3924,
+        "elapsed_s": 0.7112
+      },
+      "Condorcet": {
+        "dE": 0.4459,
+        "ILD": 0.3559,
+        "inc_F": 0.2916,
+        "inc_M": 0.394,
+        "elapsed_s": 0.1213
+      },
+      "Fair Re-rank": {
+        "dE": 0.1623,
+        "ILD": 0.4295,
+        "inc_F": 0.2714,
+        "inc_M": 0.3128,
+        "elapsed_s": 0.8435
+      },
+      "AURORA": {
+        "dE": 0.4228,
+        "ILD": 0.3914,
+        "inc_F": 0.3073,
+        "inc_M": 0.4051,
+        "ratio": 0.499,
+        "n_supernodes": 471,
+        "elapsed_s": 4.149
+      }
     }
   }
 }
