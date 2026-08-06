@@ -575,7 +575,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (v_i × v_j)</div>
         <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>.ILD = moyenne des dissimilarités.</div></div>
         <div class="formula">ILD(R) = 2/(k·(k−1)) × _{ij R} dist(i,j)</div>
-        <div class="res-box">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.448 (+27%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</div>
+        <div class="res-box">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.391 (+10.6%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</div>
       </div>
     </div>
     <div class="acc-item">
@@ -933,7 +933,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
           </tbody>
         </table>
       </div>
-      <p><strong style="color:var(--coral)">Pourquoi ΔE reste élevé pour toutes les méthodes (baselines comprises) ?</strong><br>
+      <p><strong style="color:var(--coral)">Pourquoi ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent) ?</strong><br>
       libimseti est le seul des 4 corpus étudiés où l'attribut sensible (genre) existe <em>des deux côtés</em> du graphe biparti — notateurs et profils notés. Un classement collectif unique, partagé par tout le monde, ne peut structurellement pas produire la même satisfaction pour les deux groupes de notateurs quand leurs notes elles-mêmes suivent des distributions aussi différentes selon la paire de genres.</p>
       <p><strong style="color:var(--green)">Lien avec la littérature</strong><br>
       Ce résultat illustre empiriquement l'argument de Yao &amp; Huang (2017, section 3.3) : la parité démographique (viser ΔE≈0) n'est pas toujours un objectif approprié en recommandation lorsque les préférences des groupes dépendent légitimement de l'attribut sensible étudié. Un ΔE élevé sur libimseti ne signale donc pas nécessairement une injustice algorithmique, mais peut refléter une différence de préférence structurelle du domaine — contrairement à MovieLens ou RateMyProfessors, où rien ne justifie a priori que le genre influence l'appréciation d'un film ou la qualité perçue d'un cours.</p>
