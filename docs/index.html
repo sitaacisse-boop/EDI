@@ -608,8 +608,8 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="finding fg">
-    <h3>ILD — le seul critère où AURORA excelle systématiquement</h3>
-    <p>Sur tous les datasets, la coarsenisation produit une diversité supérieure aux méthodes de vote (Borda, Condorcet) et au Fair Re-rank. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque.</p>
+    <h3>ILD — l'avantage le plus constant d'AURORA face aux méthodes de vote</h3>
+    <p>Sur la quasi-totalité des configurations testées, la coarsenisation produit une diversité supérieure à Borda et Condorcet (seule exception : MovieLens 100k à k=5, où Condorcet est très légèrement au-dessus). Face à Fair Re-rank, le résultat est plus mitigé : AURORA le bat sur RMP et libimseti, mais pas sur MovieLens 1M (à aucun k testé) ni sur MovieLens 100k à k=5/10. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque, plus robuste face aux méthodes de vote que face à un re-ranking spécialisé comme Fair Re-rank.</p>
   </div>
 
   <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
@@ -802,7 +802,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
-      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément (sauf libimseti) — visible surtout sur RMP (ILD=0.808, frac_F=0.60) et MovieLens 100k à k=20.
+      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.145) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.008). Sur libimseti, aucune amélioration.
     </div>
   </div>
 
@@ -1093,7 +1093,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="card-title">Lecture du graphique</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur tous les datasets avec une borne formelle.
+        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur MovieLens (100k et 1M) ; sur RMP et libimseti, Borda a un ΔE plus bas (AURORA privilégie la diversité sur ces deux corpus).
       </div>
       <div>
         <strong style="color:var(--amber)">Compromis observé :</strong> Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.
