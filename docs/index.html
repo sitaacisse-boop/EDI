@@ -601,8 +601,10 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div class="finding fk">
     <h3>Notre méthode (coarsenisation) offre le meilleur équilibre équité+diversité</h3>
     <p><strong>MovieLens 100k k=20 :</strong> bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique). 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <br><strong>MovieLens 1M :</strong> le tableau s'inverse — Fair Re-rank domine AURORA sur <strong>ΔE et ILD à la fois</strong>, à tout k testé, pas seulement sur la diversité. Un résultat propre à ce corpus, pas un désavantage général : AURORA bat toujours les 3 méthodes de vote classiques (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient la meilleure inclusion à k=20 (inc_F=0.294).
     <br><strong>RateMy Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 30–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
-    <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent, ΔE=0.016 et 0.144), ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.</p>
+    <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent, ΔE=0.016 et 0.144), ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.
+    <br><br><strong>Le message central :</strong> AURORA n'est pas uniformément meilleure — elle égale ou dépasse le re-ranking post-hoc (Fair Re-rank) sur les petits corpus et les cas item-side (RMP, OpenAlex), mais un corpus à forte base d'utilisateurs (ML1M) ou un domaine à préférences réciproques dépendantes de l'attribut sensible (libimseti) peut favoriser une approche post-hoc, ou révéler une limite structurelle du cadre à classement collectif unique.</p>
   </div>
 
   <div class="finding fg">
@@ -689,7 +691,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         </ul>
       </div>
       <div style="flex:1;min-width:220px">
-        <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). <strong style="color:var(--green)">AURORA k=20</strong> s'en approche le mieux.
+        <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). Sur <strong>MovieLens 100k</strong>, <strong style="color:var(--green)">AURORA k=20</strong> s'en approche le mieux. Sur <strong>MovieLens 1M</strong>, c'est <strong style="color:var(--cyan)">Fair Re-rank</strong> qui s'en approche le plus, à tout k — voir le bloc "message central" dans l'onglet Conclusion.
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
           <li>Taille du cercle = k (petit→5, moyen→10, grand→20)</li>
           <li>Mode <em>Les deux</em> :  creux = 100k,  plein = 1M</li>
