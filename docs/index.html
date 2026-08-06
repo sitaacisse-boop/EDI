@@ -597,7 +597,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fw">
     <h3>Aucune méthode classique ne satisfait les 3 critères EDI simultanément</h3>
-    <p>L'Average Score produit une équité parfaite (ΔE≈0) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–1.23). Le Fair Re-rank améliore l'équité mais détruit la diversité — <em>surtout sur libimseti et RMP</em>.Ce constat est cohérent sur les 4 corpus.</p>
+    <p>L'Average Score produit une équité parfaite (ΔE≈0) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–1.23, sauf sur RMP où Borda reste bas à 0.008). Le Fair Re-rank améliore l'équité mais détruit la diversité <em>sur RMP</em> (ILD=0.196 contre 0.982 pour Average Score) ; sur libimseti, sa diversité (0.719) reste comparable aux méthodes de vote (Borda/Condorcet ≈ 0.744–0.746), sans effondrement notable là-bas.</p>
   </div>
 
   <div class="finding fk">
@@ -625,7 +625,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
     <strong style="color:var(--t1)">Perspectives :</strong>
     résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
-    Prochaines étapes : explorer les attributs sensibles supplémentaires (âge, occupation, institution) ; tester sur MovieLens 10M ; utiliser des notes continues pour des seuils θ plus fins ; étendre aux graphes bipartites temporels.
+    Prochaines étapes (Future Work du papier) : (1) attributs sensibles multiples et simultanés (genre + âge/occupation) ; (2) graphes bipartites dynamiques/temporels, préférences évoluant dans le temps ; (3) calibration plus rigoureuse des tolérances ε et du budget de fusion via une analyse de front de Pareto plutôt qu'empiriquement ; (4) comprendre pourquoi Fair Re-rank dépasse AURORA sur MovieLens 1M mais pas sur les corpus plus petits (taille de la base, densité du graphe, pool de candidats) ; (5) sur RMP spécifiquement, un critère de fusion tenant compte de la distribution des items recommandés (pas seulement de la similarité des profils de notation) pourrait réduire le compromis équité/diversité observé ; (6) remplacer la fusion gloutonne par une détection de communautés guidée par l'impact EDI de chaque fusion candidate.
   </div>
 </div>
 
