@@ -3,15 +3,16 @@ __pycache__/
 *.pdf
 Reports/
 *.DS_Store
+venv/
 
 # Données brutes (trop volumineuses pour GitHub)
-data/ml-1m/
+data/ml-1m
 data/ml-1m.zip
-data/libimseti/
+data/libimseti
 data/libimseti.zip
 data/libimseti-complete.zip
 data/rec-libimseti-dir.zip
-data/rmp/
+data/rmp
 
 # Fichiers temporaires
 docs/index_backup.html
