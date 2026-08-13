@@ -667,6 +667,11 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <p style="font-size:.7rem;color:var(--t3);margin-top:10px;line-height:1.5">Average Score exclu quand il est dégénéré sur l'inclusion (quasi nulle sur les 3 corpus user-side : ML100k, ML1M, libimseti) ; conservé sur RMP/OpenAlex où frac_F n'est pas dégénéré là-bas. F.R. = Fair Re-rank. Sur OpenAlex, AURORA est aussi 2ᵉ/3ᵉ en ILD et frac_F, très proche d'Average Score/Fair Re-rank.</p>
   </div>
 
+  <div class="notice" style="border-color:rgba(245,165,35,.35);background:rgba(245,165,35,.06);margin-bottom:16px">
+    <span style="color:var(--warn);font-size:1rem;flex-shrink:0">⚠</span>
+    <span><b>Limite connue — calibration empirique, pas principielle :</b> les tolérances de dégradation ε_E, ε_D, ε_I et le budget de fusion (fixé à 50% de |U| dans toutes les expériences) sont calibrés à partir de mesures sur le graphe complet, puis validés par un balayage de robustesse (30–60%, voir onglet Analyse MovieLens) — mais ne découlent pas d'un critère principiel unique. Une analyse de front de Pareto sur les trois objectifs EDI, ou une calibration sur un jeu de validation distinct des données de test rapportées, rendrait cette étape plus rigoureuse. C'est une limite assumée du papier (section Future Work), pas un artefact caché.</span>
+  </div>
+
   <div class="finding fw">
     <h3>Aucune méthode classique ne satisfait les 3 critères EDI simultanément</h3>
     <p>L'Average Score produit une équité parfaite (ΔE≈0) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–1.23, sauf sur RMP où Borda reste bas à 0.008). Le Fair Re-rank améliore l'équité mais détruit la diversité <em>sur RMP</em> (ILD=0.196 contre 0.982 pour Average Score) ; sur libimseti, sa diversité (0.719) reste comparable aux méthodes de vote (Borda/Condorcet ≈ 0.744–0.746), sans effondrement notable là-bas.</p>
