@@ -93,6 +93,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .pill{padding:6px 15px;border:1px solid var(--bd);border-radius:20px;background:var(--s2);color:var(--t2);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s}
 .pill:hover{border-color:var(--blue);color:var(--blue)}
 .pill.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.csv-btn{padding:4px 11px;border:1px solid var(--bd);border-radius:14px;background:var(--s2);color:var(--t2);font-size:.68rem;font-weight:700;cursor:pointer;flex-shrink:0;transition:all .15s}
+.csv-btn:hover{border-color:var(--green);color:var(--green)}
+.csv-row{display:flex;justify-content:flex-end;margin-bottom:8px}
 .alpha-note{font-size:.71rem;color:var(--t3);padding-bottom:6px}
 
 .res-wrap{overflow-x:auto}
@@ -504,7 +507,7 @@ python run_openalex.py           # OpenAlex</div>
     </div>
     <div class="alpha-note">α_F = 0.29 · α_M = 0.71</div>
   </div>
-  <div class="card"><div class="res-wrap" id="resWrap"></div></div>
+  <div class="card"><div class="csv-row"><button class="csv-btn" onclick="downloadCSV('resWrap','movielens100k_results.csv')">⬇ CSV</button></div><div class="res-wrap" id="resWrap"></div></div>
   <div class="interp" id="interp"></div>
 </div>
 
@@ -750,7 +753,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="card" style="margin-top:18px">
-    <div class="card-title">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</div><button class="csv-btn" onclick="downloadCSV('finalTbl','movielens_final_table.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
   </div>
 
@@ -894,7 +897,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       <div class="bar-rows" id="ratingBars1M"></div>
     </div>
   </div>
-  <div class="card" style="margin-top:14px"><div class="res-wrap" id="res1MWrap"></div></div>
+  <div class="card" style="margin-top:14px"><div class="csv-row"><button class="csv-btn" onclick="downloadCSV('res1MWrap','movielens1m_results.csv')">⬇ CSV</button></div><div class="res-wrap" id="res1MWrap"></div></div>
   <div class="interp" id="interp1M"></div>
 </div>
 
@@ -928,7 +931,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</div><button class="csv-btn" onclick="downloadCSV('allCmpTbl','comparaison_tous_corpus.csv')">⬇ CSV</button></div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
       Lecture : <span style="color:var(--green)">vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">ambre</span> = moyen · <span style="color:var(--red)">rouge</span> = mauvais. Chaque cellule montre ΔE et ILD pour une méthode × un corpus.
     </div>
@@ -977,7 +980,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Tableau de scalabilité — résultats complets (k=10, θ=4.0)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau de scalabilité — résultats complets (k=10, θ=4.0)</div><button class="csv-btn" onclick="downloadCSV('scalTbl','scalabilite_1m.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto"><table class="ftbl" id="scalTbl"></table></div>
   </div>
 
@@ -1002,7 +1005,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       </div>
     </div>
     <div class="card" style="margin-top:10px">
-      <div class="card-title">Tableau — 100k vs 1M, θ = 4.0</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau — 100k vs 1M, θ = 4.0</div><button class="csv-btn" onclick="downloadCSV('cmpTbl','comparaison_100k_1m.csv')">⬇ CSV</button></div>
       <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
     </div>
     <div class="card" style="margin-top:10px">
@@ -1030,7 +1033,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="card">
-    <div class="card-title">Résultats EDI — libimseti.cz (k=10, θ=7.0)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Résultats EDI — libimseti.cz (k=10, θ=7.0)</div><button class="csv-btn" onclick="downloadCSV('libTbl','libimseti_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="libTbl"></table>
     </div>
@@ -1091,7 +1094,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="card">
-    <div class="card-title">Résultats EDI — Rate My Professors (k=10, θ=4.0)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Résultats EDI — Rate My Professors (k=10, θ=4.0)</div><button class="csv-btn" onclick="downloadCSV('rmpTbl','rmp_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="rmpTbl"></table>
     </div>
@@ -1142,7 +1145,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="card">
-    <div class="card-title">Résultats EDI — OpenAlex (k=10, θ=1.0)</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Résultats EDI — OpenAlex (k=10, θ=1.0)</div><button class="csv-btn" onclick="downloadCSV('oalexTbl','openalex_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="oalexTbl"></table>
     </div>
@@ -1268,6 +1271,29 @@ const INTERP={
 };
 let curK=10;
 
+// ── EXPORT CSV ──────────────────────────────────────────────────────────────
+function tableToCSV(table){
+  return [...table.querySelectorAll('tr')].map(tr=>
+    [...tr.children].map(cell=>{
+      let t=cell.innerText.trim().replace(/\s+/g,' ');
+      if(t.includes(',')||t.includes('"')||t.includes('\n')) t='"'+t.replace(/"/g,'""')+'"';
+      return t;
+    }).join(',')
+  ).join('\r\n');
+}
+function downloadCSV(elId,filename){
+  const el=document.getElementById(elId);
+  if(!el) return;
+  const table=el.tagName==='TABLE'?el:el.querySelector('table');
+  if(!table) return;
+  const csv='﻿'+tableToCSV(table);
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 // ── TABS ──
 document.querySelectorAll('.tab-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
