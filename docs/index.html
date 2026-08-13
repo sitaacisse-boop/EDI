@@ -215,6 +215,7 @@ canvas{width:100%;display:block;border-radius:8px}
   <button class="tab-btn" data-tab="data">Les Données</button>
   <button class="tab-btn" data-tab="graph">Graphe</button>
   <button class="tab-btn" data-tab="calc">Calcul EDI</button>
+  <button class="tab-btn" data-tab="lit">Travaux connexes</button>
   <button class="tab-btn" data-tab="methods">MovieLens 100k</button>
   <button class="tab-btn" data-tab="1m">MovieLens 1M</button>
   <button class="tab-btn" data-tab="lib">libimseti.cz</button>
@@ -256,6 +257,7 @@ canvas{width:100%;display:block;border-radius:8px}
     <!-- Résultat phare -->
     <div class="card" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.04);margin-bottom:20px">
       <div class="card-title" style="color:var(--green)">Résultats clés</div>
+      <div style="font-size:.72rem;color:var(--t3);margin-bottom:10px">AURORA = <em>Attributed Unified gRaph cOarsening for equitable RecommendAtion</em></div>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:10px">
         Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : une coarsenisation de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
       </p>
@@ -553,6 +555,29 @@ canvas{width:100%;display:block;border-radius:8px}
 <!-- TAB 4 -->
 <div class="panel" id="p-calc">
   <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6">Calcul des trois métriques EDI, étape par étape, avec les vraies valeurs MovieLens 100k pour Borda (k=10, θ=4.0).</div>
+
+  <div class="card" style="margin-bottom:16px;border-color:rgba(255,184,48,.3);background:rgba(255,184,48,.04)">
+    <div class="card-title" style="color:var(--amber)">Exemple jouet — l'intuition avant les vraies valeurs</div>
+    <p style="font-size:.83rem;color:var(--t2);line-height:1.7;margin-bottom:12px">4 utilisateurs (u₁ ∈ F, u₂, u₃, u₄ ∈ M — ce ratio 1F:3M reproduit le déséquilibre 29%F/71%M de MovieLens 100k) notent 3 films sur une échelle 1–5 (« — » = non noté) :</p>
+    <div style="overflow-x:auto;margin-bottom:12px">
+      <table class="ftbl">
+        <thead><tr><th>Utilisateur</th><th>Groupe</th><th>i₁</th><th>i₂</th><th>i₃</th></tr></thead>
+        <tbody>
+          <tr><td>u₁</td><td>F</td><td>5</td><td>2</td><td>—</td></tr>
+          <tr><td>u₂</td><td>M</td><td>1</td><td>5</td><td>3</td></tr>
+          <tr><td>u₃</td><td>M</td><td>—</td><td>4</td><td>5</td></tr>
+          <tr><td>u₄</td><td>M</td><td>2</td><td>5</td><td>4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.83rem;color:var(--t2);line-height:1.7">Le classement par <strong>Average Score</strong> donne i₂ (moyenne 4.0) ≻ i₃ (4.0) ≻ i₁ (2.67 — tiré vers le bas par les notes 1 et 2 des hommes). Le top-2 R = {i₂, i₃} exclut totalement i₁, le seul film que u₁ (F) a noté 5.</p>
+    <div class="formula">utility_F(R) = ½·(w(u₁,i₂)+w(u₁,i₃)) = ½·(2+0) = 1.0
+utility_M(R) = ⅙·[(w(u₂,i₂)+w(u₂,i₃)) + (w(u₃,i₂)+w(u₃,i₃)) + (w(u₄,i₂)+w(u₄,i₃))] = 26/6 = 4.33
+ΔE(R) = |1.0 − 4.33| = <strong>3.33</strong></div>
+    <p style="font-size:.83rem;color:var(--t2);line-height:1.7">Pire : u₁ ne trouve <strong>aucun</strong> film noté ≥4 dans R → inclusion_F(R) = 0 &lt; α_F = 0.25, alors que inclusion_M(R) = 0.83 &gt; α_M = 0.75. L'utilisatrice F est totalement exclue des items pertinents du top-2.</p>
+    <div class="res-box">Avec R' = {i₁, i₂} à la place : ΔE(R') = 0.67 et inclusion_F(R') = 0.5 ≥ α_F — un résultat nettement plus équitable. Notre coarsenisation sous contraintes EDI détecte ce type de distorsion au niveau structurel : toute fusion de nœuds utilisateurs qui mènerait à recommander R plutôt que R' est rejetée, car elle ferait dépasser à ΔE sa tolérance ε_E.</div>
+  </div>
+
   <div class="acc">
     <div class="acc-item open">
       <div class="acc-head"><span>ΔE — Équité entre groupes</span><span class="acc-chev"></span></div>
@@ -589,9 +614,58 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 </div>
 
+<!-- ══ TRAVAUX CONNEXES ══ -->
+<div class="panel" id="p-lit">
+  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6">AURORA se situe au croisement de quatre champs de recherche. Cet onglet résume comment chacun a été mobilisé, et identifie le manque que ce travail comble.</div>
+
+  <div class="finding fk">
+    <h3>Agrégation de préférences &amp; choix social</h3>
+    <p>Roy et al. (2024) structurent le problème selon trois axes — format d'entrée, format de sortie, règle d'agrégation — et distinguent deux façons de rendre un résultat équitable : modifier les préférences en entrée, ou modifier le classement en sortie. Le théorème d'impossibilité d'Arrow rappelle qu'aucune règle ne peut satisfaire simultanément un ensemble raisonnable de critères d'équité, ce qui justifie de raisonner en termes de <em>propriétés préservées</em> plutôt que de règle optimale unique. Kellerhals &amp; Peters (2024) relient le clustering proportionnel au vote multi-gagnant et montrent que trois notions d'équité (proportionnelle, individuelle, cœur transférable) peuvent être satisfaites ensemble — une analyse qui opère sur une métrique de graphe, conceptuellement proche de notre résumé de graphe sous contraintes.</p>
+  </div>
+
+  <div class="finding fg">
+    <h3>Résumé de graphe (Graph Summarization)</h3>
+    <p>Liu et al. (2018) proposent la référence du domaine et distinguent quatre familles de méthodes : regroupement (grouping), compression de bits, simplification/sparsification, et approches basées sur l'influence. Leur constat central : il n'existe pas de définition universelle d'un « bon » résumé — sa qualité dépend de l'objectif visé. Shabani et al. (2024), plus récents, appliquent les graph neural networks au résumé de graphe et identifient le <em>résumé orienté tâche</em> (task-based) — produire un résumé adapté à un besoin précis plutôt que générique — comme direction de recherche ouverte. AURORA s'inscrit dans la famille regroupement/agrégation et répond directement à cette direction ouverte : notre critère de qualité du résumé est la préservation de l'équité, de la diversité et de l'inclusion.</p>
+  </div>
+
+  <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
+    <h3>EDI dans les systèmes de recommandation &amp; équité algorithmique</h3>
+    <p>Yao &amp; Huang (2017) montrent que la parité démographique est souvent inappropriée en filtrage collaboratif, car les préférences dépendent légitimement d'attributs sensibles comme le genre ; nous reprenons directement leur métrique de <em>value unfairness</em> pour notre ΔE. Leonhardt et al. (2018) apportent une preuve empirique d'un compromis direct entre diversité et équité utilisateur : augmenter la diversité agrégée accroît sensiblement la disparité entre utilisateurs. Zhao et al. (2024) passent en revue équité et diversité conjointement, classant les techniques en pré-, in- et post-traitement, et formulent le problème comme une optimisation multi-objectif sur un front de Pareto — c'est l'inspiration directe de notre onglet <strong>Pareto</strong>. Dong et al. (2023), le champ le plus proche d'AURORA, montrent que les graphes posent des défis d'équité absents des données i.i.d. (biais structurel par homophilie) ; parmi leurs techniques de mitigation, le <em>edge rewiring</em> est la seule à agir sur la structure du graphe comme AURORA — mais en ajoutant/retirant des arêtes, alors que nous réduisons le graphe par fusion de nœuds.</p>
+  </div>
+
+  <div class="finding fw">
+    <h3>Choix social pour la recommandation équitable — SCRUF-D, le concurrent le plus proche</h3>
+    <p>Aird et al. (2023) introduisent <strong>SCRUF-D</strong> : chaque préoccupation d'équité est modélisée comme un agent qui vote (Borda, Copeland, Ranked Pairs) aux côtés du recommandeur de base pour produire le classement final. Une extension (Aird et al., 2024) généralise ce cadre à l'équité hétérogène — plusieurs notions d'équité combinées dans un seul système. C'est le travail conceptuellement le plus proche d'AURORA, et pourtant fondamentalement différent : <strong style="color:var(--t1)">SCRUF-D agit au moment de produire le classement final — un post-traitement — alors qu'AURORA agit en amont, sur la structure du graphe résumé, avant même que le classement ne soit calculé.</strong> Leur exploration approfondie de la voie post-hoc laisse la voie structurelle ouverte — c'est exactement le créneau qu'occupe ce travail.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px;background:rgba(18,232,122,.04);border-color:rgba(18,232,122,.2)">
+    <div class="card-title" style="color:var(--green)">Le manque comblé par ce travail</div>
+    <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
+      À travers ces quatre champs, un constat se dégage : l'équité en recommandation a surtout été traitée par modification des entrées/sorties, par pré-/in-/post-traitement, ou par edge rewiring sur la structure du graphe ; le résumé de graphe, de son côté, a toujours optimisé la fidélité structurelle, le stockage ou la vitesse de requête. À notre connaissance, <strong style="color:var(--t1)">aucun travail existant ne fait de la préservation de l'équité, de la diversité et de l'inclusion un critère de qualité explicite d'un résumé de graphe</strong> — c'est précisément le manque qu'AURORA comble.
+    </p>
+  </div>
+</div>
+
 <!-- TAB 5 -->
 <div class="panel" id="p-concl">
   <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">Ce que nous avons appris — 4 corpus, un seul algorithme</h2>
+
+  <div class="card" style="margin-bottom:16px;border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.05)">
+    <div class="card-title" style="color:var(--blue)">En un coup d'œil — qui gagne quoi, par corpus (k=10)</div>
+    <div style="overflow-x:auto">
+      <table class="ftbl">
+        <thead><tr><th>Corpus</th><th>Meilleur ΔE</th><th>Meilleur ILD</th><th>Meilleure inclusion/frac_F</th><th>Verdict global</th></tr></thead>
+        <tbody>
+          <tr><td>ML 100k</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td style="color:var(--green);font-weight:800">AURORA (k=20)</td></tr>
+          <tr><td>ML 1M</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td>Fair Re-rank</td></tr>
+          <tr><td>libimseti</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Condorcet</td><td>Aucun (écart persistant)</td></tr>
+          <tr><td>RMP</td><td>Avg Score / F.R.</td><td>Avg Score</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Compromis : AURORA (diversité) / F.R. (équité)</td></tr>
+          <tr><td>OpenAlex</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Avg Score / F.R.</td><td>Avg Score / F.R.</td><td style="color:var(--green);font-weight:800">AURORA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.7rem;color:var(--t3);margin-top:10px;line-height:1.5">Average Score exclu quand il est dégénéré sur l'inclusion (quasi nulle sur les 3 corpus user-side : ML100k, ML1M, libimseti) ; conservé sur RMP/OpenAlex où frac_F n'est pas dégénéré là-bas. F.R. = Fair Re-rank. Sur OpenAlex, AURORA est aussi 2ᵉ/3ᵉ en ILD et frac_F, très proche d'Average Score/Fair Re-rank.</p>
+  </div>
 
   <div class="finding fw">
     <h3>Aucune méthode classique ne satisfait les 3 critères EDI simultanément</h3>
