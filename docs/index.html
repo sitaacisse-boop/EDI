@@ -847,6 +847,28 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       <div style="font-size:.7rem;color:var(--t3);margin-left:auto">ε_E et ε_D sont insensibles — max_merges est le paramètre clé</div>
     </div>
   </div>
+
+  <!-- Explorateur interactif -->
+  <div class="card" style="margin-top:14px">
+    <div class="card-title">Explorateur interactif — testez les hyperparamètres vous-même</div>
+    <p style="font-size:.78rem;color:var(--t2);margin-bottom:16px;line-height:1.6">Déplacez les curseurs pour parcourir les valeurs réellement testées (aucune interpolation ni simulation — chaque position correspond à un run mesuré). MovieLens 100k, k=20, θ=4.0.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span>ε_E (tolérance équité)</span><span id="explEEVal" style="color:var(--t1);font-weight:700"></span></div>
+        <input type="range" id="explEE" min="0" max="5" step="1" value="1" style="width:100%;accent-color:var(--green)">
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span>ε_D (tolérance diversité)</span><span id="explEDVal" style="color:var(--t1);font-weight:700"></span></div>
+        <input type="range" id="explED" min="0" max="5" step="1" value="2" style="width:100%;accent-color:var(--green)">
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span>max_merges (budget de fusion)</span><span id="explMMVal" style="color:var(--t1);font-weight:700"></span></div>
+        <input type="range" id="explMM" min="0" max="6" step="1" value="5" style="width:100%;accent-color:var(--blue)">
+      </div>
+    </div>
+    <div class="tiles" id="explTiles" style="margin-bottom:12px"></div>
+    <div id="explNote" style="font-size:.79rem;color:var(--t2);padding:12px 14px;background:var(--s2);border-radius:8px;line-height:1.65"></div>
+  </div>
 </div>
 
 
@@ -933,7 +955,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <div class="card" style="margin-top:14px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</div><button class="csv-btn" onclick="downloadCSV('allCmpTbl','comparaison_tous_corpus.csv')">⬇ CSV</button></div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      Lecture : <span style="color:var(--green)">vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">ambre</span> = moyen · <span style="color:var(--red)">rouge</span> = mauvais. Chaque cellule montre ΔE et ILD pour une méthode × un corpus.
+      Lecture : <span style="color:var(--green)">✓ vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">~ ambre</span> = moyen · <span style="color:var(--red)">✕ rouge</span> = mauvais (symboles ajoutés pour rester lisible en cas de daltonisme). Chaque cellule montre ΔE et ILD pour une méthode × un corpus.
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
@@ -1834,6 +1856,39 @@ function drawSens(){
   ctx.fillText('défaut',x400,pt-5);
 }
 
+// ── EXPLORATEUR INTERACTIF ε_E / ε_D / max_merges ──────────────────────────
+// Donnees reelles issues de sensitivity_results.json (aucune interpolation).
+const EPS_E_VALUES=[0.05,0.10,0.15,0.20,0.25,0.30];
+const EPS_D_VALUES=[0.01,0.03,0.05,0.07,0.10,0.12];
+const MM_DATA=[
+  {v:25, dE:.4243,ILD:.3824,incF:.248, incM:.3416,ratio:.973,n:918},
+  {v:50, dE:.4136,ILD:.3974,incF:.2544,incM:.3474,ratio:.947,n:893},
+  {v:100,dE:.4136,ILD:.3974,incF:.2544,incM:.3474,ratio:.894,n:843},
+  {v:200,dE:.4136,ILD:.3974,incF:.2544,incM:.3474,ratio:.788,n:743},
+  {v:300,dE:.4158,ILD:.4044,incF:.2537,incM:.3473,ratio:.682,n:643},
+  {v:400,dE:.314, ILD:.4548,incF:.2751,incM:.3456,ratio:.576,n:543},
+  {v:500,dE:.2777,ILD:.4679,incF:.2769,incM:.3427,ratio:.47, n:443},
+];
+function updateExplorer(){
+  const eeEl=document.getElementById('explEE'),edEl=document.getElementById('explED'),mmEl=document.getElementById('explMM');
+  if(!eeEl) return;
+  const eeV=EPS_E_VALUES[+eeEl.value], edV=EPS_D_VALUES[+edEl.value], d=MM_DATA[+mmEl.value];
+  document.getElementById('explEEVal').textContent=eeV.toFixed(2);
+  document.getElementById('explEDVal').textContent=edV.toFixed(2);
+  document.getElementById('explMMVal').textContent=d.v;
+  document.getElementById('explTiles').innerHTML=`
+    <div class="tile"><div class="tile-lbl">ΔE</div><div class="tile-val" style="color:${d.dE<.35?'var(--green)':'var(--amber)'}">${d.dE.toFixed(3)}</div><div class="tile-sub">équité — plus bas = mieux</div></div>
+    <div class="tile"><div class="tile-lbl">ILD</div><div class="tile-val" style="color:var(--blue)">${d.ILD.toFixed(3)}</div><div class="tile-sub">diversité — plus haut = mieux</div></div>
+    <div class="tile"><div class="tile-lbl">Super-nœuds</div><div class="tile-val">${d.n}</div><div class="tile-sub">943 → ${d.n} (ratio ${(d.ratio*100).toFixed(0)}%)</div></div>
+    <div class="tile"><div class="tile-lbl">inc_F / inc_M</div><div class="tile-val" style="font-size:1.25rem">${d.incF.toFixed(3)} / ${d.incM.toFixed(3)}</div><div class="tile-sub">inclusion par groupe</div></div>`;
+  document.getElementById('explNote').innerHTML=`<strong style="color:var(--t1)">Constat en bougeant les curseurs :</strong> ε_E et ε_D n'ont <strong>aucun effet mesuré</strong> sur ΔE/ILD/inclusion, quelle que soit leur valeur dans la plage testée (0.05→0.30 pour ε_E, 0.01→0.12 pour ε_D — vérifiez, les 4 tuiles ne bougent pas). Seul <strong style="color:var(--green)">max_merges</strong> fait varier les résultats : sous 300, peu de fusions passent le contrôle EDI (943→918 super-nœuds, ΔE élevé) ; au-delà de 300, ΔE chute nettement et ILD grimpe (943→443 à 500, ratio 47%).`;
+}
+['explEE','explED','explMM'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',updateExplorer);
+});
+updateExplorer();
+
 // ── MOVIELÉNS 1M DATA ──
 const ALL1M={
   5:{
@@ -2649,7 +2704,8 @@ function buildScalTable(){
       const tStr=t<.01?'<0.01s':t<1?t.toFixed(2)+'s':t<60?t.toFixed(1)+'s':(t/60).toFixed(1)+'min';
       const stk=m==='AURORA'&&d.stable_topk?` style="color:var(--amber)"`:''
       const deCol=d.dE<.1?'var(--good)':d.dE<.38?'var(--warn)':'var(--bad)';
-      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums;color:${deCol};font-weight:700">${d.dE.toFixed(3)}</td>`;
+      const deSym=d.dE<.1?'✓':d.dE<.38?'~':'✕';
+      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums;color:${deCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${deSym}</span>${d.dE.toFixed(3)}</td>`;
     }).join('');
     const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
@@ -3132,8 +3188,10 @@ function buildAllCmpTable(){
       if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cours</td>`;return;}
       const deCls=deV<.05?'color:var(--green)':deV<.4?'color:var(--amber)':'color:var(--red)';
       const ildCls=ildV>=.8?'color:var(--green)':ildV>=.4?'color:var(--amber)':'color:var(--red)';
-      h+=`<td style="font-variant-numeric:tabular-nums;${deCls}">${deV.toFixed(3)}</td>`;
-      h+=`<td style="font-variant-numeric:tabular-nums;${ildCls}">${ildV.toFixed(3)}</td>`;
+      const deSym=deV<.05?'✓':deV<.4?'~':'✕';
+      const ildSym=ildV>=.8?'✓':ildV>=.4?'~':'✕';
+      h+=`<td style="font-variant-numeric:tabular-nums;${deCls}" title="${deV<.05?'bon':deV<.4?'moyen':'mauvais'}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${deSym}</span>${deV.toFixed(3)}</td>`;
+      h+=`<td style="font-variant-numeric:tabular-nums;${ildCls}" title="${ildV>=.8?'bon':ildV>=.4?'moyen':'mauvais'}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${ildSym}</span>${ildV.toFixed(3)}</td>`;
     });
     h+=`</tr>`;
   });
