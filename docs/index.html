@@ -206,9 +206,28 @@ canvas{width:100%;display:block;border-radius:8px}
       <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl">Méthodes</div></div>
       <div class="hdr-kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Corpus</div></div>
       <div class="hdr-kpi"><div class="kpi-val">4M+</div><div class="kpi-lbl">Ratings</div></div>
+      <button id="themeToggle" class="tog" style="flex-shrink:0;align-self:center" aria-label="Changer de thème clair/sombre"></button>
     </div>
   </div>
 </header>
+<script>
+(function(){
+  var KEY='edi-theme', root=document.documentElement, btn=document.getElementById('themeToggle');
+  function isDarkNow(){
+    return root.dataset.theme==='dark' || (!root.dataset.theme && window.matchMedia('(prefers-color-scheme:dark)').matches);
+  }
+  function paint(){ btn.textContent = isDarkNow() ? '☀ Clair' : '☾ Sombre'; }
+  var saved=null;
+  try{ saved=localStorage.getItem(KEY); }catch(e){}
+  if(saved==='dark'||saved==='light') root.dataset.theme=saved;
+  paint();
+  btn.addEventListener('click',function(){
+    var next = isDarkNow() ? 'light' : 'dark';
+    try{ localStorage.setItem(KEY,next); }catch(e){}
+    location.reload();
+  });
+})();
+</script>
 
 <div class="tab-bar">
   <button class="tab-btn on" data-tab="home">Accueil</button>
@@ -257,7 +276,17 @@ canvas{width:100%;display:block;border-radius:8px}
     <!-- Résultat phare -->
     <div class="card" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.04);margin-bottom:20px">
       <div class="card-title" style="color:var(--green)">Résultats clés</div>
-      <div style="font-size:.72rem;color:var(--t3);margin-bottom:10px">AURORA = <em>Attributed Unified gRaph cOarsening for equitable RecommendAtion</em></div>
+      <div style="text-align:center;margin-bottom:16px;padding:16px 20px;background:rgba(18,232,122,.07);border:1px solid rgba(18,232,122,.28);border-radius:12px">
+        <div style="font-size:1.5rem;font-weight:900;letter-spacing:.1em;color:var(--green);text-shadow:0 0 24px rgba(18,232,122,.55);margin-bottom:8px">AURORA</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.7;letter-spacing:.01em">
+          <span style="color:var(--green);font-weight:900;font-size:1.05em">A</span>ttributed
+          <span style="color:var(--green);font-weight:900;font-size:1.05em">U</span>nified
+          g<span style="color:var(--green);font-weight:900;font-size:1.05em">R</span>aph
+          c<span style="color:var(--green);font-weight:900;font-size:1.05em">O</span>arsening
+          for equitable
+          <span style="color:var(--green);font-weight:900;font-size:1.05em">R</span>ecommend<span style="color:var(--green);font-weight:900;font-size:1.05em">A</span>tion
+        </div>
+      </div>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:10px">
         Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : une coarsenisation de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
       </p>
