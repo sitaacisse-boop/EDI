@@ -34,6 +34,7 @@
 \begin{document}
 %
 \title{Aggregating User Preferences while Ensuring Equity, Diversity, and Inclusion using Graph Summarization\thanks{An interactive dashboard with the full experimental results is available at \texttt{https://sitaacisse-boop.github.io/EDI/}.}}
+
 %
 \titlerunning{Aggregating Preferences with EDI via Graph Summarization} % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
@@ -46,7 +47,7 @@
 \and
 Department of Computer Science, University of Regina, Regina, SK, Canada\\
 \email{louzsita29@gmail.com, Malek.mouhoub@uregina.ca}\\
-Supervised by Prof.\ Malek Mouhoub}
+}
 
 %
 \maketitle              % typeset the header of the contribution
@@ -155,7 +156,6 @@ and Section~6 concludes.
 
 
 
-\clearpage
 \section{Background}
 \label{sec:background}
 
@@ -222,7 +222,6 @@ summarising the preference graph, and the precise metrics used to quantify
 them are defined in Section~4.
 
 
-\clearpage
 \section{Literature Review}\label{sec:litreview} Our work sits at the intersection of four research areas: preference
 aggregation and social choice, graph summarization, algorithmic fairness
 (equity, diversity and inclusion), and fairness-aware recommender systems.
@@ -338,7 +337,6 @@ summary, through community detection and coarsening, that reduces its size
 while bounding the degradation of equity, diversity, and inclusion, compared
 to classical aggregation rules?
 
-\clearpage
 \section{Proposed Methodology}\label{sec:methodology}
 
 Building on the graph model and background introduced in Section~2, this section
@@ -512,7 +510,6 @@ $u_4$ & M & 2  & 5  & 4   \\
 \end{tabular}
 \end{table}
 
-\clearpage
 \section{Experimentation}\label{sec:experimentation}
 \subsection{Datasets}
 
@@ -1039,10 +1036,9 @@ suggesting that its advantage is concentrated in balancing inclusion across
 groups rather than in minimising $\Delta E$ or maximising ILD outright at
 this scale. Figure~\ref{fig:comparison1m} shows the side-by-side comparison of $\Delta E$ and
 ILD across all methods at $k \in \{10, 20\}$.
-
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{fig_comparison_100k_1m}
+ \includegraphics[width=0.4\textwidth]{fig_comparison_100k_1m}
 \caption{Side-by-side comparison of $\Delta E$ and ILD between MovieLens
 100k and 1M, for all six methods at $k \in \{10, 20\}$ (top row: $k=10$;
 bottom row: $k=20$). Lighter bars denote MovieLens 100k, darker bars
@@ -1051,7 +1047,6 @@ denote MovieLens 1M.}
 \end{figure}
 
 
-\clearpage
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
 
@@ -1065,89 +1060,49 @@ within prescribed tolerances. This structural approach contrasts with existing
 post-hoc techniques such as re-ranking, which enforce fairness after the
 aggregation has already been computed.
 
-Evaluated across five datasets spanning four domains, our experiments reveal
-consistent patterns alongside domain-specific nuances. On MovieLens 100k with
-$k \in \{5, 10, 20\}$, no single baseline simultaneously satisfies all three EDI
-criteria. Average Score achieves the lowest equity gap but produces near-zero
-inclusion for both groups, rendering it degenerate as a fairness-aware method.
-Fair Re-rank reduces $\Delta E$ most effectively among non-degenerate methods,
-yet at the cost of lower diversity at $k=5$ and $k=10$. AURORA beats Borda and
-Condorcet on $\Delta E$ at every $k$, and on ILD at every $k$ except $k=5$
-against Condorcet; against Weighted Borda, it improves $\Delta E$ and ILD at
-every $k$ but trails marginally on $\mathrm{inc}_M$ at $k=20$ (0.344 vs.\ 0.344,
-a 0.0007 gap). At $k=10$, AURORA is the only method to improve all four metrics
-over Borda simultaneously (Weighted Borda ties Borda exactly at this $k$;
-Condorcet and Fair Re-rank each fail on one criterion). At $k=20$, AURORA
-simultaneously improves $\Delta E$, ILD, and $\mathrm{inc}_F$ over both Borda
-and Condorcet --- a property shared only with Weighted Borda among the classical
-rules, though Weighted Borda achieves it by directly reweighting scores by
-group size, whereas AURORA requires no such explicit demographic reweighting
-of the aggregation rule itself --- alongside a merge budget fixed at 50\% of
-$|U|$ that we validated for robustness across a 30--60\% range. On MovieLens 1M,
-this picture shifts: Fair Re-rank dominates AURORA on both $\Delta E$ and ILD
-at every $k$, though AURORA still beats every classical voting rule on both
-axes and achieves the best group inclusion of any method at $k=20$. This is a
-genuine, dataset-dependent result rather than a uniform advantage, and we
-report it as such.
+Evaluated across five datasets spanning four domains, no single baseline
+satisfies all three EDI criteria simultaneously. On MovieLens 100k, AURORA
+consistently beats the classical voting rules (Borda, Weighted Borda, Condorcet)
+on both equity and diversity across $k \in \{5,10,20\}$, with a merge budget
+robust across a 30--60\% range; Fair Re-rank remains the most accurate on equity
+alone, at some cost to diversity. This picture is dataset-dependent rather than
+universal: on the larger MovieLens~1M, Fair Re-rank dominates AURORA on both
+axes, which we attribute to its larger candidate pool for re-ranking; on
+libimseti, where the sensitive attribute sits on both sides of the bipartite
+graph, no method --- including AURORA --- meaningfully reduces the equity gap,
+a limitation traced to a genuine difference in rating behaviour between groups
+rather than an algorithmic shortcoming. On the item-side datasets, AURORA shows
+two distinct patterns: on Rate My Professors it trades equity for a large gain
+in diversity (ILD\,$=$\,0.808) and female representation ($\mathrm{frac}_F=60\%$),
+while on OpenAlex it improves equity \emph{and} maintains diversity
+simultaneously, reaching the lowest equity gap observed across all five datasets
+($\Delta E = 0.051$) and correcting the most extreme bias in our evaluation.
 
-On libimseti, the dense, reciprocally-structured social graph limits what
-compression can achieve: AURORA improves diversity over the voting rules but,
-like them, does not reduce $\Delta E$ below Average Score's degenerate
-baseline. We traced this to a structural property of the domain --- rating
-patterns differ substantially by rater--profile gender pair, so a single
-collective ranking cannot equally satisfy every group --- rather than to a
-shortcoming of the coarsening mechanism itself, echoing Yao and Huang's
-argument that demographic parity is not always an appropriate target when
-group preferences genuinely diverge. On Rate My Professors, AURORA uniquely
-combines high diversity (ILD $=$ 0.808) with the highest female
-item representation ($\mathrm{frac}_F = 0.60$), at the cost of a higher
-$\Delta E$ than Borda (0.112 vs.\ 0.008) --- a trade-off, not a strict
-dominance. On OpenAlex, where Borda-based methods fail entirely by
-recommending zero female authors, AURORA achieves the lowest equity gap
-($\Delta E = 0.051$, down 28\% from Average Score) while maintaining
-comparable female representation, without the equity--diversity trade-off
-observed on RMP.
-
-Taken together, these results support a more precise claim than "AURORA
-is uniformly better": embedding EDI constraints into the coarsening
-structure consistently outperforms unconstrained voting rules, and matches
-or improves on post-hoc re-ranking on smaller or item-side datasets, but a
-sufficiently large user base (MovieLens 1M) or a domain with reciprocal,
-attribute-dependent preferences (libimseti) can favour a post-hoc approach
-or expose a genuine limit of any single-ranking aggregation framework,
-respectively. This nuance is itself a contribution: it clarifies the
+Taken together, these results support a more precise claim than "AURORA is
+uniformly better": embedding EDI constraints into the coarsening structure
+consistently outperforms unconstrained voting rules, and matches or improves
+on post-hoc re-ranking on smaller or item-side datasets, but a sufficiently
+large user base or a domain with reciprocal, attribute-dependent preferences
+can favour a post-hoc approach or expose a genuine limit of any single-ranking
+aggregation framework. This nuance is itself a contribution: it clarifies the
 conditions under which structural, constraint-based summarization is
 preferable to re-ranking, rather than asserting unconditional superiority.
 
-Several directions remain open for future work. First, extending the approach
-to multiple simultaneous sensitive attributes --- such as gender combined with
-age or occupation --- would increase the practical
-applicability of the framework. Second, the current algorithm operates on a
-static snapshot of the preference graph; adapting it to dynamic or streaming
-settings, where user preferences evolve over time, is an important challenge
-for real-world deployment. Third, the tolerances
-$\varepsilon_E$, $\varepsilon_D$, and $\varepsilon_I$, and the merge budget
-itself, are currently set empirically and validated by a robustness sweep
-rather than derived from a principled criterion; a Pareto-frontier analysis
-across the three EDI objectives, or a validation
-split distinct from the reported test data, would make the calibration more
-rigorous. Fourth, understanding why Fair Re-rank overtakes AURORA on
-MovieLens 1M but not on the smaller datasets --- whether this is driven by
-user-base size, graph density, or the candidate pool available to the
-re-ranking step --- is an open question that would clarify the boundary
-conditions under which structural coarsening is the preferable mechanism.
-Fifth, on Rate My Professors specifically, merging course-side (user-side)
-nodes does not directly control the gender composition of the recommended
-professors (item-side); a merge criterion that accounts for the downstream
-item distribution, rather than rating-profile similarity alone, might
-narrow the equity--diversity trade-off observed on this dataset without
-sacrificing AURORA's representation gains. Finally, the greedy merge
-strategy could be replaced by more expressive
-community-detection techniques, potentially guided by the EDI impact of
-each candidate merge rather than by rating-profile similarity alone, to
-improve both compression rate and EDI preservation simultaneously.
+Several directions remain open for future work: extending the framework to
+multiple simultaneous sensitive attributes (e.g., gender combined with age or
+occupation); adapting the static coarsening process to dynamic or streaming
+preference graphs; deriving the tolerances $\varepsilon_E$, $\varepsilon_D$,
+$\varepsilon_I$ and the merge budget from a principled criterion --- such as a
+Pareto-frontier analysis or a held-out validation split --- rather than an
+empirical robustness sweep; understanding why Fair Re-rank overtakes AURORA on
+MovieLens~1M but not on smaller datasets, to clarify the boundary conditions
+favouring each mechanism; on Rate My Professors specifically, designing a merge
+criterion that accounts for the downstream item distribution rather than
+rating-profile similarity alone, to narrow the equity--diversity trade-off
+without sacrificing representation gains; and replacing the greedy merge
+strategy with community-detection techniques guided directly by the EDI impact
+of each candidate merge.
 
-\clearpage
 %
 \bibliographystyle{splncs04}
 \bibliography{references}
