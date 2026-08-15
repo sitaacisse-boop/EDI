@@ -200,6 +200,21 @@ canvas{width:100%;display:block;border-radius:8px}
 :root[data-theme="light"] .tr-fair td{background:rgba(6,150,195,.07)}
 :root[data-theme="light"] body{background:linear-gradient(165deg,#f7dcec 0%,#e3d4ee 30%,#d0d8f3 55%,#cfe3f6 80%,#d8ecf8 100%) fixed}
 :root[data-theme="light"] .tab-bar{background:rgba(205,195,238,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+
+/* ── Galerie AURORA (aurores boréales) ── */
+.aurora-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:6px}
+.aurora-gallery img{width:100%;height:150px;object-fit:cover;border-radius:10px;border:1px solid var(--bd);cursor:zoom-in;transition:transform .2s,box-shadow .2s;display:block}
+.aurora-gallery img:hover{transform:scale(1.03);box-shadow:var(--sh)}
+.aurora-lightbox{position:fixed;inset:0;background:rgba(4,2,14,.92);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;cursor:zoom-out}
+.aurora-lightbox.on{display:flex}
+.aurora-lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 8px 60px rgba(0,0,0,.6);cursor:default}
+.lb-close{position:absolute;top:18px;right:26px;font-size:1.8rem;line-height:1;color:#fff;cursor:pointer;opacity:.75;transition:opacity .15s}
+.lb-close:hover{opacity:1}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:2.2rem;color:#fff;cursor:pointer;opacity:.65;padding:10px 18px;user-select:none;transition:opacity .15s}
+.lb-nav:hover{opacity:1}
+.lb-prev{left:4px}
+.lb-next{right:4px}
+.lb-count{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#fff;opacity:.75;font-size:.72rem;font-weight:700;letter-spacing:.05em}
 </style>
 </head>
 <body>
@@ -261,6 +276,7 @@ canvas{width:100%;display:block;border-radius:8px}
   <button class="tab-btn" data-tab="pareto">Pareto</button>
   <button class="tab-btn" data-tab="cmp">Comparaison</button>
   <button class="tab-btn" data-tab="concl">Conclusion</button>
+  <button class="tab-btn" data-tab="origin">L'histoire d'AURORA</button>
 </div>
 
 <div class="main">
@@ -766,6 +782,61 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
     Prochaines étapes (Future Work du papier) : (1) attributs sensibles multiples et simultanés (genre + âge/occupation) ; (2) graphes bipartites dynamiques/temporels, préférences évoluant dans le temps ; (3) calibration plus rigoureuse des tolérances ε et du budget de fusion via une analyse de front de Pareto plutôt qu'empiriquement ; (4) comprendre pourquoi Fair Re-rank dépasse AURORA sur MovieLens 1M mais pas sur les corpus plus petits (taille de la base, densité du graphe, pool de candidats) ; (5) sur RMP spécifiquement, un critère de fusion tenant compte de la distribution des items recommandés (pas seulement de la similarité des profils de notation) pourrait réduire le compromis équité/diversité observé ; (6) remplacer la fusion gloutonne par une détection de communautés guidée par l'impact EDI de chaque fusion candidate.
   </div>
+</div>
+
+<!-- ══ HISTOIRE D'AURORA ══ -->
+<div class="panel" id="p-origin">
+  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">D'où vient le nom AURORA</h2>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">L'acronyme</div>
+    <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
+      <strong style="color:var(--green)">AURORA</strong> — <em>Attributed Unified gRaph cOarsening for equitable RecommendAtion</em>.
+      La méthode résume (coarsening) un graphe biparti attribué de préférences en super-nœuds, sous contrainte de préserver l'équité, la diversité et l'inclusion.
+      C'est le fil rouge de tout ce site : chaque onglet, du Graphe à la Conclusion, mesure une facette de cette même idée.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.05)">
+    <div class="card-title" style="color:var(--blue)">Le clin d'œil</div>
+    <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
+      Le nom n'est pas qu'un acronyme choisi pour faire joli. Pendant mon séjour de recherche à l'<strong style="color:var(--t1)">University of Regina</strong>,
+      avec le Prof. Malek Mouhoub, j'ai eu la chance de voir de vraies aurores boréales dans le ciel de la Saskatchewan — quelque chose que je n'avais
+      jamais vu avant. Entre deux sessions à calibrer des tolérances ε et à débugger des fusions de super-nœuds, ces nuits-là m'ont rappelé pourquoi ce
+      nom collait bien à la méthode : quelque chose d'invisible qui, sous certaines conditions, révèle une structure éclatante et diverse — un peu comme
+      le graphe de préférences une fois recomposé sous contrainte d'équité. Voici quelques photos prises sur place.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Aurores boréales — Regina, Saskatchewan</div>
+    <div class="aurora-gallery" id="auroraGallery">
+      <img src="img/aurora/thumb/aurora-01.jpg" data-full="img/aurora/full/aurora-01.jpg" alt="Aurore boréale à Regina 1" loading="lazy">
+      <img src="img/aurora/thumb/aurora-02.jpg" data-full="img/aurora/full/aurora-02.jpg" alt="Aurore boréale à Regina 2" loading="lazy">
+      <img src="img/aurora/thumb/aurora-03.jpg" data-full="img/aurora/full/aurora-03.jpg" alt="Aurore boréale à Regina 3" loading="lazy">
+      <img src="img/aurora/thumb/aurora-04.jpg" data-full="img/aurora/full/aurora-04.jpg" alt="Aurore boréale à Regina 4" loading="lazy">
+      <img src="img/aurora/thumb/aurora-05.jpg" data-full="img/aurora/full/aurora-05.jpg" alt="Aurore boréale à Regina 5" loading="lazy">
+      <img src="img/aurora/thumb/aurora-06.jpg" data-full="img/aurora/full/aurora-06.jpg" alt="Aurore boréale à Regina 6" loading="lazy">
+      <img src="img/aurora/thumb/aurora-07.jpg" data-full="img/aurora/full/aurora-07.jpg" alt="Aurore boréale à Regina 7" loading="lazy">
+      <img src="img/aurora/thumb/aurora-08.jpg" data-full="img/aurora/full/aurora-08.jpg" alt="Aurore boréale à Regina 8" loading="lazy">
+      <img src="img/aurora/thumb/aurora-09.jpg" data-full="img/aurora/full/aurora-09.jpg" alt="Aurore boréale à Regina 9" loading="lazy">
+      <img src="img/aurora/thumb/aurora-10.jpg" data-full="img/aurora/full/aurora-10.jpg" alt="Aurore boréale à Regina 10" loading="lazy">
+      <img src="img/aurora/thumb/aurora-11.jpg" data-full="img/aurora/full/aurora-11.jpg" alt="Aurore boréale à Regina 11" loading="lazy">
+      <img src="img/aurora/thumb/aurora-12.jpg" data-full="img/aurora/full/aurora-12.jpg" alt="Aurore boréale à Regina 12" loading="lazy">
+      <img src="img/aurora/thumb/aurora-13.jpg" data-full="img/aurora/full/aurora-13.jpg" alt="Aurore boréale à Regina 13" loading="lazy">
+      <img src="img/aurora/thumb/aurora-14.jpg" data-full="img/aurora/full/aurora-14.jpg" alt="Aurore boréale à Regina 14" loading="lazy">
+      <img src="img/aurora/thumb/aurora-15.jpg" data-full="img/aurora/full/aurora-15.jpg" alt="Aurore boréale à Regina 15" loading="lazy">
+    </div>
+    <p style="font-size:.68rem;color:var(--t3);margin-top:10px">Cliquer sur une photo pour l'agrandir · flèches ← → ou clic pour naviguer · Échap pour fermer.</p>
+  </div>
+</div>
+
+<div class="aurora-lightbox" id="auroraLightbox">
+  <span class="lb-close" id="lbClose">&times;</span>
+  <span class="lb-nav lb-prev" id="lbPrev">&#8249;</span>
+  <img id="lbImg" src="" alt="Aurore boréale — vue agrandie">
+  <span class="lb-nav lb-next" id="lbNext">&#8250;</span>
+  <div class="lb-count" id="lbCount"></div>
 </div>
 
 <!-- TAB 6 -->
@@ -1341,6 +1412,33 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(id==='pareto') setTimeout(()=>{buildPareto();},60);
   });
 });
+
+// ── LIGHTBOX GALERIE AURORA ──
+(function(){
+  const thumbs=[...document.querySelectorAll('#auroraGallery img')];
+  if(!thumbs.length) return;
+  const lb=document.getElementById('auroraLightbox');
+  const lbImg=document.getElementById('lbImg');
+  const lbCount=document.getElementById('lbCount');
+  const imgs=thumbs.map(t=>t.dataset.full);
+  let idx=0;
+  function show(i){
+    idx=(i+imgs.length)%imgs.length;
+    lbImg.src=imgs[idx];
+    lbCount.textContent=(idx+1)+' / '+imgs.length;
+  }
+  thumbs.forEach((t,i)=>t.addEventListener('click',()=>{show(i);lb.classList.add('on');}));
+  document.getElementById('lbClose').addEventListener('click',()=>lb.classList.remove('on'));
+  document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();show(idx-1);});
+  document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();show(idx+1);});
+  lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('on');});
+  document.addEventListener('keydown',e=>{
+    if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')lb.classList.remove('on');
+    if(e.key==='ArrowRight')show(idx+1);
+    if(e.key==='ArrowLeft')show(idx-1);
+  });
+})();
 
 // ── RATING BARS ──
 (function(){
