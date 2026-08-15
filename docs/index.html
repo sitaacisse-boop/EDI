@@ -222,13 +222,13 @@ canvas{width:100%;display:block;border-radius:8px}
 .aurora-cine.on{display:block}
 .cine-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;filter:blur(18px);transform:scale(1.16);transition:opacity .3s ease,filter .34s ease,transform .34s cubic-bezier(.34,.02,.4,1);z-index:1}
 .cine-img.no-anim{transition:none}
-.cine-img.show{opacity:1;animation:cineReveal 2.68s cubic-bezier(.22,.9,.32,1) forwards}
+.cine-img.show{opacity:1;animation:cineReveal 5.36s cubic-bezier(.16,.6,.24,1) forwards}
 @keyframes cineReveal{
-  0%{opacity:0;filter:blur(16px);transform:scale(1.16)}
-  14%{opacity:1;filter:blur(0);transform:scale(1)}
-  100%{opacity:1;filter:blur(0);transform:scale(1.09)}
+  0%{opacity:0;filter:blur(14px);transform:scale(1.22)}
+  19%{opacity:1;filter:blur(0);transform:scale(1)}
+  100%{opacity:1;filter:blur(0);transform:scale(1.16)}
 }
-.cine-img.exit{opacity:0;filter:blur(16px);transform:scale(1.14);transition:opacity .22s ease-in,filter .26s ease-in,transform .26s ease-in}
+.cine-img.exit{opacity:0;filter:blur(12px);transform:scale(1.18);transition:opacity .55s ease-in-out,filter .6s ease-in-out,transform .6s ease-in-out}
 .cine-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:2}
 .cine-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:3}
 .cine-bar-fill{height:100%;background:linear-gradient(90deg,#12e87a,#6b8fff);width:0%}
@@ -1503,7 +1503,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   const imgs=[...document.querySelectorAll('#auroraGallery img')].map(t=>t.dataset.full);
   const SONG_BPM=89.6; // tempo mesuré localement sur la piste audio
   const BEAT_MS=60000/SONG_BPM;
-  const SLIDE_MS=BEAT_MS*4; // une mesure (4 temps) par photo
+  const SLIDE_MS=BEAT_MS*8; // deux mesures (8 temps) par photo
   const YT_VIDEO_ID='3Bm4fN8EXHk'; // Indila - Love Story (Epic Orchestral Version)
   let idx=-1, playing=true, rafId=null, slideStart=0;
 
@@ -1555,10 +1555,12 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     const nxt=useA?imgA:imgB, cur=useA?imgB:imgA;
 
     flash.style.transition='none';
-    flash.style.opacity='.88';
+    flash.style.opacity='.45';
     void flash.offsetWidth;
-    flash.style.transition='opacity .3s ease-out';
-    flash.style.opacity='0';
+    setTimeout(()=>{
+      flash.style.transition='opacity 2s ease-in';
+      flash.style.opacity='0';
+    }, 150);
 
     cur.classList.remove('show');
     cur.classList.add('exit');
@@ -1570,7 +1572,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
       void nxt.offsetWidth;
       nxt.classList.remove('no-anim');
       requestAnimationFrame(()=>{ nxt.classList.add('show'); });
-    }, 90);
+    }, 160);
 
     caption.textContent=(idx+1)+' / '+imgs.length+' · Aurores boréales, Regina';
   }
