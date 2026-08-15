@@ -215,6 +215,23 @@ canvas{width:100%;display:block;border-radius:8px}
 .lb-prev{left:4px}
 .lb-next{right:4px}
 .lb-count{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#fff;opacity:.75;font-size:.72rem;font-weight:700;letter-spacing:.05em}
+
+.cine-btn{margin-top:12px;display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:24px;border:1px solid var(--bd);background:var(--s2);color:var(--t1);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s}
+.cine-btn:hover{border-color:var(--green);color:var(--green)}
+.aurora-cine{position:fixed;inset:0;background:#04030a;display:none;z-index:300;overflow:hidden}
+.aurora-cine.on{display:block}
+.cine-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1.3s ease;will-change:opacity,transform}
+.cine-img.show{opacity:1;animation:cineKen 5.5s ease-out forwards}
+.cine-img.show.alt{animation-name:cineKenAlt}
+@keyframes cineKen{from{transform:scale(1.0) translate(0,0)}to{transform:scale(1.13) translate(-1.5%,1%)}}
+@keyframes cineKenAlt{from{transform:scale(1.06) translate(1%,-1%)}to{transform:scale(1.18) translate(-1%,1.5%)}}
+.cine-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12)}
+.cine-bar-fill{height:100%;background:linear-gradient(90deg,#12e87a,#6b8fff);width:0%}
+.cine-controls{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:linear-gradient(rgba(0,0,0,.5),transparent)}
+.cine-controls .left,.cine-controls .right{display:flex;gap:12px;align-items:center}
+.cine-ico{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:background .15s;user-select:none}
+.cine-ico:hover{background:rgba(255,255,255,.18)}
+.cine-caption{position:absolute;bottom:16px;left:22px;color:#fff;opacity:.8;font-size:.72rem;font-weight:600;letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -828,6 +845,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       <img src="img/aurora/thumb/aurora-15.jpg" data-full="img/aurora/full/aurora-15.jpg" alt="Aurore boréale à Regina 15" loading="lazy">
     </div>
     <p style="font-size:.68rem;color:var(--t3);margin-top:10px">Cliquer sur une photo pour l'agrandir · flèches ← → ou clic pour naviguer · Échap pour fermer.</p>
+    <button class="cine-btn" id="cineStartBtn">▶ Voir en diaporama, avec musique</button>
   </div>
 </div>
 
@@ -837,6 +855,22 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   <img id="lbImg" src="" alt="Aurore boréale — vue agrandie">
   <span class="lb-nav lb-next" id="lbNext">&#8250;</span>
   <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div class="aurora-cine" id="auroraCine">
+  <img class="cine-img" id="cineImgA" alt="">
+  <img class="cine-img" id="cineImgB" alt="">
+  <div class="cine-controls">
+    <div class="left">
+      <div class="cine-ico" id="cinePlayBtn" title="Pause">⏸</div>
+      <div class="cine-ico" id="cineMusicBtn" title="Couper le son">🔊</div>
+    </div>
+    <div class="right">
+      <div class="cine-ico" id="cineCloseBtn" title="Fermer">×</div>
+    </div>
+  </div>
+  <div class="cine-caption" id="cineCaption"></div>
+  <div class="cine-bar"><div class="cine-bar-fill" id="cineBarFill"></div></div>
 </div>
 
 <!-- TAB 6 -->
@@ -1437,6 +1471,127 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(e.key==='Escape')lb.classList.remove('on');
     if(e.key==='ArrowRight')show(idx+1);
     if(e.key==='ArrowLeft')show(idx-1);
+  });
+})();
+
+// ── DIAPORAMA CINÉMATIQUE + MUSIQUE D'AMBIANCE GÉNÉRÉE ──
+(function(){
+  const startBtn=document.getElementById('cineStartBtn');
+  if(!startBtn) return;
+  const cine=document.getElementById('auroraCine');
+  const imgA=document.getElementById('cineImgA');
+  const imgB=document.getElementById('cineImgB');
+  const playBtn=document.getElementById('cinePlayBtn');
+  const musicBtn=document.getElementById('cineMusicBtn');
+  const closeBtn=document.getElementById('cineCloseBtn');
+  const barFill=document.getElementById('cineBarFill');
+  const caption=document.getElementById('cineCaption');
+  const imgs=[...document.querySelectorAll('#auroraGallery img')].map(t=>t.dataset.full);
+  const SLIDE_MS=5500;
+  let idx=-1, playing=true, rafId=null, slideStart=0;
+
+  // ── nappe sonore générative (sans fichier, sans droit d'auteur) ──
+  let actx=null, master=null, musicOn=true, liveNodes=[];
+  function startAudio(){
+    if(actx){ if(actx.state==='suspended') actx.resume(); return; }
+    actx=new (window.AudioContext||window.webkitAudioContext)();
+    master=actx.createGain(); master.gain.value=0;
+    master.connect(actx.destination);
+    master.gain.linearRampToValueAtTime(0.09, actx.currentTime+2.5);
+
+    const delay=actx.createDelay(); delay.delayTime.value=0.45;
+    const feedback=actx.createGain(); feedback.gain.value=0.32;
+    delay.connect(feedback); feedback.connect(delay);
+    delay.connect(master);
+
+    const filter=actx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=800;
+    filter.connect(master); filter.connect(delay);
+
+    const lfo=actx.createOscillator(); lfo.frequency.value=0.045;
+    const lfoGain=actx.createGain(); lfoGain.gain.value=340;
+    lfo.connect(lfoGain); lfoGain.connect(filter.frequency); lfo.start();
+    liveNodes.push(lfo);
+
+    [110,164.81,220,261.63,329.63].forEach((f,i)=>{
+      const o=actx.createOscillator();
+      o.type=i%2===0?'sine':'triangle';
+      o.frequency.value=f*(1+(Math.random()*0.006-0.003));
+      const g=actx.createGain(); g.gain.value=0.05+Math.random()*0.02;
+      o.connect(g); g.connect(filter);
+      o.start();
+      liveNodes.push(o);
+    });
+  }
+  function stopAudio(){
+    if(!actx) return;
+    const now=actx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(master.gain.value, now);
+    master.gain.linearRampToValueAtTime(0, now+1.1);
+    const ctxToClose=actx, nodes=liveNodes;
+    actx=null; liveNodes=[];
+    setTimeout(()=>{ nodes.forEach(o=>{try{o.stop();}catch(e){}}); ctxToClose.close(); }, 1200);
+  }
+
+  function showSlide(i){
+    idx=(i+imgs.length)%imgs.length;
+    const useA=idx%2===0;
+    const nxt=useA?imgA:imgB, cur=useA?imgB:imgA;
+    nxt.src=imgs[idx];
+    nxt.classList.remove('show','alt');
+    void nxt.offsetWidth;
+    nxt.classList.add('show');
+    if(!useA) nxt.classList.add('alt');
+    cur.classList.remove('show','alt');
+    caption.textContent=(idx+1)+' / '+imgs.length+' · Aurores boréales, Regina';
+  }
+
+  function tick(ts){
+    if(playing){
+      if(!slideStart) slideStart=ts;
+      const elapsed=ts-slideStart;
+      barFill.style.width=Math.min(100, elapsed/SLIDE_MS*100)+'%';
+      if(elapsed>=SLIDE_MS){ showSlide(idx+1); slideStart=ts; }
+    }
+    rafId=requestAnimationFrame(tick);
+  }
+
+  function open(){
+    cine.classList.add('on');
+    document.body.style.overflow='hidden';
+    showSlide(0);
+    slideStart=0; playing=true;
+    playBtn.textContent='⏸';
+    if(musicOn) startAudio();
+    rafId=requestAnimationFrame(tick);
+  }
+  function close(){
+    cine.classList.remove('on');
+    document.body.style.overflow='';
+    cancelAnimationFrame(rafId);
+    stopAudio();
+    imgA.classList.remove('show','alt'); imgB.classList.remove('show','alt');
+  }
+
+  startBtn.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  playBtn.addEventListener('click',()=>{
+    playing=!playing;
+    playBtn.textContent=playing?'⏸':'▶';
+    slideStart=0;
+  });
+  musicBtn.addEventListener('click',()=>{
+    musicOn=!musicOn;
+    musicBtn.textContent=musicOn?'🔊':'🔈';
+    if(musicOn) startAudio(); else stopAudio();
+  });
+  cine.addEventListener('click',e=>{ if(e.target===cine) close(); });
+  document.addEventListener('keydown',e=>{
+    if(!cine.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    if(e.key===' '){ e.preventDefault(); playBtn.click(); }
+    if(e.key==='ArrowRight'){ showSlide(idx+1); slideStart=0; }
+    if(e.key==='ArrowLeft'){ showSlide(idx-1); slideStart=0; }
   });
 })();
 
