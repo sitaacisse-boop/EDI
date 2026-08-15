@@ -220,18 +220,23 @@ canvas{width:100%;display:block;border-radius:8px}
 .cine-btn:hover{border-color:var(--green);color:var(--green)}
 .aurora-cine{position:fixed;inset:0;background:#04030a;display:none;z-index:300;overflow:hidden}
 .aurora-cine.on{display:block}
-.cine-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1.3s ease;will-change:opacity,transform}
-.cine-img.show{opacity:1;animation:cineKen 5.5s ease-out forwards}
-.cine-img.show.alt{animation-name:cineKenAlt}
-@keyframes cineKen{from{transform:scale(1.0) translate(0,0)}to{transform:scale(1.13) translate(-1.5%,1%)}}
-@keyframes cineKenAlt{from{transform:scale(1.06) translate(1%,-1%)}to{transform:scale(1.18) translate(-1%,1.5%)}}
-.cine-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12)}
+.cine-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;filter:blur(18px);transform:scale(1.16);transition:opacity .3s ease,filter .34s ease,transform .34s cubic-bezier(.34,.02,.4,1);z-index:1}
+.cine-img.no-anim{transition:none}
+.cine-img.show{opacity:1;animation:cineReveal 2.68s cubic-bezier(.22,.9,.32,1) forwards}
+@keyframes cineReveal{
+  0%{opacity:0;filter:blur(16px);transform:scale(1.16)}
+  14%{opacity:1;filter:blur(0);transform:scale(1)}
+  100%{opacity:1;filter:blur(0);transform:scale(1.09)}
+}
+.cine-img.exit{opacity:0;filter:blur(16px);transform:scale(1.14);transition:opacity .22s ease-in,filter .26s ease-in,transform .26s ease-in}
+.cine-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:2}
+.cine-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.12);z-index:3}
 .cine-bar-fill{height:100%;background:linear-gradient(90deg,#12e87a,#6b8fff);width:0%}
-.cine-controls{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:linear-gradient(rgba(0,0,0,.5),transparent)}
+.cine-controls{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:linear-gradient(rgba(0,0,0,.5),transparent)}
 .cine-controls .left,.cine-controls .right{display:flex;gap:12px;align-items:center}
 .cine-ico{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:background .15s;user-select:none}
 .cine-ico:hover{background:rgba(255,255,255,.18)}
-.cine-caption{position:absolute;bottom:16px;left:22px;color:#fff;opacity:.8;font-size:.72rem;font-weight:600;letter-spacing:.04em}
+.cine-caption{position:absolute;bottom:16px;left:22px;z-index:3;color:#fff;opacity:.8;font-size:.72rem;font-weight:600;letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -866,6 +871,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 <div class="aurora-cine" id="auroraCine">
   <img class="cine-img" id="cineImgA" alt="">
   <img class="cine-img" id="cineImgB" alt="">
+  <div class="cine-flash" id="cineFlash"></div>
   <div id="cineYtHolder" style="position:absolute;width:2px;height:2px;bottom:0;right:0;overflow:hidden;opacity:0;pointer-events:none"></div>
   <div class="cine-controls">
     <div class="left">
@@ -1493,8 +1499,11 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   const closeBtn=document.getElementById('cineCloseBtn');
   const barFill=document.getElementById('cineBarFill');
   const caption=document.getElementById('cineCaption');
+  const flash=document.getElementById('cineFlash');
   const imgs=[...document.querySelectorAll('#auroraGallery img')].map(t=>t.dataset.full);
-  const SLIDE_MS=5500;
+  const SONG_BPM=89.6; // tempo mesuré localement sur la piste audio
+  const BEAT_MS=60000/SONG_BPM;
+  const SLIDE_MS=BEAT_MS*4; // une mesure (4 temps) par photo
   const YT_VIDEO_ID='3Bm4fN8EXHk'; // Indila - Love Story (Epic Orchestral Version)
   let idx=-1, playing=true, rafId=null, slideStart=0;
 
@@ -1539,25 +1548,41 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(ytReady) ytPlayer.pauseVideo();
   }
 
+  // ── transition CapCut : flash blanc + zoom flouté à chaque coupe ──
   function showSlide(i){
     idx=(i+imgs.length)%imgs.length;
     const useA=idx%2===0;
     const nxt=useA?imgA:imgB, cur=useA?imgB:imgA;
-    nxt.src=imgs[idx];
-    nxt.classList.remove('show','alt');
-    void nxt.offsetWidth;
-    nxt.classList.add('show');
-    if(!useA) nxt.classList.add('alt');
-    cur.classList.remove('show','alt');
+
+    flash.style.transition='none';
+    flash.style.opacity='.88';
+    void flash.offsetWidth;
+    flash.style.transition='opacity .3s ease-out';
+    flash.style.opacity='0';
+
+    cur.classList.remove('show');
+    cur.classList.add('exit');
+
+    setTimeout(()=>{
+      nxt.src=imgs[idx];
+      nxt.classList.remove('show','exit');
+      nxt.classList.add('no-anim');
+      void nxt.offsetWidth;
+      nxt.classList.remove('no-anim');
+      requestAnimationFrame(()=>{ nxt.classList.add('show'); });
+    }, 90);
+
     caption.textContent=(idx+1)+' / '+imgs.length+' · Aurores boréales, Regina';
   }
+
+  function advance(){ showSlide(idx+1); }
 
   function tick(ts){
     if(playing){
       if(!slideStart) slideStart=ts;
       const elapsed=ts-slideStart;
       barFill.style.width=Math.min(100, elapsed/SLIDE_MS*100)+'%';
-      if(elapsed>=SLIDE_MS){ showSlide(idx+1); slideStart=ts; }
+      if(elapsed>=SLIDE_MS){ advance(); slideStart=ts; }
     }
     rafId=requestAnimationFrame(tick);
   }
@@ -1565,6 +1590,8 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   function open(){
     cine.classList.add('on');
     document.body.style.overflow='hidden';
+    [imgA,imgB].forEach(el=>{ el.classList.add('no-anim'); el.classList.remove('show','exit'); });
+    void cine.offsetWidth;
     showSlide(0);
     slideStart=0; playing=true;
     playBtn.textContent='⏸';
@@ -1576,7 +1603,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     document.body.style.overflow='';
     cancelAnimationFrame(rafId);
     stopAudio();
-    imgA.classList.remove('show','alt'); imgB.classList.remove('show','alt');
+    [imgA,imgB].forEach(el=>{ el.classList.add('no-anim'); el.classList.remove('show','exit'); });
   }
 
   startBtn.addEventListener('click', open);
