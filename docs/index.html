@@ -860,6 +860,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 <div class="aurora-cine" id="auroraCine">
   <img class="cine-img" id="cineImgA" alt="">
   <img class="cine-img" id="cineImgB" alt="">
+  <div id="cineYtHolder" style="position:absolute;width:2px;height:2px;bottom:0;right:0;overflow:hidden;opacity:0;pointer-events:none"></div>
   <div class="cine-controls">
     <div class="left">
       <div class="cine-ico" id="cinePlayBtn" title="Pause">⏸</div>
@@ -1474,7 +1475,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   });
 })();
 
-// ── DIAPORAMA CINÉMATIQUE + MUSIQUE D'AMBIANCE GÉNÉRÉE ──
+// ── DIAPORAMA CINÉMATIQUE + MUSIQUE (YouTube) ──
 (function(){
   const startBtn=document.getElementById('cineStartBtn');
   if(!startBtn) return;
@@ -1488,49 +1489,48 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   const caption=document.getElementById('cineCaption');
   const imgs=[...document.querySelectorAll('#auroraGallery img')].map(t=>t.dataset.full);
   const SLIDE_MS=5500;
+  const YT_VIDEO_ID='3Bm4fN8EXHk'; // Indila - Love Story (Epic Orchestral Version)
   let idx=-1, playing=true, rafId=null, slideStart=0;
 
-  // ── nappe sonore générative (sans fichier, sans droit d'auteur) ──
-  let actx=null, master=null, musicOn=true, liveNodes=[];
-  function startAudio(){
-    if(actx){ if(actx.state==='suspended') actx.resume(); return; }
-    actx=new (window.AudioContext||window.webkitAudioContext)();
-    master=actx.createGain(); master.gain.value=0;
-    master.connect(actx.destination);
-    master.gain.linearRampToValueAtTime(0.09, actx.currentTime+2.5);
-
-    const delay=actx.createDelay(); delay.delayTime.value=0.45;
-    const feedback=actx.createGain(); feedback.gain.value=0.32;
-    delay.connect(feedback); feedback.connect(delay);
-    delay.connect(master);
-
-    const filter=actx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=800;
-    filter.connect(master); filter.connect(delay);
-
-    const lfo=actx.createOscillator(); lfo.frequency.value=0.045;
-    const lfoGain=actx.createGain(); lfoGain.gain.value=340;
-    lfo.connect(lfoGain); lfoGain.connect(filter.frequency); lfo.start();
-    liveNodes.push(lfo);
-
-    [110,164.81,220,261.63,329.63].forEach((f,i)=>{
-      const o=actx.createOscillator();
-      o.type=i%2===0?'sine':'triangle';
-      o.frequency.value=f*(1+(Math.random()*0.006-0.003));
-      const g=actx.createGain(); g.gain.value=0.05+Math.random()*0.02;
-      o.connect(g); g.connect(filter);
-      o.start();
-      liveNodes.push(o);
+  // ── musique via lecteur YouTube caché (pas de fichier audio hébergé) ──
+  let musicOn=true, ytPlayer=null, ytReady=false, ytWantPlay=false;
+  function loadYtApi(cb){
+    if(window.YT && window.YT.Player){ cb(); return; }
+    const prevCb=window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady=function(){ if(prevCb) prevCb(); cb(); };
+    if(!document.getElementById('ytIframeApiScript')){
+      const tag=document.createElement('script');
+      tag.id='ytIframeApiScript';
+      tag.src='https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+  }
+  function ensureYtPlayer(){
+    if(ytPlayer) return;
+    loadYtApi(()=>{
+      ytPlayer=new YT.Player('cineYtHolder',{
+        videoId:YT_VIDEO_ID,
+        playerVars:{autoplay:1,mute:1,controls:0,disablekb:1,modestbranding:1,rel:0,iv_load_policy:3,loop:1,playlist:YT_VIDEO_ID},
+        events:{
+          onReady:function(e){
+            ytReady=true;
+            e.target.setVolume(35);
+            if(musicOn) e.target.unMute();
+            if(ytWantPlay) e.target.playVideo();
+          }
+        }
+      });
     });
   }
+  function startAudio(){
+    ytWantPlay=true;
+    if(!ytReady){ ensureYtPlayer(); return; }
+    if(musicOn) ytPlayer.unMute();
+    ytPlayer.playVideo();
+  }
   function stopAudio(){
-    if(!actx) return;
-    const now=actx.currentTime;
-    master.gain.cancelScheduledValues(now);
-    master.gain.setValueAtTime(master.gain.value, now);
-    master.gain.linearRampToValueAtTime(0, now+1.1);
-    const ctxToClose=actx, nodes=liveNodes;
-    actx=null; liveNodes=[];
-    setTimeout(()=>{ nodes.forEach(o=>{try{o.stop();}catch(e){}}); ctxToClose.close(); }, 1200);
+    ytWantPlay=false;
+    if(ytReady) ytPlayer.pauseVideo();
   }
 
   function showSlide(i){
