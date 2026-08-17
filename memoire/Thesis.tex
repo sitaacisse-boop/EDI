@@ -88,7 +88,7 @@ l'optimisation de la seule utilité renforce le biais majoritaire et les
 bulles de filtres. Nous abordons ce problème par le résumé de graphe sous
 contraintes EDI. Les préférences des utilisateurs sont modélisées comme un
 graphe biparti attribué et pondéré, et un algorithme de \emph{coarsening}
-glouton fusionne itérativement des noeuds utilisateurs tout en imposant
+glouton fusionne itérativement des nœuds utilisateurs tout en imposant
 trois critères structurels d'EDI : une contrainte d'écart d'équité
 ($\Delta E$), une contrainte de diversité intra-liste (ILD), et une
 contrainte d'inclusion de groupe. Plutôt que de corriger l'équité après
@@ -250,15 +250,15 @@ attribué et pondéré
 \[
   G = (U \cup I,\; E,\; w,\; s),
 \]
-où $U = \{u_1, \ldots, u_m\}$ est l'ensemble des noeuds utilisateurs, $I =
-\{i_1, \ldots, i_n\}$ est l'ensemble des noeuds items (par exemple des
+où $U = \{u_1, \ldots, u_m\}$ est l'ensemble des nœuds utilisateurs, $I =
+\{i_1, \ldots, i_n\}$ est l'ensemble des nœuds items (par exemple des
 films, des professeurs, ou des chercheurs), et $E \subseteq U \times I$
 est l'ensemble des arêtes. Une arête $(u, i) \in E$ existe si et seulement
 si l'utilisateur $u$ a noté l'item $i$. La fonction de poids $w : E
 \rightarrow [1, 5]$ donne la note attribuée par $u$ à $i$. L'attribut
-sensible $s$ est défini sur les noeuds utilisateurs dans les configurations
+sensible $s$ est défini sur les nœuds utilisateurs dans les configurations
 d'\emph{équité côté utilisateur} ($s : U \rightarrow \{F, M\}$, par
-exemple MovieLens, libimseti) ou sur les noeuds items dans les
+exemple MovieLens, libimseti) ou sur les nœuds items dans les
 configurations d'\emph{équité côté item} ($s : I \rightarrow \{F, M\}$,
 par exemple Rate My Professors, OpenAlex), où $\{F, M\}$ désigne les deux
 groupes de genre. Le graphe est biparti : les arêtes relient uniquement
@@ -286,10 +286,10 @@ proposée dans ce mémoire.
 Le résumé de graphe réduit un grand graphe à une représentation plus
 petite qui préserve certaines propriétés sélectionnées de l'original. Nous
 nous concentrons sur la famille du regroupement (ou agrégation), dans
-laquelle les noeuds sont fusionnés en \emph{super-noeuds} selon leur
+laquelle les nœuds sont fusionnés en \emph{super-nœuds} selon leur
 similarité, et les arêtes entre groupes sont agrégées en
 \emph{super-arêtes}~\cite{liu_graph_2018}. Le processus de fusion de
-noeuds pour obtenir un graphe plus petit est appelé \emph{coarsening}. Le
+nœuds pour obtenir un graphe plus petit est appelé \emph{coarsening}. Le
 résumé obtenu est plus petit et plus rapide à traiter, mais la fusion
 élimine nécessairement de l'information ; la question centrale est donc de
 savoir quelles propriétés le résumé doit préserver.
@@ -336,7 +336,7 @@ une opposition à laquelle nous revenons pour positionner notre approche.
 Kellerhals et Peters~\cite{kellerhals_proportional_2024} relient le
 clustering proportionnel au vote multi-gagnants et montrent que
 plusieurs notions d'équité peuvent être satisfaites simultanément ; leur
-analyse opère sur une métrique de graphe, regroupant les noeuds en
+analyse opère sur une métrique de graphe, regroupant les nœuds en
 clusters équitables --- conceptuellement proche du résumé d'un graphe de
 préférences sous garanties d'équité.
 
@@ -344,7 +344,7 @@ préférences sous garanties d'équité.
 
 Liu et al.~\cite{liu_graph_2018} fournissent la revue de référence du
 domaine et organisent les méthodes en quatre familles : regroupement
-(fusion de noeuds en super-noeuds), compression de bits,
+(fusion de nœuds en super-nœuds), compression de bits,
 simplification/parcimonisation, et approches fondées sur l'influence.
 Leur constat central : il n'existe pas de définition unique d'un
 \emph{bon} résumé, sa qualité dépendant de l'objectif visé --- une
@@ -376,13 +376,13 @@ montrent que les graphes posent des défis d'équité absents des données
 i.i.d. (biais structurel par homophilie) ; parmi leurs techniques de
 mitigation, l'\emph{edge rewiring} est la seule à agir sur la structure
 du graphe comme AURORA --- mais en ajoutant/retirant des arêtes, alors que
-nous réduisons le graphe par fusion de noeuds.
+nous réduisons le graphe par fusion de nœuds.
 
 \subsection{Choix Social pour la Recommandation Sensible à l'Équité}
 
 Aird et al.~\cite{aird_exploring_2023} introduisent SCRUF-D : chaque
 préoccupation d'équité y est modélisée comme un agent qui vote (Borda,
-Copeland, Ranked Pairs) aux côtés du recommandeur de base pour produire
+Copeland, Ranked Pairs) aux côtés du système de recommandation de base pour produire
 le classement final. Une extension~\cite{aird_social_2024} généralise ce
 cadre à l'équité hétérogène. C'est le travail conceptuellement le plus
 proche d'AURORA, et pourtant fondamentalement différent : SCRUF-D agit au
@@ -491,7 +491,7 @@ l'ensemble des utilisateurs du graphe.
 Plutôt que d'imposer l'EDI comme une correction a posteriori sur un
 classement déjà calculé, notre approche intègre la préservation de l'EDI
 directement dans le processus de \emph{coarsening}. Chaque fusion
-candidate de noeuds utilisateurs n'est acceptée que si le graphe résumé
+candidate de nœuds utilisateurs n'est acceptée que si le graphe résumé
 résultant maintient l'écart d'équité, la diversité intra-liste, et
 l'inclusion de groupe du graphe original dans des tolérances prescrites.
 Cette intégration structurelle garantit que l'équité n'est pas sacrifiée
@@ -500,11 +500,11 @@ progressivement réduit.
 
 \smallskip\noindent\textbf{Coarsening.}
 En partant de $G = (U \cup I, E, w, s)$, nous fusionnons itérativement des
-paires de noeuds utilisateurs en super-noeuds selon la similarité de leurs
+paires de nœuds utilisateurs en super-nœuds selon la similarité de leurs
 profils de notation. Le résultat est un graphe résumé $G' = (U' \cup I,
-E', w', s')$ avec $|U'| < |U|$, où chaque super-noeud $S \subseteq U$
+E', w', s')$ avec $|U'| < |U|$, où chaque super-nœud $S \subseteq U$
 représente un groupe d'utilisateurs originaux. Le poids agrégé du
-super-noeud $S$ vers l'item $i$ est
+super-nœud $S$ vers l'item $i$ est
 \begin{equation}
   w'(S, i) =
     \frac{\displaystyle\sum_{u \in S:\,(u,i)\in E} w(u,i)}
@@ -580,7 +580,7 @@ Si $i_1$ avait été inclus à la place --- $R' = \{i_1, i_2\}$ --- nous
 obtiendrions $\Delta E(R') = 0{,}67$ et $\mathrm{inclusion}_F(R') = 0{,}5
 \geq \alpha_F$ : un résultat nettement plus équitable. Notre
 \emph{coarsening} sous contraintes EDI détecte de telles distorsions au
-niveau structurel : toute fusion de noeuds utilisateurs qui conduirait à
+niveau structurel : toute fusion de nœuds utilisateurs qui conduirait à
 recommander $R$ plutôt que $R'$ est rejetée, car elle augmente $\Delta E$
 au-delà de la tolérance $\varepsilon_E$.
 
@@ -714,9 +714,10 @@ obtient systématiquement le meilleur $\Delta E$ parmi les méthodes qui
 distinguent réellement les groupes, confirmant qu'un post-traitement
 ciblé réduit efficacement l'écart d'équité. \textbf{AURORA} bat les trois
 règles de vote classiques (Borda, Weighted Borda, Condorcet) sur
-$\Delta E$ à chaque $k \in \{5,10,20\}$ sans jamais les dominer sur
-l'inclusion, et c'est la seule méthode à améliorer les quatre métriques
-par rapport à Borda simultanément à $k=10$. Sur l'ILD, elle dépasse Borda
+$\Delta E$ à chaque $k \in \{5,10,20\}$, tout en obtenant le meilleur
+score d'inclusion pour au moins un groupe à chaque $k$ ; c'est la seule
+méthode à améliorer les quatre métriques par rapport à Borda
+simultanément à $k=10$. Sur l'ILD, elle dépasse Borda
 et Condorcet à presque tous les $k$ (seule exception : $k=5$, où
 Condorcet est légèrement au-dessus), et rattrape Fair Re-rank à $k=20$
 (0,462 contre 0,427) sans y parvenir à $k=5$ et $k=10$. Enfin, le taux de
@@ -1015,7 +1016,7 @@ vers l'équilibrage entre groupes plutôt que la seule minimisation de
 $\Delta E$ (figure~\ref{fig:comparison1m}).
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.4\textwidth]{fig_comparison_100k_1m}
+ \includegraphics[width=\textwidth]{fig_comparison_100k_1m}
 \caption{Comparaison côte à côte de $\Delta E$ et de l'ILD entre
 MovieLens 100k et 1M, pour les six méthodes à $k \in \{10, 20\}$ (ligne
 du haut : $k=10$ ; ligne du bas : $k=20$). Les barres claires désignent
@@ -1032,7 +1033,7 @@ utilisateur d'une manière qui préserve explicitement l'équité, la
 diversité et l'inclusion. Nous avons représenté les préférences comme un
 graphe biparti attribué et pondéré, et proposé AURORA, un algorithme de
 \emph{coarsening} sous contraintes EDI qui intègre l'équité directement
-dans la structure du graphe : chaque fusion candidate de noeuds
+dans la structure du graphe : chaque fusion candidate de nœuds
 utilisateurs n'est acceptée que si le graphe résumé résultant maintient
 l'écart d'équité, la diversité intra-liste, et l'inclusion de groupe de
 l'original dans des tolérances prescrites. Cette approche structurelle
@@ -1082,7 +1083,7 @@ exemple le genre combiné à l'âge ou à l'occupation) ; adapter le
 processus de \emph{coarsening} statique à des graphes de préférences
 dynamiques ou en flux continu ; dériver les tolérances $\varepsilon_E$,
 $\varepsilon_D$, $\varepsilon_I$ et le budget de fusion à partir d'un
-critère principié --- tel qu'une analyse de front de Pareto ou une
+critère théoriquement fondé --- tel qu'une analyse de front de Pareto ou une
 séparation de validation dédiée --- plutôt que d'un balayage de
 robustesse empirique ; comprendre pourquoi Fair Re-rank dépasse AURORA
 sur MovieLens~1M mais pas sur les jeux de données plus petits, afin de
