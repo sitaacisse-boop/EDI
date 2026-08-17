@@ -344,7 +344,7 @@ canvas{width:100%;display:block;border-radius:8px}
         Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : une coarsenisation de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
       </p>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
-        Notre méthode améliore simultanément les 4 métriques EDI (ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑) par rapport à Borda <strong>et</strong> Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée en section 5.5 (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
+        Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée en section 5.5 (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
       </p>
     </div>
 
@@ -357,7 +357,7 @@ canvas{width:100%;display:block;border-radius:8px}
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
         <div style="font-size:.68rem;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Graphe & Calcul</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Animation du coarsening, définition formelle des métriques EDI, exemples pas-à-pas.</div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Figure du coarsening, définition formelle des métriques EDI, exemples pas-à-pas.</div>
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
         <div style="font-size:.68rem;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Résultats</div>
@@ -490,6 +490,32 @@ python run_openalex.py           # OpenAlex</div>
       </table>
     </div>
     <p style="font-size:.68rem;color:var(--t3);margin-top:10px">Ensemble, les 4 corpus couvrent la diagonale complète : domaine, côté du graphe où le biais se loge, et sévérité du déséquilibre — de quoi vérifier qu'AURORA généralise plutôt que de sur-performer sur un seul cas favorable.</p>
+  </div>
+
+  <div style="margin-top:14px">
+    <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:10px">Ce que chaque corpus apporte au papier</div>
+
+    <div class="finding fk">
+      <h3>MovieLens — la comparabilité</h3>
+      <p>Le benchmark standard du domaine RecSys : n'importe quel relecteur peut confronter ces résultats à des dizaines d'autres papiers publiés. Les deux échelles (943 et 6 040 utilisateurs) répondent par avance à la question systématique « et à l'échelle, ça tient ? ».</p>
+    </div>
+
+    <div class="finding fw">
+      <h3>libimseti.cz — l'honnêteté qui rend le papier crédible</h3>
+      <p>Un papier où la méthode gagne partout est suspect. En montrant un cas où AURORA n'améliore rien — et en l'expliquant par la théorie (Yao &amp; Huang, 2017, sur les limites de la parité démographique) — cette faiblesse assumée devient une preuve de rigueur plutôt qu'un angle mort.</p>
+    </div>
+
+    <div class="finding fg">
+      <h3>Rate My Professors — l'élargissement de la portée</h3>
+      <p>Premier test de l'<em>item-side equity</em> : la méthode ne se limite pas à corriger un biais côté utilisateur, elle généralise à l'autre grande famille de biais. Le résultat (5,6× plus de diversité que Borda) est aussi le plus spectaculaire du lot.</p>
+    </div>
+
+    <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
+      <h3>OpenAlex — l'enjeu réel</h3>
+      <p>Connecté à un problème documenté et concret (le sous-représentation des femmes en IA/ML), ce corpus donne au papier un impact au-delà des métriques abstraites — et produit le meilleur ΔE de toutes les méthodes testées, le résultat le plus fort à mettre en avant.</p>
+    </div>
+
+    <p style="font-size:.7rem;color:var(--t3);margin-top:4px">Chaque corpus répond par avance à une objection standard de relecteur — comparabilité, honnêteté sur les limites, généralité, enjeu réel — ce qui en fait une stratégie de défense du papier construite dès le choix des données.</p>
   </div>
 </div>
 
@@ -824,31 +850,38 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
   <div class="card" style="margin-bottom:16px">
     <div class="card-title">L'acronyme</div>
+    <div style="text-align:center;margin-bottom:14px;padding:16px 20px;background:rgba(18,232,122,.06);border:1px solid rgba(18,232,122,.25);border-radius:12px">
+      <div style="font-size:1.4rem;font-weight:900;letter-spacing:.1em;color:var(--green);text-shadow:0 0 24px rgba(18,232,122,.5);margin-bottom:8px">AURORA</div>
+      <div style="font-size:.82rem;color:var(--t2);line-height:1.7;letter-spacing:.01em">
+        <span style="color:var(--green);font-weight:900;font-size:1.05em">A</span>ttributed
+        <span style="color:var(--green);font-weight:900;font-size:1.05em">U</span>nified
+        g<span style="color:var(--green);font-weight:900;font-size:1.05em">R</span>aph
+        c<span style="color:var(--green);font-weight:900;font-size:1.05em">O</span>arsening
+        for equitable
+        <span style="color:var(--green);font-weight:900;font-size:1.05em">R</span>ecommend<span style="color:var(--green);font-weight:900;font-size:1.05em">A</span>tion
+      </div>
+    </div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      <strong style="color:var(--green)">AURORA</strong> — <em>Attributed Unified gRaph cOarsening for equitable RecommendAtion</em>.
-      La méthode résume (coarsening) un graphe biparti attribué de préférences en super-nœuds, sous contrainte de préserver l'équité, la diversité et l'inclusion.
-      C'est le fil rouge de tout ce site : chaque onglet, du Graphe à la Conclusion, mesure une facette de cette même idée.
+      La méthode résume (coarsening) un graphe biparti de préférences en super-nœuds, en garantissant que cette réduction préserve l'équité, la diversité et l'inclusion. C'est le principe qui traverse tout le site : chaque onglet, du Graphe à la Conclusion, mesure une facette de cette même idée.
     </p>
   </div>
 
   <div class="card" style="margin-bottom:20px;border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.05)">
     <div class="card-title" style="color:var(--blue)">Le clin d'œil</div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      Le nom n'est pas qu'un acronyme choisi pour faire joli. Pendant mon séjour de recherche à l'<strong style="color:var(--t1)">University of Regina</strong>,
-      avec le Prof. Malek Mouhoub, j'ai eu la chance de voir de vraies aurores boréales dans le ciel de la Saskatchewan — quelque chose que je n'avais
-      jamais vu avant. Entre deux sessions à calibrer des tolérances ε et à débugger des fusions de super-nœuds, ces nuits-là m'ont rappelé pourquoi ce
-      nom collait bien à la méthode : quelque chose d'invisible qui, sous certaines conditions, révèle une structure éclatante et diverse — un peu comme
-      le graphe de préférences une fois recomposé sous contrainte d'équité. Voici quelques photos prises sur place.
+      Le nom n'est pas qu'un acronyme technique. Pendant mon séjour de recherche à l'<strong style="color:var(--t1)">University of Regina</strong>,
+      j'ai eu la chance d'assister à une soirée d'aurores boréales avec d'autres personnes, dans le ciel de la Saskatchewan — un moment magnifique.
+      Ça m'a donné envie que le nom de la méthode y fasse écho : AURORA, comme ce phénomène qui rend visible une structure lumineuse là où le ciel
+      semblait vide l'instant d'avant. Voici quelques photos prises ce soir-là.
     </p>
   </div>
 
   <div class="card" style="margin-bottom:20px;border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.05)">
     <div class="card-title" style="color:var(--green)">Une lumière, pas un effacement</div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      Une aurore boréale n'efface rien du ciel qu'elle traverse — elle révèle une structure invisible et équilibrée, à travers une lumière qui
-      n'apparaît que si les bonnes conditions sont réunies. AURORA fonctionne sur le même principe : elle ne simplifie jamais les préférences en
-      écrasant leurs différences, elle les recompose sous contrainte d'équité, de diversité et d'inclusion — une lumière posée sur les données,
-      pas une lumière qui les efface.
+      Une aurore boréale ne modifie pas le ciel qu'elle traverse : elle rend visible une structure qui existait déjà, sous certaines conditions.
+      AURORA suit la même logique — la méthode ne simplifie pas les préférences des utilisateurs en effaçant leurs différences, elle les réorganise
+      sous contrainte d'équité, de diversité et d'inclusion. La structure d'origine reste là ; elle est simplement recomposée pour rester lisible.
     </p>
   </div>
 
