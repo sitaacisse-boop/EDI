@@ -56,11 +56,11 @@ Department of Computer Science, University of Regina, Regina, SK, Canada\\
 Aggregating the preferences of diverse user groups into a collective outcome
 raises fundamental challenges of equity, diversity, and inclusion (EDI):
 classical aggregation rules such as Borda and Condorcet have no mechanism
-to prevent results from systematically favouring majority groups, collapsing
+to prevent results from systematically favoring majority groups, collapsing
 onto homogeneous items, or under-representing minorities. These tensions
-surface concretely in group recommendation, where optimising for utility
+surface concretely in group recommendation, where optimizing for utility
 alone entrenches majority bias and filter bubbles. We address this problem
-through EDI-constrained graph summarization. User preferences are modelled
+through EDI-constrained graph summarization. User preferences are modeled
 as a weighted attributed bipartite graph, and a greedy coarsening algorithm
 iteratively merges user nodes while enforcing three structural EDI criteria:
 an equity gap constraint ($\Delta E$), an intra-list diversity constraint
@@ -84,7 +84,7 @@ achieves the lowest equity gap ($\Delta E = 0.051$) on OpenAlex, where
 Borda-based methods recommend zero female authors. On libimseti.cz, the
 only dataset where the sensitive attribute is present on both sides of the
 bipartite graph, no method reduces the equity gap, a limitation we
-analyse and connect to prior findings that demographic parity is not
+analyze and connect to prior findings that demographic parity is not
 always an appropriate target when preferences genuinely differ across
 groups. These results demonstrate that embedding EDI constraints into
 aggregation structure yields more robust fairness--diversity trade-offs
@@ -136,7 +136,7 @@ In this paper, we address this gap. We represent user preferences as a
 weighted attributed bipartite graph and propose AURORA (\textit{Attributed Unified gRaph cOarsening
 for equitable RecommendAtion}), an approach that aggregates
 preferences through graph summarization under EDI constraints: instead of merging nodes solely
-to minimise structural error, we constrain the summarisation so as to bound
+to minimize structural error, we constrain the summarization so as to bound
 the degradation of equity, diversity, and inclusion. Our main objective is
 to construct a summary that reduces the size of the preference graph while
 preserving these three properties, and to compare it against five classical
@@ -148,7 +148,7 @@ Professors), and academic authorship in AI/ML/CS (OpenAlex, 2018--2023)
 --- using gender as the sensitive attribute in all cases, applied either
 to users (user-side equity) or to recommended items (item-side equity).
 
-The remainder of this paper is organised as follows. Section~2 introduces
+The remainder of this paper is organized as follows. Section~2 introduces
 the necessary background. Section~3 reviews related work. Section~4 presents
 our proposed methodology. Section~5 reports the experimental evaluation,
 and Section~6 concludes.
@@ -188,7 +188,7 @@ of many users into a single collective outcome, typically a ranking or a
 top-$k$ set of items~\cite{ricci2011recommender}. Classical aggregation
 rules provide our baselines. The \emph{average score} ranks items by their
 mean rating; the \emph{Borda count} converts each user's ratings into ranks
-and sums them; \emph{Weighted Borda} normalises Borda scores by group size
+and sums them; \emph{Weighted Borda} normalizes Borda scores by group size
 to compensate for demographic imbalances; and the \emph{Condorcet} method
 compares items pairwise, an item winning if a majority of users prefer it.
 None of these rules explicitly controls EDI during aggregation, which
@@ -210,7 +210,7 @@ should preserve.
 
 We consider three distinct notions, jointly referred to as EDI. \emph{Equity}
 refers to the fair treatment of groups defined by the sensitive attribute,
-so that no group is systematically favoured or disadvantaged by the collective
+so that no group is systematically favored or disadvantaged by the collective
 outcome --- whether the group is defined on users (user-side equity) or on
 recommended items (item-side equity). \emph{Diversity} refers to the variety
 of the recommended items, avoiding lists dominated by a single type or by
@@ -218,7 +218,7 @@ the most popular items. \emph{Inclusion} refers to ensuring that minority
 groups are represented in the outcome at least in proportion to their size.
 These three notions are distinct and can be in tension: improving one may
 degrade another. Our work treats them as properties to be preserved when
-summarising the preference graph, and the precise metrics used to quantify
+summarizing the preference graph, and the precise metrics used to quantify
 them are defined in Section~4.
 
 
@@ -555,11 +555,11 @@ We use $k = 10$.
 We compare our EDI-constrained summarization against five baselines:
 (1)~\textbf{Average Score}, which ranks items by their mean rating;
 (2)~\textbf{Borda Count}, which converts each user's ratings into ranks
-and sums them; (3)~\textbf{Weighted Borda}, which normalises Borda scores
+and sums them; (3)~\textbf{Weighted Borda}, which normalizes Borda scores
 by group size to compensate for demographic imbalances; (4)~\textbf{Condorcet},
 which ranks items by pairwise majority preference; and (5)~\textbf{Fair Re-rank},
 a post-processing baseline that greedily re-ranks the top-40 Borda candidates
-to maximise the sum of group inclusion scores while minimising the equity gap.
+to maximize the sum of group inclusion scores while minimizing the equity gap.
 None of the first four rules explicitly controls EDI during aggregation;
 Fair Re-rank addresses EDI as a post-hoc correction.
 
@@ -672,7 +672,7 @@ size, whereas AURORA requires no such explicit demographic reweighting of
 the aggregation rule itself. On ILD specifically, AURORA
 outperforms Borda and Condorcet at every $k$, with the single exception of
 $k=5$, where Condorcet is marginally higher (0.340 vs.\ 0.330); against
-Fair Re-rank, AURORA's advantage only materialises at $k=20$ (0.462 vs.\
+Fair Re-rank, AURORA's advantage only materializes at $k=20$ (0.462 vs.\
 0.427), while Fair Re-rank retains a higher ILD at $k=5$ and $k=10$. Finally,
 the compression ratio of our method is governed by the merge budget rather
 than by $k$: with a budget expressed as a fixed fraction of $|U|$ (see
@@ -732,12 +732,12 @@ whereas Fair Re-rank (0.144) is a clear outlier among the non-degenerate
 methods. AURORA achieves the best ILD among all methods that produce
 non-trivial inclusion (0.761, ahead of Borda, Weighted Borda, and Condorcet,
 all around 0.744--0.746), but does not reduce $\Delta E$ relative to Borda.
-We analyse this limitation in detail in
+We analyze this limitation in detail in
 Section~\ref{sec:libimseti-limitation}: unlike the other three
 datasets, libimseti is the only corpus where the sensitive attribute is
 present on \emph{both} sides of the bipartite graph, and we show that the
 persistently high $\Delta E$ reflects a genuine difference in rating
-behaviour between groups rather than an algorithmic shortcoming that
+behavior between groups rather than an algorithmic shortcoming that
 compression could fix. A robustness sweep over the merge budget (30\%--60\%
 of $|U|$) confirms that this limitation is not a matter of under- or
 over-compression: $\Delta E$ remains high across the whole range without
@@ -753,7 +753,7 @@ further from the near-zero gap achieved by Average Score and Fair Re-rank
 equity for a large gain in diversity and representation on this dataset.
 Fair Re-rank raises $\mathrm{frac}_F$ to 0.50 but at the
 cost of dramatically lower diversity (ILD\,$=$\,0.196), confirming that
-post-hoc re-ranking cannot jointly optimise diversity and item-side
+post-hoc re-ranking cannot jointly optimize diversity and item-side
 inclusion the way structural coarsening does.
 
 On \textbf{OpenAlex} (Table~\ref{tab:oalex}), the item-side imbalance is
@@ -764,7 +764,7 @@ while our method achieves the lowest equity gap ($\Delta E = 0.051$, a 28\%
 improvement over Average Score's 0.071) while maintaining comparable female
 representation ($\mathrm{frac}_F = 0.197$). Here, unlike on RMP, AURORA
 improves equity \emph{and} maintains diversity simultaneously, confirming
-that EDI-constrained graph coarsening generalises meaningfully to item-side
+that EDI-constrained graph coarsening generalizes meaningfully to item-side
 equity settings, though its benefits are domain-dependent rather than
 uniform.
 
@@ -947,7 +947,7 @@ work (Section~6).
 
 \subsection*{Cross-Domain Summary}
 
-Table~\ref{tab:synthesis} summarises the best-performing method per
+Table~\ref{tab:synthesis} summarizes the best-performing method per
 metric and dataset at $k=10$ (or the reported $k$ for single-$k$
 datasets), excluding Average Score where it is degenerate. AURORA leads
 on diversity on MovieLens 100k and on both diversity and representation
@@ -1033,12 +1033,12 @@ candidates has considerably more room to satisfy both groups than on the
 $k=20$, where it achieves the highest $\mathrm{inc}_F$ of any method (0.294,
 versus 0.290 for Fair Re-rank and 0.284--0.287 for the voting rules),
 suggesting that its advantage is concentrated in balancing inclusion across
-groups rather than in minimising $\Delta E$ or maximising ILD outright at
+groups rather than in minimizing $\Delta E$ or maximizing ILD outright at
 this scale. Figure~\ref{fig:comparison1m} shows the side-by-side comparison of $\Delta E$ and
 ILD across all methods at $k \in \{10, 20\}$.
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.4\textwidth]{fig_comparison_100k_1m}
+ \includegraphics[width=\textwidth]{fig_comparison_100k_1m}
 \caption{Side-by-side comparison of $\Delta E$ and ILD between MovieLens
 100k and 1M, for all six methods at $k \in \{10, 20\}$ (top row: $k=10$;
 bottom row: $k=20$). Lighter bars denote MovieLens 100k, darker bars
@@ -1070,7 +1070,7 @@ universal: on the larger MovieLens~1M, Fair Re-rank dominates AURORA on both
 axes, which we attribute to its larger candidate pool for re-ranking; on
 libimseti, where the sensitive attribute sits on both sides of the bipartite
 graph, no method --- including AURORA --- meaningfully reduces the equity gap,
-a limitation traced to a genuine difference in rating behaviour between groups
+a limitation traced to a genuine difference in rating behavior between groups
 rather than an algorithmic shortcoming. On the item-side datasets, AURORA shows
 two distinct patterns: on Rate My Professors it trades equity for a large gain
 in diversity (ILD\,$=$\,0.808) and female representation ($\mathrm{frac}_F=60\%$),
@@ -1083,7 +1083,7 @@ uniformly better": embedding EDI constraints into the coarsening structure
 consistently outperforms unconstrained voting rules, and matches or improves
 on post-hoc re-ranking on smaller or item-side datasets, but a sufficiently
 large user base or a domain with reciprocal, attribute-dependent preferences
-can favour a post-hoc approach or expose a genuine limit of any single-ranking
+can favor a post-hoc approach or expose a genuine limit of any single-ranking
 aggregation framework. This nuance is itself a contribution: it clarifies the
 conditions under which structural, constraint-based summarization is
 preferable to re-ranking, rather than asserting unconditional superiority.
@@ -1096,7 +1096,7 @@ $\varepsilon_I$ and the merge budget from a principled criterion --- such as a
 Pareto-frontier analysis or a held-out validation split --- rather than an
 empirical robustness sweep; understanding why Fair Re-rank overtakes AURORA on
 MovieLens~1M but not on smaller datasets, to clarify the boundary conditions
-favouring each mechanism; on Rate My Professors specifically, designing a merge
+favoring each mechanism; on Rate My Professors specifically, designing a merge
 criterion that accounts for the downstream item distribution rather than
 rating-profile similarity alone, to narrow the equity--diversity trade-off
 without sacrificing representation gains; and replacing the greedy merge
