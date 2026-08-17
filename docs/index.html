@@ -139,7 +139,7 @@ canvas{width:100%;display:block;border-radius:8px}
 .acc-item.open .acc-chev{transform:rotate(180deg)}
 .acc-body{display:none;padding:18px 20px;background:var(--s2);border-top:1px solid var(--bd)}
 .acc-item.open .acc-body{display:block}
-.formula{font-family:"Courier New",monospace;font-size:.79rem;background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px 14px;margin:10px 0;color:var(--t2);line-height:1.8;overflow-x:auto}
+.formula{font-family:"Courier New",monospace;font-size:.79rem;background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:12px 14px;margin:10px 0;color:var(--t2);line-height:1.8;overflow-x:auto;white-space:pre-wrap}
 .step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
 .step-n{width:22px;height:22px;border-radius:50%;flex-shrink:0;background:var(--blue);color:#fff;font-size:.69rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .step-t{font-size:.8rem;color:var(--t2);line-height:1.6}
@@ -315,7 +315,7 @@ canvas{width:100%;display:block;border-radius:8px}
         <span style="color:var(--green)">dans les systèmes de recommandation sociale</span>
       </h1>
       <p style="font-size:.92rem;color:var(--t2);line-height:1.7;max-width:580px;margin:0 auto 20px">
-        Ce tableau de bord présente une méthode originale basée sur la <strong style="color:var(--t1)">coarsenisation de graphe</strong> pour améliorer simultanément l'équité (ΔE), la diversité (ILD) et l'inclusion dans les listes de recommandation — validée sur <strong style="color:var(--t1)">4 corpus distincts</strong>.
+        Ce tableau de bord présente une méthode originale basée sur le <strong style="color:var(--t1)">coarsening de graphe</strong> pour améliorer simultanément l'équité (ΔE), la diversité (ILD) et l'inclusion dans les listes de recommandation — validée sur <strong style="color:var(--t1)">4 corpus distincts</strong> (5 jeux de données au total, MovieLens étant testé à deux échelles).
       </p>
       <!-- KPIs globaux -->
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
@@ -341,10 +341,10 @@ canvas{width:100%;display:block;border-radius:8px}
         </div>
       </div>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:10px">
-        Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : une coarsenisation de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
+        Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : un coarsening de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
       </p>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
-        Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée en section 5.5 (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
+        Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée dans l'onglet libimseti.cz (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
       </p>
     </div>
 
@@ -525,7 +525,7 @@ python run_openalex.py           # OpenAlex</div>
   <div class="tiles">
     <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">100k</div><div class="tile-sub">MovieLens 100k</div></div>
     <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">943</div><div class="tile-sub">273F · 670 M</div></div>
-    <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">1682</div><div class="tile-sub">items distincts</div></div>
+    <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">1 682</div><div class="tile-sub">items distincts</div></div>
     <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.53</div><div class="tile-sub">écart-type  = 1.13</div></div>
     <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">6.3%</div><div class="tile-sub">matrice creuse</div></div>
   </div>
@@ -554,11 +554,11 @@ python run_openalex.py           # OpenAlex</div>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Le graphe biparti G = (U I, E, w, s)</div>
+    <div class="card-title">Le graphe biparti G = (U ∪ I, E, w, s)</div>
     <div class="info-grid">
       <div class="info-item"><strong>U</strong> — 943 nœuds utilisateurs, étiquetés F ou M</div>
-      <div class="info-item"><strong>I</strong> — 1682 nœuds items (films)</div>
-      <div class="info-item"><strong>E</strong> — 100 000 arêtes (u,i)  E si u a noté i</div>
+      <div class="info-item"><strong>I</strong> — 1 682 nœuds items (films)</div>
+      <div class="info-item"><strong>E</strong> — 100 000 arêtes (u,i) ∈ E si u a noté i</div>
       <div class="info-item"><strong>w(u,i)</strong> — poids = note entière 1–5</div>
       <div class="info-item"><strong>s(u)</strong> — attribut sensible : F ou M</div>
       <div class="info-item"><strong>Densité</strong> — 6.3% : graphe creux, typique en reco</div>
@@ -656,7 +656,7 @@ python run_openalex.py           # OpenAlex</div>
 
   <!-- Structure des graphes — tous les datasets -->
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Structure des graphes bipartis G = (U I, E) — les 4 corpus</div>
+    <div class="card-title">Structure des graphes bipartis G = (U ∪ I, E) — les 4 corpus</div>
     <p style="font-size:.78rem;color:var(--t2);line-height:1.6;margin-bottom:12px">
       Chaque corpus définit un graphe biparti différent. <strong>U</strong> = nœuds utilisateurs (ou venues), <strong>I</strong> = nœuds items, <strong>E</strong> = arêtes pondérées par la note. La densité mesure la fraction d'arêtes réellement présentes sur l'ensemble des paires possibles.
     </p>
@@ -711,7 +711,7 @@ python run_openalex.py           # OpenAlex</div>
 utility_M(R) = ⅙·[(w(u₂,i₂)+w(u₂,i₃)) + (w(u₃,i₂)+w(u₃,i₃)) + (w(u₄,i₂)+w(u₄,i₃))] = 26/6 = 4.33
 ΔE(R) = |1.0 − 4.33| = <strong>3.33</strong></div>
     <p style="font-size:.83rem;color:var(--t2);line-height:1.7">Pire : u₁ ne trouve <strong>aucun</strong> film noté ≥4 dans R → inclusion_F(R) = 0 &lt; α_F = 0.25, alors que inclusion_M(R) = 0.83 &gt; α_M = 0.75. L'utilisatrice F est totalement exclue des items pertinents du top-2.</p>
-    <div class="res-box">Avec R' = {i₁, i₂} à la place : ΔE(R') = 0.67 et inclusion_F(R') = 0.5 ≥ α_F — un résultat nettement plus équitable. Notre coarsenisation sous contraintes EDI détecte ce type de distorsion au niveau structurel : toute fusion de nœuds utilisateurs qui mènerait à recommander R plutôt que R' est rejetée, car elle ferait dépasser à ΔE sa tolérance ε_E.</div>
+    <div class="res-box">Avec R' = {i₁, i₂} à la place : ΔE(R') = 0.67 et inclusion_F(R') = 0.5 ≥ α_F — un résultat nettement plus équitable. Notre coarsening sous contraintes EDI détecte ce type de distorsion au niveau structurel : toute fusion de nœuds utilisateurs qui mènerait à recommander R plutôt que R' est rejetée, car elle ferait dépasser à ΔE sa tolérance ε_E.</div>
   </div>
 
   <div class="acc">
@@ -719,8 +719,8 @@ utility_M(R) = ⅙·[(w(u₂,i₂)+w(u₂,i₃)) + (w(u₃,i₂)+w(u₃,i₃)) +
       <div class="acc-head"><span>ΔE — Équité entre groupes</span><span class="acc-chev"></span></div>
       <div class="acc-body">
         <div class="step"><div class="step-n">1</div><div class="step-t">Pour chaque groupe, calculer la <strong>satisfaction moyenne</strong> sur les k films recommandés R.</div></div>
-        <div class="formula">utility_F = _{uG_F} _{iR} w(u,i) / (|G_F| × k)
-utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
+        <div class="formula">utility_F = Σ_{u∈G_F} Σ_{i∈R} w(u,i) / (|G_F| × k)
+utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <div class="step"><div class="step-n">2</div><div class="step-t">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></div></div>
         <div class="formula">ΔE = |utility_F − utility_M| = |0.90 − 1.32| = <strong>0.4249</strong></div>
         <div class="res-box">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.4228 (k=10).</div>
@@ -729,11 +729,11 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
     <div class="acc-item">
       <div class="acc-head"><span>ILD —Diversité intra-liste</span><span class="acc-chev"></span></div>
       <div class="acc-body">
-        <div class="step"><div class="step-n">1</div><div class="step-t">Chaque film i → <strong>vecteur v_i  ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</div></div>
+        <div class="step"><div class="step-n">1</div><div class="step-t">Chaque film i → <strong>vecteur v_i ∈ ℝ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</div></div>
         <div class="step"><div class="step-n">2</div><div class="step-t">Pour chaque paire (i,j) du top-k, calculer la <strong>dissimilarité cosinus</strong> :</div></div>
-        <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (v_i × v_j)</div>
-        <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>.ILD = moyenne des dissimilarités.</div></div>
-        <div class="formula">ILD(R) = 2/(k·(k−1)) × _{ij R} dist(i,j)</div>
+        <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (‖v_i‖ × ‖v_j‖)</div>
+        <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>. ILD = moyenne des dissimilarités.</div></div>
+        <div class="formula">ILD(R) = 2/(k·(k−1)) × Σ_{i,j∈R} dist(i,j)</div>
         <div class="res-box">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.391 (+10.6%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</div>
       </div>
     </div>
@@ -741,7 +741,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       <div class="acc-head"><span>inclusion_g — Représentation du groupe g</span><span class="acc-chev"></span></div>
       <div class="acc-body">
         <div class="step"><div class="step-n">1</div><div class="step-t">Pour u g : compter les films du top-k notés <strong>≥ θ = 4.0</strong> par u.</div></div>
-        <div class="formula">inclusion_g(R) = (1/|G_g|) × _{uG_g} |{i R : w(u,i) ≥ θ}| / k</div>
+        <div class="formula">inclusion_g(R) = (1/|G_g|) × Σ_{u∈G_g} |{i∈R : w(u,i) ≥ θ}| / k</div>
         <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
         <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
         <div class="res-box">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique : 0.344 vs 0.344). Fair Re-rank reste plus précis sur ΔE seul.</div>
@@ -814,7 +814,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="finding fk">
-    <h3>Notre méthode (coarsenisation) offre le meilleur équilibre équité+diversité</h3>
+    <h3>Notre méthode (coarsening) offre le meilleur équilibre équité+diversité</h3>
     <p><strong>MovieLens 100k k=20 :</strong> bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique). 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
     <br><strong>MovieLens 1M :</strong> le tableau s'inverse — Fair Re-rank domine AURORA sur <strong>ΔE et ILD à la fois</strong>, à tout k testé, pas seulement sur la diversité. Un résultat propre à ce corpus, pas un désavantage général : AURORA bat toujours les 3 méthodes de vote classiques (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient la meilleure inclusion à k=20 (inc_F=0.294).
     <br><strong>Rate My Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 30–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
@@ -824,7 +824,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fg">
     <h3>ILD — l'avantage le plus constant d'AURORA face aux méthodes de vote</h3>
-    <p>Sur la quasi-totalité des configurations testées, la coarsenisation produit une diversité supérieure à Borda et Condorcet (seule exception : MovieLens 100k à k=5, où Condorcet est très légèrement au-dessus). Face à Fair Re-rank, le résultat est plus mitigé : AURORA le bat sur RMP et libimseti, mais pas sur MovieLens 1M (à aucun k testé) ni sur MovieLens 100k à k=5/10. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque, plus robuste face aux méthodes de vote que face à un re-ranking spécialisé comme Fair Re-rank.</p>
+    <p>Sur la quasi-totalité des configurations testées, le coarsening produit une diversité supérieure à Borda et Condorcet (seule exception : MovieLens 100k à k=5, où Condorcet est très légèrement au-dessus). Face à Fair Re-rank, le résultat est plus mitigé : AURORA le bat sur RMP et libimseti, mais pas sur MovieLens 1M (à aucun k testé) ni sur MovieLens 100k à k=5/10. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque, plus robuste face aux méthodes de vote que face à un re-ranking spécialisé comme Fair Re-rank.</p>
   </div>
 
   <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
@@ -984,7 +984,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
       <div style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;color:var(--t3)">
         <span>Grand = k=20 · Moyen = k=10 · Petit = k=5</span>
         <span>- - -Trajectoire k=5→10→20 par méthode</span>
-        <span style="margin-left:auto"> ouvert = 100k ·  plein = 1M (mode "Les deux")</span>
+        <span style="margin-left:auto">○ ouvert = 100k · ● plein = 1M (mode "Les deux")</span>
       </div>
       <div style="margin-top:10px;padding:9px 13px;background:rgba(176,122,255,.07);border-left:3px solid var(--purple);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
         <strong style="color:var(--t1)">Projection 2D sur MovieLens uniquement.</strong>Pour voir la projection sur <em>tous les datasets</em> (MovieLens, libimseti, RMP), voir l'onglet <strong>Pareto </strong> qui compare toutes méthodes × tous corpus sur un seul graphique.
@@ -1006,7 +1006,7 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
         <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). Sur <strong>MovieLens 100k</strong>, <strong style="color:var(--green)">AURORA k=20</strong> s'en approche le mieux. Sur <strong>MovieLens 1M</strong>, c'est <strong style="color:var(--cyan)">Fair Re-rank</strong> qui s'en approche le plus, à tout k — voir le bloc "message central" dans l'onglet Conclusion.
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
           <li>Taille du cercle = k (petit→5, moyen→10, grand→20)</li>
-          <li>Mode <em>Les deux</em> :  creux = 100k,  plein = 1M</li>
+          <li>Mode <em>Les deux</em> : ○ creux = 100k, ● plein = 1M</li>
           <li>Lignes tiretées = trajectoire de scalabilité 100k → 1M</li>
         </ul>
         <em style="font-size:.73rem;color:var(--t3)">Projection 2D d'un problème 4-objectif — inc_F/inc_M non affichés ici.</em>
@@ -1104,12 +1104,12 @@ utility_M = _{uG_M} _{iR} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-cmp">
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.07)">
     <span style="color:var(--blue);font-size:1rem;flex-shrink:0">⇄</span>
-    <span><b>Comparaison cross-dataset (k=10) :</b> toutes méthodes, tous corpus. Forme = dataset ( ML100k ·  libimseti ·  RMP) · couleur = méthode. ΔE bas + ILD haut = idéal.</span>
+    <span><b>Comparaison cross-dataset (k=10) :</b> toutes méthodes, tous corpus. Forme = dataset (○ ML100k · ◆ libimseti · ■ RMP) · couleur = méthode. ΔE bas + ILD haut = idéal.</span>
   </div>
   <div class="card" style="margin-top:4px">
     <div class="card-title">ΔE vs ILD — tous datasets, toutes méthodes, k=10</div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      Forme du marqueur = dataset ( ML100k ·  libimseti ·  RMP). Couleur = méthode.
+      Forme du marqueur = dataset (○ ML100k · ◆ libimseti · ■ RMP). Couleur = méthode.
       <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">AURORA </strong> sont plus grands et entourés d'un anneau blanc.
     </div>
     <canvas id="allCmpCanvas" style="width:100%;display:block"></canvas>
@@ -1852,7 +1852,7 @@ const GDS={
   },
   '1M':{
     infoG:'6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.',
-    infoGp:'Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6040→3020 super-nœuds (−50.0%).',
+    infoGp:'Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6 040→3 020 super-nœuds (−50.0%).',
   }
 };
 function applyGraphDS(ds){
@@ -2119,7 +2119,7 @@ function drawScatter(){
     const isDark2=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&window.matchMedia('(prefers-color-scheme:dark)').matches);
     ctx.font='bold 10px system-ui';ctx.textAlign='left';
     ctx.fillStyle=isDark2?'rgba(200,200,255,.55)':'rgba(60,40,120,.55)';
-    ctx.fillText(' = 100k    = 1M',pl+4,pt+ch-6);
+    ctx.fillText('○ = 100k   ● = 1M',pl+4,pt+ch-6);
   }
 }
 
@@ -3098,7 +3098,7 @@ function buildLibTable(){
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('libInterp').innerHTML=
-    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé dans l'onglet libimseti.cz. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus (limite structurelle confirmée par test de robustesse, cf. discussion section 5.5) : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`;
+    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé dans l'onglet libimseti.cz. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus (limite structurelle confirmée par test de robustesse, cf. discussion dans l'onglet libimseti.cz) : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`;
 }
 
 function drawLibBar(canvasId, getter, colorFn, maxVal){
@@ -3200,7 +3200,7 @@ function buildRmpTable(){
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('rmpInterp').innerHTML=
-    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>.Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.145 pour Borda — soit environ <strong>5,6× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`;
+    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.145 pour Borda — soit environ <strong>5,6× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`;
 }
 
 function drawRmpCharts(){
