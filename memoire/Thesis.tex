@@ -199,7 +199,9 @@ recherche à Regina, en Saskatchewan.}, ont été menés seule.
 À mesure que les systèmes algorithmiques médiatisent de plus en plus
 l'accès à l'information, aux opportunités et aux ressources, garantir que
 leurs résultats ne désavantagent pas systématiquement certains groupes
-est devenu une préoccupation centrale dans de nombreux domaines. Les
+est devenu une préoccupation centrale dans de nombreux domaines, du
+recrutement au crédit en passant par la curation de
+contenu~\cite{mehrabi2021survey}. Les
 systèmes de recommandation illustrent concrètement cette tension : leur
 objectif traditionnel, maximiser l'utilité prédite pour chaque
 utilisateur, tend à renforcer les items déjà populaires (effet Matthieu)
@@ -212,9 +214,11 @@ variété, et sous-représenter les minorités.
 Traiter l'EDI en recommandation nécessite d'agréger les préférences de
 nombreux utilisateurs en un résultat collectif tout en traitant les
 groupes équitablement. Les approches existantes assurent généralement
-l'équité en modifiant les préférences en entrée, en modifiant le
-classement en sortie par re-classement, ou en régularisant l'algorithme
-d'apprentissage. Le résumé de graphe, de son côté, offre un moyen
+l'équité en modifiant les préférences en entrée~\cite{kamiran2012data},
+en modifiant le
+classement en sortie par re-classement~\cite{singh2018fairness}, ou en
+régularisant l'algorithme
+d'apprentissage~\cite{zhao_fairness_2024}. Le résumé de graphe, de son côté, offre un moyen
 puissant de réduire de grands graphes de préférences en représentations
 compactes, mais il a traditionnellement été guidé par la fidélité
 structurelle ou l'efficacité, jamais par la préservation de l'équité.
@@ -761,7 +765,7 @@ Fair Re-rank   &   0,938\,s &   0,928\,s &   0,926\,s \\
 Le tableau~\ref{tab:runtime} rapporte les temps d'exécution par méthode.
 Toutes les méthodes de référence s'exécutent en moins d'une seconde,
 tandis qu'AURORA prend 3,8 à 4,0\,s sur MovieLens 100k --- environ 4 à 6
-fois plus lent que Fair Re-rank et 30 à 60 fois plus lent que Borda.
+fois plus lent que Fair Re-rank et 5 à 6 fois plus lent que Borda.
 Ce temps reste stable quel que soit $k$ (le budget de fusion, exprimé en
 fraction de $|U|$, ne dépend pas de $k$), et demeure de l'ordre de
 quelques secondes même sur un jeu de données plus grand
