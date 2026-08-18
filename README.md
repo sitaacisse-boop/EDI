@@ -18,7 +18,8 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | **Rate My Professors** | genre côté item (prof. F/M) | étudiants (venues) | 59 066 professeurs | notes de cours |
 | **OpenAlex** | genre côté item (auteur·e F/M) | 99 venues IA/ML/CS | 904 auteur·e·s | 2 124 (2018–2023) |
 
-**Tableau de bord interactif :** https://sitaacisse-boop.github.io/EDI/
+**Tableau de bord interactif (bilingue FR/EN) :** https://sitaacisse-boop.github.io/EDI/
+17 onglets — données, graphe biparti, calcul des métriques EDI, résultats par corpus, scalabilité, radar EDI, Pareto, et un onglet « Histoire d'AURORA » (origine du nom, photos d'aurores boréales prises pendant le séjour de recherche à Regina).
 
 ---
 
@@ -67,6 +68,9 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | `Phase2_ModelSpec_EN.pdf` | Model specification — English version |
 | `rechercheplan_pdf.pdf` | Plan de recherche complet (6 phases, Mai–Octobre 2026) |
 | `Bibliographie_annotee_Phase1.pdf` | Bibliographie annotée — 13 références classées en 4 axes |
+| `samplepaper_FINAL.tex` | Article scientifique complet (format Springer LNCS, 15 références, compile via `references.bib`) |
+| `memoire/Thesis.tex` | Mémoire de stage M2 DataScale (31 pages) — Contexte, Objectif, État de l'art, Approche, Validation, Conclusion, Apport personnel |
+| `references.bib` | Base bibliographique commune à l'article et au mémoire (15 entrées) |
 
 ---
 
@@ -128,7 +132,7 @@ AURORA bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD à to
 | Fair Re-rank | 0.144 | 0.719 | 0.039 | 0.024 | 0.807s |
 | AURORA | 1.232 | 0.761 | 0.148 | 0.024 | 7.1s |
 
-AURORA n'améliore aucune métrique sur ce corpus — vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, section 5.5).
+AURORA n'améliore aucune métrique sur ce corpus — vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, section 5.6 de `samplepaper_FINAL.tex`, ou l'onglet « libimseti.cz » du tableau de bord).
 
 ### Rate My Professors — équité côté item (frac_F)
 
@@ -171,7 +175,9 @@ AURORA obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'é
 | Phase 5 — Évaluation MovieLens | Juillet | ✅ Terminé | `experiments_results.json`, figures, tables, scalabilité |
 | Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` (1M, 500→6 040) + `scalability_100k_results.json` (100k, 100→943) |
 | Phase 5c — Corpus multi-domaines | Juillet | ✅ Terminé | `libimseti_results.json`, `rmp_results.json`, `openalex_results.json` |
-| Phase 6 — Article de recherche | Juillet–Août | ⏳ En cours | Paper LLNCS (Overleaf) |
+| Phase 6 — Article de recherche | Juillet–Août | ✅ Terminé | `samplepaper_FINAL.tex` (LLNCS, 15 références, Overleaf) |
+| Phase 7 — Mémoire de stage M2 | Août | ✅ Terminé | `memoire/Thesis.tex` (31 pages, 15 références) |
+| Phase 8 — Bilinguisme du tableau de bord | Août | ✅ Terminé | 17 onglets + graphiques traduits FR/EN sur https://sitaacisse-boop.github.io/EDI/ |
 
 ---
 
