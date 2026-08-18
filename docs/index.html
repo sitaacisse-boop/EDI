@@ -979,7 +979,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-viz">
   <div class="two-col" style="gap:14px">
     <div class="card">
-      <div class="card-title">Radar des métriques EDI</div>
+      <div class="card-title"><span class="i18n-fr">Radar des métriques EDI</span><span class="i18n-en">EDI metrics radar</span></div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
         <div class="ctrl-lbl" style="flex-shrink:0">k =</div>
         <div class="pills" id="radKPills">
@@ -1002,78 +1002,78 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;color:var(--t2)"><div style="width:11px;height:11px;border-radius:50%;background:#22d4f5;flex-shrink:0"></div>↗Fair Re-rank</div>
         <div style="display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:700;color:var(--t1)"><div style="width:13px;height:13px;border-radius:50%;background:#12e87a;box-shadow:0 0 8px #12e87a88;flex-shrink:0"></div>AURORA</div>
       </div>
-      <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</div>
+      <div style="margin-top:10px;font-size:.73rem;color:var(--t3);line-height:1.5"><span class="i18n-fr">Plus la surface est grande, meilleure est la méthode. Axes → mieux = vers l'extérieur.</span><span class="i18n-en">The larger the area, the better the method. Axes → better = outward.</span></div>
     </div>
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
-        <div class="card-title" style="margin-bottom:0">Projection 2D — ΔE vs ILD (MovieLens 100k et 1M, k=5/10/20)</div>
+        <div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Projection 2D — ΔE vs ILD (MovieLens 100k et 1M, k=5/10/20)</span><span class="i18n-en">2D projection — ΔE vs ILD (MovieLens 100k and 1M, k=5/10/20)</span></div>
         <div class="pills" id="vizDSPills">
           <button class="pill on" data-vds="100k">100k</button>
           <button class="pill" data-vds="1M">1M</button>
-          <button class="pill" data-vds="both">Les deux</button>
+          <button class="pill" data-vds="both"><span class="i18n-fr">Les deux</span><span class="i18n-en">Both</span></button>
         </div>
       </div>
-      <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px">Chaque cercle = une méthode × un k. Coin <strong>supérieur gauche</strong> = idéal (ΔE bas + ILD élevé). Taille = k (=20, ·=5).</div>
+      <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px"><span class="i18n-fr">Chaque cercle = une méthode × un k. Coin <strong>supérieur gauche</strong> = idéal (ΔE bas + ILD élevé). Taille = k (=20, ·=5).</span><span class="i18n-en">Each circle = one method × one k. <strong>Top-left</strong> corner = ideal (low ΔE + high ILD). Size = k (=20, ·=5).</span></div>
       <canvas id="scatterCanvas" style="width:100%;display:block"></canvas>
       <div style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;color:var(--t3)">
-        <span>Grand = k=20 · Moyen = k=10 · Petit = k=5</span>
-        <span>- - -Trajectoire k=5→10→20 par méthode</span>
-        <span style="margin-left:auto">○ ouvert = 100k · ● plein = 1M (mode "Les deux")</span>
+        <span><span class="i18n-fr">Grand = k=20 · Moyen = k=10 · Petit = k=5</span><span class="i18n-en">Large = k=20 · Medium = k=10 · Small = k=5</span></span>
+        <span><span class="i18n-fr">- - -Trajectoire k=5→10→20 par méthode</span><span class="i18n-en">- - -k=5→10→20 trajectory per method</span></span>
+        <span style="margin-left:auto"><span class="i18n-fr">○ ouvert = 100k · ● plein = 1M (mode "Les deux")</span><span class="i18n-en">○ open = 100k · ● filled = 1M ("Both" mode)</span></span>
       </div>
       <div style="margin-top:10px;padding:9px 13px;background:rgba(176,122,255,.07);border-left:3px solid var(--purple);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
-        <strong style="color:var(--t1)">Projection 2D sur MovieLens uniquement.</strong>Pour voir la projection sur <em>tous les datasets</em> (MovieLens, libimseti, RMP), voir l'onglet <strong>Pareto </strong> qui compare toutes méthodes × tous corpus sur un seul graphique.
+        <strong style="color:var(--t1)"><span class="i18n-fr">Projection 2D sur MovieLens uniquement.</span><span class="i18n-en">2D projection on MovieLens only.</span></strong><span class="i18n-fr">Pour voir la projection sur <em>tous les datasets</em> (MovieLens, libimseti, RMP), voir l'onglet <strong>Pareto </strong> qui compare toutes méthodes × tous corpus sur un seul graphique.</span><span class="i18n-en">To see the projection across <em>all datasets</em> (MovieLens, libimseti, RMP), see the <strong>Pareto</strong> tab, which compares all methods × all corpora on a single chart.</span>
       </div>
     </div>
   </div>
   <div style="margin-top:14px;padding:16px 20px;background:var(--s2);border-left:3px solid var(--blue);border-radius:0 9px 9px 0;font-size:.81rem;color:var(--t2);line-height:1.7">
     <div style="display:flex;gap:24px;flex-wrap:wrap">
       <div style="flex:1;min-width:220px">
-        <strong style="color:var(--t1)">Comment lire le Radar (gauche) :</strong>Les 4 axes = métriques EDI normalisées. Plus la surface est grande, meilleure est la méthode sur tous les critères à la fois.
+        <strong style="color:var(--t1)"><span class="i18n-fr">Comment lire le Radar (gauche) :</span><span class="i18n-en">How to read the Radar (left):</span></strong><span class="i18n-fr">Les 4 axes = métriques EDI normalisées. Plus la surface est grande, meilleure est la méthode sur tous les critères à la fois.</span><span class="i18n-en">The 4 axes = normalized EDI metrics. The larger the area, the better the method across all criteria at once.</span>
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
-          <li><b>↑ILD</b> — diversité intra-liste (vers le haut)</li>
-          <li><b>→ inc_M</b> — inclusion du groupe masculin</li>
-          <li><b>↓ Équité (1−ΔE)</b> — proche de 1 = très équitable</li>
-          <li><b>← inc_F</b> — inclusion du groupe féminin</li>
+          <li><b>↑ILD</b> — <span class="i18n-fr">diversité intra-liste (vers le haut)</span><span class="i18n-en">intra-list diversity (upward)</span></li>
+          <li><b>→ inc_M</b> — <span class="i18n-fr">inclusion du groupe masculin</span><span class="i18n-en">inclusion of the male group</span></li>
+          <li><b>↓ <span class="i18n-fr">Équité</span><span class="i18n-en">Fairness</span> (1−ΔE)</b> — <span class="i18n-fr">proche de 1 = très équitable</span><span class="i18n-en">close to 1 = very fair</span></li>
+          <li><b>← inc_F</b> — <span class="i18n-fr">inclusion du groupe féminin</span><span class="i18n-en">inclusion of the female group</span></li>
         </ul>
       </div>
       <div style="flex:1;min-width:220px">
-        <strong style="color:var(--t1)">Comment lire la Projection 2D (droite) :</strong>Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). Sur <strong>MovieLens 100k</strong>, <strong style="color:var(--green)">AURORA k=20</strong> s'en approche le mieux. Sur <strong>MovieLens 1M</strong>, c'est <strong style="color:var(--cyan)">Fair Re-rank</strong> qui s'en approche le plus, à tout k — voir le bloc "message central" dans l'onglet Conclusion.
+        <strong style="color:var(--t1)"><span class="i18n-fr">Comment lire la Projection 2D (droite) :</span><span class="i18n-en">How to read the 2D Projection (right):</span></strong><span class="i18n-fr">Chaque cercle = une méthode pour un k donné. Le coin <strong>supérieur gauche</strong> est idéal (ΔE bas + ILD élevé). Sur <strong>MovieLens 100k</strong>, <strong style="color:var(--green)">AURORA k=20</strong> s'en approche le mieux. Sur <strong>MovieLens 1M</strong>, c'est <strong style="color:var(--cyan)">Fair Re-rank</strong> qui s'en approche le plus, à tout k — voir le bloc "message central" dans l'onglet Conclusion.</span><span class="i18n-en">Each circle = one method for a given k. The <strong>top-left</strong> corner is ideal (low ΔE + high ILD). On <strong>MovieLens 100k</strong>, <strong style="color:var(--green)">AURORA k=20</strong> gets closest. On <strong>MovieLens 1M</strong>, it's <strong style="color:var(--cyan)">Fair Re-rank</strong> that gets closest, at every k — see the "central message" block in the Conclusion tab.</span>
         <ul style="margin:.55rem 0 0 1.1rem;font-size:.78rem;line-height:1.7">
-          <li>Taille du cercle = k (petit→5, moyen→10, grand→20)</li>
-          <li>Mode <em>Les deux</em> : ○ creux = 100k, ● plein = 1M</li>
-          <li>Lignes tiretées = trajectoire de scalabilité 100k → 1M</li>
+          <li><span class="i18n-fr">Taille du cercle = k (petit→5, moyen→10, grand→20)</span><span class="i18n-en">Circle size = k (small→5, medium→10, large→20)</span></li>
+          <li><span class="i18n-fr">Mode <em>Les deux</em> : ○ creux = 100k, ● plein = 1M</span><span class="i18n-en"><em>Both</em> mode: ○ hollow = 100k, ● filled = 1M</span></li>
+          <li><span class="i18n-fr">Lignes tiretées = trajectoire de scalabilité 100k → 1M</span><span class="i18n-en">Dashed lines = 100k → 1M scalability trajectory</span></li>
         </ul>
-        <em style="font-size:.73rem;color:var(--t3)">Projection 2D d'un problème 4-objectif — inc_F/inc_M non affichés ici.</em>
+        <em style="font-size:.73rem;color:var(--t3)"><span class="i18n-fr">Projection 2D d'un problème 4-objectif — inc_F/inc_M non affichés ici.</span><span class="i18n-en">2D projection of a 4-objective problem — inc_F/inc_M not shown here.</span></em>
       </div>
     </div>
   </div>
 
   <!-- Sensitivity chart -->
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Robustesse — Impact de max_merges sur ΔE et ILD (k=20)</div>
+    <div class="card-title"><span class="i18n-fr">Robustesse — Impact de max_merges sur ΔE et ILD (k=20)</span><span class="i18n-en">Robustness — Impact of max_merges on ΔE and ILD (k=20)</span></div>
     <canvas id="sensCanvas" style="width:100%;display:block;height:240px"></canvas>
     <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;align-items:center">
-      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--coral);border-radius:2px"></div>ΔE (Équité — min)</div>
-      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--blue);border-radius:2px"></div>ILD (Diversité — max)</div>
-      <div style="font-size:.7rem;color:var(--t3);margin-left:auto">ε_E et ε_D sont insensibles — max_merges est le paramètre clé</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--coral);border-radius:2px"></div>ΔE (<span class="i18n-fr">Équité — min</span><span class="i18n-en">Fairness — min</span>)</div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:18px;height:3px;background:var(--blue);border-radius:2px"></div>ILD (<span class="i18n-fr">Diversité — max</span><span class="i18n-en">Diversity — max</span>)</div>
+      <div style="font-size:.7rem;color:var(--t3);margin-left:auto"><span class="i18n-fr">ε_E et ε_D sont insensibles — max_merges est le paramètre clé</span><span class="i18n-en">ε_E and ε_D are insensitive — max_merges is the key parameter</span></div>
     </div>
   </div>
 
   <!-- Explorateur interactif -->
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Explorateur interactif — testez les hyperparamètres vous-même</div>
-    <p style="font-size:.78rem;color:var(--t2);margin-bottom:16px;line-height:1.6">Déplacez les curseurs pour parcourir les valeurs réellement testées (aucune interpolation ni simulation — chaque position correspond à un run mesuré). MovieLens 100k, k=20, θ=4.0.</p>
+    <div class="card-title"><span class="i18n-fr">Explorateur interactif — testez les hyperparamètres vous-même</span><span class="i18n-en">Interactive explorer — test the hyperparameters yourself</span></div>
+    <p style="font-size:.78rem;color:var(--t2);margin-bottom:16px;line-height:1.6"><span class="i18n-fr">Déplacez les curseurs pour parcourir les valeurs réellement testées (aucune interpolation ni simulation — chaque position correspond à un run mesuré). MovieLens 100k, k=20, θ=4.0.</span><span class="i18n-en">Move the sliders to browse the actually-tested values (no interpolation or simulation — each position corresponds to a measured run). MovieLens 100k, k=20, θ=4.0.</span></p>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px">
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span>ε_E (tolérance équité)</span><span id="explEEVal" style="color:var(--t1);font-weight:700"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span><span class="i18n-fr">ε_E (tolérance équité)</span><span class="i18n-en">ε_E (fairness tolerance)</span></span><span id="explEEVal" style="color:var(--t1);font-weight:700"></span></div>
         <input type="range" id="explEE" min="0" max="5" step="1" value="1" style="width:100%;accent-color:var(--green)">
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span>ε_D (tolérance diversité)</span><span id="explEDVal" style="color:var(--t1);font-weight:700"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span><span class="i18n-fr">ε_D (tolérance diversité)</span><span class="i18n-en">ε_D (diversity tolerance)</span></span><span id="explEDVal" style="color:var(--t1);font-weight:700"></span></div>
         <input type="range" id="explED" min="0" max="5" step="1" value="2" style="width:100%;accent-color:var(--green)">
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span>max_merges (budget de fusion)</span><span id="explMMVal" style="color:var(--t1);font-weight:700"></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t3);margin-bottom:6px"><span><span class="i18n-fr">max_merges (budget de fusion)</span><span class="i18n-en">max_merges (merge budget)</span></span><span id="explMMVal" style="color:var(--t1);font-weight:700"></span></div>
         <input type="range" id="explMM" min="0" max="6" step="1" value="5" style="width:100%;accent-color:var(--blue)">
       </div>
     </div>
@@ -1086,15 +1086,15 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <!-- TAB 7 — MovieLens 1M -->
 <div class="panel" id="p-1m">
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">1M</div><div class="tile-sub">1 000 209 notes</div></div>
-    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">6 040</div><div class="tile-sub">1 709F · 4 331 M</div></div>
-    <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">3 706</div><div class="tile-sub">items distincts</div></div>
-    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.58</div><div class="tile-sub">écart-type  = 1.12</div></div>
-    <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">4.47%</div><div class="tile-sub">matrice creuse</div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">1M</div><div class="tile-sub">1 000 209 <span class="i18n-fr">notes</span><span class="i18n-en">ratings</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Utilisateurs</span><span class="i18n-en">Users</span></div><div class="tile-val">6 040</div><div class="tile-sub">1 709F · 4 331 M</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Films</span><span class="i18n-en">Movies</span></div><div class="tile-val">3 706</div><div class="tile-sub"><span class="i18n-fr">items distincts</span><span class="i18n-en">distinct items</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Note moyenne</span><span class="i18n-en">Average rating</span></div><div class="tile-val">3.58</div><div class="tile-sub"><span class="i18n-fr">écart-type</span><span class="i18n-en">std dev</span> = 1.12</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Densité</span><span class="i18n-en">Density</span></div><div class="tile-val">4.47%</div><div class="tile-sub"><span class="i18n-fr">matrice creuse</span><span class="i18n-en">sparse matrix</span></div></div>
   </div>
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Résultat (k=5) :</b> notre méthode atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda, Weighted Borda, Condorcet) sur les deux axes simultanément. Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécialisée dans l'optimisation de l'équité. Aucune méthode de vote classique ne passe sous ΔE=0.49.</span>
+    <span><b><span class="i18n-fr">Résultat (k=5) :</span><span class="i18n-en">Result (k=5):</span></b> <span class="i18n-fr">notre méthode atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda, Weighted Borda, Condorcet) sur les deux axes simultanément. Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécialisée dans l'optimisation de l'équité. Aucune méthode de vote classique ne passe sous ΔE=0.49.</span><span class="i18n-en">our method reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda, Weighted Borda, Condorcet) on both axes simultaneously. Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specialized in fairness optimization. No classical voting method drops below ΔE=0.49.</span></span>
   </div>
   <div class="controls">
     <div class="ctrl-grp">
@@ -1109,24 +1109,25 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   </div>
   <div class="two-col" style="margin-top:14px">
     <div class="card">
-      <div class="card-title">Répartition par genre</div>
+      <div class="card-title"><span class="i18n-fr">Répartition par genre</span><span class="i18n-en">Breakdown by gender</span></div>
       <div class="donut-wrap">
         <svg width="148" height="148" viewBox="0 0 148 148" style="overflow:visible">
           <circle cx="74" cy="74" r="56" fill="none" stroke="#6b8fff" stroke-width="20" stroke-dasharray="352" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
           <circle cx="74" cy="74" r="56" fill="none" stroke="#ff7a5c" stroke-width="20" stroke-dasharray="100 252" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
           <circle cx="74" cy="74" r="56" fill="none" stroke="var(--s1)" stroke-width="3" stroke-dasharray="3 349" stroke-dashoffset="-100" transform="rotate(-90 74 74)"/>
           <text x="74" y="68" font-size="20" font-weight="900" fill="var(--t1)" text-anchor="middle" dominant-baseline="middle">6 040</text>
-          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle">utilisateurs</text>
+          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle" class="i18n-fr">utilisateurs</text>
+          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle" class="i18n-en">users</text>
         </svg>
         <div style="width:100%;max-width:175px;display:flex;flex-direction:column;gap:9px">
-          <div class="leg-row"><div class="leg-dot" style="background:#ff7a5c"></div><span>Femmes (F)</span><span class="leg-pct">1 709 · 28%</span></div>
-          <div class="leg-row"><div class="leg-dot" style="background:#6b8fff"></div><span>Hommes (M)</span><span class="leg-pct">4 331 · 72%</span></div>
-          <div style="margin-top:6px;padding:9px 11px;background:var(--s2);border-radius:7px;font-size:.72rem;color:var(--t2);line-height:1.5;border-left:3px solid var(--coral)">Déséquilibre 28/72% — similaire au 100k (29/71%) mais sur 6× plus d'utilisateurs.</div>
+          <div class="leg-row"><div class="leg-dot" style="background:#ff7a5c"></div><span><span class="i18n-fr">Femmes (F)</span><span class="i18n-en">Women (F)</span></span><span class="leg-pct">1 709 · 28%</span></div>
+          <div class="leg-row"><div class="leg-dot" style="background:#6b8fff"></div><span><span class="i18n-fr">Hommes (M)</span><span class="i18n-en">Men (M)</span></span><span class="leg-pct">4 331 · 72%</span></div>
+          <div style="margin-top:6px;padding:9px 11px;background:var(--s2);border-radius:7px;font-size:.72rem;color:var(--t2);line-height:1.5;border-left:3px solid var(--coral)"><span class="i18n-fr">Déséquilibre 28/72% — similaire au 100k (29/71%) mais sur 6× plus d'utilisateurs.</span><span class="i18n-en">28/72% imbalance — similar to the 100k set (29/71%) but over 6× more users.</span></div>
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Distribution des notes (1 → 5 étoiles)</div>
+      <div class="card-title"><span class="i18n-fr">Distribution des notes (1 → 5 étoiles)</span><span class="i18n-en">Rating distribution (1 → 5 stars)</span></div>
       <div class="bar-rows" id="ratingBars1M"></div>
     </div>
   </div>
@@ -1138,46 +1139,47 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-cmp">
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.07)">
     <span style="color:var(--blue);font-size:1rem;flex-shrink:0">⇄</span>
-    <span><b>Comparaison cross-dataset (k=10) :</b> toutes méthodes, tous corpus. Forme = dataset (○ ML100k · ◆ libimseti · ■ RMP) · couleur = méthode. ΔE bas + ILD haut = idéal.</span>
+    <span><b><span class="i18n-fr">Comparaison cross-dataset (k=10) :</span><span class="i18n-en">Cross-dataset comparison (k=10):</span></b> <span class="i18n-fr">toutes méthodes, tous corpus. Forme = dataset (○ ML100k · ◆ libimseti · ■ RMP) · couleur = méthode. ΔE bas + ILD haut = idéal.</span><span class="i18n-en">all methods, all corpora. Shape = dataset (○ ML100k · ◆ libimseti · ■ RMP) · color = method. Low ΔE + high ILD = ideal.</span></span>
   </div>
   <div class="card" style="margin-top:4px">
-    <div class="card-title">ΔE vs ILD — tous datasets, toutes méthodes, k=10</div>
+    <div class="card-title"><span class="i18n-fr">ΔE vs ILD — tous datasets, toutes méthodes, k=10</span><span class="i18n-en">ΔE vs ILD — all datasets, all methods, k=10</span></div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      Forme du marqueur = dataset (○ ML100k · ◆ libimseti · ■ RMP). Couleur = méthode.
-      <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">AURORA </strong> sont plus grands et entourés d'un anneau blanc.
+      <span class="i18n-fr">Forme du marqueur = dataset (○ ML100k · ◆ libimseti · ■ RMP). Couleur = méthode.
+      <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">AURORA </strong> sont plus grands et entourés d'un anneau blanc.</span><span class="i18n-en">Marker shape = dataset (○ ML100k · ◆ libimseti · ■ RMP). Color = method.
+      <strong>Ideal zone: bottom-left</strong> (low ΔE) + <strong>top</strong> (high ILD). <strong style="color:var(--green)">AURORA</strong> markers are larger and ringed in white.</span>
     </div>
     <canvas id="allCmpCanvas" style="width:100%;display:block"></canvas>
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t2)">
       <span>MovieLens 100k</span><span> libimseti</span><span> Rate My Professors</span>
-      <span style="margin-left:auto">← ΔE bas = meilleure équité · ↑ ILD élevé = meilleure diversité</span>
+      <span style="margin-left:auto"><span class="i18n-fr">← ΔE bas = meilleure équité · ↑ ILD élevé = meilleure diversité</span><span class="i18n-en">← low ΔE = better fairness · ↑ high ILD = better diversity</span></span>
     </div>
     <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:.74rem">
       <div style="padding:8px 11px;background:rgba(107,143,255,.07);border-radius:7px;border-left:3px solid var(--blue)">
-        <strong>Average Score</strong> (violet) : ΔE ≈ 0, ILD très bas. Excellent en équité, nul en diversité — il recommande les mêmes items populaires à tout le monde.
+        <strong>Average Score</strong> <span class="i18n-fr">(violet) : ΔE ≈ 0, ILD très bas. Excellent en équité, nul en diversité — il recommande les mêmes items populaires à tout le monde.</span><span class="i18n-en">(purple): ΔE ≈ 0, very low ILD. Excellent on fairness, zero on diversity — it recommends the same popular items to everyone.</span>
       </div>
       <div style="padding:8px 11px;background:rgba(255,122,92,.07);border-radius:7px;border-left:3px solid var(--coral)">
-        <strong>Borda/Condorcet</strong> (jaune/rouge) : ILD moyen mais ΔE élevé — favorisent les items du groupe majoritaire. Sur libimseti : ΔE > 1 (extrême).
+        <strong>Borda/Condorcet</strong> <span class="i18n-fr">(jaune/rouge) : ILD moyen mais ΔE élevé — favorisent les items du groupe majoritaire. Sur libimseti : ΔE > 1 (extrême).</span><span class="i18n-en">(yellow/red): average ILD but high ΔE — favor the majority group's items. On libimseti: ΔE > 1 (extreme).</span>
       </div>
       <div style="padding:8px 11px;background:rgba(18,232,122,.07);border-radius:7px;border-left:3px solid var(--green)">
-        <strong>AURORA</strong> (vert) : combine ILD élevé et bonne représentation sur plusieurs datasets. Sur RMP : ILD = 0.808, ΔE = 0.112 — meilleur compromis diversité/représentation, pas le meilleur ΔE isolément.
+        <strong>AURORA</strong> <span class="i18n-fr">(vert) : combine ILD élevé et bonne représentation sur plusieurs datasets. Sur RMP : ILD = 0.808, ΔE = 0.112 — meilleur compromis diversité/représentation, pas le meilleur ΔE isolément.</span><span class="i18n-en">(green): combines high ILD and good representation across several datasets. On RMP: ILD = 0.808, ΔE = 0.112 — best diversity/representation trade-off, not the best ΔE in isolation.</span>
       </div>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</div><button class="csv-btn" onclick="downloadCSV('allCmpTbl','comparaison_tous_corpus.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</span><span class="i18n-en">Summary table — ΔE and ILD by dataset and method (k=10)</span></div><button class="csv-btn" onclick="downloadCSV('allCmpTbl','comparaison_tous_corpus.csv')">⬇ CSV</button></div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      Lecture : <span style="color:var(--green)">✓ vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">~ ambre</span> = moyen · <span style="color:var(--red)">✕ rouge</span> = mauvais (symboles ajoutés pour rester lisible en cas de daltonisme). Chaque cellule montre ΔE et ILD pour une méthode × un corpus.
+      <span class="i18n-fr">Lecture : <span style="color:var(--green)">✓ vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">~ ambre</span> = moyen · <span style="color:var(--red)">✕ rouge</span> = mauvais (symboles ajoutés pour rester lisible en cas de daltonisme). Chaque cellule montre ΔE et ILD pour une méthode × un corpus.</span><span class="i18n-en">Legend: <span style="color:var(--green)">✓ green</span> = good (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">~ amber</span> = medium · <span style="color:var(--red)">✕ red</span> = poor (symbols added to stay legible for color-blind readers). Each cell shows ΔE and ILD for one method × one corpus.</span>
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
-      <strong style="color:var(--t1)">Observation principale :</strong> aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.145) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.008). Sur libimseti, aucune amélioration.
+      <strong style="color:var(--t1)"><span class="i18n-fr">Observation principale :</span><span class="i18n-en">Main observation:</span></strong> <span class="i18n-fr">aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.145) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.008). Sur libimseti, aucune amélioration.</span><span class="i18n-en">no classical method is good on all datasets simultaneously. Average Score has ΔE≈0 everywhere but very low ILD (plus near-zero inclusion). Borda is catastrophic on libimseti (ΔE=1.22) and OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> systematically beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k and OpenAlex. On RMP, it dominates strongly on diversity (ILD=0.808 versus 0.145) but not on fairness (ΔE=0.112, worse than Borda's 0.008). On libimseti, no improvement.</span>
     </div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Temps d'exécution — tous datasets, k=10 (échelle log)</div>
+    <div class="card-title"><span class="i18n-fr">Temps d'exécution — tous datasets, k=10 (échelle log)</span><span class="i18n-en">Execution time — all datasets, k=10 (log scale)</span></div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      5 barres par méthode : <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Échelle logarithmique. <strong style="color:var(--green)">AURORA</strong> est plus lent mais reste sous 10 min sur tous les corpus.
+      <span class="i18n-fr">5 barres par méthode : <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Échelle logarithmique. <strong style="color:var(--green)">AURORA</strong> est plus lent mais reste sous 10 min sur tous les corpus.</span><span class="i18n-en">5 bars per method: <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Logarithmic scale. <strong style="color:var(--green)">AURORA</strong> is slower but stays under 10 min on every corpus.</span>
     </div>
     <canvas id="allRtCanvas" style="width:100%;display:block"></canvas>
   </div>
@@ -1188,37 +1190,37 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-scal">
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Expérimentation scalabilité — MovieLens uniquement (100→6 040 utilisateurs) :</b> MovieLens 100k (lignes tiretées, 100→943 users) + MovieLens 1M (lignes pleines, 500→6 040 users). k=10, θ=4.0, ratio F/M préservé. Budget de fusion proportionnel (50% de n_users) : ratio de compression constant sur toute la plage, temps d'exécution croissant régulièrement avec n_users.</span>
+    <span><b><span class="i18n-fr">Expérimentation scalabilité — MovieLens uniquement (100→6 040 utilisateurs) :</span><span class="i18n-en">Scalability experiment — MovieLens only (100→6,040 users):</span></b> <span class="i18n-fr">MovieLens 100k (lignes tiretées, 100→943 users) + MovieLens 1M (lignes pleines, 500→6 040 users). k=10, θ=4.0, ratio F/M préservé. Budget de fusion proportionnel (50% de n_users) : ratio de compression constant sur toute la plage, temps d'exécution croissant régulièrement avec n_users.</span><span class="i18n-en">MovieLens 100k (dashed lines, 100→943 users) + MovieLens 1M (solid lines, 500→6,040 users). k=10, θ=4.0, F/M ratio preserved. Proportional merge budget (50% of n_users): compression ratio constant across the whole range, execution time growing steadily with n_users.</span></span>
   </div>
   <div class="notice" style="border-color:rgba(245,165,35,.3);background:rgba(245,165,35,.05);margin-top:8px">
     <span style="color:var(--amber);font-size:.9rem;flex-shrink:0"></span>
-    <span style="font-size:.78rem"><b>Pourquoi seulement MovieLens ?</b> libimseti, RMP et OpenAlex ont une taille fixe (pas de sous-échantillons progressifs dans cette étude). La scalabilité en nombre d'utilisateurs/venues n'a été mesurée que sur MovieLens car il existe une version 100k et une version 1M avec le même format, permettant une comparaison directe.</span>
+    <span style="font-size:.78rem"><b><span class="i18n-fr">Pourquoi seulement MovieLens ?</span><span class="i18n-en">Why only MovieLens?</span></b> <span class="i18n-fr">libimseti, RMP et OpenAlex ont une taille fixe (pas de sous-échantillons progressifs dans cette étude). La scalabilité en nombre d'utilisateurs/venues n'a été mesurée que sur MovieLens car il existe une version 100k et une version 1M avec le même format, permettant une comparaison directe.</span><span class="i18n-en">libimseti, RMP, and OpenAlex have a fixed size (no progressive sub-samples in this study). Scalability in number of users/venues was only measured on MovieLens because a 100k and a 1M version exist with the same format, allowing a direct comparison.</span></span>
   </div>
   <div class="card">
-    <div class="card-title">Temps d'exécution vs. nombre d'utilisateurs — 100→6 040, échelle log (toutes méthodes)</div>
+    <div class="card-title"><span class="i18n-fr">Temps d'exécution vs. nombre d'utilisateurs — 100→6 040, échelle log (toutes méthodes)</span><span class="i18n-en">Execution time vs. number of users — 100→6,040, log scale (all methods)</span></div>
     <canvas id="scalRtCanvas" style="width:100%;display:block"></canvas>
     <div id="scalRtLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;align-items:center;font-size:.7rem;color:var(--t2)"></div>
-    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">AxeY log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe). Le temps d'AURORA croît régulièrement avec n_users (budget de fusion proportionnel à 50%).</p>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6"><span class="i18n-fr">AxeY log. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Weighted Borda légèrement plus lent que Borda (normalisation par groupe). Le temps d'AURORA croît régulièrement avec n_users (budget de fusion proportionnel à 50%).</span><span class="i18n-en">Y-axis log. Dashed lines = ML-100k, solid lines = ML-1M. Weighted Borda slightly slower than Borda (per-group normalization). AURORA's time grows steadily with n_users (50% proportional merge budget).</span></p>
   </div>
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
-      <div class="card-title">Compression — super-nœuds de « AURORA »</div>
+      <div class="card-title"><span class="i18n-fr">Compression — super-nœuds de « AURORA »</span><span class="i18n-en">Compression — "AURORA" supernodes</span></div>
       <canvas id="scalSnCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">Taux de compression (super-nœuds / utilisateurs). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Budget de fusion proportionnel à 50% : ratio constant sur toute la plage.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5"><span class="i18n-fr">Taux de compression (super-nœuds / utilisateurs). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Budget de fusion proportionnel à 50% : ratio constant sur toute la plage.</span><span class="i18n-en">Compression rate (supernodes / users). Dashed lines = ML-100k, solid lines = ML-1M. 50% proportional merge budget: constant ratio across the whole range.</span></p>
     </div>
     <div class="card">
-      <div class="card-title">Métriques EDI de « AURORA » à travers les échelles</div>
+      <div class="card-title"><span class="i18n-fr">Métriques EDI de « AURORA » à travers les échelles</span><span class="i18n-en">"AURORA" EDI metrics across scales</span></div>
       <canvas id="scalEdiCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5">ΔE (vert, 1−ΔE affiché) et ILD (bleu) pour AURORA à k=10. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les deux métriques.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5"><span class="i18n-fr">ΔE (vert, 1−ΔE affiché) et ILD (bleu) pour AURORA à k=10. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les deux métriques.</span><span class="i18n-en">ΔE (green, 1−ΔE shown) and ILD (blue) for AURORA at k=10. Dashed lines = ML-100k, solid lines = ML-1M. A higher value is better for both metrics.</span></p>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau de scalabilité — résultats complets (k=10, θ=4.0)</div><button class="csv-btn" onclick="downloadCSV('scalTbl','scalabilite_1m.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau de scalabilité — résultats complets (k=10, θ=4.0)</span><span class="i18n-en">Scalability table — full results (k=10, θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('scalTbl','scalabilite_1m.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto"><table class="ftbl" id="scalTbl"></table></div>
   </div>
 
   <div style="margin-top:20px;padding-top:14px;border-top:1px solid rgba(120,120,180,.15)">
-    <div style="font-size:.8rem;font-weight:700;color:var(--t2);margin-bottom:12px">Comparaison directe 100k vs 1M — résultats EDI et temps d'exécution</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--t2);margin-bottom:12px"><span class="i18n-fr">Comparaison directe 100k vs 1M — résultats EDI et temps d'exécution</span><span class="i18n-en">Direct comparison 100k vs 1M — EDI results and execution time</span></div>
     <div class="controls">
       <div class="ctrl-grp">
         <div class="ctrl-lbl">Top-k</div>
@@ -1230,7 +1232,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       </div>
     </div>
     <div class="card" style="margin-top:10px">
-      <div class="card-title">ΔE vs ILD — 100k (ouvert) et 1M (plein)</div>
+      <div class="card-title"><span class="i18n-fr">ΔE vs ILD — 100k (ouvert) et 1M (plein)</span><span class="i18n-en">ΔE vs ILD — 100k (hollow) and 1M (filled)</span></div>
       <canvas id="cmpCanvas" style="width:100%;display:block"></canvas>
       <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;align-items:center">
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;border:2.5px solid var(--t3);background:transparent"></div>100k</div>
@@ -1238,13 +1240,13 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       </div>
     </div>
     <div class="card" style="margin-top:10px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau — 100k vs 1M, θ = 4.0</div><button class="csv-btn" onclick="downloadCSV('cmpTbl','comparaison_100k_1m.csv')">⬇ CSV</button></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau — 100k vs 1M, θ = 4.0</span><span class="i18n-en">Table — 100k vs 1M, θ = 4.0</span></div><button class="csv-btn" onclick="downloadCSV('cmpTbl','comparaison_100k_1m.csv')">⬇ CSV</button></div>
       <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
     </div>
     <div class="card" style="margin-top:10px">
-      <div class="card-title">Temps d'exécution — 100k vs 1M</div>
+      <div class="card-title"><span class="i18n-fr">Temps d'exécution — 100k vs 1M</span><span class="i18n-en">Execution time — 100k vs 1M</span></div>
       <canvas id="rtCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">Barres claires = 100k · Barres pleines = 1M · Échelle logarithmique.</p>
+      <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6"><span class="i18n-fr">Barres claires = 100k · Barres pleines = 1M · Échelle logarithmique.</span><span class="i18n-en">Light bars = 100k · Solid bars = 1M · Logarithmic scale.</span></p>
     </div>
   </div>
 </div>
@@ -1253,20 +1255,21 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-lib">
   <div class="notice" style="border-color:rgba(255,122,92,.3);background:rgba(255,122,92,.06)">
     <span style="font-size:1rem;flex-shrink:0"></span>
-    <span><b>libimseti.cz — site de rencontres tchèque (validation hors MovieLens) :</b>
-    17.3M ratings de profils utilisateurs (1–10). Sous-échantillon stratifié : 1 000 rateurs (500 F / 500 M, équilibre parfait), 32 677 profils, θ=7.0 ( 80% sur 1–10), k=10.
-    Particularité : les <em>items recommandés sont aussi des personnes avec un genre</em> — ΔE mesure ici l'équité entre rateurs F et rateurs M (formulation user-side identique à MovieLens).</span>
+    <span><b><span class="i18n-fr">libimseti.cz — site de rencontres tchèque (validation hors MovieLens) :</span><span class="i18n-en">libimseti.cz — Czech dating site (validation beyond MovieLens):</span></b>
+    <span class="i18n-fr">17.3M ratings de profils utilisateurs (1–10). Sous-échantillon stratifié : 1 000 rateurs (500 F / 500 M, équilibre parfait), 32 677 profils, θ=7.0 ( 80% sur 1–10), k=10.
+    Particularité : les <em>items recommandés sont aussi des personnes avec un genre</em> — ΔE mesure ici l'équité entre rateurs F et rateurs M (formulation user-side identique à MovieLens).</span><span class="i18n-en">17.3M ratings of user profiles (1–10). Stratified sub-sample: 1,000 raters (500 F / 500 M, perfect balance), 32,677 profiles, θ=7.0 (80% on 1–10), k=10.
+    Distinctive feature: the <em>recommended items are also people with a gender</em> — ΔE here measures fairness between F raters and M raters (user-side formulation identical to MovieLens).</span></span>
   </div>
 
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">Rateurs</div><div class="tile-val">1 000</div><div class="tile-sub">500F · 500 M (50/50)</div></div>
-    <div class="tile"><div class="tile-lbl">Profils</div><div class="tile-val">32 677</div><div class="tile-sub">items = personnes avec genre</div></div>
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">97 707</div><div class="tile-sub">échelle 1–10</div></div>
-    <div class="tile"><div class="tile-lbl">Équilibre F/M</div><div class="tile-val">50%</div><div class="tile-sub">α_F = α_M = 0.50</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Rateurs</span><span class="i18n-en">Raters</span></div><div class="tile-val">1 000</div><div class="tile-sub">500F · 500 M (50/50)</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Profils</span><span class="i18n-en">Profiles</span></div><div class="tile-val">32 677</div><div class="tile-sub"><span class="i18n-fr">items = personnes avec genre</span><span class="i18n-en">items = people with a gender</span></div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">97 707</div><div class="tile-sub"><span class="i18n-fr">échelle 1–10</span><span class="i18n-en">1–10 scale</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Équilibre F/M</span><span class="i18n-en">F/M balance</span></div><div class="tile-val">50%</div><div class="tile-sub">α_F = α_M = 0.50</div></div>
   </div>
 
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Résultats EDI — libimseti.cz (k=10, θ=7.0)</div><button class="csv-btn" onclick="downloadCSV('libTbl','libimseti_results.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — libimseti.cz (k=10, θ=7.0)</span><span class="i18n-en">EDI results — libimseti.cz (k=10, θ=7.0)</span></div><button class="csv-btn" onclick="downloadCSV('libTbl','libimseti_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="libTbl"></table>
     </div>
@@ -1275,24 +1278,24 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
-      <div class="card-title">ΔE (Équité) — libimseti — k=10</div>
+      <div class="card-title">ΔE (<span class="i18n-fr">Équité</span><span class="i18n-en">Fairness</span>) — libimseti — k=10</div>
       <canvas id="libDeCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">ΔE > 1.0 pour Borda/Condorcet : les rateurs M et F ont des patterns de notation distincts (voir tableau croisé ci-dessous) — inédit sur MovieLens, où le genre n'influence pas structurellement la note d'un film.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">ΔE > 1.0 pour Borda/Condorcet : les rateurs M et F ont des patterns de notation distincts (voir tableau croisé ci-dessous) — inédit sur MovieLens, où le genre n'influence pas structurellement la note d'un film.</span><span class="i18n-en">ΔE > 1.0 for Borda/Condorcet: M and F raters have distinct rating patterns (see the cross-table below) — unlike MovieLens, where gender doesn't structurally influence a movie's rating.</span></p>
     </div>
     <div class="card">
-      <div class="card-title">ILD (Diversité) — libimseti — k=10</div>
+      <div class="card-title">ILD (<span class="i18n-fr">Diversité</span><span class="i18n-en">Diversity</span>) — libimseti — k=10</div>
       <canvas id="libIldCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">Notre méthode garde un net avantage de diversité sur les méthodes de vote (Borda, Condorcet, Weighted Borda) — même avantage relatif que sur MovieLens.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">Notre méthode garde un net avantage de diversité sur les méthodes de vote (Borda, Condorcet, Weighted Borda) — même avantage relatif que sur MovieLens.</span><span class="i18n-en">Our method keeps a clear diversity advantage over voting methods (Borda, Condorcet, Weighted Borda) — the same relative advantage as on MovieLens.</span></p>
     </div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Observation clé — préférences différenciées selon la paire de genres (notateur, noté)</div>
+    <div class="card-title"><span class="i18n-fr">Observation clé — préférences différenciées selon la paire de genres (notateur, noté)</span><span class="i18n-en">Key observation — preferences differ by (rater, rated) gender pair</span></div>
     <div style="font-size:.81rem;color:var(--t2);line-height:1.6">
-      <p>Sur libimseti, les patterns de notation diffèrent significativement selon le genre du notateur et celui du profil noté (12 258 052 notes exploitables, genre connu des deux côtés) :</p>
+      <p><span class="i18n-fr">Sur libimseti, les patterns de notation diffèrent significativement selon le genre du notateur et celui du profil noté (12 258 052 notes exploitables, genre connu des deux côtés) :</span><span class="i18n-en">On libimseti, rating patterns differ significantly depending on the rater's gender and that of the rated profile (12,258,052 usable ratings, gender known on both sides):</span></p>
       <div style="overflow-x:auto;margin:10px 0">
         <table class="ftbl">
-          <thead><tr><th>Notateur → Noté</th><th>Note moyenne</th><th>Nb de notes</th></tr></thead>
+          <thead><tr><th><span class="i18n-fr">Notateur → Noté</span><span class="i18n-en">Rater → Rated</span></th><th><span class="i18n-fr">Note moyenne</span><span class="i18n-en">Average rating</span></th><th><span class="i18n-fr">Nb de notes</span><span class="i18n-en">Number of ratings</span></th></tr></thead>
           <tbody>
             <tr><td>F → M</td><td><strong>6.92</strong></td><td>7 099 688</td></tr>
             <tr><td>M → F</td><td>5.48</td><td>3 232 064</td></tr>
@@ -1301,12 +1304,12 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
           </tbody>
         </table>
       </div>
-      <p><strong style="color:var(--coral)">Pourquoi ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent) ?</strong><br>
-      libimseti est le seul des 4 corpus étudiés où l'attribut sensible (genre) existe <em>des deux côtés</em> du graphe biparti — notateurs et profils notés. Un classement collectif unique, partagé par tout le monde, ne peut structurellement pas produire la même satisfaction pour les deux groupes de notateurs quand leurs notes elles-mêmes suivent des distributions aussi différentes selon la paire de genres.</p>
-      <p><strong style="color:var(--green)">Lien avec la littérature</strong><br>
-      Ce résultat illustre empiriquement l'argument de Yao &amp; Huang (2017, section 3.3) : la parité démographique (viser ΔE≈0) n'est pas toujours un objectif approprié en recommandation lorsque les préférences des groupes dépendent légitimement de l'attribut sensible étudié. Un ΔE élevé sur libimseti ne signale donc pas nécessairement une injustice algorithmique, mais peut refléter une différence de préférence structurelle du domaine — contrairement à MovieLens ou Rate My Professors, où rien ne justifie a priori que le genre influence l'appréciation d'un film ou la qualité perçue d'un cours.</p>
-      <p><strong style="color:var(--t1)">Notre méthode (AURORA)</strong><br>
-      Le budget de fusion proportionnel n'améliore pas ΔE sur ce corpus (résultat stable sur une plage de 30 à 60% de compression testée), ni un resserrement de la tolérance de contrainte — cohérent avec la lecture ci-dessus : ce n'est pas un problème de réglage, mais une limite structurelle du cadre à classement collectif unique sur un domaine où la préférence est intrinsèquement différenciée par genre. AURORA conserve néanmoins un net avantage en diversité (ILD) sur les méthodes de vote (Borda, Condorcet).</p>
+      <p><strong style="color:var(--coral)"><span class="i18n-fr">Pourquoi ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent) ?</span><span class="i18n-en">Why does ΔE stay high for voting methods and for AURORA (Average Score and Fair Re-rank escape it)?</span></strong><br>
+      <span class="i18n-fr">libimseti est le seul des 4 corpus étudiés où l'attribut sensible (genre) existe <em>des deux côtés</em> du graphe biparti — notateurs et profils notés. Un classement collectif unique, partagé par tout le monde, ne peut structurellement pas produire la même satisfaction pour les deux groupes de notateurs quand leurs notes elles-mêmes suivent des distributions aussi différentes selon la paire de genres.</span><span class="i18n-en">libimseti is the only one of the 4 studied corpora where the sensitive attribute (gender) exists on <em>both sides</em> of the bipartite graph — raters and rated profiles. A single collective ranking, shared by everyone, cannot structurally produce the same satisfaction for both rater groups when their own ratings follow such different distributions depending on the gender pair.</span></p>
+      <p><strong style="color:var(--green)"><span class="i18n-fr">Lien avec la littérature</span><span class="i18n-en">Link to the literature</span></strong><br>
+      <span class="i18n-fr">Ce résultat illustre empiriquement l'argument de Yao &amp; Huang (2017, section 3.3) : la parité démographique (viser ΔE≈0) n'est pas toujours un objectif approprié en recommandation lorsque les préférences des groupes dépendent légitimement de l'attribut sensible étudié. Un ΔE élevé sur libimseti ne signale donc pas nécessairement une injustice algorithmique, mais peut refléter une différence de préférence structurelle du domaine — contrairement à MovieLens ou Rate My Professors, où rien ne justifie a priori que le genre influence l'appréciation d'un film ou la qualité perçue d'un cours.</span><span class="i18n-en">This result empirically illustrates Yao &amp; Huang's (2017, section 3.3) argument: demographic parity (targeting ΔE≈0) is not always an appropriate goal in recommendation when group preferences legitimately depend on the sensitive attribute studied. A high ΔE on libimseti therefore does not necessarily signal algorithmic injustice, but may reflect a structural preference difference of the domain — unlike MovieLens or Rate My Professors, where nothing a priori justifies gender influencing how a movie is enjoyed or a course's perceived quality.</span></p>
+      <p><strong style="color:var(--t1)"><span class="i18n-fr">Notre méthode (AURORA)</span><span class="i18n-en">Our method (AURORA)</span></strong><br>
+      <span class="i18n-fr">Le budget de fusion proportionnel n'améliore pas ΔE sur ce corpus (résultat stable sur une plage de 30 à 60% de compression testée), ni un resserrement de la tolérance de contrainte — cohérent avec la lecture ci-dessus : ce n'est pas un problème de réglage, mais une limite structurelle du cadre à classement collectif unique sur un domaine où la préférence est intrinsèquement différenciée par genre. AURORA conserve néanmoins un net avantage en diversité (ILD) sur les méthodes de vote (Borda, Condorcet).</span><span class="i18n-en">The proportional merge budget does not improve ΔE on this corpus (result stable over a 30–60% compression range tested), nor does tightening the constraint tolerance — consistent with the reading above: this is not a tuning problem, but a structural limitation of the single-collective-ranking framework on a domain where preference is intrinsically differentiated by gender. AURORA nonetheless retains a clear diversity advantage (ILD) over voting methods (Borda, Condorcet).</span></p>
     </div>
   </div>
 </div>
@@ -1315,19 +1318,19 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-rmp">
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.06)">
     <span style="font-size:1rem;flex-shrink:0"></span>
-    <span><b>Rate My Professors — validation côté professeurs (item-side equity) :</b>
-    3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cours (ex. ENG101) joue le rôle d'utilisateur : chaque cours a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span>
+    <span><b><span class="i18n-fr">Rate My Professors — validation côté professeurs (item-side equity) :</span><span class="i18n-en">Rate My Professors — professor-side validation (item-side equity):</span></b>
+    <span class="i18n-fr">3.26M avis étudiants sur des profs américains. Ici c'est le <em>genre des professeurs recommandés</em> qui est l'axe d'équité — pas celui des étudiants (données non disponibles). Le cours (ex. ENG101) joue le rôle d'utilisateur : chaque cours a noté plusieurs profs enseignant cette matière. θ=4.0 (échelle 1–5), k=10.</span><span class="i18n-en">3.26M student reviews of American professors. Here the fairness axis is the <em>gender of the recommended professors</em> — not that of the students (data unavailable). The course (e.g. ENG101) plays the role of user: each course has ratings for several professors teaching that subject. θ=4.0 (1–5 scale), k=10.</span></span>
   </div>
 
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">COURS</div><div class="tile-val">1 981</div><div class="tile-sub">jouent le rôle d'utilisateur</div></div>
-    <div class="tile"><div class="tile-lbl">Professeurs</div><div class="tile-val">59 066</div><div class="tile-sub">items à recommander</div></div>
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub">agrégés par (cours × prof)</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">COURS</span><span class="i18n-en">COURSES</span></div><div class="tile-val">1 981</div><div class="tile-sub"><span class="i18n-fr">jouent le rôle d'utilisateur</span><span class="i18n-en">play the role of user</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Professeurs</span><span class="i18n-en">Professors</span></div><div class="tile-val">59 066</div><div class="tile-sub"><span class="i18n-fr">items à recommander</span><span class="i18n-en">items to recommend</span></div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">150 800</div><div class="tile-sub"><span class="i18n-fr">agrégés par (cours × prof)</span><span class="i18n-en">aggregated by (course × prof)</span></div></div>
     <div class="tile"><div class="tile-lbl">ProfsF/M</div><div class="tile-val">51%</div><div class="tile-sub">F=30 141 · M=28 925</div></div>
   </div>
 
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Résultats EDI — Rate My Professors (k=10, θ=4.0)</div><button class="csv-btn" onclick="downloadCSV('rmpTbl','rmp_results.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — Rate My Professors (k=10, θ=4.0)</span><span class="i18n-en">EDI results — Rate My Professors (k=10, θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('rmpTbl','rmp_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="rmpTbl"></table>
     </div>
@@ -1336,14 +1339,14 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
-      <div class="card-title">ΔE (Équité genre des profs) — RMP — k=10</div>
+      <div class="card-title">ΔE (<span class="i18n-fr">Équité genre des profs</span><span class="i18n-en">Professor gender fairness</span>) — RMP — k=10</div>
       <canvas id="rmpDeCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">ΔE reste faible pour toutes les méthodes : pas de biais de genre systématique dans les évaluations étudiantes sur RMP.</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">ΔE reste faible pour toutes les méthodes : pas de biais de genre systématique dans les évaluations étudiantes sur RMP.</span><span class="i18n-en">ΔE stays low for all methods: no systematic gender bias in student evaluations on RMP.</span></p>
     </div>
     <div class="card">
-      <div class="card-title">ILD (Diversité des profs recommandés) — RMP — k=10</div>
+      <div class="card-title">ILD (<span class="i18n-fr">Diversité des profs recommandés</span><span class="i18n-en">Diversity of recommended professors</span>) — RMP — k=10</div>
       <canvas id="rmpIldCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px">Notre méthode : ILD=0.808 — 2ᵉ meilleure, proche de la moyenne simple (0.982). Borda et ses variantes s'effondrent à 0.14 (effet de popularité).</p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">Notre méthode : ILD=0.808 — 2ᵉ meilleure, proche de la moyenne simple (0.982). Borda et ses variantes s'effondrent à 0.14 (effet de popularité).</span><span class="i18n-en">Our method: ILD=0.808 — 2nd best, close to the simple average (0.982). Borda and its variants collapse to 0.14 (popularity effect).</span></p>
     </div>
   </div>
 
