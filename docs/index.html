@@ -1944,7 +1944,7 @@ function buildFinal(){
     });
     h+='</tr>';
   });
-  h+=`<tr style="font-size:.6rem;color:var(--t3)"><td>Cible α_g</td><td></td>`;
+  h+=`<tr style="font-size:.6rem;color:var(--t3)"><td>${L('Cible','Target')} α_g</td><td></td>`;
   [5,10,20].forEach(()=>{h+=`<td>≈0</td><td>max</td><td>≥0.29</td><td>≥0.71</td>`;});
   h+=`</tr></tbody>`;
   t.innerHTML=h;
@@ -1975,9 +1975,9 @@ function drawRadar(){
   const cx=W/2,cy=W/2,R=W*.27;
   const pad=W*.115;
   const axes=[
-    {key:'ILD',  label:['Diversité','(ILD ↑)'], a:-Math.PI/2},
+    {key:'ILD',  label:[L('Diversité','Diversity'),'(ILD ↑)'], a:-Math.PI/2},
     {key:'inc_M',label:['inc_M →'],              a:0},
-    {key:'dE',   label:['Équité','(1−ΔE ↑)'],   a:Math.PI/2},
+    {key:'dE',   label:[L('Équité','Fairness'),'(1−ΔE ↑)'],   a:Math.PI/2},
     {key:'inc_F',label:['← inc_F'],              a:Math.PI},
   ];
   ctx.clearRect(0,0,W,W);
@@ -2065,7 +2065,7 @@ function drawScatter(){
   ctx.setLineDash([]);
   ctx.fillStyle='rgba(15,209,122,.5)';
   ctx.font='10px system-ui';ctx.textAlign='left';
-  ctx.fillText('Zone idéale',sx(.005)+3,pt+12);
+  ctx.fillText(L('Zone idéale','Ideal zone'),sx(.005)+3,pt+12);
 
   // grid
   [.1,.2,.3,.4,.5].forEach(v=>{
@@ -2086,9 +2086,9 @@ function drawScatter(){
   [0,.1,.2,.3,.4,.5].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
   [.3,.5,.7,.9].forEach(v=>{ctx.textAlign='right';ctx.fillText(v.toFixed(1),pl-5,sy(v)+4);});
   ctx.textAlign='center';
-  ctx.fillText('ΔE  (équité — ← mieux)',pl+cw/2,pt+ch+34);
+  ctx.fillText(L('ΔE  (équité — ← mieux)','ΔE  (fairness — ← better)'),pl+cw/2,pt+ch+34);
   ctx.save();ctx.translate(13,pt+ch/2);ctx.rotate(-Math.PI/2);
-  ctx.fillText('ILD  (diversité — ↑ mieux)',0,0);ctx.restore();
+  ctx.fillText(L('ILD  (diversité — ↑ mieux)','ILD  (diversity — ↑ better)'),0,0);ctx.restore();
 
   const isBoth=scatterDS==='both';
   const DATA_S=scatterDS==='1M'?ALL1M:ALL;
@@ -2257,7 +2257,7 @@ function drawSens(){
   ctx.beginPath(); ctx.moveTo(x400,pt); ctx.lineTo(x400,pt+cH);
   ctx.strokeStyle=green; ctx.lineWidth=1; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
   ctx.fillStyle=green; ctx.font='bold 9px system-ui'; ctx.textAlign='center';
-  ctx.fillText('défaut',x400,pt-5);
+  ctx.fillText(L('défaut','default'),x400,pt-5);
 }
 
 // ── EXPLORATEUR INTERACTIF ε_E / ε_D / max_merges ──────────────────────────
@@ -2434,7 +2434,7 @@ function drawCmpScatter(){
   ctx.strokeStyle='rgba(15,209,122,.22)';ctx.lineWidth=1;
   ctx.setLineDash([4,4]);ctx.strokeRect(sx(0),pt,sx(.13)-sx(0),sy(.82)-pt);ctx.setLineDash([]);
   ctx.fillStyle='rgba(15,209,122,.45)';ctx.font='10px system-ui';ctx.textAlign='left';
-  ctx.fillText('Zone idéale',sx(.005)+4,pt+13);
+  ctx.fillText(L('Zone idéale','Ideal zone'),sx(.005)+4,pt+13);
   // grid
   [.1,.2,.3,.4,.5,.6,.7].forEach(v=>{
     ctx.beginPath();ctx.moveTo(sx(v),pt);ctx.lineTo(sx(v),pt+ch);
@@ -2452,9 +2452,9 @@ function drawCmpScatter(){
   [0,.1,.2,.3,.4,.5,.6,.7].forEach(v=>{ctx.textAlign='center';ctx.fillText(v.toFixed(1),sx(v),pt+ch+15);});
   [.3,.5,.7,.9].forEach(v=>{ctx.textAlign='right';ctx.fillText(v.toFixed(1),pl-5,sy(v)+4);});
   ctx.textAlign='center';
-  ctx.fillText('ΔE  (équité — ← mieux)',pl+cw/2,pt+ch+36);
+  ctx.fillText(L('ΔE  (équité — ← mieux)','ΔE  (fairness — ← better)'),pl+cw/2,pt+ch+36);
   ctx.save();ctx.translate(13,pt+ch/2);ctx.rotate(-Math.PI/2);
-  ctx.fillText('ILD  (diversité — ↑ mieux)',0,0);ctx.restore();
+  ctx.fillText(L('ILD  (diversité — ↑ mieux)','ILD  (diversity — ↑ better)'),0,0);ctx.restore();
   const k=cmpK,RAD=8;
   // connectors
   METHODS.forEach(m=>{
@@ -2592,7 +2592,7 @@ function drawAllRuntime(){
     ctx.fillText(ds.lbl,lx+22,legY);
   });
   ctx.fillStyle=axisCol; ctx.textAlign='right';
-  ctx.fillText('Échelle log — k=10',pl+cw,legY);
+  ctx.fillText(L('Échelle log — k=10','Log scale — k=10'),pl+cw,legY);
 }
 
 function drawRuntime(){
@@ -2645,7 +2645,7 @@ function drawRuntime(){
     // avertissement AURORA k=5 sur 1M
     if(isO&&cmpK===5&&v1>10000){
       ctx.fillStyle='rgba(245,165,35,.85)';ctx.font='8.5px system-ui';
-      ctx.fillText(' phénomène top-5 stable — cas exceptionnel',pl+5,yc+BAR+14);
+      ctx.fillText(L(' phénomène top-5 stable — cas exceptionnel',' stable top-5 phenomenon — exceptional case'),pl+5,yc+BAR+14);
     }
   });
   // légende
@@ -2657,7 +2657,7 @@ function drawRuntime(){
   ctx.fillStyle=isDark?'rgba(180,190,230,.8)':'rgba(100,90,160,.45)';ctx.fillRect(pl+58,ly-7,22,6);
   ctx.fillText('1M',pl+84,ly);
   ctx.fillStyle=axisCol;ctx.textAlign='right';
-  ctx.fillText('Échelle log (×10 par graduation)',pl+cw,ly);
+  ctx.fillText(L('Échelle log (×10 par graduation)','Log scale (×10 per gridline)'),pl+cw,ly);
 }
 
 document.querySelectorAll('#k1MPills .pill').forEach(btn=>{
@@ -2906,7 +2906,7 @@ function drawScalRuntime(){
     ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
   });
   ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('Utilisateurs (échelle log)',pad.l+pw/2,H-4);
+  ctx.fillText(L('Utilisateurs (échelle log)','Users (log scale)'),pad.l+pw/2,H-4);
 
   // ML-100k — lignes tiretées, marqueurs creux
   METHODS.forEach(m=>{
@@ -2996,7 +2996,7 @@ function drawScalSn(){
     ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
   });
   ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
+  ctx.fillText(L('Utilisateurs','Users'),pad.l+pw/2,H-4);
 
   // ML-100k — taux de compression, ligne tiretée cyan
   const pts100k=SCAL_100K_SIZES.map(n=>({x:xPos(n),y:yPos(SCAL_100K_DATA[n]["AURORA"].ratio),n}));
@@ -3067,7 +3067,7 @@ function drawScalEdi(){
     ctx.fillText(n>=1000?(n/1000)+'k':n,x,pad.t+ph+14);
   });
   ctx.fillStyle=t3; ctx.font='9px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('Utilisateurs',pad.l+pw/2,H-4);
+  ctx.fillText(L('Utilisateurs','Users'),pad.l+pw/2,H-4);
 
   // Fonction helper pour tracer une courbe
   function drawLine(sizes,getData,col,solid,dotFill,r){
@@ -3104,7 +3104,7 @@ function buildScalTable(){
   const tbl=document.getElementById('scalTbl');
   if(!tbl)return;
   const head=`<tr><th>${L('Méthode','Method')}</th>${SCAL_SIZES.map(n=>`<th colspan="2">ML-1M ${n>=1000?(n/1000)+'k':n}</th>`).join('')}</tr>
-<tr><th></th>${SCAL_SIZES.map(()=>'<th>Temps</th><th>ΔE</th>').join('')}</tr>`;
+<tr><th></th>${SCAL_SIZES.map(()=>`<th>${L('Temps','Time')}</th><th>ΔE</th>`).join('')}</tr>`;
   const rows=METHODS.map(m=>{
     const cells=SCAL_SIZES.map(n=>{
       const d=SCAL_DATA[n][m];
@@ -3136,7 +3136,7 @@ const LIB={
 function buildLibTable(){
   const tbl=document.getElementById('libTbl');
   const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},
-              {k:'inc_F',l:'inc_F ↑',dir:'max'},{k:'inc_M',l:'inc_M ↑',dir:'max'},{k:'elapsed_s',l:'Temps',dir:'min'}];
+              {k:'inc_F',l:'inc_F ↑',dir:'max'},{k:'inc_M',l:'inc_M ↑',dir:'max'},{k:'elapsed_s',l:L('Temps','Time'),dir:'min'}];
   const best={};
   cols.forEach(c=>{
     const vals=METHODS.map(m=>LIB[m][c.k]);
@@ -3158,8 +3158,9 @@ function buildLibTable(){
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
-  document.getElementById('libInterp').innerHTML=
-    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé dans l'onglet libimseti.cz. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus (limite structurelle confirmée par test de robustesse, cf. discussion dans l'onglet libimseti.cz) : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`;
+  document.getElementById('libInterp').innerHTML=L(
+    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé dans l'onglet libimseti.cz. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus (limite structurelle confirmée par test de robustesse, cf. discussion dans l'onglet libimseti.cz) : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`,
+    `<strong style="color:var(--t1)">What we observe here:</strong> rating patterns differ significantly by (rater, rated) gender pair — see the cross-table in the libimseti.cz tab. Voting methods (Borda, Condorcet) create a fairness gap of <strong style="color:var(--red)">ΔE > 1.0</strong> — a level unseen on MovieLens. Our method improves no metric on this corpus (structural limitation confirmed by a robustness test, see discussion in the libimseti.cz tab): it nonetheless remains <strong style="color:var(--green)">2nd best on diversity (ILD=0.761)</strong> among non-trivial approaches.`);
 }
 
 function drawLibBar(canvasId, getter, colorFn, maxVal){
@@ -3235,7 +3236,7 @@ function buildRmpTable(){
     {k:'dE',     l:'ΔE ↓',      dir:'min'},
     {k:'ILD',    l:'ILD ↑',     dir:'max'},
     {k:'frac_F', l:'frac F',    dir:'mid'},
-    {k:'elapsed_s',l:'Temps',   dir:'min'}
+    {k:'elapsed_s',l:L('Temps','Time'),   dir:'min'}
   ];
   const best={};
   cols.forEach(c=>{
@@ -3260,8 +3261,9 @@ function buildRmpTable(){
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
-  document.getElementById('rmpInterp').innerHTML=
-    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.145 pour Borda — soit environ <strong>5,6× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`;
+  document.getElementById('rmpInterp').innerHTML=L(
+    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.145 pour Borda — soit environ <strong>5,6× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`,
+    `<strong style="color:var(--t1)">The big lesson from RMP:</strong> most methods are fair here (ΔE ≤ 0.076, except AURORA at 0.112) — no systematic gender bias in student ratings. The real battle is over <strong style="color:var(--blue)">ILD diversity</strong>. Our coarsening reaches <strong style="color:var(--green)">ILD=0.808</strong> versus 0.145 for Borda — roughly <strong>5.6× more diversity</strong> among recommended professors, with the best representation (frac_F=0.60).`);
 }
 
 function drawRmpCharts(){
@@ -3332,7 +3334,7 @@ function drawRmpCharts(){
     // Y axis label
     ctx.save();ctx.translate(W-pad.r+14,pad.t+ph/2);ctx.rotate(Math.PI/2);
     ctx.fillStyle=tc;ctx.font='10px system-ui';ctx.textAlign='center';
-    ctx.fillText('Nombre de ratings (échelle log approximée)',0,0);
+    ctx.fillText(L('Nombre de ratings (échelle log approximée)','Number of ratings (approx. log scale)'),0,0);
     ctx.restore();
   }
   draw();
@@ -3351,7 +3353,7 @@ const OALEX={
 function buildOalexTable(){
   const tbl=document.getElementById('oalexTbl');
   if(!tbl||tbl.querySelector('tbody'))return;
-  const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},{k:'frac_F',l:'frac F',dir:'mid'},{k:'elapsed_s',l:'Temps',dir:'min'}];
+  const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},{k:'frac_F',l:'frac F',dir:'mid'},{k:'elapsed_s',l:L('Temps','Time'),dir:'min'}];
   const best={};
   cols.forEach(c=>{
     if(c.dir==='mid')return;
@@ -3387,9 +3389,9 @@ function drawDatasetRadar(canvasId,pts){
   const ctx=cv.getContext('2d');
   const cx=W/2,cy=W/2,R=W*.27;
   const axes=[
-    {label:['Diversité','(ILD)'],    a:-Math.PI/2},
-    {label:['Équité','(1−ΔE)'],      a:Math.PI/6},
-    {label:['Genre','(frac_F norm)'],a:5*Math.PI/6},
+    {label:[L('Diversité','Diversity'),'(ILD)'],    a:-Math.PI/2},
+    {label:[L('Équité','Fairness'),'(1−ΔE)'],      a:Math.PI/6},
+    {label:[L('Genre','Gender'),'(frac_F norm)'],a:5*Math.PI/6},
   ];
   ctx.clearRect(0,0,W,W);
   const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
@@ -3493,7 +3495,7 @@ function buildPareto(){
   ctx.save(); ctx.translate(13,pad.t+ph/2); ctx.rotate(-Math.PI/2);
   ctx.font='11px system-ui,sans-serif'; ctx.textAlign='center'; ctx.fillText('ILD ↑',0,0); ctx.restore();
   ctx.textAlign='center'; ctx.font='11px system-ui,sans-serif';
-  ctx.fillText('ΔE (plus bas = meilleure équité)',pad.l+pw/2,H-5);
+  ctx.fillText(L('ΔE (plus bas = meilleure équité)','ΔE (lower = better fairness)'),pad.l+pw/2,H-5);
   // zone idéale — fond vert clair, bordure tiretée
   {
     const zx2=toX(0.14), zy1=toY(1.0), zy2=toY(0.70);
@@ -3502,7 +3504,7 @@ function buildPareto(){
     ctx.strokeStyle='rgba(18,232,122,.28)'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
     ctx.strokeRect(pad.l,zy1,zx2-pad.l,zy2-zy1); ctx.setLineDash([]);
     ctx.fillStyle='rgba(18,232,122,.45)'; ctx.font='bold 9px system-ui,sans-serif';
-    ctx.textAlign='left'; ctx.fillText('Zone idéale',pad.l+4,zy1+12);
+    ctx.textAlign='left'; ctx.fillText(L('Zone idéale','Ideal zone'),pad.l+4,zy1+12);
   }
   // Pareto front
   function paretoFront(pts){
@@ -3593,13 +3595,13 @@ function buildAllCmpTable(){
     DATASETS.forEach(ds=>{
       const d=src[ds.key][m];
       const deV=d.dE, ildV=d.ILD;
-      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">en cours</td>`;return;}
+      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">${L('en cours','in progress')}</td>`;return;}
       const deCls=deV<.05?'color:var(--green)':deV<.4?'color:var(--amber)':'color:var(--red)';
       const ildCls=ildV>=.8?'color:var(--green)':ildV>=.4?'color:var(--amber)':'color:var(--red)';
       const deSym=deV<.05?'✓':deV<.4?'~':'✕';
       const ildSym=ildV>=.8?'✓':ildV>=.4?'~':'✕';
-      h+=`<td style="font-variant-numeric:tabular-nums;${deCls}" title="${deV<.05?'bon':deV<.4?'moyen':'mauvais'}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${deSym}</span>${deV.toFixed(3)}</td>`;
-      h+=`<td style="font-variant-numeric:tabular-nums;${ildCls}" title="${ildV>=.8?'bon':ildV>=.4?'moyen':'mauvais'}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${ildSym}</span>${ildV.toFixed(3)}</td>`;
+      h+=`<td style="font-variant-numeric:tabular-nums;${deCls}" title="${deV<.05?L('bon','good'):deV<.4?L('moyen','medium'):L('mauvais','poor')}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${deSym}</span>${deV.toFixed(3)}</td>`;
+      h+=`<td style="font-variant-numeric:tabular-nums;${ildCls}" title="${ildV>=.8?L('bon','good'):ildV>=.4?L('moyen','medium'):L('mauvais','poor')}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${ildSym}</span>${ildV.toFixed(3)}</td>`;
     });
     h+=`</tr>`;
   });
