@@ -237,6 +237,12 @@ canvas{width:100%;display:block;border-radius:8px}
 .cine-ico{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:background .15s;user-select:none}
 .cine-ico:hover{background:rgba(255,255,255,.18)}
 .cine-caption{position:absolute;bottom:16px;left:22px;z-index:3;color:#fff;opacity:.8;font-size:.72rem;font-weight:600;letter-spacing:.04em}
+
+/* ── FR/EN toggle ── */
+.i18n-en{display:none}
+:root[data-lang="en"] .i18n-fr{display:none}
+:root[data-lang="en"] .i18n-en{display:inline}
+:root[data-lang="en"] .i18n-en.i18n-block{display:block}
 </style>
 </head>
 <body>
@@ -246,8 +252,8 @@ canvas{width:100%;display:block;border-radius:8px}
   <canvas id="aurora-canvas"></canvas>
   <div class="hdr-inner">
     <div>
-      <div class="hdr-eyebrow">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · 2026</div>
-      <h1 class="hdr-title">Agrégation de Préférences avec <span class="edi-accent">EDI</span></h1>
+      <div class="hdr-eyebrow"><span class="i18n-fr">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · 2026</span><span class="i18n-en">M2 DataScale Thesis · Université Paris-Saclay · University of Regina · 2026</span></div>
+      <h1 class="hdr-title"><span class="i18n-fr">Agrégation de Préférences avec <span class="edi-accent">EDI</span></span><span class="i18n-en">Preference Aggregation with <span class="edi-accent">EDI</span></span></h1>
       <div class="hdr-meta">
         <span class="hdr-author">Adji Marieme Sita Cissé</span> <span style="opacity:.6;font-size:.85em">(Paris-Saclay · Regina)</span>
         <span class="hdr-sep">·</span>
@@ -255,20 +261,38 @@ canvas{width:100%;display:block;border-radius:8px}
       </div>
     </div>
     <div class="hdr-kpis">
-      <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl">Méthodes</div></div>
-      <div class="hdr-kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Corpus</div></div>
+      <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl"><span class="i18n-fr">Méthodes</span><span class="i18n-en">Methods</span></div></div>
+      <div class="hdr-kpi"><div class="kpi-val">4</div><div class="kpi-lbl"><span class="i18n-fr">Corpus</span><span class="i18n-en">Corpora</span></div></div>
       <div class="hdr-kpi"><div class="kpi-val">4M+</div><div class="kpi-lbl">Ratings</div></div>
+      <button id="langToggle" class="tog" style="flex-shrink:0;align-self:center" aria-label="Switch language / Changer de langue"></button>
       <button id="themeToggle" class="tog" style="flex-shrink:0;align-self:center" aria-label="Changer de thème clair/sombre"></button>
     </div>
   </div>
 </header>
 <script>
 (function(){
+  var KEY='edi-lang', root=document.documentElement, btn=document.getElementById('langToggle');
+  function isEnNow(){ return root.dataset.lang==='en'; }
+  function paint(){ btn.textContent = isEnNow() ? 'FR · Français' : 'EN · English'; }
+  var saved=null;
+  try{ saved=localStorage.getItem(KEY); }catch(e){}
+  if(saved==='en') root.dataset.lang='en';
+  paint();
+  btn.addEventListener('click',function(){
+    var next = isEnNow() ? 'fr' : 'en';
+    try{ if(next==='en') localStorage.setItem(KEY,'en'); else localStorage.removeItem(KEY); }catch(e){}
+    location.reload();
+  });
+})();
+(function(){
   var KEY='edi-theme', root=document.documentElement, btn=document.getElementById('themeToggle');
   function isDarkNow(){
     return root.dataset.theme==='dark' || (!root.dataset.theme && window.matchMedia('(prefers-color-scheme:dark)').matches);
   }
-  function paint(){ btn.textContent = isDarkNow() ? '☀ Clair' : '☾ Sombre'; }
+  function paint(){
+    var en = root.dataset.lang==='en';
+    btn.textContent = isDarkNow() ? (en?'☀ Light':'☀ Clair') : (en?'☾ Dark':'☾ Sombre');
+  }
   var saved=null;
   try{ saved=localStorage.getItem(KEY); }catch(e){}
   if(saved==='dark'||saved==='light') root.dataset.theme=saved;
@@ -282,23 +306,23 @@ canvas{width:100%;display:block;border-radius:8px}
 </script>
 
 <div class="tab-bar">
-  <button class="tab-btn on" data-tab="home">Accueil</button>
-  <button class="tab-btn" data-tab="data">Les Données</button>
-  <button class="tab-btn" data-tab="graph">Graphe</button>
-  <button class="tab-btn" data-tab="calc">Calcul EDI</button>
-  <button class="tab-btn" data-tab="lit">Travaux connexes</button>
+  <button class="tab-btn on" data-tab="home"><span class="i18n-fr">Accueil</span><span class="i18n-en">Home</span></button>
+  <button class="tab-btn" data-tab="data"><span class="i18n-fr">Les Données</span><span class="i18n-en">The Data</span></button>
+  <button class="tab-btn" data-tab="graph"><span class="i18n-fr">Graphe</span><span class="i18n-en">Graph</span></button>
+  <button class="tab-btn" data-tab="calc"><span class="i18n-fr">Calcul EDI</span><span class="i18n-en">EDI Computation</span></button>
+  <button class="tab-btn" data-tab="lit"><span class="i18n-fr">Travaux connexes</span><span class="i18n-en">Related Work</span></button>
   <button class="tab-btn" data-tab="methods">MovieLens 100k</button>
   <button class="tab-btn" data-tab="1m">MovieLens 1M</button>
   <button class="tab-btn" data-tab="lib">libimseti.cz</button>
   <button class="tab-btn" data-tab="rmp">Rate My Professors</button>
   <button class="tab-btn" data-tab="oalex">OpenAlex</button>
-  <button class="tab-btn" data-tab="scal">Scalabilité</button>
+  <button class="tab-btn" data-tab="scal"><span class="i18n-fr">Scalabilité</span><span class="i18n-en">Scalability</span></button>
   <button class="tab-btn" data-tab="radar">Radar EDI</button>
-  <button class="tab-btn" data-tab="viz">Analyse MovieLens</button>
+  <button class="tab-btn" data-tab="viz"><span class="i18n-fr">Analyse MovieLens</span><span class="i18n-en">MovieLens Analysis</span></button>
   <button class="tab-btn" data-tab="pareto">Pareto</button>
-  <button class="tab-btn" data-tab="cmp">Comparaison</button>
+  <button class="tab-btn" data-tab="cmp"><span class="i18n-fr">Comparaison</span><span class="i18n-en">Comparison</span></button>
   <button class="tab-btn" data-tab="concl">Conclusion</button>
-  <button class="tab-btn" data-tab="origin">L'histoire d'AURORA</button>
+  <button class="tab-btn" data-tab="origin"><span class="i18n-fr">L'histoire d'AURORA</span><span class="i18n-en">The Story of AURORA</span></button>
 </div>
 
 <div class="main">
@@ -309,26 +333,27 @@ canvas{width:100%;display:block;border-radius:8px}
 
     <!-- Hero -->
     <div style="text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--bd);margin-bottom:28px">
-      <div style="font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · Prof. Malek Mouhoub</div>
+      <div style="font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:12px"><span class="i18n-fr">Mémoire M2 DataScale · Université Paris-Saclay · University of Regina · Prof. Malek Mouhoub</span><span class="i18n-en">M2 DataScale Thesis · Université Paris-Saclay · University of Regina · Prof. Malek Mouhoub</span></div>
       <h1 style="font-size:2.1rem;font-weight:900;letter-spacing:-.04em;line-height:1.1;margin-bottom:14px;color:var(--t1)">
-        Équité, Diversité et Inclusion<br>
-        <span style="color:var(--green)">dans les systèmes de recommandation sociale</span>
+        <span class="i18n-fr">Équité, Diversité et Inclusion<br>
+        <span style="color:var(--green)">dans les systèmes de recommandation sociale</span></span><span class="i18n-en">Equity, Diversity and Inclusion<br>
+        <span style="color:var(--green)">in social recommender systems</span></span>
       </h1>
       <p style="font-size:.92rem;color:var(--t2);line-height:1.7;max-width:580px;margin:0 auto 20px">
-        Ce tableau de bord présente une méthode originale basée sur le <strong style="color:var(--t1)">coarsening de graphe</strong> pour améliorer simultanément l'équité (ΔE), la diversité (ILD) et l'inclusion dans les listes de recommandation — validée sur <strong style="color:var(--t1)">4 corpus distincts</strong> (5 jeux de données au total, MovieLens étant testé à deux échelles).
+        <span class="i18n-fr">Ce tableau de bord présente une méthode originale basée sur le <strong style="color:var(--t1)">coarsening de graphe</strong> pour améliorer simultanément l'équité (ΔE), la diversité (ILD) et l'inclusion dans les listes de recommandation — validée sur <strong style="color:var(--t1)">4 corpus distincts</strong> (5 jeux de données au total, MovieLens étant testé à deux échelles).</span><span class="i18n-en">This dashboard presents an original method based on <strong style="color:var(--t1)">graph coarsening</strong> to simultaneously improve equity (ΔE), diversity (ILD) and inclusion in recommendation lists — validated on <strong style="color:var(--t1)">4 distinct corpora</strong> (5 datasets in total, MovieLens being tested at two scales).</span>
       </p>
       <!-- KPIs globaux -->
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
         <div class="hdr-kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Datasets</div></div>
-        <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl">Méthodes</div></div>
+        <div class="hdr-kpi"><div class="kpi-val">6</div><div class="kpi-lbl"><span class="i18n-fr">Méthodes</span><span class="i18n-en">Methods</span></div></div>
         <div class="hdr-kpi"><div class="kpi-val">4M+</div><div class="kpi-lbl">Ratings</div></div>
-        <div class="hdr-kpi"><div class="kpi-val" style="color:var(--green)">3</div><div class="kpi-lbl">Métriques EDI</div></div>
+        <div class="hdr-kpi"><div class="kpi-val" style="color:var(--green)">3</div><div class="kpi-lbl"><span class="i18n-fr">Métriques EDI</span><span class="i18n-en">EDI Metrics</span></div></div>
       </div>
     </div>
 
     <!-- Résultat phare -->
     <div class="card" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.04);margin-bottom:20px">
-      <div class="card-title" style="color:var(--green)">Résultats clés</div>
+      <div class="card-title" style="color:var(--green)"><span class="i18n-fr">Résultats clés</span><span class="i18n-en">Key Results</span></div>
       <div style="text-align:center;margin-bottom:16px;padding:16px 20px;background:rgba(18,232,122,.07);border:1px solid rgba(18,232,122,.28);border-radius:12px">
         <div style="font-size:1.5rem;font-weight:900;letter-spacing:.1em;color:var(--green);text-shadow:0 0 24px rgba(18,232,122,.55);margin-bottom:8px">AURORA</div>
         <div style="font-size:.82rem;color:var(--t2);line-height:1.7;letter-spacing:.01em">
@@ -341,46 +366,46 @@ canvas{width:100%;display:block;border-radius:8px}
         </div>
       </div>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7;margin-bottom:10px">
-        Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : un coarsening de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.
+        <span class="i18n-fr">Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : un coarsening de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.</span><span class="i18n-en">Classical aggregation rules — Borda, Condorcet, Average Score — have no mechanism to avoid favouring majority groups, homogenising lists, or under-representing minorities. This work proposes an alternative: an EDI-constrained graph coarsening that embeds equity directly into the structure, rather than correcting it after the fact.</span>
       </p>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
-        Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée dans l'onglet libimseti.cz (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.
+        <span class="i18n-fr">Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée dans l'onglet libimseti.cz (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.</span><span class="i18n-en">Our method simultaneously improves all 4 EDI metrics <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> over Borda and Condorcet — on MovieLens 100k at k=20 (Weighted Borda also achieves this by explicitly reweighting its scores by group size; AURORA gets there without reformulating the voting rule, through a structural constraint during graph merging). On Rate My Professors, it reaches <strong style="color:var(--green)">ILD = 0.808</strong> versus 0.145 for Borda — roughly <strong style="color:var(--green)">5.6× more diversity</strong>, with the best representation (frac_F=0.60). On libimseti.cz, no improvement: rating patterns differ significantly by gender pair (rater, rated), a structural limitation documented in the libimseti.cz tab (ΔE > 1.0 for the voting methods — Borda, Weighted Borda, Condorcet — as well as for AURORA; Average Score and Fair Re-rank escape this only because they create no group differentiation at all). On OpenAlex, it achieves the <strong style="color:var(--green)">best ΔE = 0.051</strong> — the only method that reduces academic gender bias while maintaining diversity.</span>
       </p>
     </div>
 
     <!-- Navigation guide -->
-    <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Ce que vous trouverez dans ce tableau de bord</div>
+    <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:12px"><span class="i18n-fr">Ce que vous trouverez dans ce tableau de bord</span><span class="i18n-en">What you'll find in this dashboard</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
-        <div style="font-size:.68rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Les Données</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Vue d'ensemble des 4 corpus : MovieLens, libimseti.cz, Rate My Professors, OpenAlex.</div>
+        <div style="font-size:.68rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="i18n-fr">Les Données</span><span class="i18n-en">The Data</span></div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5"><span class="i18n-fr">Vue d'ensemble des 4 corpus : MovieLens, libimseti.cz, Rate My Professors, OpenAlex.</span><span class="i18n-en">Overview of the 4 corpora: MovieLens, libimseti.cz, Rate My Professors, OpenAlex.</span></div>
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
-        <div style="font-size:.68rem;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Graphe & Calcul</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Figure du coarsening, définition formelle des métriques EDI, exemples pas-à-pas.</div>
+        <div style="font-size:.68rem;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="i18n-fr">Graphe & Calcul</span><span class="i18n-en">Graph & Computation</span></div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5"><span class="i18n-fr">Figure du coarsening, définition formelle des métriques EDI, exemples pas-à-pas.</span><span class="i18n-en">Coarsening figure, formal definition of the EDI metrics, step-by-step examples.</span></div>
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
-        <div style="font-size:.68rem;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Résultats</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Un onglet dédié par dataset — tableau de résultats, graphiques ΔE et ILD, observations.</div>
+        <div style="font-size:.68rem;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="i18n-fr">Résultats</span><span class="i18n-en">Results</span></div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5"><span class="i18n-fr">Un onglet dédié par dataset — tableau de résultats, graphiques ΔE et ILD, observations.</span><span class="i18n-en">One dedicated tab per dataset — results table, ΔE and ILD charts, observations.</span></div>
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
-        <div style="font-size:.68rem;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Scalabilité & Radar</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Courbes de scalabilité (100k → 1M users), radars EDI multi-méthodes par dataset.</div>
+        <div style="font-size:.68rem;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="i18n-fr">Scalabilité & Radar</span><span class="i18n-en">Scalability & Radar</span></div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5"><span class="i18n-fr">Courbes de scalabilité (100k → 1M users), radars EDI multi-méthodes par dataset.</span><span class="i18n-en">Scalability curves (100k → 1M users), multi-method EDI radars per dataset.</span></div>
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
-        <div style="font-size:.68rem;font-weight:800;color:var(--cyan);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Analyse MovieLens & Pareto</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Radar + projection 2D sur MovieLens. Front de Pareto tous corpus (k=10).</div>
+        <div style="font-size:.68rem;font-weight:800;color:var(--cyan);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="i18n-fr">Analyse MovieLens & Pareto</span><span class="i18n-en">MovieLens Analysis & Pareto</span></div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5"><span class="i18n-fr">Radar + projection 2D sur MovieLens. Front de Pareto tous corpus (k=10).</span><span class="i18n-en">Radar + 2D projection on MovieLens. Pareto front across all corpora (k=10).</span></div>
       </div>
       <div style="padding:13px 16px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)">
-        <div style="font-size:.68rem;font-weight:800;color:var(--coral);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Comparaison & Conclusion</div>
-        <div style="font-size:.78rem;color:var(--t2);line-height:1.5">Tableau comparatif multi-datasets et synthèse finale des apports de la méthode.</div>
+        <div style="font-size:.68rem;font-weight:800;color:var(--coral);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px"><span class="i18n-fr">Comparaison & Conclusion</span><span class="i18n-en">Comparison & Conclusion</span></div>
+        <div style="font-size:.78rem;color:var(--t2);line-height:1.5"><span class="i18n-fr">Tableau comparatif multi-datasets et synthèse finale des apports de la méthode.</span><span class="i18n-en">Multi-dataset comparison table and final summary of the method's contributions.</span></div>
       </div>
     </div>
 
     <!-- Reproduire les résultats -->
     <div class="card" style="margin-top:20px">
-      <div class="card-title">Reproduire ces résultats</div>
-      <p style="font-size:.8rem;color:var(--t2);line-height:1.6;margin-bottom:10px">Pipeline vérifié bout-en-bout sur les 5 datasets. Code source : <a href="https://github.com/sitaacisse-boop/EDI" target="_blank" rel="noopener" style="color:var(--blue)">github.com/sitaacisse-boop/EDI</a>.</p>
+      <div class="card-title"><span class="i18n-fr">Reproduire ces résultats</span><span class="i18n-en">Reproducing These Results</span></div>
+      <p style="font-size:.8rem;color:var(--t2);line-height:1.6;margin-bottom:10px"><span class="i18n-fr">Pipeline vérifié bout-en-bout sur les 5 datasets. Code source : </span><span class="i18n-en">Pipeline verified end-to-end on all 5 datasets. Source code: </span><a href="https://github.com/sitaacisse-boop/EDI" target="_blank" rel="noopener" style="color:var(--blue)">github.com/sitaacisse-boop/EDI</a>.</p>
       <div class="formula" style="white-space:pre-wrap">git clone https://github.com/sitaacisse-boop/EDI.git &amp;&amp; cd EDI
 python3 -m venv venv &amp;&amp; source venv/bin/activate
 pip install numpy pandas networkx matplotlib gender-guesser pyalex jupyter
@@ -390,7 +415,7 @@ python run_experiments_1m.py     # MovieLens 1M
 python run_libimseti.py          # libimseti.cz
 python run_rmp.py                # Rate My Professors
 python run_openalex.py           # OpenAlex</div>
-      <p style="font-size:.72rem;color:var(--t3);margin-top:10px;line-height:1.5">MovieLens 100k est inclus dans <code style="font-family:'Courier New',monospace;background:var(--s2);padding:1px 5px;border-radius:4px">data/</code>. Les jeux ML-1M, libimseti et RMP (volumineux) sont exclus du dépôt (<code style="font-family:'Courier New',monospace;background:var(--s2);padding:1px 5px;border-radius:4px">.gitignore</code>) — voir le README pour leurs sources. Les résultats de chaque run alimentent directement les JSON affichés dans ce dashboard.</p>
+      <p style="font-size:.72rem;color:var(--t3);margin-top:10px;line-height:1.5"><span class="i18n-fr">MovieLens 100k est inclus dans <code style="font-family:'Courier New',monospace;background:var(--s2);padding:1px 5px;border-radius:4px">data/</code>. Les jeux ML-1M, libimseti et RMP (volumineux) sont exclus du dépôt (<code style="font-family:'Courier New',monospace;background:var(--s2);padding:1px 5px;border-radius:4px">.gitignore</code>) — voir le README pour leurs sources. Les résultats de chaque run alimentent directement les JSON affichés dans ce dashboard.</span><span class="i18n-en">MovieLens 100k is included in <code style="font-family:'Courier New',monospace;background:var(--s2);padding:1px 5px;border-radius:4px">data/</code>. The ML-1M, libimseti, and RMP datasets (large) are excluded from the repo (<code style="font-family:'Courier New',monospace;background:var(--s2);padding:1px 5px;border-radius:4px">.gitignore</code>) — see the README for their sources. Each run's results directly feed the JSON files displayed in this dashboard.</span></p>
     </div>
 
     <!-- Auteure -->
@@ -402,18 +427,18 @@ python run_openalex.py           # OpenAlex</div>
 
 <!-- TAB — Les Données -->
 <div class="panel" id="p-data">
-  <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:12px">Vue d'ensemble — les 4 corpus utilisés</div>
+  <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:12px"><span class="i18n-fr">Vue d'ensemble — les 4 corpus utilisés</span><span class="i18n-en">Overview — the 4 corpora used</span></div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:14px">
 
     <div class="card" style="border-color:rgba(107,143,255,.3)">
       <div style="font-size:1.4rem;margin-bottom:8px"></div>
       <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">MovieLens</div>
       <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
-        <b>Domain :</b> Films · User-side equity<br>
+        <b>Domain :</b> <span class="i18n-fr">Films</span><span class="i18n-en">Movies</span> · User-side equity<br>
         <b>Users :</b> 943 (100k) · 6 040 (1M)<br>
-        <b>Items :</b> 1 682 · 3 706 films<br>
-        <b>Ratings :</b> 100k · 1M notes (1–5)<br>
-        <b>Équité :</b> Genre des notateurs (F/M)<br>
+        <b>Items :</b> 1 682 · 3 706 <span class="i18n-fr">films</span><span class="i18n-en">movies</span><br>
+        <b>Ratings :</b> 100k · 1M <span class="i18n-fr">notes</span><span class="i18n-en">ratings</span> (1–5)<br>
+        <b><span class="i18n-fr">Équité</span><span class="i18n-en">Equity</span> :</b> <span class="i18n-fr">Genre des notateurs (F/M)</span><span class="i18n-en">Gender of raters (F/M)</span><br>
         <b>α_F :</b> 29% (100k) · 28% (1M)
       </div>
     </div>
@@ -422,11 +447,11 @@ python run_openalex.py           # OpenAlex</div>
       <div style="font-size:1.4rem;margin-bottom:8px"></div>
       <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">libimseti.cz</div>
       <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
-        <b>Domain :</b> Rencontres · User-side equity<br>
+        <b>Domain :</b> <span class="i18n-fr">Rencontres</span><span class="i18n-en">Dating</span> · User-side equity<br>
         <b>Users :</b> 1 000 (500F / 500M)<br>
-        <b>Items :</b> 32 677 profils (avec genre)<br>
-        <b>Ratings :</b> 97 707 notes (1–10)<br>
-        <b>Équité :</b> Genre des rateurs (F/M)<br>
+        <b>Items :</b> 32 677 <span class="i18n-fr">profils (avec genre)</span><span class="i18n-en">profiles (with gender)</span><br>
+        <b>Ratings :</b> 97 707 <span class="i18n-fr">notes</span><span class="i18n-en">ratings</span> (1–10)<br>
+        <b><span class="i18n-fr">Équité</span><span class="i18n-en">Equity</span> :</b> <span class="i18n-fr">Genre des rateurs (F/M)</span><span class="i18n-en">Gender of raters (F/M)</span><br>
         <b>θ :</b> 7.0 (80% sur l'échelle 1–10)
       </div>
     </div>
@@ -435,12 +460,12 @@ python run_openalex.py           # OpenAlex</div>
       <div style="font-size:1.4rem;margin-bottom:8px"></div>
       <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">Rate My Professors</div>
       <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
-        <b>Domain :</b> Académique · Item-side equity<br>
-        <b>Users :</b> 1 981 cours (ex. ENG101)<br>
-        <b>Items :</b> 59 066 professeurs<br>
-        <b>Ratings :</b> 150 800 notes (1–5)<br>
-        <b>Équité :</b> Genre des profs recommandés<br>
-        <b>α_F :</b> 51% des profs
+        <b>Domain :</b> <span class="i18n-fr">Académique</span><span class="i18n-en">Academic</span> · Item-side equity<br>
+        <b>Users :</b> 1 981 <span class="i18n-fr">cours (ex. ENG101)</span><span class="i18n-en">courses (e.g. ENG101)</span><br>
+        <b>Items :</b> 59 066 <span class="i18n-fr">professeurs</span><span class="i18n-en">professors</span><br>
+        <b>Ratings :</b> 150 800 <span class="i18n-fr">notes</span><span class="i18n-en">ratings</span> (1–5)<br>
+        <b><span class="i18n-fr">Équité</span><span class="i18n-en">Equity</span> :</b> <span class="i18n-fr">Genre des profs recommandés</span><span class="i18n-en">Gender of recommended professors</span><br>
+        <b>α_F :</b> <span class="i18n-fr">51% des profs</span><span class="i18n-en">51% of professors</span>
       </div>
     </div>
 
@@ -448,12 +473,12 @@ python run_openalex.py           # OpenAlex</div>
       <div style="font-size:1.4rem;margin-bottom:8px"></div>
       <div style="font-weight:800;font-size:.85rem;color:var(--t1);margin-bottom:4px">OpenAlex</div>
       <div style="font-size:.72rem;color:var(--t2);line-height:1.6">
-        <b>Domain :</b> Publications académiques · Item-side<br>
+        <b>Domain :</b> <span class="i18n-fr">Publications académiques</span><span class="i18n-en">Academic publications</span> · Item-side<br>
         <b>Users :</b> ~99 venues (NeurIPS, ICML)<br>
-        <b>Items :</b> ~900 auteurs AI/ML/CS<br>
-        <b>Ratings :</b> ~2 100 associations (2018–2023)<br>
-        <b>Équité :</b> Genre des auteurs recommandés<br>
-        <b>α_F :</b> 19% des auteurs (genre connu)
+        <b>Items :</b> ~900 <span class="i18n-fr">auteurs</span><span class="i18n-en">authors</span> AI/ML/CS<br>
+        <b>Ratings :</b> ~2 100 <span class="i18n-fr">associations</span><span class="i18n-en">co-authorships</span> (2018–2023)<br>
+        <b><span class="i18n-fr">Équité</span><span class="i18n-en">Equity</span> :</b> <span class="i18n-fr">Genre des auteurs recommandés</span><span class="i18n-en">Gender of recommended authors</span><br>
+        <b>α_F :</b> <span class="i18n-fr">19% des auteurs (genre connu)</span><span class="i18n-en">19% of authors (known gender)</span>
       </div>
     </div>
 
@@ -461,61 +486,61 @@ python run_openalex.py           # OpenAlex</div>
 
   <!-- Graphique comparatif des 4 corpus -->
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Comparaison des 4 corpus — taille et déséquilibre de genre</div>
+    <div class="card-title"><span class="i18n-fr">Comparaison des 4 corpus — taille et déséquilibre de genre</span><span class="i18n-en">Comparison of the 4 corpora — size and gender imbalance</span></div>
     <canvas id="dataCompCanvas" style="width:100%;display:block"></canvas>
     <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t2)">
-      <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff7a5c;margin-right:4px;vertical-align:middle"></span>% femmes (genre biologique ou prénom)</span>
-      <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#6b8fff;margin-right:4px;vertical-align:middle"></span>% hommes</span>
-      <span style="margin-left:auto;color:var(--t3)">Nombre de ratings indiqué en haut de chaque barre</span>
+      <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ff7a5c;margin-right:4px;vertical-align:middle"></span><span class="i18n-fr">% femmes (genre biologique ou prénom)</span><span class="i18n-en">% female (biological gender or first name)</span></span>
+      <span><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#6b8fff;margin-right:4px;vertical-align:middle"></span><span class="i18n-fr">% hommes</span><span class="i18n-en">% male</span></span>
+      <span style="margin-left:auto;color:var(--t3)"><span class="i18n-fr">Nombre de ratings indiqué en haut de chaque barre</span><span class="i18n-en">Number of ratings shown above each bar</span></span>
     </div>
     <p style="font-size:.72rem;color:var(--t3);margin:8px 0 0;line-height:1.5">
-      * libimseti : 500F/500M par construction (échantillonnage stratifié). OpenAlex : genre estimé par prénom (Genderize.io), 19% F car l'AI/ML reste très masculin.
+      <span class="i18n-fr">* libimseti : 500F/500M par construction (échantillonnage stratifié). OpenAlex : genre estimé par prénom (Genderize.io), 19% F car l'AI/ML reste très masculin.</span><span class="i18n-en">* libimseti: 500F/500M by construction (stratified sampling). OpenAlex: gender estimated from first name (Genderize.io), 19% F because AI/ML remains heavily male-dominated.</span>
     </p>
   </div>
 
   <div class="card" style="background:rgba(18,232,122,.04);border-color:rgba(18,232,122,.2);margin-top:14px">
-    <div class="card-title" style="color:var(--green)">Pourquoi 4 corpus très différents ?</div>
+    <div class="card-title" style="color:var(--green)"><span class="i18n-fr">Pourquoi 4 corpus très différents ?</span><span class="i18n-en">Why 4 Very Different Corpora?</span></div>
     <p style="font-size:.8rem;color:var(--t2);line-height:1.65">
-      MovieLens valide la méthode sur un cas classique (user-side, notes 1–5). libimseti teste la robustesse avec un fort biais de genre (ΔE > 1 pour Borda). Rate My Professors introduit l'<em>item-side equity</em> — le genre des items recommandés. OpenAlex applique ce même cadre au domaine académique, où le biais de genre dans les citations est un problème connu. Cette diversité de domaines montre que le coarsening de graphe est une approche <strong style="color:var(--t1)">généraliste</strong>.
+      <span class="i18n-fr">MovieLens valide la méthode sur un cas classique (user-side, notes 1–5). libimseti teste la robustesse avec un fort biais de genre (ΔE > 1 pour Borda). Rate My Professors introduit l'<em>item-side equity</em> — le genre des items recommandés. OpenAlex applique ce même cadre au domaine académique, où le biais de genre dans les citations est un problème connu. Cette diversité de domaines montre que le coarsening de graphe est une approche <strong style="color:var(--t1)">généraliste</strong>.</span><span class="i18n-en">MovieLens validates the method on a classic case (user-side, 1–5 ratings). libimseti tests robustness under a strong gender bias (ΔE > 1 for Borda). Rate My Professors introduces <em>item-side equity</em> — the gender of the recommended items. OpenAlex applies this same framework to the academic domain, where citation gender bias is a known problem. This diversity of domains shows that graph coarsening is a <strong style="color:var(--t1)">generalist</strong> approach.</span>
     </p>
     <div style="overflow-x:auto;margin-top:12px">
       <table class="ftbl">
-        <thead><tr><th>Corpus</th><th>Domaine</th><th>Biais mesuré côté</th><th>Intensité du biais</th></tr></thead>
+        <thead><tr><th>Corpus</th><th><span class="i18n-fr">Domaine</span><span class="i18n-en">Domain</span></th><th><span class="i18n-fr">Biais mesuré côté</span><span class="i18n-en">Bias measured on the</span></th><th><span class="i18n-fr">Intensité du biais</span><span class="i18n-en">Bias intensity</span></th></tr></thead>
         <tbody>
-          <tr><td>MovieLens 100k / 1M</td><td>Films</td><td>Utilisateur</td><td>Modérée</td></tr>
-          <tr><td>libimseti.cz</td><td>Rencontres</td><td>Utilisateur (des deux côtés)</td><td>Modérée à élevée</td></tr>
-          <tr><td>Rate My Professors</td><td>Éducation</td><td>Item</td><td>Modérée</td></tr>
-          <tr><td>OpenAlex</td><td>Recherche académique</td><td>Item</td><td style="color:var(--coral);font-weight:700">Extrême (19% F)</td></tr>
+          <tr><td>MovieLens 100k / 1M</td><td><span class="i18n-fr">Films</span><span class="i18n-en">Movies</span></td><td><span class="i18n-fr">Utilisateur</span><span class="i18n-en">User</span></td><td><span class="i18n-fr">Modérée</span><span class="i18n-en">Moderate</span></td></tr>
+          <tr><td>libimseti.cz</td><td><span class="i18n-fr">Rencontres</span><span class="i18n-en">Dating</span></td><td><span class="i18n-fr">Utilisateur (des deux côtés)</span><span class="i18n-en">User (both sides)</span></td><td><span class="i18n-fr">Modérée à élevée</span><span class="i18n-en">Moderate to high</span></td></tr>
+          <tr><td>Rate My Professors</td><td><span class="i18n-fr">Éducation</span><span class="i18n-en">Education</span></td><td>Item</td><td><span class="i18n-fr">Modérée</span><span class="i18n-en">Moderate</span></td></tr>
+          <tr><td>OpenAlex</td><td><span class="i18n-fr">Recherche académique</span><span class="i18n-en">Academic research</span></td><td>Item</td><td style="color:var(--coral);font-weight:700"><span class="i18n-fr">Extrême (19% F)</span><span class="i18n-en">Extreme (19% F)</span></td></tr>
         </tbody>
       </table>
     </div>
-    <p style="font-size:.68rem;color:var(--t3);margin-top:10px">Ensemble, les 4 corpus couvrent la diagonale complète : domaine, côté du graphe où le biais se loge, et sévérité du déséquilibre — de quoi vérifier qu'AURORA généralise plutôt que de sur-performer sur un seul cas favorable.</p>
+    <p style="font-size:.68rem;color:var(--t3);margin-top:10px"><span class="i18n-fr">Ensemble, les 4 corpus couvrent la diagonale complète : domaine, côté du graphe où le biais se loge, et sévérité du déséquilibre — de quoi vérifier qu'AURORA généralise plutôt que de sur-performer sur un seul cas favorable.</span><span class="i18n-en">Together, the 4 corpora cover the full diagonal: domain, the side of the graph where the bias sits, and the severity of the imbalance — enough to verify that AURORA generalizes rather than over-performing on a single favourable case.</span></p>
   </div>
 
   <div style="margin-top:14px">
-    <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:10px">Ce que chaque corpus apporte au papier</div>
+    <div style="font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:10px"><span class="i18n-fr">Ce que chaque corpus apporte au papier</span><span class="i18n-en">What each corpus brings to the paper</span></div>
 
     <div class="finding fk">
-      <h3>MovieLens — la comparabilité</h3>
-      <p>Le benchmark standard du domaine RecSys : n'importe quel relecteur peut confronter ces résultats à des dizaines d'autres papiers publiés. Les deux échelles (943 et 6 040 utilisateurs) répondent par avance à la question systématique « et à l'échelle, ça tient ? ».</p>
+      <h3><span class="i18n-fr">MovieLens — la comparabilité</span><span class="i18n-en">MovieLens — comparability</span></h3>
+      <p><span class="i18n-fr">Le benchmark standard du domaine RecSys : n'importe quel relecteur peut confronter ces résultats à des dizaines d'autres papiers publiés. Les deux échelles (943 et 6 040 utilisateurs) répondent par avance à la question systématique « et à l'échelle, ça tient ? ».</span><span class="i18n-en">The standard benchmark of the RecSys field: any reviewer can compare these results against dozens of other published papers. The two scales (943 and 6,040 users) pre-emptively answer the systematic question "does it hold at scale?".</span></p>
     </div>
 
     <div class="finding fw">
-      <h3>libimseti.cz — l'honnêteté qui rend le papier crédible</h3>
-      <p>Un papier où la méthode gagne partout est suspect. En montrant un cas où AURORA n'améliore rien — et en l'expliquant par la théorie (Yao &amp; Huang, 2017, sur les limites de la parité démographique) — cette faiblesse assumée devient une preuve de rigueur plutôt qu'un angle mort.</p>
+      <h3><span class="i18n-fr">libimseti.cz — l'honnêteté qui rend le papier crédible</span><span class="i18n-en">libimseti.cz — the honesty that makes the paper credible</span></h3>
+      <p><span class="i18n-fr">Un papier où la méthode gagne partout est suspect. En montrant un cas où AURORA n'améliore rien — et en l'expliquant par la théorie (Yao &amp; Huang, 2017, sur les limites de la parité démographique) — cette faiblesse assumée devient une preuve de rigueur plutôt qu'un angle mort.</span><span class="i18n-en">A paper where the method wins everywhere is suspicious. By showing a case where AURORA improves nothing — and explaining it through theory (Yao &amp; Huang, 2017, on the limits of demographic parity) — this acknowledged weakness becomes proof of rigour rather than a blind spot.</span></p>
     </div>
 
     <div class="finding fg">
-      <h3>Rate My Professors — l'élargissement de la portée</h3>
-      <p>Premier test de l'<em>item-side equity</em> : la méthode ne se limite pas à corriger un biais côté utilisateur, elle généralise à l'autre grande famille de biais. Le résultat (5,6× plus de diversité que Borda) est aussi le plus spectaculaire du lot.</p>
+      <h3><span class="i18n-fr">Rate My Professors — l'élargissement de la portée</span><span class="i18n-en">Rate My Professors — broadening the scope</span></h3>
+      <p><span class="i18n-fr">Premier test de l'<em>item-side equity</em> : la méthode ne se limite pas à corriger un biais côté utilisateur, elle généralise à l'autre grande famille de biais. Le résultat (5,6× plus de diversité que Borda) est aussi le plus spectaculaire du lot.</span><span class="i18n-en">First test of <em>item-side equity</em>: the method isn't limited to correcting user-side bias, it generalizes to the other major family of bias. The result (5.6× more diversity than Borda) is also the most spectacular of the bunch.</span></p>
     </div>
 
     <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
-      <h3>OpenAlex — l'enjeu réel</h3>
-      <p>Connecté à un problème documenté et concret (le sous-représentation des femmes en IA/ML), ce corpus donne au papier un impact au-delà des métriques abstraites — et produit le meilleur ΔE de toutes les méthodes testées, le résultat le plus fort à mettre en avant.</p>
+      <h3><span class="i18n-fr">OpenAlex — l'enjeu réel</span><span class="i18n-en">OpenAlex — the real-world stakes</span></h3>
+      <p><span class="i18n-fr">Connecté à un problème documenté et concret (le sous-représentation des femmes en IA/ML), ce corpus donne au papier un impact au-delà des métriques abstraites — et produit le meilleur ΔE de toutes les méthodes testées, le résultat le plus fort à mettre en avant.</span><span class="i18n-en">Connected to a documented, concrete problem (the under-representation of women in AI/ML), this corpus gives the paper an impact beyond abstract metrics — and produces the best ΔE of all methods tested, the strongest result to lead with.</span></p>
     </div>
 
-    <p style="font-size:.7rem;color:var(--t3);margin-top:4px">Chaque corpus répond par avance à une objection standard de relecteur — comparabilité, honnêteté sur les limites, généralité, enjeu réel — ce qui en fait une stratégie de défense du papier construite dès le choix des données.</p>
+    <p style="font-size:.7rem;color:var(--t3);margin-top:4px"><span class="i18n-fr">Chaque corpus répond par avance à une objection standard de relecteur — comparabilité, honnêteté sur les limites, généralité, enjeu réel — ce qui en fait une stratégie de défense du papier construite dès le choix des données.</span><span class="i18n-en">Each corpus pre-emptively answers a standard reviewer objection — comparability, honesty about limitations, generality, real-world stakes — making this a paper-defence strategy built in from the choice of data itself.</span></p>
   </div>
 </div>
 
