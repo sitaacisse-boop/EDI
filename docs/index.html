@@ -619,10 +619,10 @@ python run_openalex.py           # OpenAlex</div>
 <!-- TAB 3 -->
 <div class="panel" id="p-graph">
   <div class="card">
-    <div class="card-title">Graphe biparti G et son résumé G'</div>
+    <div class="card-title"><span class="i18n-fr">Graphe biparti G et son résumé G'</span><span class="i18n-en">Bipartite graph G and its summary G'</span></div>
     <div class="g-ctrl">
-      <button class="tog on" id="btnG">Graphe original G</button>
-      <button class="tog" id="btnGp">Graphe résumé G'</button>
+      <button class="tog on" id="btnG"><span class="i18n-fr">Graphe original G</span><span class="i18n-en">Original graph G</span></button>
+      <button class="tog" id="btnGp"><span class="i18n-fr">Graphe résumé G'</span><span class="i18n-en">Summarized graph G'</span></button>
       <span class="g-stat" id="gStat"></span>
       <div style="margin-left:auto;display:flex;gap:6px">
         <button class="tog on" id="gDS100k" style="font-size:.7rem;padding:5px 12px">100k</button>
@@ -631,83 +631,83 @@ python run_openalex.py           # OpenAlex</div>
     </div>
     <canvas id="gCanvas" height="340"></canvas>
     <div class="g-leg">
-      <div class="gleg"><div class="gleg-dot" style="background:#ef6c4a"></div>Utilisatrice (F)</div>
-      <div class="gleg"><div class="gleg-dot" style="background:#5b82ff"></div>Utilisateur (M)</div>
-      <div class="gleg"><div class="gleg-dot" style="background:#6b7280"></div>Film (item)</div>
-      <div class="gleg"><div class="gleg-dot" style="background:var(--green)"></div>Super-nœud fusionné</div>
-      <span style="font-size:.7rem;color:var(--t3);margin-left:auto">Épaisseur = force de la note</span>
+      <div class="gleg"><div class="gleg-dot" style="background:#ef6c4a"></div><span class="i18n-fr">Utilisatrice (F)</span><span class="i18n-en">User (F)</span></div>
+      <div class="gleg"><div class="gleg-dot" style="background:#5b82ff"></div><span class="i18n-fr">Utilisateur (M)</span><span class="i18n-en">User (M)</span></div>
+      <div class="gleg"><div class="gleg-dot" style="background:#6b7280"></div><span class="i18n-fr">Film (item)</span><span class="i18n-en">Movie (item)</span></div>
+      <div class="gleg"><div class="gleg-dot" style="background:var(--green)"></div><span class="i18n-fr">Super-nœud fusionné</span><span class="i18n-en">Merged supernode</span></div>
+      <span style="font-size:.7rem;color:var(--t3);margin-left:auto"><span class="i18n-fr">Épaisseur = force de la note</span><span class="i18n-en">Thickness = rating strength</span></span>
     </div>
   </div>
   <div class="card" style="margin-top:14px" id="graphInfoCard">
     <div class="two-col" style="gap:14px" id="graphInfoCols">
-      <div><div style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:.85rem">Graphe original G</div><div id="graphInfoG" style="font-size:.8rem;color:var(--t2);line-height:1.6">943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.</div></div>
-      <div><div style="font-weight:700;color:var(--green);margin-bottom:6px;font-size:.85rem">Graphe résumé G'</div><div id="graphInfoGp" style="font-size:.8rem;color:var(--t2);line-height:1.6">Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre → Borda sur G' est plus juste.</div></div>
+      <div><div style="font-weight:700;color:var(--blue);margin-bottom:6px;font-size:.85rem"><span class="i18n-fr">Graphe original G</span><span class="i18n-en">Original graph G</span></div><div id="graphInfoG" style="font-size:.8rem;color:var(--t2);line-height:1.6"><span class="i18n-fr">943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.</span><span class="i18n-en">943 users (273 F, 670 M). Borda voting gives ~71% of the weight to men → bias toward their preferences.</span></div></div>
+      <div><div style="font-weight:700;color:var(--green);margin-bottom:6px;font-size:.85rem"><span class="i18n-fr">Graphe résumé G'</span><span class="i18n-en">Summarized graph G'</span></div><div id="graphInfoGp" style="font-size:.8rem;color:var(--t2);line-height:1.6"><span class="i18n-fr">Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre → Borda sur G' est plus juste.</span><span class="i18n-en">Similar users from the same group merged. The F/M ratio rebalances → Borda on G' is fairer.</span></div></div>
     </div>
     <div id="graphStats1M" style="display:none;margin-top:14px">
-      <div class="card-title" style="margin-bottom:12px">Résultats du coarsening — MovieLens 1M</div>
+      <div class="card-title" style="margin-bottom:12px"><span class="i18n-fr">Résultats du coarsening — MovieLens 1M</span><span class="i18n-en">Coarsening results — MovieLens 1M</span></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
         <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
           <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 5</div>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--blue)">3 020 super-nœuds</strong><br>Compression −50.0%<br>ΔE = 0.416 · ILD = 0.395</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--blue)">3 020 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.0%<br>ΔE = 0.416 · ILD = 0.395</div>
         </div>
         <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
           <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 10</div>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">3 020 super-nœuds</strong><br>Compression −50.0%<br>ΔE = 0.214 · ILD = 0.440</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--green)">3 020 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.0%<br>ΔE = 0.214 · ILD = 0.440</div>
         </div>
         <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--amber)">
           <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 20</div>
-          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--amber)">3 020 super-nœuds</strong><br>Compression −50.0%<br>ΔE = 0.277 · ILD = 0.456</div>
+          <div style="font-size:.82rem;color:var(--t2);line-height:1.6">6 040 → <strong style="color:var(--amber)">3 020 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.0%<br>ΔE = 0.277 · ILD = 0.456</div>
         </div>
       </div>
       <div style="margin-top:10px;font-size:.78rem;color:var(--t2);line-height:1.6;padding:10px 13px;background:rgba(107,143,255,.07);border:1px solid rgba(107,143,255,.2);border-radius:7px">
-        <strong style="color:var(--t1)">Budget de fusion proportionnel :</strong> 50% de n_users, validé par test de robustesse sur une plage de 30 à 60% — le ratio de compression est constant quel que soit k, contrairement à un budget de fusion fixe qui produirait une sur- ou sous-fusion selon la taille du top-k et du corpus (voir discussion méthodologique).
+        <strong style="color:var(--t1)"><span class="i18n-fr">Budget de fusion proportionnel :</span><span class="i18n-en">Proportional merge budget:</span></strong> <span class="i18n-fr">50% de n_users, validé par test de robustesse sur une plage de 30 à 60% — le ratio de compression est constant quel que soit k, contrairement à un budget de fusion fixe qui produirait une sur- ou sous-fusion selon la taille du top-k et du corpus (voir discussion méthodologique).</span><span class="i18n-en">50% of n_users, validated by a robustness test over a 30–60% range — the compression ratio stays constant regardless of k, unlike a fixed merge budget which would over- or under-merge depending on the top-k size and the corpus (see methodological discussion).</span>
       </div>
     </div>
     <div id="graphStats100k" style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px">
       <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
         <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 5</div>
-        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--blue)">471 super-nœuds</strong><br>Compression −50.1%<br>ΔE = 0.439 · ILD = 0.330</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--blue)">471 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.1%<br>ΔE = 0.439 · ILD = 0.330</div>
       </div>
       <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
         <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 10</div>
-        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">471 super-nœuds</strong><br>Compression −50.1%<br>ΔE = 0.423 · ILD = 0.391</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--green)">471 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.1%<br>ΔE = 0.423 · ILD = 0.391</div>
       </div>
       <div style="padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--amber)">
         <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">k = 20</div>
-        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--amber)">471 super-nœuds</strong><br>Compression −50.1% · Ratio F/M 29→37%<br>ΔE = 0.285 · ILD = 0.462</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--amber)">471 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.1% · <span class="i18n-fr">Ratio</span><span class="i18n-en">Ratio</span> F/M 29→37%<br>ΔE = 0.285 · ILD = 0.462</div>
       </div>
     </div>
   </div>
 
   <!-- Structure des graphes — tous les datasets -->
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Structure des graphes bipartis G = (U ∪ I, E) — les 4 corpus</div>
+    <div class="card-title"><span class="i18n-fr">Structure des graphes bipartis G = (U ∪ I, E) — les 4 corpus</span><span class="i18n-en">Bipartite graph structure G = (U ∪ I, E) — the 4 corpora</span></div>
     <p style="font-size:.78rem;color:var(--t2);line-height:1.6;margin-bottom:12px">
-      Chaque corpus définit un graphe biparti différent. <strong>U</strong> = nœuds utilisateurs (ou venues), <strong>I</strong> = nœuds items, <strong>E</strong> = arêtes pondérées par la note. La densité mesure la fraction d'arêtes réellement présentes sur l'ensemble des paires possibles.
+      <span class="i18n-fr">Chaque corpus définit un graphe biparti différent. <strong>U</strong> = nœuds utilisateurs (ou venues), <strong>I</strong> = nœuds items, <strong>E</strong> = arêtes pondérées par la note. La densité mesure la fraction d'arêtes réellement présentes sur l'ensemble des paires possibles.</span><span class="i18n-en">Each corpus defines a different bipartite graph. <strong>U</strong> = user nodes (or venues), <strong>I</strong> = item nodes, <strong>E</strong> = edges weighted by rating. Density measures the fraction of edges actually present out of all possible pairs.</span>
     </p>
     <div style="overflow-x:auto">
       <table class="ftbl">
         <thead><tr>
-          <th>Corpus</th><th>Domaine</th><th>|U|</th><th>|I|</th><th>|E|</th><th>Échelle notes</th><th>Densité</th><th>Équité</th><th>α_F</th>
+          <th><span class="i18n-fr">Corpus</span><span class="i18n-en">Corpus</span></th><th><span class="i18n-fr">Domaine</span><span class="i18n-en">Domain</span></th><th>|U|</th><th>|I|</th><th>|E|</th><th><span class="i18n-fr">Échelle notes</span><span class="i18n-en">Rating scale</span></th><th><span class="i18n-fr">Densité</span><span class="i18n-en">Density</span></th><th><span class="i18n-fr">Équité</span><span class="i18n-en">Equity</span></th><th>α_F</th>
         </tr></thead>
         <tbody>
-          <tr><td><strong>MovieLens 100k</strong></td><td>Films</td><td>943</td><td>1 682</td><td>100 000</td><td>1–5</td><td>6.3%</td><td>user-side</td><td>29%</td></tr>
-          <tr><td><strong>MovieLens 1M</strong></td><td>Films</td><td>6 040</td><td>3 706</td><td>1 000 209</td><td>1–5</td><td>4.5%</td><td>user-side</td><td>28%</td></tr>
-          <tr><td><strong> libimseti.cz</strong></td><td>Rencontres</td><td>1 000</td><td>32 677</td><td>97 707</td><td>1–10</td><td>0.3%</td><td>user-side</td><td>50%</td></tr>
-          <tr><td><strong> Rate My Prof.</strong></td><td>Académique</td><td>1 981</td><td>59 066</td><td>150 800</td><td>1–5</td><td>0.1%</td><td>item-side</td><td>51%*</td></tr>
-          <tr class="tr-AURORA"><td><strong>OpenAlex</strong></td><td>Publications</td><td>~99</td><td>~904</td><td>~2 100</td><td>1–5</td><td>2.4%</td><td>item-side</td><td>19%</td></tr>
+          <tr><td><strong>MovieLens 100k</strong></td><td><span class="i18n-fr">Films</span><span class="i18n-en">Movies</span></td><td>943</td><td>1 682</td><td>100 000</td><td>1–5</td><td>6.3%</td><td>user-side</td><td>29%</td></tr>
+          <tr><td><strong>MovieLens 1M</strong></td><td><span class="i18n-fr">Films</span><span class="i18n-en">Movies</span></td><td>6 040</td><td>3 706</td><td>1 000 209</td><td>1–5</td><td>4.5%</td><td>user-side</td><td>28%</td></tr>
+          <tr><td><strong> libimseti.cz</strong></td><td><span class="i18n-fr">Rencontres</span><span class="i18n-en">Dating</span></td><td>1 000</td><td>32 677</td><td>97 707</td><td>1–10</td><td>0.3%</td><td>user-side</td><td>50%</td></tr>
+          <tr><td><strong> Rate My Prof.</strong></td><td><span class="i18n-fr">Académique</span><span class="i18n-en">Academic</span></td><td>1 981</td><td>59 066</td><td>150 800</td><td>1–5</td><td>0.1%</td><td>item-side</td><td>51%*</td></tr>
+          <tr class="tr-AURORA"><td><strong>OpenAlex</strong></td><td><span class="i18n-fr">Publications</span><span class="i18n-en">Publications</span></td><td>~99</td><td>~904</td><td>~2 100</td><td>1–5</td><td>2.4%</td><td>item-side</td><td>19%</td></tr>
         </tbody>
       </table>
     </div>
     <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.5">
-      * α_F = proportion de femmes dans les <em>items</em> (profs recommandés), pas dans les utilisateurs.  OpenAlex : rating = min(nb_papers_auteur_dans_venue, 5).
+      <span class="i18n-fr">* α_F = proportion de femmes dans les <em>items</em> (profs recommandés), pas dans les utilisateurs.  OpenAlex : rating = min(nb_papers_auteur_dans_venue, 5).</span><span class="i18n-en">* α_F = proportion of women among the <em>items</em> (recommended professors), not among users.  OpenAlex: rating = min(author_papers_in_venue, 5).</span>
     </p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;font-size:.78rem;color:var(--t2);line-height:1.6">
       <div style="padding:10px 13px;background:var(--s2);border-radius:8px;border-left:3px solid var(--blue)">
-        <strong style="color:var(--t1)">User-side equity :</strong>MovieLens et libimseti mesurent l'équité <em>entre les groupes d'utilisateurs</em>. ΔE = différence d'inclusion entre les utilisatrices F et les utilisateurs M dans leurs top-k respectifs.
+        <strong style="color:var(--t1)">User-side equity :</strong><span class="i18n-fr">MovieLens et libimseti mesurent l'équité <em>entre les groupes d'utilisateurs</em>. ΔE = différence d'inclusion entre les utilisatrices F et les utilisateurs M dans leurs top-k respectifs.</span><span class="i18n-en">MovieLens and libimseti measure equity <em>between user groups</em>. ΔE = inclusion difference between F users and M users in their respective top-k.</span>
       </div>
       <div style="padding:10px 13px;background:var(--s2);border-radius:8px;border-left:3px solid var(--purple)">
-        <strong style="color:var(--t1)">Item-side equity :</strong>RMP et OpenAlex mesurent l'équité <em>dans les items recommandés</em>. ΔE = écart entre la proportion de femmes recommandées et la cible α_F — indépendamment du genre de l'utilisateur.
+        <strong style="color:var(--t1)">Item-side equity :</strong><span class="i18n-fr">RMP et OpenAlex mesurent l'équité <em>dans les items recommandés</em>. ΔE = écart entre la proportion de femmes recommandées et la cible α_F — indépendamment du genre de l'utilisateur.</span><span class="i18n-en">RMP and OpenAlex measure equity <em>within the recommended items</em>. ΔE = gap between the proportion of women recommended and the target α_F — independent of user gender.</span>
       </div>
     </div>
   </div>
@@ -715,14 +715,14 @@ python run_openalex.py           # OpenAlex</div>
 
 <!-- TAB 4 -->
 <div class="panel" id="p-calc">
-  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6">Calcul des trois métriques EDI, étape par étape, avec les vraies valeurs MovieLens 100k pour Borda (k=10, θ=4.0).</div>
+  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6"><span class="i18n-fr">Calcul des trois métriques EDI, étape par étape, avec les vraies valeurs MovieLens 100k pour Borda (k=10, θ=4.0).</span><span class="i18n-en">Step-by-step computation of the three EDI metrics, with real MovieLens 100k values for Borda (k=10, θ=4.0).</span></div>
 
   <div class="card" style="margin-bottom:16px;border-color:rgba(255,184,48,.3);background:rgba(255,184,48,.04)">
-    <div class="card-title" style="color:var(--amber)">Exemple jouet — l'intuition avant les vraies valeurs</div>
-    <p style="font-size:.83rem;color:var(--t2);line-height:1.7;margin-bottom:12px">4 utilisateurs (u₁ ∈ F, u₂, u₃, u₄ ∈ M — ce ratio 1F:3M reproduit le déséquilibre 29%F/71%M de MovieLens 100k) notent 3 films sur une échelle 1–5 (« — » = non noté) :</p>
+    <div class="card-title" style="color:var(--amber)"><span class="i18n-fr">Exemple jouet — l'intuition avant les vraies valeurs</span><span class="i18n-en">Toy example — the intuition before the real values</span></div>
+    <p style="font-size:.83rem;color:var(--t2);line-height:1.7;margin-bottom:12px"><span class="i18n-fr">4 utilisateurs (u₁ ∈ F, u₂, u₃, u₄ ∈ M — ce ratio 1F:3M reproduit le déséquilibre 29%F/71%M de MovieLens 100k) notent 3 films sur une échelle 1–5 (« — » = non noté) :</span><span class="i18n-en">4 users (u₁ ∈ F, u₂, u₃, u₄ ∈ M — this 1F:3M ratio reproduces the 29%F/71%M imbalance of MovieLens 100k) rate 3 movies on a 1–5 scale ("—" = not rated):</span></p>
     <div style="overflow-x:auto;margin-bottom:12px">
       <table class="ftbl">
-        <thead><tr><th>Utilisateur</th><th>Groupe</th><th>i₁</th><th>i₂</th><th>i₃</th></tr></thead>
+        <thead><tr><th><span class="i18n-fr">Utilisateur</span><span class="i18n-en">User</span></th><th><span class="i18n-fr">Groupe</span><span class="i18n-en">Group</span></th><th>i₁</th><th>i₂</th><th>i₃</th></tr></thead>
         <tbody>
           <tr><td>u₁</td><td>F</td><td>5</td><td>2</td><td>—</td></tr>
           <tr><td>u₂</td><td>M</td><td>1</td><td>5</td><td>3</td></tr>
@@ -731,45 +731,45 @@ python run_openalex.py           # OpenAlex</div>
         </tbody>
       </table>
     </div>
-    <p style="font-size:.83rem;color:var(--t2);line-height:1.7">Le classement par <strong>Average Score</strong> donne i₂ (moyenne 4.0) ≻ i₃ (4.0) ≻ i₁ (2.67 — tiré vers le bas par les notes 1 et 2 des hommes). Le top-2 R = {i₂, i₃} exclut totalement i₁, le seul film que u₁ (F) a noté 5.</p>
+    <p style="font-size:.83rem;color:var(--t2);line-height:1.7"><span class="i18n-fr">Le classement par <strong>Average Score</strong> donne i₂ (moyenne 4.0) ≻ i₃ (4.0) ≻ i₁ (2.67 — tiré vers le bas par les notes 1 et 2 des hommes). Le top-2 R = {i₂, i₃} exclut totalement i₁, le seul film que u₁ (F) a noté 5.</span><span class="i18n-en">Ranking by <strong>Average Score</strong> gives i₂ (mean 4.0) ≻ i₃ (4.0) ≻ i₁ (2.67 — dragged down by the men's ratings of 1 and 2). The top-2 R = {i₂, i₃} completely excludes i₁, the only movie u₁ (F) rated 5.</span></p>
     <div class="formula">utility_F(R) = ½·(w(u₁,i₂)+w(u₁,i₃)) = ½·(2+0) = 1.0
 utility_M(R) = ⅙·[(w(u₂,i₂)+w(u₂,i₃)) + (w(u₃,i₂)+w(u₃,i₃)) + (w(u₄,i₂)+w(u₄,i₃))] = 26/6 = 4.33
 ΔE(R) = |1.0 − 4.33| = <strong>3.33</strong></div>
-    <p style="font-size:.83rem;color:var(--t2);line-height:1.7">Pire : u₁ ne trouve <strong>aucun</strong> film noté ≥4 dans R → inclusion_F(R) = 0 &lt; α_F = 0.25, alors que inclusion_M(R) = 0.83 &gt; α_M = 0.75. L'utilisatrice F est totalement exclue des items pertinents du top-2.</p>
-    <div class="res-box">Avec R' = {i₁, i₂} à la place : ΔE(R') = 0.67 et inclusion_F(R') = 0.5 ≥ α_F — un résultat nettement plus équitable. Notre coarsening sous contraintes EDI détecte ce type de distorsion au niveau structurel : toute fusion de nœuds utilisateurs qui mènerait à recommander R plutôt que R' est rejetée, car elle ferait dépasser à ΔE sa tolérance ε_E.</div>
+    <p style="font-size:.83rem;color:var(--t2);line-height:1.7"><span class="i18n-fr">Pire : u₁ ne trouve <strong>aucun</strong> film noté ≥4 dans R → inclusion_F(R) = 0 &lt; α_F = 0.25, alors que inclusion_M(R) = 0.83 &gt; α_M = 0.75. L'utilisatrice F est totalement exclue des items pertinents du top-2.</span><span class="i18n-en">Worse: u₁ finds <strong>no</strong> movie rated ≥4 in R → inclusion_F(R) = 0 &lt; α_F = 0.25, while inclusion_M(R) = 0.83 &gt; α_M = 0.75. The F user is completely excluded from the relevant items of the top-2.</span></p>
+    <div class="res-box"><span class="i18n-fr">Avec R' = {i₁, i₂} à la place : ΔE(R') = 0.67 et inclusion_F(R') = 0.5 ≥ α_F — un résultat nettement plus équitable. Notre coarsening sous contraintes EDI détecte ce type de distorsion au niveau structurel : toute fusion de nœuds utilisateurs qui mènerait à recommander R plutôt que R' est rejetée, car elle ferait dépasser à ΔE sa tolérance ε_E.</span><span class="i18n-en">With R' = {i₁, i₂} instead: ΔE(R') = 0.67 and inclusion_F(R') = 0.5 ≥ α_F — a markedly fairer result. Our EDI-constrained coarsening detects this type of distortion at the structural level: any merge of user nodes that would lead to recommending R instead of R' is rejected, because it would push ΔE past its tolerance ε_E.</span></div>
   </div>
 
   <div class="acc">
     <div class="acc-item open">
-      <div class="acc-head"><span>ΔE — Équité entre groupes</span><span class="acc-chev"></span></div>
+      <div class="acc-head"><span><span class="i18n-fr">ΔE — Équité entre groupes</span><span class="i18n-en">ΔE — Equity between groups</span></span><span class="acc-chev"></span></div>
       <div class="acc-body">
-        <div class="step"><div class="step-n">1</div><div class="step-t">Pour chaque groupe, calculer la <strong>satisfaction moyenne</strong> sur les k films recommandés R.</div></div>
+        <div class="step"><div class="step-n">1</div><div class="step-t"><span class="i18n-fr">Pour chaque groupe, calculer la <strong>satisfaction moyenne</strong> sur les k films recommandés R.</span><span class="i18n-en">For each group, compute the <strong>average satisfaction</strong> over the k recommended movies R.</span></div></div>
         <div class="formula">utility_F = Σ_{u∈G_F} Σ_{i∈R} w(u,i) / (|G_F| × k)
 utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
-        <div class="step"><div class="step-n">2</div><div class="step-t">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-t"><span class="i18n-fr">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></span><span class="i18n-en">Real example (Borda, k=10): <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></span></div></div>
         <div class="formula">ΔE = |utility_F − utility_M| = |0.90 − 1.32| = <strong>0.4249</strong></div>
-        <div class="res-box">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.4228 (k=10).</div>
+        <div class="res-box"><span class="i18n-fr">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.4228 (k=10).</span><span class="i18n-en">ΔE = 0.4249 → men get ~47% more satisfaction. Target: ΔE ≈ 0. Our method reaches ΔE=0.4228 (k=10).</span></div>
       </div>
     </div>
     <div class="acc-item">
-      <div class="acc-head"><span>ILD —Diversité intra-liste</span><span class="acc-chev"></span></div>
+      <div class="acc-head"><span><span class="i18n-fr">ILD — Diversité intra-liste</span><span class="i18n-en">ILD — Intra-list diversity</span></span><span class="acc-chev"></span></div>
       <div class="acc-body">
-        <div class="step"><div class="step-n">1</div><div class="step-t">Chaque film i → <strong>vecteur v_i ∈ ℝ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</div></div>
-        <div class="step"><div class="step-n">2</div><div class="step-t">Pour chaque paire (i,j) du top-k, calculer la <strong>dissimilarité cosinus</strong> :</div></div>
+        <div class="step"><div class="step-n">1</div><div class="step-t"><span class="i18n-fr">Chaque film i → <strong>vecteur v_i ∈ ℝ^{943}</strong> : coordonnée j = note du j-ème utilisateur (0 si non noté).</span><span class="i18n-en">Each movie i → <strong>vector v_i ∈ ℝ^{943}</strong>: coordinate j = rating from the j-th user (0 if unrated).</span></div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-t"><span class="i18n-fr">Pour chaque paire (i,j) du top-k, calculer la <strong>dissimilarité cosinus</strong> :</span><span class="i18n-en">For each pair (i,j) in the top-k, compute the <strong>cosine dissimilarity</strong>:</span></div></div>
         <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (‖v_i‖ × ‖v_j‖)</div>
-        <div class="step"><div class="step-n">3</div><div class="step-t">k=10 → C(10,2) = <strong>45 paires</strong>. ILD = moyenne des dissimilarités.</div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-t"><span class="i18n-fr">k=10 → C(10,2) = <strong>45 paires</strong>. ILD = moyenne des dissimilarités.</span><span class="i18n-en">k=10 → C(10,2) = <strong>45 pairs</strong>. ILD = average of the dissimilarities.</span></div></div>
         <div class="formula">ILD(R) = 2/(k·(k−1)) × Σ_{i,j∈R} dist(i,j)</div>
-        <div class="res-box">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.391 (+10.6%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</div>
+        <div class="res-box"><span class="i18n-fr">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.391 (+10.6%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</span><span class="i18n-en">Borda k=10: ILD=0.354. Our method: ILD=0.391 (+10.6%). Average Score gives ILD=1.0 but recommends obscure movies → near-zero inclusion.</span></div>
       </div>
     </div>
     <div class="acc-item">
-      <div class="acc-head"><span>inclusion_g — Représentation du groupe g</span><span class="acc-chev"></span></div>
+      <div class="acc-head"><span><span class="i18n-fr">inclusion_g — Représentation du groupe g</span><span class="i18n-en">inclusion_g — Representation of group g</span></span><span class="acc-chev"></span></div>
       <div class="acc-body">
-        <div class="step"><div class="step-n">1</div><div class="step-t">Pour u g : compter les films du top-k notés <strong>≥ θ = 4.0</strong> par u.</div></div>
+        <div class="step"><div class="step-n">1</div><div class="step-t"><span class="i18n-fr">Pour u ∈ g : compter les films du top-k notés <strong>≥ θ = 4.0</strong> par u.</span><span class="i18n-en">For u ∈ g: count the top-k movies rated <strong>≥ θ = 4.0</strong> by u.</span></div></div>
         <div class="formula">inclusion_g(R) = (1/|G_g|) × Σ_{u∈G_g} |{i∈R : w(u,i) ≥ θ}| / k</div>
-        <div class="step"><div class="step-n">2</div><div class="step-t"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</div></div>
-        <div class="step"><div class="step-n">3</div><div class="step-t">Notes entières → θ=3.5 θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</div></div>
-        <div class="res-box">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique : 0.344 vs 0.344). Fair Re-rank reste plus précis sur ΔE seul.</div>
+        <div class="step"><div class="step-n">2</div><div class="step-t"><span class="i18n-fr"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</span><span class="i18n-en"><strong>Proportionality targets:</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</span></div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-t"><span class="i18n-fr">Notes entières → θ=3.5 et θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</span><span class="i18n-en">Integer ratings → θ=3.5 and θ=4.0 (both select ratings 4 and 5). Only θ ≤ 3.0 would include the 3.</span></div></div>
+        <div class="res-box"><span class="i18n-fr">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique : 0.344 vs 0.344). Fair Re-rank reste plus précis sur ΔE seul.</span><span class="i18n-en">For k=20, our method: inc_F=0.277 (>Borda 0.247) and inc_M=0.344 (>Borda 0.339) — beats Borda and Condorcet on all 4 criteria, and Weighted Borda on 3 of 4 (inc_M nearly identical: 0.344 vs 0.344). Fair Re-rank remains more precise on ΔE alone.</span></div>
       </div>
     </div>
   </div>
@@ -777,104 +777,109 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
 <!-- ══ TRAVAUX CONNEXES ══ -->
 <div class="panel" id="p-lit">
-  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6">AURORA se situe au croisement de quatre champs de recherche. Cet onglet résume comment chacun a été mobilisé, et identifie le manque que ce travail comble.</div>
+  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px;line-height:1.6"><span class="i18n-fr">AURORA se situe au croisement de quatre champs de recherche. Cet onglet résume comment chacun a été mobilisé, et identifie le manque que ce travail comble.</span><span class="i18n-en">AURORA sits at the intersection of four research fields. This tab summarizes how each was drawn on, and identifies the gap this work fills.</span></div>
 
   <div class="finding fk">
-    <h3>Agrégation de préférences &amp; choix social</h3>
-    <p>Roy et al. (2024) structurent le problème selon trois axes — format d'entrée, format de sortie, règle d'agrégation — et distinguent deux façons de rendre un résultat équitable : modifier les préférences en entrée, ou modifier le classement en sortie. Le théorème d'impossibilité d'Arrow rappelle qu'aucune règle ne peut satisfaire simultanément un ensemble raisonnable de critères d'équité, ce qui justifie de raisonner en termes de <em>propriétés préservées</em> plutôt que de règle optimale unique. Kellerhals &amp; Peters (2024) relient le clustering proportionnel au vote multi-gagnant et montrent que trois notions d'équité (proportionnelle, individuelle, cœur transférable) peuvent être satisfaites ensemble — une analyse qui opère sur une métrique de graphe, conceptuellement proche de notre résumé de graphe sous contraintes.</p>
+    <h3><span class="i18n-fr">Agrégation de préférences &amp; choix social</span><span class="i18n-en">Preference aggregation &amp; social choice</span></h3>
+    <p><span class="i18n-fr">Roy et al. (2024) structurent le problème selon trois axes — format d'entrée, format de sortie, règle d'agrégation — et distinguent deux façons de rendre un résultat équitable : modifier les préférences en entrée, ou modifier le classement en sortie. Le théorème d'impossibilité d'Arrow rappelle qu'aucune règle ne peut satisfaire simultanément un ensemble raisonnable de critères d'équité, ce qui justifie de raisonner en termes de <em>propriétés préservées</em> plutôt que de règle optimale unique. Kellerhals &amp; Peters (2024) relient le clustering proportionnel au vote multi-gagnant et montrent que trois notions d'équité (proportionnelle, individuelle, cœur transférable) peuvent être satisfaites ensemble — une analyse qui opère sur une métrique de graphe, conceptuellement proche de notre résumé de graphe sous contraintes.</span><span class="i18n-en">Roy et al. (2024) structure the problem along three axes — input format, output format, aggregation rule — and distinguish two ways of making a result fair: modifying the input preferences, or modifying the output ranking. Arrow's impossibility theorem reminds us that no rule can simultaneously satisfy a reasonable set of fairness criteria, which justifies reasoning in terms of <em>preserved properties</em> rather than a single optimal rule. Kellerhals &amp; Peters (2024) connect proportional clustering to multiwinner voting and show that three notions of fairness (proportional, individual, transferable core) can be satisfied together — an analysis that operates on a graph metric, conceptually close to our constrained graph summarization.</span></p>
   </div>
 
   <div class="finding fg">
-    <h3>Résumé de graphe (Graph Summarization)</h3>
-    <p>Liu et al. (2018) proposent la référence du domaine et distinguent quatre familles de méthodes : regroupement (grouping), compression de bits, simplification/sparsification, et approches basées sur l'influence. Leur constat central : il n'existe pas de définition universelle d'un « bon » résumé — sa qualité dépend de l'objectif visé. Shabani et al. (2024), plus récents, appliquent les graph neural networks au résumé de graphe et identifient le <em>résumé orienté tâche</em> (task-based) — produire un résumé adapté à un besoin précis plutôt que générique — comme direction de recherche ouverte. AURORA s'inscrit dans la famille regroupement/agrégation et répond directement à cette direction ouverte : notre critère de qualité du résumé est la préservation de l'équité, de la diversité et de l'inclusion.</p>
+    <h3><span class="i18n-fr">Résumé de graphe (Graph Summarization)</span><span class="i18n-en">Graph Summarization</span></h3>
+    <p><span class="i18n-fr">Liu et al. (2018) proposent la référence du domaine et distinguent quatre familles de méthodes : regroupement (grouping), compression de bits, simplification/sparsification, et approches basées sur l'influence. Leur constat central : il n'existe pas de définition universelle d'un « bon » résumé — sa qualité dépend de l'objectif visé. Shabani et al. (2024), plus récents, appliquent les graph neural networks au résumé de graphe et identifient le <em>résumé orienté tâche</em> (task-based) — produire un résumé adapté à un besoin précis plutôt que générique — comme direction de recherche ouverte. AURORA s'inscrit dans la famille regroupement/agrégation et répond directement à cette direction ouverte : notre critère de qualité du résumé est la préservation de l'équité, de la diversité et de l'inclusion.</span><span class="i18n-en">Liu et al. (2018) provide the field's reference survey and distinguish four families of methods: grouping, bit-compression, simplification/sparsification, and influence-based approaches. Their central finding: there is no universal definition of a "good" summary — its quality depends on the target objective. Shabani et al. (2024), more recent, apply graph neural networks to graph summarization and identify <em>task-based summarization</em> — producing a summary tailored to a specific need rather than a generic one — as an open research direction. AURORA falls within the grouping/aggregation family and directly answers this open direction: our summary quality criterion is the preservation of equity, diversity, and inclusion.</span></p>
   </div>
 
   <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
-    <h3>EDI dans les systèmes de recommandation &amp; équité algorithmique</h3>
-    <p>Yao &amp; Huang (2017) montrent que la parité démographique est souvent inappropriée en filtrage collaboratif, car les préférences dépendent légitimement d'attributs sensibles comme le genre ; nous reprenons directement leur métrique de <em>value unfairness</em> pour notre ΔE. Leonhardt et al. (2018) apportent une preuve empirique d'un compromis direct entre diversité et équité utilisateur : augmenter la diversité agrégée accroît sensiblement la disparité entre utilisateurs. Zhao et al. (2024) passent en revue équité et diversité conjointement, classant les techniques en pré-, in- et post-traitement, et formulent le problème comme une optimisation multi-objectif sur un front de Pareto — c'est l'inspiration directe de notre onglet <strong>Pareto</strong>. Dong et al. (2023), le champ le plus proche d'AURORA, montrent que les graphes posent des défis d'équité absents des données i.i.d. (biais structurel par homophilie) ; parmi leurs techniques de mitigation, le <em>edge rewiring</em> est la seule à agir sur la structure du graphe comme AURORA — mais en ajoutant/retirant des arêtes, alors que nous réduisons le graphe par fusion de nœuds.</p>
+    <h3><span class="i18n-fr">EDI dans les systèmes de recommandation &amp; équité algorithmique</span><span class="i18n-en">EDI in recommender systems &amp; algorithmic fairness</span></h3>
+    <p><span class="i18n-fr">Yao &amp; Huang (2017) montrent que la parité démographique est souvent inappropriée en filtrage collaboratif, car les préférences dépendent légitimement d'attributs sensibles comme le genre ; nous reprenons directement leur métrique de <em>value unfairness</em> pour notre ΔE. Leonhardt et al. (2018) apportent une preuve empirique d'un compromis direct entre diversité et équité utilisateur : augmenter la diversité agrégée accroît sensiblement la disparité entre utilisateurs. Zhao et al. (2024) passent en revue équité et diversité conjointement, classant les techniques en pré-, in- et post-traitement, et formulent le problème comme une optimisation multi-objectif sur un front de Pareto — c'est l'inspiration directe de notre onglet <strong>Pareto</strong>. Dong et al. (2023), le champ le plus proche d'AURORA, montrent que les graphes posent des défis d'équité absents des données i.i.d. (biais structurel par homophilie) ; parmi leurs techniques de mitigation, le <em>edge rewiring</em> est la seule à agir sur la structure du graphe comme AURORA — mais en ajoutant/retirant des arêtes, alors que nous réduisons le graphe par fusion de nœuds.</span><span class="i18n-en">Yao &amp; Huang (2017) show that demographic parity is often inappropriate in collaborative filtering, since preferences legitimately depend on sensitive attributes like gender; we directly borrow their <em>value unfairness</em> metric for our ΔE. Leonhardt et al. (2018) provide empirical evidence of a direct trade-off between diversity and user fairness: increasing aggregate diversity noticeably increases disparity between users. Zhao et al. (2024) review fairness and diversity jointly, classifying techniques into pre-, in-, and post-processing, and frame the problem as a multi-objective optimization over a Pareto front — the direct inspiration for our <strong>Pareto</strong> tab. Dong et al. (2023), the field closest to AURORA, show that graphs pose fairness challenges absent from i.i.d. data (structural bias through homophily); among their mitigation techniques, <em>edge rewiring</em> is the only one that acts on graph structure like AURORA — but by adding/removing edges, whereas we reduce the graph by merging nodes.</span></p>
   </div>
 
   <div class="finding fw">
-    <h3>Choix social pour la recommandation équitable — SCRUF-D, le concurrent le plus proche</h3>
-    <p>Aird et al. (2023) introduisent <strong>SCRUF-D</strong> : chaque préoccupation d'équité est modélisée comme un agent qui vote (Borda, Copeland, Ranked Pairs) aux côtés du recommandeur de base pour produire le classement final. Une extension (Aird et al., 2024) généralise ce cadre à l'équité hétérogène — plusieurs notions d'équité combinées dans un seul système. C'est le travail conceptuellement le plus proche d'AURORA, et pourtant fondamentalement différent : <strong style="color:var(--t1)">SCRUF-D agit au moment de produire le classement final — un post-traitement — alors qu'AURORA agit en amont, sur la structure du graphe résumé, avant même que le classement ne soit calculé.</strong> Leur exploration approfondie de la voie post-hoc laisse la voie structurelle ouverte — c'est exactement le créneau qu'occupe ce travail.</p>
+    <h3><span class="i18n-fr">Choix social pour la recommandation équitable — SCRUF-D, le concurrent le plus proche</span><span class="i18n-en">Social choice for fair recommendation — SCRUF-D, the closest competitor</span></h3>
+    <p><span class="i18n-fr">Aird et al. (2023) introduisent <strong>SCRUF-D</strong> : chaque préoccupation d'équité est modélisée comme un agent qui vote (Borda, Copeland, Ranked Pairs) aux côtés du recommandeur de base pour produire le classement final. Une extension (Aird et al., 2024) généralise ce cadre à l'équité hétérogène — plusieurs notions d'équité combinées dans un seul système. C'est le travail conceptuellement le plus proche d'AURORA, et pourtant fondamentalement différent : <strong style="color:var(--t1)">SCRUF-D agit au moment de produire le classement final — un post-traitement — alors qu'AURORA agit en amont, sur la structure du graphe résumé, avant même que le classement ne soit calculé.</strong> Leur exploration approfondie de la voie post-hoc laisse la voie structurelle ouverte — c'est exactement le créneau qu'occupe ce travail.</span><span class="i18n-en">Aird et al. (2023) introduce <strong>SCRUF-D</strong>: each fairness concern is modeled as an agent that votes (Borda, Copeland, Ranked Pairs) alongside the base recommender to produce the final ranking. An extension (Aird et al., 2024) generalizes this framework to heterogeneous fairness — several fairness notions combined in a single system. This is the work conceptually closest to AURORA, and yet fundamentally different: <strong style="color:var(--t1)">SCRUF-D acts at the moment of producing the final ranking — a post-processing step — whereas AURORA acts upstream, on the structure of the summarized graph, before the ranking is even computed.</strong> Their thorough exploration of the post-hoc path leaves the structural path open — exactly the niche this work occupies.</span></p>
   </div>
 
   <div class="card" style="margin-top:14px;background:rgba(18,232,122,.04);border-color:rgba(18,232,122,.2)">
-    <div class="card-title" style="color:var(--green)">Le manque comblé par ce travail</div>
+    <div class="card-title" style="color:var(--green)"><span class="i18n-fr">Le manque comblé par ce travail</span><span class="i18n-en">The gap this work fills</span></div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      À travers ces quatre champs, un constat se dégage : l'équité en recommandation a surtout été traitée par modification des entrées/sorties, par pré-/in-/post-traitement, ou par edge rewiring sur la structure du graphe ; le résumé de graphe, de son côté, a toujours optimisé la fidélité structurelle, le stockage ou la vitesse de requête. À notre connaissance, <strong style="color:var(--t1)">aucun travail existant ne fait de la préservation de l'équité, de la diversité et de l'inclusion un critère de qualité explicite d'un résumé de graphe</strong> — c'est précisément le manque qu'AURORA comble.
+      <span class="i18n-fr">À travers ces quatre champs, un constat se dégage : l'équité en recommandation a surtout été traitée par modification des entrées/sorties, par pré-/in-/post-traitement, ou par edge rewiring sur la structure du graphe ; le résumé de graphe, de son côté, a toujours optimisé la fidélité structurelle, le stockage ou la vitesse de requête. À notre connaissance, <strong style="color:var(--t1)">aucun travail existant ne fait de la préservation de l'équité, de la diversité et de l'inclusion un critère de qualité explicite d'un résumé de graphe</strong> — c'est précisément le manque qu'AURORA comble.</span><span class="i18n-en">Across these four fields, one finding stands out: fairness in recommendation has mostly been addressed through input/output modification, pre-/in-/post-processing, or edge rewiring on graph structure; graph summarization, for its part, has always optimized structural fidelity, storage, or query speed. To our knowledge, <strong style="color:var(--t1)">no existing work makes the preservation of equity, diversity, and inclusion an explicit quality criterion for a graph summary</strong> — this is precisely the gap AURORA fills.</span>
     </p>
   </div>
 </div>
 
 <!-- TAB 5 -->
 <div class="panel" id="p-concl">
-  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">Ce que nous avons appris — 4 corpus, un seul algorithme</h2>
+  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em"><span class="i18n-fr">Ce que nous avons appris — 4 corpus, un seul algorithme</span><span class="i18n-en">What we learned — 4 corpora, one algorithm</span></h2>
 
   <div class="card" style="margin-bottom:16px;border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.05)">
-    <div class="card-title" style="color:var(--blue)">En un coup d'œil — qui gagne quoi, par corpus (k=10)</div>
+    <div class="card-title" style="color:var(--blue)"><span class="i18n-fr">En un coup d'œil — qui gagne quoi, par corpus (k=10)</span><span class="i18n-en">At a glance — who wins what, by corpus (k=10)</span></div>
     <div style="overflow-x:auto">
       <table class="ftbl">
-        <thead><tr><th>Corpus</th><th>Meilleur ΔE</th><th>Meilleur ILD</th><th>Meilleure inclusion/frac_F</th><th>Verdict global</th></tr></thead>
+        <thead><tr><th><span class="i18n-fr">Corpus</span><span class="i18n-en">Corpus</span></th><th><span class="i18n-fr">Meilleur ΔE</span><span class="i18n-en">Best ΔE</span></th><th><span class="i18n-fr">Meilleur ILD</span><span class="i18n-en">Best ILD</span></th><th><span class="i18n-fr">Meilleure inclusion/frac_F</span><span class="i18n-en">Best inclusion/frac_F</span></th><th><span class="i18n-fr">Verdict global</span><span class="i18n-en">Overall verdict</span></th></tr></thead>
         <tbody>
           <tr><td>ML 100k</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td style="color:var(--green);font-weight:800">AURORA (k=20)</td></tr>
           <tr><td>ML 1M</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td>Fair Re-rank</td></tr>
-          <tr><td>libimseti</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Condorcet</td><td>Aucun (écart persistant)</td></tr>
-          <tr><td>RMP</td><td>Avg Score / F.R.</td><td>Avg Score</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Compromis : AURORA (diversité) / F.R. (équité)</td></tr>
+          <tr><td>libimseti</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Condorcet</td><td><span class="i18n-fr">Aucun (écart persistant)</span><span class="i18n-en">None (persistent gap)</span></td></tr>
+          <tr><td>RMP</td><td>Avg Score / F.R.</td><td>Avg Score</td><td style="color:var(--green);font-weight:800">AURORA</td><td><span class="i18n-fr">Compromis : AURORA (diversité) / F.R. (équité)</span><span class="i18n-en">Trade-off: AURORA (diversity) / F.R. (fairness)</span></td></tr>
           <tr><td>OpenAlex</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Avg Score / F.R.</td><td>Avg Score / F.R.</td><td style="color:var(--green);font-weight:800">AURORA</td></tr>
         </tbody>
       </table>
     </div>
-    <p style="font-size:.7rem;color:var(--t3);margin-top:10px;line-height:1.5">Average Score exclu quand il est dégénéré sur l'inclusion (quasi nulle sur les 3 corpus user-side : ML100k, ML1M, libimseti) ; conservé sur RMP/OpenAlex où frac_F n'est pas dégénéré là-bas. F.R. = Fair Re-rank. Sur OpenAlex, AURORA est aussi 2ᵉ/3ᵉ en ILD et frac_F, très proche d'Average Score/Fair Re-rank.</p>
+    <p style="font-size:.7rem;color:var(--t3);margin-top:10px;line-height:1.5"><span class="i18n-fr">Average Score exclu quand il est dégénéré sur l'inclusion (quasi nulle sur les 3 corpus user-side : ML100k, ML1M, libimseti) ; conservé sur RMP/OpenAlex où frac_F n'est pas dégénéré là-bas. F.R. = Fair Re-rank. Sur OpenAlex, AURORA est aussi 2ᵉ/3ᵉ en ILD et frac_F, très proche d'Average Score/Fair Re-rank.</span><span class="i18n-en">Average Score excluded when degenerate on inclusion (near-zero on the 3 user-side corpora: ML100k, ML1M, libimseti); kept on RMP/OpenAlex where frac_F is not degenerate there. F.R. = Fair Re-rank. On OpenAlex, AURORA is also 2nd/3rd on ILD and frac_F, very close to Average Score/Fair Re-rank.</span></p>
   </div>
 
   <div class="notice" style="border-color:rgba(245,165,35,.35);background:rgba(245,165,35,.06);margin-bottom:16px">
     <span style="color:var(--warn);font-size:1rem;flex-shrink:0">⚠</span>
-    <span><b>Limite connue — calibration empirique, pas principielle :</b> les tolérances de dégradation ε_E, ε_D, ε_I et le budget de fusion (fixé à 50% de |U| dans toutes les expériences) sont calibrés à partir de mesures sur le graphe complet, puis validés par un balayage de robustesse (30–60%, voir onglet Analyse MovieLens) — mais ne découlent pas d'un critère principiel unique. Une analyse de front de Pareto sur les trois objectifs EDI, ou une calibration sur un jeu de validation distinct des données de test rapportées, rendrait cette étape plus rigoureuse. C'est une limite assumée du papier (section Future Work), pas un artefact caché.</span>
+    <span><b><span class="i18n-fr">Limite connue — calibration empirique, pas principielle :</span><span class="i18n-en">Known limitation — empirical calibration, not principled:</span></b> <span class="i18n-fr">les tolérances de dégradation ε_E, ε_D, ε_I et le budget de fusion (fixé à 50% de |U| dans toutes les expériences) sont calibrés à partir de mesures sur le graphe complet, puis validés par un balayage de robustesse (30–60%, voir onglet Analyse MovieLens) — mais ne découlent pas d'un critère principiel unique. Une analyse de front de Pareto sur les trois objectifs EDI, ou une calibration sur un jeu de validation distinct des données de test rapportées, rendrait cette étape plus rigoureuse. C'est une limite assumée du papier (section Future Work), pas un artefact caché.</span><span class="i18n-en">the degradation tolerances ε_E, ε_D, ε_I and the merge budget (fixed at 50% of |U| across all experiments) are calibrated from measurements on the full graph, then validated by a robustness sweep (30–60%, see the Analyse MovieLens tab) — but do not follow from a single principled criterion. A Pareto-front analysis over the three EDI objectives, or calibration on a validation set distinct from the reported test data, would make this step more rigorous. This is an acknowledged limitation of the paper (Future Work section), not a hidden artifact.</span></span>
   </div>
 
   <div class="finding fw">
-    <h3>Aucune méthode classique ne satisfait les 3 critères EDI simultanément</h3>
-    <p>L'Average Score produit une équité parfaite (ΔE≈0) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–1.23, sauf sur RMP où Borda reste bas à 0.008). Le Fair Re-rank améliore l'équité mais détruit la diversité <em>sur RMP</em> (ILD=0.196 contre 0.982 pour Average Score) ; sur libimseti, sa diversité (0.719) reste comparable aux méthodes de vote (Borda/Condorcet ≈ 0.744–0.746), sans effondrement notable là-bas.</p>
+    <h3><span class="i18n-fr">Aucune méthode classique ne satisfait les 3 critères EDI simultanément</span><span class="i18n-en">No classical method satisfies all 3 EDI criteria simultaneously</span></h3>
+    <p><span class="i18n-fr">L'Average Score produit une équité parfaite (ΔE≈0) mais une inclusion quasi-nulle. Borda et Condorcet améliorent l'inclusion mais maintiennent un grand écart d'équité (ΔE≈0.42–1.23, sauf sur RMP où Borda reste bas à 0.008). Le Fair Re-rank améliore l'équité mais détruit la diversité <em>sur RMP</em> (ILD=0.196 contre 0.982 pour Average Score) ; sur libimseti, sa diversité (0.719) reste comparable aux méthodes de vote (Borda/Condorcet ≈ 0.744–0.746), sans effondrement notable là-bas.</span><span class="i18n-en">Average Score produces perfect fairness (ΔE≈0) but near-zero inclusion. Borda and Condorcet improve inclusion but maintain a large fairness gap (ΔE≈0.42–1.23, except on RMP where Borda stays low at 0.008). Fair Re-rank improves fairness but destroys diversity <em>on RMP</em> (ILD=0.196 versus 0.982 for Average Score); on libimseti, its diversity (0.719) stays comparable to voting methods (Borda/Condorcet ≈ 0.744–0.746), with no notable collapse there.</span></p>
   </div>
 
   <div class="finding fk">
-    <h3>Notre méthode (coarsening) offre le meilleur équilibre équité+diversité</h3>
-    <p><strong>MovieLens 100k k=20 :</strong> bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique). 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <h3><span class="i18n-fr">Notre méthode (coarsening) offre le meilleur équilibre équité+diversité</span><span class="i18n-en">Our method (coarsening) offers the best fairness+diversity balance</span></h3>
+    <p><span class="i18n-fr"><strong>MovieLens 100k k=20 :</strong> bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique). 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
     <br><strong>MovieLens 1M :</strong> le tableau s'inverse — Fair Re-rank domine AURORA sur <strong>ΔE et ILD à la fois</strong>, à tout k testé, pas seulement sur la diversité. Un résultat propre à ce corpus, pas un désavantage général : AURORA bat toujours les 3 méthodes de vote classiques (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient la meilleure inclusion à k=20 (inc_F=0.294).
     <br><strong>Rate My Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 30–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
     <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent, ΔE=0.016 et 0.144), ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.
-    <br><br><strong>Le message central :</strong> AURORA n'est pas uniformément meilleure — elle égale ou dépasse le re-ranking post-hoc (Fair Re-rank) sur les petits corpus et les cas item-side (RMP, OpenAlex), mais un corpus à forte base d'utilisateurs (ML1M) ou un domaine à préférences réciproques dépendantes de l'attribut sensible (libimseti) peut favoriser une approche post-hoc, ou révéler une limite structurelle du cadre à classement collectif unique.</p>
+    <br><br><strong>Le message central :</strong> AURORA n'est pas uniformément meilleure — elle égale ou dépasse le re-ranking post-hoc (Fair Re-rank) sur les petits corpus et les cas item-side (RMP, OpenAlex), mais un corpus à forte base d'utilisateurs (ML1M) ou un domaine à préférences réciproques dépendantes de l'attribut sensible (libimseti) peut favoriser une approche post-hoc, ou révéler une limite structurelle du cadre à classement collectif unique.</span><span class="i18n-en"><strong>MovieLens 100k k=20:</strong> beats Borda and Condorcet on all 4 criteria, and Weighted Borda on 3 of 4 (inc_M nearly identical). 943→471 supernodes (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <br><strong>MovieLens 1M:</strong> the picture reverses — Fair Re-rank dominates AURORA on <strong>both ΔE and ILD</strong>, at every k tested, not just on diversity. A result specific to this corpus, not a general disadvantage: AURORA still beats all 3 classical voting methods (Borda/W-Borda/Condorcet) on ΔE and ILD simultaneously, and achieves the best inclusion at k=20 (inc_F=0.294).
+    <br><strong>Rate My Professors:</strong> AURORA reaches ILD=<strong>0.808</strong> (2nd best, close to Average Score's 0.982) while raising frac_F to 60% (the highest, versus 30–50% for the baselines) — ΔE=0.112 beats Condorcet but remains behind Borda/Fair Re-rank.
+    <br><strong>libimseti:</strong> the only corpus where gender exists on both sides of the graph (raters and rated profiles) — ΔE stays high for voting methods and for AURORA (Average Score and Fair Re-rank escape it, ΔE=0.016 and 0.144), which empirically illustrates Yao &amp; Huang's (2017) argument: demographic parity is not always an appropriate goal when preferences legitimately depend on the sensitive attribute (see the libimseti.cz tab). AURORA nonetheless keeps a clear diversity advantage over voting methods.
+    <br><br><strong>The central message:</strong> AURORA is not uniformly better — it matches or beats post-hoc re-ranking (Fair Re-rank) on smaller corpora and item-side cases (RMP, OpenAlex), but a corpus with a large user base (ML1M) or a domain with reciprocal preferences dependent on the sensitive attribute (libimseti) can favor a post-hoc approach, or reveal a structural limitation of the single-collective-ranking framework.</span></p>
   </div>
 
   <div class="finding fg">
-    <h3>ILD — l'avantage le plus constant d'AURORA face aux méthodes de vote</h3>
-    <p>Sur la quasi-totalité des configurations testées, le coarsening produit une diversité supérieure à Borda et Condorcet (seule exception : MovieLens 100k à k=5, où Condorcet est très légèrement au-dessus). Face à Fair Re-rank, le résultat est plus mitigé : AURORA le bat sur RMP et libimseti, mais pas sur MovieLens 1M (à aucun k testé) ni sur MovieLens 100k à k=5/10. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque, plus robuste face aux méthodes de vote que face à un re-ranking spécialisé comme Fair Re-rank.</p>
+    <h3><span class="i18n-fr">ILD — l'avantage le plus constant d'AURORA face aux méthodes de vote</span><span class="i18n-en">ILD — AURORA's most consistent advantage over voting methods</span></h3>
+    <p><span class="i18n-fr">Sur la quasi-totalité des configurations testées, le coarsening produit une diversité supérieure à Borda et Condorcet (seule exception : MovieLens 100k à k=5, où Condorcet est très légèrement au-dessus). Face à Fair Re-rank, le résultat est plus mitigé : AURORA le bat sur RMP et libimseti, mais pas sur MovieLens 1M (à aucun k testé) ni sur MovieLens 100k à k=5/10. Ce résultat s'explique : fusionner des super-nœuds similaires <em>force</em> le top-k à couvrir des zones différentes de l'espace des items — un mécanisme de diversification intrinsèque, plus robuste face aux méthodes de vote que face à un re-ranking spécialisé comme Fair Re-rank.</span><span class="i18n-en">Across nearly all tested configurations, coarsening produces higher diversity than Borda and Condorcet (the only exception: MovieLens 100k at k=5, where Condorcet is very slightly above). Against Fair Re-rank, the result is more mixed: AURORA beats it on RMP and libimseti, but not on MovieLens 1M (at any k tested) nor on MovieLens 100k at k=5/10. This result has an explanation: merging similar supernodes <em>forces</em> the top-k to cover different regions of the item space — an intrinsic diversification mechanism, more robust against voting methods than against a specialized re-ranking method like Fair Re-rank.</span></p>
   </div>
 
   <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
-    <h3>Biais académique massif — OpenAlex confirme le pire cas</h3>
-    <p>Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. AURORA atteint ΔE=0.051 (−28% vs Average Score) tout en maintenant frac_F=20% — seule méthode à corriger ce biais extrême tout en préservant la représentation féminine.</p>
+    <h3><span class="i18n-fr">Biais académique massif — OpenAlex confirme le pire cas</span><span class="i18n-en">Massive academic bias — OpenAlex confirms the worst case</span></h3>
+    <p><span class="i18n-fr">Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. AURORA atteint ΔE=0.051 (−28% vs Average Score) tout en maintenant frac_F=20% — seule méthode à corriger ce biais extrême tout en préservant la représentation féminine.</span><span class="i18n-en">Only 19% female authors in AI/ML. Borda, Condorcet, and Weighted Borda recommend 0% women (ΔE=1.23, ILD=0). This is the most extreme bias observed across our 4 corpora, comparable to published studies on citations in the sciences. AURORA reaches ΔE=0.051 (−28% vs Average Score) while maintaining frac_F=20% — the only method that corrects this extreme bias while preserving female representation.</span></p>
   </div>
 
   <div class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</div><button class="csv-btn" onclick="downloadCSV('finalTbl','movielens_final_table.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</span><span class="i18n-en">Full comparison table — MovieLens, all configurations (θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('finalTbl','movielens_final_table.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
   </div>
 
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
-    <strong style="color:var(--t1)">Perspectives :</strong>
-    résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
-    Prochaines étapes (Future Work du papier) : (1) attributs sensibles multiples et simultanés (genre + âge/occupation) ; (2) graphes bipartites dynamiques/temporels, préférences évoluant dans le temps ; (3) calibration plus rigoureuse des tolérances ε et du budget de fusion via une analyse de front de Pareto plutôt qu'empiriquement ; (4) comprendre pourquoi Fair Re-rank dépasse AURORA sur MovieLens 1M mais pas sur les corpus plus petits (taille de la base, densité du graphe, pool de candidats) ; (5) sur RMP spécifiquement, un critère de fusion tenant compte de la distribution des items recommandés (pas seulement de la similarité des profils de notation) pourrait réduire le compromis équité/diversité observé ; (6) remplacer la fusion gloutonne par une détection de communautés guidée par l'impact EDI de chaque fusion candidate.
+    <strong style="color:var(--t1)"><span class="i18n-fr">Perspectives :</span><span class="i18n-en">Outlook:</span></strong>
+    <span class="i18n-fr">résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
+    Prochaines étapes (Future Work du papier) : (1) attributs sensibles multiples et simultanés (genre + âge/occupation) ; (2) graphes bipartites dynamiques/temporels, préférences évoluant dans le temps ; (3) calibration plus rigoureuse des tolérances ε et du budget de fusion via une analyse de front de Pareto plutôt qu'empiriquement ; (4) comprendre pourquoi Fair Re-rank dépasse AURORA sur MovieLens 1M mais pas sur les corpus plus petits (taille de la base, densité du graphe, pool de candidats) ; (5) sur RMP spécifiquement, un critère de fusion tenant compte de la distribution des items recommandés (pas seulement de la similarité des profils de notation) pourrait réduire le compromis équité/diversité observé ; (6) remplacer la fusion gloutonne par une détection de communautés guidée par l'impact EDI de chaque fusion candidate.</span><span class="i18n-en">results validated on <strong>4 corpora</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) covering movie recommendation, dating profiles, professors, and academic authors.
+    Next steps (paper's Future Work): (1) multiple, simultaneous sensitive attributes (gender + age/occupation); (2) dynamic/temporal bipartite graphs, preferences evolving over time; (3) more rigorous calibration of the ε tolerances and merge budget via a Pareto-front analysis rather than empirically; (4) understand why Fair Re-rank outperforms AURORA on MovieLens 1M but not on smaller corpora (user-base size, graph density, candidate pool); (5) on RMP specifically, a merge criterion accounting for the distribution of recommended items (not just rating-profile similarity) could reduce the observed fairness/diversity trade-off; (6) replace greedy merging with community detection guided by the EDI impact of each candidate merge.</span>
   </div>
 </div>
 
 <!-- ══ HISTOIRE D'AURORA ══ -->
 <div class="panel" id="p-origin">
-  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em">D'où vient le nom AURORA</h2>
+  <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:18px;letter-spacing:-.02em"><span class="i18n-fr">D'où vient le nom AURORA</span><span class="i18n-en">Where the name AURORA comes from</span></h2>
 
   <div class="card" style="margin-bottom:16px">
-    <div class="card-title">L'acronyme</div>
+    <div class="card-title"><span class="i18n-fr">L'acronyme</span><span class="i18n-en">The acronym</span></div>
     <div style="text-align:center;margin-bottom:14px;padding:16px 20px;background:rgba(18,232,122,.06);border:1px solid rgba(18,232,122,.25);border-radius:12px">
       <div style="font-size:1.4rem;font-weight:900;letter-spacing:.1em;color:var(--green);text-shadow:0 0 24px rgba(18,232,122,.5);margin-bottom:8px">AURORA</div>
       <div style="font-size:.82rem;color:var(--t2);line-height:1.7;letter-spacing:.01em">
@@ -887,31 +892,36 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       </div>
     </div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      La méthode résume (coarsening) un graphe biparti de préférences en super-nœuds, en garantissant que cette réduction préserve l'équité, la diversité et l'inclusion. C'est le principe qui traverse tout le site : chaque onglet, du Graphe à la Conclusion, mesure une facette de cette même idée.
+      <span class="i18n-fr">La méthode résume (coarsening) un graphe biparti de préférences en super-nœuds, en garantissant que cette réduction préserve l'équité, la diversité et l'inclusion. C'est le principe qui traverse tout le site : chaque onglet, du Graphe à la Conclusion, mesure une facette de cette même idée.</span><span class="i18n-en">The method summarizes (coarsens) a bipartite preference graph into supernodes, while guaranteeing that this reduction preserves equity, diversity, and inclusion. This is the principle running through the whole site: every tab, from Graphe to Conclusion, measures one facet of this same idea.</span>
     </p>
   </div>
 
   <div class="card" style="margin-bottom:20px;border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.05)">
-    <div class="card-title" style="color:var(--blue)">Le clin d'œil</div>
+    <div class="card-title" style="color:var(--blue)"><span class="i18n-fr">Le clin d'œil</span><span class="i18n-en">The nod</span></div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      Le nom n'est pas qu'un acronyme technique. Pendant mon séjour de recherche à l'<strong style="color:var(--t1)">University of Regina</strong>,
+      <span class="i18n-fr">Le nom n'est pas qu'un acronyme technique. Pendant mon séjour de recherche à l'<strong style="color:var(--t1)">University of Regina</strong>,
       j'ai eu la chance d'assister à une soirée d'aurores boréales avec d'autres personnes, dans le ciel de la Saskatchewan — un moment magnifique.
       Ça m'a donné envie que le nom de la méthode y fasse écho : AURORA, comme ce phénomène qui rend visible une structure lumineuse là où le ciel
-      semblait vide l'instant d'avant. Voici quelques photos prises ce soir-là.
+      semblait vide l'instant d'avant. Voici quelques photos prises ce soir-là.</span><span class="i18n-en">The name isn't just a technical acronym. During my research stay at the <strong style="color:var(--t1)">University of Regina</strong>,
+      I had the chance to watch the northern lights one evening with other people, in the Saskatchewan sky — a beautiful moment.
+      That made me want the method's name to echo it: AURORA, like that phenomenon that makes a luminous structure visible where the sky
+      seemed empty a moment before. Here are a few photos taken that night.</span>
     </p>
   </div>
 
   <div class="card" style="margin-bottom:20px;border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.05)">
-    <div class="card-title" style="color:var(--green)">Une lumière, pas un effacement</div>
+    <div class="card-title" style="color:var(--green)"><span class="i18n-fr">Une lumière, pas un effacement</span><span class="i18n-en">A light, not an erasure</span></div>
     <p style="font-size:.85rem;color:var(--t2);line-height:1.7">
-      Une aurore boréale ne modifie pas le ciel qu'elle traverse : elle rend visible une structure qui existait déjà, sous certaines conditions.
+      <span class="i18n-fr">Une aurore boréale ne modifie pas le ciel qu'elle traverse : elle rend visible une structure qui existait déjà, sous certaines conditions.
       AURORA suit la même logique — la méthode ne simplifie pas les préférences des utilisateurs en effaçant leurs différences, elle les réorganise
-      sous contrainte d'équité, de diversité et d'inclusion. La structure d'origine reste là ; elle est simplement recomposée pour rester lisible.
+      sous contrainte d'équité, de diversité et d'inclusion. La structure d'origine reste là ; elle est simplement recomposée pour rester lisible.</span><span class="i18n-en">An aurora borealis doesn't change the sky it crosses: it makes visible a structure that already existed, under certain conditions.
+      AURORA follows the same logic — the method doesn't simplify user preferences by erasing their differences, it reorganizes them
+      under equity, diversity, and inclusion constraints. The original structure stays there; it's simply recomposed to remain legible.</span>
     </p>
   </div>
 
   <div class="card">
-    <div class="card-title">Aurores boréales — Regina, Saskatchewan</div>
+    <div class="card-title"><span class="i18n-fr">Aurores boréales — Regina, Saskatchewan</span><span class="i18n-en">Northern lights — Regina, Saskatchewan</span></div>
     <div class="aurora-gallery" id="auroraGallery">
       <img src="img/aurora/thumb/aurora-15.jpg" data-full="img/aurora/full/aurora-15.jpg" alt="Aurore boréale à Regina 1" loading="lazy">
       <img src="img/aurora/thumb/aurora-18.jpg" data-full="img/aurora/full/aurora-18.jpg" alt="Aurore boréale à Regina 2" loading="lazy">
@@ -934,8 +944,8 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <img src="img/aurora/thumb/aurora-02.jpg" data-full="img/aurora/full/aurora-02.jpg" alt="Aurore boréale à Regina 19" loading="lazy">
       <img src="img/aurora/thumb/aurora-13.jpg" data-full="img/aurora/full/aurora-13.jpg" alt="Aurore boréale à Regina 21" loading="lazy">
     </div>
-    <p style="font-size:.68rem;color:var(--t3);margin-top:10px">Cliquer sur une photo pour l'agrandir · flèches ← → ou clic pour naviguer · Échap pour fermer.</p>
-    <button class="cine-btn" id="cineStartBtn">▶ Voir en diaporama, avec musique</button>
+    <p style="font-size:.68rem;color:var(--t3);margin-top:10px"><span class="i18n-fr">Cliquer sur une photo pour l'agrandir · flèches ← → ou clic pour naviguer · Échap pour fermer.</span><span class="i18n-en">Click a photo to enlarge it · arrows ← → or click to navigate · Esc to close.</span></p>
+    <button class="cine-btn" id="cineStartBtn"><span class="i18n-fr">▶ Voir en diaporama, avec musique</span><span class="i18n-en">▶ View as a slideshow, with music</span></button>
   </div>
 </div>
 
