@@ -549,14 +549,14 @@ python run_openalex.py           # OpenAlex</div>
   <!-- Statistiques du corpus MovieLens 100k -->
   <div class="tiles">
     <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">100k</div><div class="tile-sub">MovieLens 100k</div></div>
-    <div class="tile"><div class="tile-lbl">Utilisateurs</div><div class="tile-val">943</div><div class="tile-sub">273F · 670 M</div></div>
-    <div class="tile"><div class="tile-lbl">Films</div><div class="tile-val">1 682</div><div class="tile-sub">items distincts</div></div>
-    <div class="tile"><div class="tile-lbl">Note moyenne</div><div class="tile-val">3.53</div><div class="tile-sub">écart-type  = 1.13</div></div>
-    <div class="tile"><div class="tile-lbl">Densité</div><div class="tile-val">6.3%</div><div class="tile-sub">matrice creuse</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Utilisateurs</span><span class="i18n-en">Users</span></div><div class="tile-val">943</div><div class="tile-sub">273F · 670 M</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Films</span><span class="i18n-en">Movies</span></div><div class="tile-val">1 682</div><div class="tile-sub"><span class="i18n-fr">items distincts</span><span class="i18n-en">distinct items</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Note moyenne</span><span class="i18n-en">Average rating</span></div><div class="tile-val">3.53</div><div class="tile-sub"><span class="i18n-fr">écart-type</span><span class="i18n-en">std dev</span> = 1.13</div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Densité</span><span class="i18n-en">Density</span></div><div class="tile-val">6.3%</div><div class="tile-sub"><span class="i18n-fr">matrice creuse</span><span class="i18n-en">sparse matrix</span></div></div>
   </div>
   <div class="two-col" style="margin-top:14px">
     <div class="card">
-      <div class="card-title">Répartition par genre</div>
+      <div class="card-title"><span class="i18n-fr">Répartition par genre</span><span class="i18n-en">Breakdown by gender</span></div>
       <div class="donut-wrap">
         <svg width="148" height="148" viewBox="0 0 148 148" style="overflow:visible">
           <circle cx="74" cy="74" r="56" fill="none" stroke="#6b8fff" stroke-width="20" stroke-dasharray="352" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
@@ -564,35 +564,36 @@ python run_openalex.py           # OpenAlex</div>
           <circle cx="74" cy="74" r="56" fill="none" stroke="var(--s1)" stroke-width="3" stroke-dasharray="3 349" stroke-dashoffset="0" transform="rotate(-90 74 74)"/>
           <circle cx="74" cy="74" r="56" fill="none" stroke="var(--s1)" stroke-width="3" stroke-dasharray="3 349" stroke-dashoffset="-102" transform="rotate(-90 74 74)"/>
           <text x="74" y="68" font-size="20" font-weight="900" fill="var(--t1)" text-anchor="middle" dominant-baseline="middle">943</text>
-          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle">utilisateurs</text>
+          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle" class="i18n-fr">utilisateurs</text>
+          <text x="74" y="87" font-size="10" fill="var(--t3)" text-anchor="middle" class="i18n-en">users</text>
         </svg>
         <div style="width:100%;max-width:165px;display:flex;flex-direction:column;gap:9px">
-          <div class="leg-row"><div class="leg-dot" style="background:#ff7a5c"></div><span>Femmes (F)</span><span class="leg-pct">273 · 29%</span></div>
-          <div class="leg-row"><div class="leg-dot" style="background:#6b8fff"></div><span>Hommes (M)</span><span class="leg-pct">670 · 71%</span></div>
-          <div style="margin-top:6px;padding:9px 11px;background:var(--s2);border-radius:7px;font-size:.72rem;color:var(--t2);line-height:1.5;border-left:3px solid var(--coral)">Ce déséquilibre 29/71% est le moteur du problème EDI.</div>
+          <div class="leg-row"><div class="leg-dot" style="background:#ff7a5c"></div><span><span class="i18n-fr">Femmes (F)</span><span class="i18n-en">Women (F)</span></span><span class="leg-pct">273 · 29%</span></div>
+          <div class="leg-row"><div class="leg-dot" style="background:#6b8fff"></div><span><span class="i18n-fr">Hommes (M)</span><span class="i18n-en">Men (M)</span></span><span class="leg-pct">670 · 71%</span></div>
+          <div style="margin-top:6px;padding:9px 11px;background:var(--s2);border-radius:7px;font-size:.72rem;color:var(--t2);line-height:1.5;border-left:3px solid var(--coral)"><span class="i18n-fr">Ce déséquilibre 29/71% est le moteur du problème EDI.</span><span class="i18n-en">This 29/71% imbalance is what drives the EDI problem.</span></div>
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Distribution des notes (1 → 5 étoiles)</div>
+      <div class="card-title"><span class="i18n-fr">Distribution des notes (1 → 5 étoiles)</span><span class="i18n-en">Rating distribution (1 → 5 stars)</span></div>
       <div class="bar-rows" id="ratingBars"></div>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Le graphe biparti G = (U ∪ I, E, w, s)</div>
+    <div class="card-title"><span class="i18n-fr">Le graphe biparti G = (U ∪ I, E, w, s)</span><span class="i18n-en">The bipartite graph G = (U ∪ I, E, w, s)</span></div>
     <div class="info-grid">
-      <div class="info-item"><strong>U</strong> — 943 nœuds utilisateurs, étiquetés F ou M</div>
-      <div class="info-item"><strong>I</strong> — 1 682 nœuds items (films)</div>
-      <div class="info-item"><strong>E</strong> — 100 000 arêtes (u,i) ∈ E si u a noté i</div>
-      <div class="info-item"><strong>w(u,i)</strong> — poids = note entière 1–5</div>
-      <div class="info-item"><strong>s(u)</strong> — attribut sensible : F ou M</div>
-      <div class="info-item"><strong>Densité</strong> — 6.3% : graphe creux, typique en reco</div>
+      <div class="info-item"><strong>U</strong> — <span class="i18n-fr">943 nœuds utilisateurs, étiquetés F ou M</span><span class="i18n-en">943 user nodes, labeled F or M</span></div>
+      <div class="info-item"><strong>I</strong> — <span class="i18n-fr">1 682 nœuds items (films)</span><span class="i18n-en">1,682 item nodes (movies)</span></div>
+      <div class="info-item"><strong>E</strong> — <span class="i18n-fr">100 000 arêtes (u,i) ∈ E si u a noté i</span><span class="i18n-en">100,000 edges (u,i) ∈ E if u rated i</span></div>
+      <div class="info-item"><strong>w(u,i)</strong> — <span class="i18n-fr">poids = note entière 1–5</span><span class="i18n-en">weight = integer rating 1–5</span></div>
+      <div class="info-item"><strong>s(u)</strong> — <span class="i18n-fr">attribut sensible : F ou M</span><span class="i18n-en">sensitive attribute: F or M</span></div>
+      <div class="info-item"><strong><span class="i18n-fr">Densité</span><span class="i18n-en">Density</span></strong> — <span class="i18n-fr">6.3% : graphe creux, typique en reco</span><span class="i18n-en">6.3%: sparse graph, typical in recommendation</span></div>
     </div>
   </div>
 
   <div class="notice" style="margin-top:14px">
     <span style="color:var(--amber);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Observation :</b> MovieLens utilise des notes entières (1–5). Les seuils θ=3.5 et θ=4.0 sont équivalents — tous deux sélectionnent les notes ≥ 4. Les résultats sont identiques pour les deux valeurs.</span>
+    <span><b><span class="i18n-fr">Observation :</span><span class="i18n-en">Observation:</span></b> <span class="i18n-fr">MovieLens utilise des notes entières (1–5). Les seuils θ=3.5 et θ=4.0 sont équivalents — tous deux sélectionnent les notes ≥ 4. Les résultats sont identiques pour les deux valeurs.</span><span class="i18n-en">MovieLens uses integer ratings (1–5). The thresholds θ=3.5 and θ=4.0 are equivalent — both select ratings ≥ 4. Results are identical for both values.</span></span>
   </div>
   <div class="controls">
     <div class="ctrl-grp">
@@ -1351,15 +1352,15 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Observation clé — la diversité comme vrai différenciateur sur RMP</div>
+    <div class="card-title"><span class="i18n-fr">Observation clé — la diversité comme vrai différenciateur sur RMP</span><span class="i18n-en">Key observation — diversity as the real differentiator on RMP</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--blue)">Pourquoi ILD s'effondre avec Borda/Condorcet ?</strong><br>
-        Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cours → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.
+        <strong style="color:var(--blue)"><span class="i18n-fr">Pourquoi ILD s'effondre avec Borda/Condorcet ?</span><span class="i18n-en">Why does ILD collapse with Borda/Condorcet?</span></strong><br>
+        <span class="i18n-fr">Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cours → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.</span><span class="i18n-en">On RMP, a handful of "super-professors" concentrate thousands of ratings. Borda voting systematically places them at the top for every course → the top-10 lists all look alike → diversity collapses (ILD=0.14). This is the classic popularity effect in recommender systems.</span>
       </div>
       <div>
-        <strong style="color:var(--green)">Notre méthode (AURORA)</strong><br>
-        Coarsening : 1 981 cours → 990 super-nœuds (budget 50%). ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (bat Condorcet, derrière Borda/Fair Re-rank), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 31.5s pour 59 066 professeurs.
+        <strong style="color:var(--green)"><span class="i18n-fr">Notre méthode (AURORA)</span><span class="i18n-en">Our method (AURORA)</span></strong><br>
+        <span class="i18n-fr">Coarsening : 1 981 cours → 990 super-nœuds (budget 50%). ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (bat Condorcet, derrière Borda/Fair Re-rank), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 31.5s pour 59 066 professeurs.</span><span class="i18n-en">Coarsening: 1,981 courses → 990 supernodes (50% budget). ILD=0.808 — <em>diverse and relevant</em> professors. ΔE=0.112 (beats Condorcet, behind Borda/Fair Re-rank), frac_F=60% (slight over-representation of F professors — coarsening naturally favors diversity). 31.5s for 59,066 professors.</span>
       </div>
     </div>
   </div>
@@ -1369,34 +1370,34 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-oalex">
   <div class="notice" style="border-color:rgba(176,122,255,.3);background:rgba(176,122,255,.06)">
     <span style="font-size:1rem;flex-shrink:0"></span>
-    <span><b>OpenAlex — recommandation d'auteurs académiques (AI/ML/CS, 2018-2023) :</b>
-    45 008 papers téléchargés via l'API OpenAlex. <em>User</em> = venue (NeurIPS, ICML, ICLR…), <em>Item</em> = auteur, <em>Rating</em> = nombre de papers de l'auteur dans cette venue (1–5 cap). 99 venues × 904 auteurs × 2 124 ratings. Équité = genre des auteurs recommandés (item-side, même cadre que RMP).</span>
+    <span><b><span class="i18n-fr">OpenAlex — recommandation d'auteurs académiques (AI/ML/CS, 2018-2023) :</span><span class="i18n-en">OpenAlex — academic author recommendation (AI/ML/CS, 2018-2023):</span></b>
+    <span class="i18n-fr">45 008 papers téléchargés via l'API OpenAlex. <em>User</em> = venue (NeurIPS, ICML, ICLR…), <em>Item</em> = auteur, <em>Rating</em> = nombre de papers de l'auteur dans cette venue (1–5 cap). 99 venues × 904 auteurs × 2 124 ratings. Équité = genre des auteurs recommandés (item-side, même cadre que RMP).</span><span class="i18n-en">45,008 papers downloaded via the OpenAlex API. <em>User</em> = venue (NeurIPS, ICML, ICLR…), <em>Item</em> = author, <em>Rating</em> = number of the author's papers in that venue (1–5 cap). 99 venues × 904 authors × 2,124 ratings. Fairness = gender of the recommended authors (item-side, same framework as RMP).</span></span>
   </div>
 
   <div class="tiles">
-    <div class="tile"><div class="tile-lbl">Venues</div><div class="tile-val">~99</div><div class="tile-sub">conférences et journaux</div></div>
-    <div class="tile"><div class="tile-lbl">Auteurs</div><div class="tile-val">~904</div><div class="tile-sub">items à recommander</div></div>
-    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">~2 100</div><div class="tile-sub">associations (venue × auteur)</div></div>
-    <div class="tile"><div class="tile-lbl">Auteurs F</div><div class="tile-val">19%</div><div class="tile-sub">fort déséquilibre en AI/ML</div></div>
+    <div class="tile"><div class="tile-lbl">Venues</div><div class="tile-val">~99</div><div class="tile-sub"><span class="i18n-fr">conférences et journaux</span><span class="i18n-en">conferences and journals</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Auteurs</span><span class="i18n-en">Authors</span></div><div class="tile-val">~904</div><div class="tile-sub"><span class="i18n-fr">items à recommander</span><span class="i18n-en">items to recommend</span></div></div>
+    <div class="tile"><div class="tile-lbl">Ratings</div><div class="tile-val">~2 100</div><div class="tile-sub"><span class="i18n-fr">associations (venue × auteur)</span><span class="i18n-en">associations (venue × author)</span></div></div>
+    <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Auteurs F</span><span class="i18n-en">F Authors</span></div><div class="tile-val">19%</div><div class="tile-sub"><span class="i18n-fr">fort déséquilibre en AI/ML</span><span class="i18n-en">strong imbalance in AI/ML</span></div></div>
   </div>
 
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0">Résultats EDI — OpenAlex (k=10, θ=1.0)</div><button class="csv-btn" onclick="downloadCSV('oalexTbl','openalex_results.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — OpenAlex (k=10, θ=1.0)</span><span class="i18n-en">EDI results — OpenAlex (k=10, θ=1.0)</span></div><button class="csv-btn" onclick="downloadCSV('oalexTbl','openalex_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="oalexTbl"></table>
     </div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Observation — biais de genre en académique</div>
+    <div class="card-title"><span class="i18n-fr">Observation — biais de genre en académique</span><span class="i18n-en">Observation — gender bias in academia</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--coral)">Pourquoi ΔE = 1.23 pour Borda ?</strong><br>
-        En AI/ML, seulement 19% des auteurs avec genre connu sont des femmes. Borda recommande systématiquement les auteurs les plus prolifiques — tous masculins. Résultat : 0% d'autrices dans le top-10 pour toutes les venues → ΔE = 1.23, ILD = 0. C'est le biais académique de genre le plus fort observé dans nos 4 corpus.
+        <strong style="color:var(--coral)"><span class="i18n-fr">Pourquoi ΔE = 1.23 pour Borda ?</span><span class="i18n-en">Why ΔE = 1.23 for Borda?</span></strong><br>
+        <span class="i18n-fr">En AI/ML, seulement 19% des auteurs avec genre connu sont des femmes. Borda recommande systématiquement les auteurs les plus prolifiques — tous masculins. Résultat : 0% d'autrices dans le top-10 pour toutes les venues → ΔE = 1.23, ILD = 0. C'est le biais académique de genre le plus fort observé dans nos 4 corpus.</span><span class="i18n-en">In AI/ML, only 19% of authors with known gender are women. Borda systematically recommends the most prolific authors — all men. Result: 0% female authors in the top-10 for every venue → ΔE = 1.23, ILD = 0. This is the strongest academic gender bias observed across our 4 corpora.</span>
       </div>
       <div>
-        <strong style="color:var(--purple)">Contexte académique</strong><br>
-        Ce résultat confirme les études sur le <em>biais de genre dans les citations</em> (Dworkin et al. 2020, Caplar et al. 2017). Un système de recommandation basé sur le vote (Borda) amplifie structurellement ce biais. Notre coarsening vise à briser cette dynamique en fusionnant des venues similaires jusqu'à améliorer la diversité des auteurs recommandés.
+        <strong style="color:var(--purple)"><span class="i18n-fr">Contexte académique</span><span class="i18n-en">Academic context</span></strong><br>
+        <span class="i18n-fr">Ce résultat confirme les études sur le <em>biais de genre dans les citations</em> (Dworkin et al. 2020, Caplar et al. 2017). Un système de recommandation basé sur le vote (Borda) amplifie structurellement ce biais. Notre coarsening vise à briser cette dynamique en fusionnant des venues similaires jusqu'à améliorer la diversité des auteurs recommandés.</span><span class="i18n-en">This result confirms published studies on <em>gender bias in citations</em> (Dworkin et al. 2020, Caplar et al. 2017). A voting-based recommender system (Borda) structurally amplifies this bias. Our coarsening aims to break this dynamic by merging similar venues until the diversity of recommended authors improves.</span>
       </div>
     </div>
   </div>
@@ -1405,25 +1406,25 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <!-- ══ Radar EDI ══ -->
 <div class="panel" id="p-radar">
   <div class="card" style="margin-bottom:14px;background:rgba(107,143,255,.05);border-color:rgba(107,143,255,.25)">
-    <div class="card-title" style="color:var(--blue)">Comment lire un radar chart EDI ?</div>
+    <div class="card-title" style="color:var(--blue)"><span class="i18n-fr">Comment lire un radar chart EDI ?</span><span class="i18n-en">How to read an EDI radar chart?</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--t1)">Principe :</strong> un radar chart (ou diagramme en étoile) place chaque métrique sur un axe qui part du centre. Plus le point est <em>loin du centre</em>, meilleure est la valeur. La surface colorée représente le profil global d'une méthode — <strong>une grande surface = bon sur tous les critères.</strong>
+        <strong style="color:var(--t1)"><span class="i18n-fr">Principe :</span><span class="i18n-en">Principle:</span></strong> <span class="i18n-fr">un radar chart (ou diagramme en étoile) place chaque métrique sur un axe qui part du centre. Plus le point est <em>loin du centre</em>, meilleure est la valeur. La surface colorée représente le profil global d'une méthode — <strong>une grande surface = bon sur tous les critères.</strong></span><span class="i18n-en">a radar chart (or spider chart) places each metric on an axis radiating from the center. The <em>farther from the center</em> the point is, the better the value. The colored area represents a method's overall profile — <strong>a large area = good on all criteria.</strong></span>
       </div>
       <div>
-        <strong style="color:var(--t1)">Les 3 axes ici :</strong><br>
-        <b>↑Diversité (ILD)</b> — diversité des items recommandés [0→1]<br>
-        <b>→ Équité (1−ΔE)</b> — 1 = ΔE nul (parfaitement équitable). ΔE est <em>inversé</em> pour que "plus = mieux" soit cohérent.<br>
-        <b>←Genre (frac_F norm.)</b> — proportion de femmes dans le top-k, normalisée par rapport à la meilleure valeur observée.
+        <strong style="color:var(--t1)"><span class="i18n-fr">Les 3 axes ici :</span><span class="i18n-en">The 3 axes here:</span></strong><br>
+        <b>↑<span class="i18n-fr">Diversité</span><span class="i18n-en">Diversity</span> (ILD)</b> — <span class="i18n-fr">diversité des items recommandés [0→1]</span><span class="i18n-en">diversity of recommended items [0→1]</span><br>
+        <b>→ <span class="i18n-fr">Équité</span><span class="i18n-en">Fairness</span> (1−ΔE)</b> — <span class="i18n-fr">1 = ΔE nul (parfaitement équitable). ΔE est <em>inversé</em> pour que "plus = mieux" soit cohérent.</span><span class="i18n-en">1 = ΔE zero (perfectly fair). ΔE is <em>inverted</em> so that "more = better" stays consistent.</span><br>
+        <b>←<span class="i18n-fr">Genre</span><span class="i18n-en">Gender</span> (frac_F norm.)</b> — <span class="i18n-fr">proportion de femmes dans le top-k, normalisée par rapport à la meilleure valeur observée.</span><span class="i18n-en">proportion of women in the top-k, normalized against the best observed value.</span>
       </div>
     </div>
     <div style="margin-top:10px;padding:9px 12px;background:rgba(18,232,122,.07);border-left:3px solid var(--green);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
-      <strong style="color:var(--green)">À retenir :</strong> la méthode idéale couvrirait tout l'espace du radar (triangle plein). <strong style="color:var(--t1)">AURORA (vert)</strong> tend à avoir la plus grande surface — surtout sur la diversité ILD. Average Score (violet) domine souvent sur l'équité seule mais s'effondre sur les autres axes.
+      <strong style="color:var(--green)"><span class="i18n-fr">À retenir :</span><span class="i18n-en">Key takeaway:</span></strong> <span class="i18n-fr">la méthode idéale couvrirait tout l'espace du radar (triangle plein). <strong style="color:var(--t1)">AURORA (vert)</strong> tend à avoir la plus grande surface — surtout sur la diversité ILD. Average Score (violet) domine souvent sur l'équité seule mais s'effondre sur les autres axes.</span><span class="i18n-en">the ideal method would cover the entire radar space (a full triangle). <strong style="color:var(--t1)">AURORA (green)</strong> tends to have the largest area — especially on ILD diversity. Average Score (purple) often dominates on fairness alone but collapses on the other axes.</span>
     </div>
   </div>
   <div class="notice">
     <span style="color:var(--blue);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Radar EDI par dataset :</b> chaque axe est normalisé [0→1]. Pour ΔE, l'axe est inversé (1−ΔE) afin que <em>plus grand = meilleur</em> sur tous les axes. k=10 pour tous les datasets.</span>
+    <span><b><span class="i18n-fr">Radar EDI par dataset :</span><span class="i18n-en">EDI radar by dataset:</span></b> <span class="i18n-fr">chaque axe est normalisé [0→1]. Pour ΔE, l'axe est inversé (1−ΔE) afin que <em>plus grand = meilleur</em> sur tous les axes. k=10 pour tous les datasets.</span><span class="i18n-en">each axis is normalized [0→1]. For ΔE, the axis is inverted (1−ΔE) so that <em>larger = better</em> on every axis. k=10 for all datasets.</span></span>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
     <div class="card">
@@ -1444,7 +1445,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     </div>
   </div>
   <div class="card" style="margin-top:14px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-    <div style="font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)">Légende</div>
+    <div style="font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)"><span class="i18n-fr">Légende</span><span class="i18n-en">Legend</span></div>
     <div id="radarLegend" style="display:flex;flex-wrap:wrap;gap:10px 20px"></div>
   </div>
 </div>
@@ -1453,21 +1454,21 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-pareto">
   <div class="notice">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b>Front de Pareto (ΔE vs ILD) :</b> chaque point est une méthode sur un dataset. <em>Idéal = bas-gauche pour ΔE, haut pour ILD.</em> Le front de Pareto (ligne verte) relie les points qu'aucune méthode ne domine simultanément. 4 corpus · 6 méthodes · k=10.</span>
+    <span><b><span class="i18n-fr">Front de Pareto (ΔE vs ILD) :</span><span class="i18n-en">Pareto front (ΔE vs ILD):</span></b> <span class="i18n-fr">chaque point est une méthode sur un dataset. <em>Idéal = bas-gauche pour ΔE, haut pour ILD.</em> Le front de Pareto (ligne verte) relie les points qu'aucune méthode ne domine simultanément. 4 corpus · 6 méthodes · k=10.</span><span class="i18n-en">each point is one method on one dataset. <em>Ideal = bottom-left for ΔE, top for ILD.</em> The Pareto front (green line) connects the points that no method simultaneously dominates. 4 corpora · 6 methods · k=10.</span></span>
   </div>
   <div class="card" style="margin-top:4px">
-    <div class="card-title">ΔE (équité) vs ILD (diversité) — tous datasets, toutes méthodes, k=10</div>
+    <div class="card-title"><span class="i18n-fr">ΔE (équité) vs ILD (diversité) — tous datasets, toutes méthodes, k=10</span><span class="i18n-en">ΔE (fairness) vs ILD (diversity) — all datasets, all methods, k=10</span></div>
     <canvas id="paretoCanvas" style="width:100%;display:block"></canvas>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:.72rem" id="paretoLegend"></div>
   </div>
   <div class="card" style="margin-top:14px">
-    <div class="card-title">Lecture du graphique</div>
+    <div class="card-title"><span class="i18n-fr">Lecture du graphique</span><span class="i18n-en">Reading the chart</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--green)">Zone idéale :</strong> bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur MovieLens (100k et 1M) ; sur RMP et libimseti, Borda a un ΔE plus bas (AURORA privilégie la diversité sur ces deux corpus).
+        <strong style="color:var(--green)"><span class="i18n-fr">Zone idéale :</span><span class="i18n-en">Ideal zone:</span></strong> <span class="i18n-fr">bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur MovieLens (100k et 1M) ; sur RMP et libimseti, Borda a un ΔE plus bas (AURORA privilégie la diversité sur ces deux corpus).</span><span class="i18n-en">bottom-left (low ΔE) + top (high ILD). <strong>Average Score</strong> (purple) lands there on all 3 datasets: without group weighting, it creates no gap — but no guarantee either. <strong>AURORA</strong> gets close on RMP (ΔE=0.112, ILD=0.808) and improves fairness vs Borda on MovieLens (100k and 1M); on RMP and libimseti, Borda has a lower ΔE (AURORA favors diversity on these two corpora).</span>
       </div>
       <div>
-        <strong style="color:var(--amber)">Compromis observé :</strong> Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.
+        <strong style="color:var(--amber)"><span class="i18n-fr">Compromis observé :</span><span class="i18n-en">Observed trade-off:</span></strong> <span class="i18n-fr">Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.</span><span class="i18n-en">Borda/Condorcet are poor on both axes on RMP. Fair Re-rank improves fairness but reduces diversity (low ILD). AURORA's value is its <em>formal guarantee</em> on ΔE through graph construction, whereas Average Score gets a good result without explicit control.</span>
       </div>
     </div>
   </div>
