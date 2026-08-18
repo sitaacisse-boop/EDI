@@ -1,8 +1,9 @@
 <!doctype html>
-<html>
+<html translate="no">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google" content="notranslate">
 
 <title>ΔE ·ILD · Inclusion — EDI Multi-Datasets</title>
 <style>
@@ -277,6 +278,7 @@ canvas{width:100%;display:block;border-radius:8px}
   var saved=null;
   try{ saved=localStorage.getItem(KEY); }catch(e){}
   if(saved==='en') root.dataset.lang='en';
+  root.lang = isEnNow() ? 'en' : 'fr';
   paint();
   btn.addEventListener('click',function(){
     var next = isEnNow() ? 'fr' : 'en';
