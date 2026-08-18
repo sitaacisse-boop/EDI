@@ -1477,6 +1477,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 </div>
 
 <script>
+function L(fr,en){ return document.documentElement.dataset.lang==='en' ? en : fr; }
 const ALL={
   5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"AURORA":{dE:.4387,ILD:.3302,inc_F:.3465,inc_M:.4501,n_sn:471,ratio:.499}},
   10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"AURORA":{dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_sn:471,ratio:.499}},
@@ -1484,28 +1485,46 @@ const ALL={
 };
 const AF=0.289,AM=0.710;
 const METHODS=["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"];
-const COLS=[{key:'dE',lbl:'ΔE (Équité)',dir:'min',max:.55},{key:'ILD',lbl:'ILD (Diversité)',dir:'max',max:1},{key:'inc_F',lbl:'inc_F ↑',dir:'max',max:.45},{key:'inc_M',lbl:'inc_M ↑',dir:'max',max:.55}];
-const DESC={"Average Score":"Moy. des notes","Borda":"Somme des rangs","Weighted Borda":"Borda pondéré par groupe","Condorcet":"Vote majoritaire","Fair Re-rank":"Re-ranking équitable","AURORA":"Coarsenisation EDI"};
-const INTERP={
-  5:`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.439</strong>) et diversité (ILD 0.303→<strong>0.330</strong>) améliorées vs Borda.
+function COLS(){return [{key:'dE',lbl:'ΔE ('+L('Équité','Fairness')+')',dir:'min',max:.55},{key:'ILD',lbl:'ILD ('+L('Diversité','Diversity')+')',dir:'max',max:1},{key:'inc_F',lbl:'inc_F ↑',dir:'max',max:.45},{key:'inc_M',lbl:'inc_M ↑',dir:'max',max:.55}];}
+function DESC(){return {"Average Score":L("Moy. des notes","Avg. of ratings"),"Borda":L("Somme des rangs","Sum of ranks"),"Weighted Borda":L("Borda pondéré par groupe","Group-weighted Borda"),"Condorcet":L("Vote majoritaire","Majority vote"),"Fair Re-rank":L("Re-ranking équitable","Fair re-ranking"),"AURORA":L("Coarsenisation EDI","EDI coarsening")};}
+function INTERP(){return {
+  5: L(`<strong>k=5 :</strong> Équité (ΔE 0.491→<strong>0.439</strong>) et diversité (ILD 0.303→<strong>0.330</strong>) améliorées vs Borda.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--blue);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Budget de fusion proportionnel :</strong>471 super-nœuds (ratio 0.50) — budget fixé à 50% de n_users, validé par test de robustesse sur une plage de 30 à 60%. Un budget fixe non adapté à la taille du corpus produirait une sur- ou sous-fusion selon k (voir discussion méthodologique).</span>
   </span>`,
-  10:`<strong>k=10 :</strong>Meilleure inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, les deux meilleures du tableau) et diversité (ILD=<strong>0.391</strong>, +10.6% vs Borda). ΔE légèrement meilleur que Borda, mais Fair Re-rank reste plus précis sur cet axe seul.
+  `<strong>k=5:</strong> Fairness (ΔE 0.491→<strong>0.439</strong>) and diversity (ILD 0.303→<strong>0.330</strong>) improved vs Borda.
+  <br><br>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--blue);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Proportional merge budget:</strong> 471 supernodes (ratio 0.50) — budget fixed at 50% of n_users, validated by a robustness test over a 30–60% range. A fixed budget not adapted to corpus size would produce over- or under-merging depending on k (see methodological discussion).</span>
+  </span>`),
+  10: L(`<strong>k=10 :</strong>Meilleure inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, les deux meilleures du tableau) et diversité (ILD=<strong>0.391</strong>, +10.6% vs Borda). ΔE légèrement meilleur que Borda, mais Fair Re-rank reste plus précis sur cet axe seul.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--blue);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Même budget proportionnel :</strong>471 super-nœuds (ratio 0.50), identique à k=5 et k=20 — le budget de fusion ne dépend que de n_users, pas de k.</span>
   </span>`,
-  20:`<strong>k=20 — meilleure configuration :</strong>AURORA bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément. ΔE=<strong>0.285</strong>,ILD=<strong>0.462</strong> (meilleur de toutes les méthodes non triviales), inc_F=<strong>0.277</strong> (>Borda 0.247), inc_M=<strong>0.344</strong> (proche du meilleur, W-Borda 0.344). <strong>471 super-nœuds</strong>, ratio F/M rééquilibré 29→37%. Fair Re-rank reste plus précis sur ΔE seul (0.240).
+  `<strong>k=10:</strong> Best inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, both the best in the table) and diversity (ILD=<strong>0.391</strong>, +10.6% vs Borda). ΔE slightly better than Borda, but Fair Re-rank remains more precise on that axis alone.
+  <br><br>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--blue);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Same proportional budget:</strong> 471 supernodes (ratio 0.50), identical to k=5 and k=20 — the merge budget only depends on n_users, not k.</span>
+  </span>`),
+  20: L(`<strong>k=20 — meilleure configuration :</strong>AURORA bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément. ΔE=<strong>0.285</strong>,ILD=<strong>0.462</strong> (meilleur de toutes les méthodes non triviales), inc_F=<strong>0.277</strong> (>Borda 0.247), inc_M=<strong>0.344</strong> (proche du meilleur, W-Borda 0.344). <strong>471 super-nœuds</strong>, ratio F/M rééquilibré 29→37%. Fair Re-rank reste plus précis sur ΔE seul (0.240).
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--green);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong>Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir), donc les fusions acceptées améliorent plus systématiquement l'EDI. Compression : 50%, ratio F/M amélioré de 8 points.</span>
-  </span>`
-};
+  </span>`,
+  `<strong>k=20 — best configuration:</strong> AURORA beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously. ΔE=<strong>0.285</strong>, ILD=<strong>0.462</strong> (best of all non-trivial methods), inc_F=<strong>0.277</strong> (>Borda 0.247), inc_M=<strong>0.344</strong> (close to the best, W-Borda 0.344). <strong>471 supernodes</strong>, F/M ratio rebalanced 29→37%. Fair Re-rank remains more precise on ΔE alone (0.240).
+  <br><br>
+  <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
+    <span style="color:var(--green);flex-shrink:0"></span>
+    <span><strong style="color:var(--t1)">Why does k=20 work better?</strong> With a top-20, every merge that changes the list is more constrained (more items to maintain), so accepted merges improve EDI more systematically. Compression: 50%, F/M ratio improved by 8 points.</span>
+  </span>`)
+};}
 let curK=10;
 
 // ── EXPORT CSV ──────────────────────────────────────────────────────────────
@@ -1667,7 +1686,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
       requestAnimationFrame(()=>{ nxt.classList.add('show'); });
     }, 160);
 
-    caption.textContent=(idx+1)+' / '+imgs.length+' · Aurores boréales, Regina';
+    caption.textContent=(idx+1)+' / '+imgs.length+' · '+L('Aurores boréales, Regina','Northern lights, Regina');
   }
 
   function advance(){ showSlide(idx+1); }
@@ -1750,26 +1769,26 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 
 // ── RESULTS TABLE ──
 function chip(key,v){
-  if(key==='dE') return v<.1?'<span class="chip cg">Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
-  if(key==='ILD') return v>=.8?'<span class="chip cg">Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
-  if(key==='inc_F') return v>=AF?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
-  if(key==='inc_M') return v>=AM?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='dE') return v<.1?`<span class="chip cg">${L('Excellent','Excellent')}</span>`:v<.38?`<span class="chip cw">${L('Moyen','Medium')}</span>`:`<span class="chip cb">${L('Élevé','High')}</span>`;
+  if(key==='ILD') return v>=.8?`<span class="chip cg">${L('Très bon','Very good')}</span>`:v>=.35?`<span class="chip cw">${L('Moyen','Medium')}</span>`:`<span class="chip cb">${L('Faible','Low')}</span>`;
+  if(key==='inc_F') return v>=AF?`<span class="chip cg">${L('Cible','Target')}</span>`:`<span class="chip cb">< ${L('cible','target')}</span>`;
+  if(key==='inc_M') return v>=AM?`<span class="chip cg">${L('Cible','Target')}</span>`:`<span class="chip cb">< ${L('cible','target')}</span>`;
   return'';
 }
 function renderTable(){
   const d=ALL[curK];
   const bests={};
-  COLS.forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
-  let h='<table><thead><tr><th>Méthode</th>';
- COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
+  COLS().forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+  let h=`<table><thead><tr><th>${L('Méthode','Method')}</th>`;
+ COLS().forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
  METHODS.forEach(m=>{
     const r=d[m],isO=m==='AURORA',isFR=m==='Fair Re-rank';
-    const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
+    const desc=DESC()[m]+(isO&&r.n_sn?` · ${r.n_sn} `+L('super-nœuds','supernodes'):'');
     const rowCls=isO?'tr-AURORA':isFR?'tr-fair':'';
     const prefix=isO?' ':isFR?'↗ ':'';
     h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
-    COLS.forEach(c=>{
+    COLS().forEach(c=>{
       const v=r[c.key],best=v===bests[c.key];
       const bw=Math.min(100,(v/c.max)*100).toFixed(0);
       const bc=c.key==='dE'?(v<.1?'var(--good)':v<.38?'var(--warn)':'var(--bad)')
@@ -1782,7 +1801,7 @@ function renderTable(){
   });
   h+='</tbody></table>';
   document.getElementById('resWrap').innerHTML=h;
-  document.getElementById('interp').innerHTML=`<p>${INTERP[curK]}</p>`;
+  document.getElementById('interp').innerHTML=`<p>${INTERP()[curK]}</p>`;
 }
 renderTable();
 
@@ -1876,29 +1895,29 @@ function drawGraph(){
   });
   const n=Math.round(lerp(nF+nM,nF+SNM.length,t));
   const st=document.getElementById('gStat');
-  if(st) st.textContent=`Nœuds utilisateurs : ${n} / ${nF+nM}`;
+  if(st) st.textContent=`${L('Nœuds utilisateurs','User nodes')} : ${n} / ${nF+nM}`;
 }
 document.getElementById('btnG').addEventListener('click',()=>setMode('g'));
 document.getElementById('btnGp').addEventListener('click',()=>setMode('gp'));
 
 // toggle 100k / 1M pour le graphe
 let graphDS='100k';
-const GDS={
+function GDS(){return {
   '100k':{
-    infoG:'943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.',
-    infoGp:'Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre 29%→37% → Borda sur G\' est plus juste.',
+    infoG:L('943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.','943 users (273 F, 670 M). Borda voting gives ~71% of the weight to men → bias toward their preferences.'),
+    infoGp:L('Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre 29%→37% → Borda sur G\' est plus juste.','Similar users from the same group merged. The F/M ratio rebalances 29%→37% → Borda on G\' is fairer.'),
   },
   '1M':{
-    infoG:'6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.',
-    infoGp:'Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6 040→3 020 super-nœuds (−50.0%).',
+    infoG:L('6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.','6,040 users (1,709 F, 4,331 M). Same 28/72% imbalance but over 6× more users — the Borda bias is proportionally identical.'),
+    infoGp:L('Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6 040→3 020 super-nœuds (−50.0%).','Same similarity-merge principle. Proportional merge budget (50% of n_users), constant regardless of k. At k=20: 6,040→3,020 supernodes (−50.0%).'),
   }
-};
+};}
 function applyGraphDS(ds){
   graphDS=ds;
   document.getElementById('gDS100k').classList.toggle('on',ds==='100k');
   document.getElementById('gDS1m').classList.toggle('on',ds==='1M');
-  document.getElementById('graphInfoG').textContent=GDS[ds].infoG;
-  document.getElementById('graphInfoGp').textContent=GDS[ds].infoGp;
+  document.getElementById('graphInfoG').textContent=GDS()[ds].infoG;
+  document.getElementById('graphInfoGp').textContent=GDS()[ds].infoGp;
   document.getElementById('graphStats100k').style.display=ds==='100k'?'grid':'none';
   document.getElementById('graphStats1M').style.display=ds==='1M'?'block':'none';
 }
@@ -1912,16 +1931,16 @@ setTimeout(drawGraph,80);
 function buildFinal(){
   const t=document.getElementById('finalTbl');
   if(t.querySelector('tbody')) return;
-  let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">k = 5</th><th colspan="4">k = 10</th><th colspan="4">k = 20</th></tr><tr><th>Méthode</th><th></th>`;
-  [5,10,20].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
+  let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">k = 5</th><th colspan="4">k = 10</th><th colspan="4">k = 20</th></tr><tr><th>${L('Méthode','Method')}</th><th></th>`;
+  [5,10,20].forEach(()=>COLS().forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
   h+=`</tr></thead><tbody>`;
  METHODS.forEach(m=>{
     const isO=m==='AURORA',isFR=m==='Fair Re-rank';
     h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' AURORA':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
     [5,10,20].forEach(k=>{
       const r=ALL[k][m],bests={};
-      COLS.forEach(c=>{const vs=METHODS.map(mm=>ALL[k][mm][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
-      COLS.forEach(c=>{const v=r[c.key];h+=`<td class="${v===bests[c.key]?'best':''}">${v.toFixed(4)}</td>`;});
+      COLS().forEach(c=>{const vs=METHODS.map(mm=>ALL[k][mm][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+      COLS().forEach(c=>{const v=r[c.key];h+=`<td class="${v===bests[c.key]?'best':''}">${v.toFixed(4)}</td>`;});
     });
     h+='</tr>';
   });
@@ -2262,11 +2281,12 @@ function updateExplorer(){
   document.getElementById('explEDVal').textContent=edV.toFixed(2);
   document.getElementById('explMMVal').textContent=d.v;
   document.getElementById('explTiles').innerHTML=`
-    <div class="tile"><div class="tile-lbl">ΔE</div><div class="tile-val" style="color:${d.dE<.35?'var(--green)':'var(--amber)'}">${d.dE.toFixed(3)}</div><div class="tile-sub">équité — plus bas = mieux</div></div>
-    <div class="tile"><div class="tile-lbl">ILD</div><div class="tile-val" style="color:var(--blue)">${d.ILD.toFixed(3)}</div><div class="tile-sub">diversité — plus haut = mieux</div></div>
-    <div class="tile"><div class="tile-lbl">Super-nœuds</div><div class="tile-val">${d.n}</div><div class="tile-sub">943 → ${d.n} (ratio ${(d.ratio*100).toFixed(0)}%)</div></div>
-    <div class="tile"><div class="tile-lbl">inc_F / inc_M</div><div class="tile-val" style="font-size:1.25rem">${d.incF.toFixed(3)} / ${d.incM.toFixed(3)}</div><div class="tile-sub">inclusion par groupe</div></div>`;
-  document.getElementById('explNote').innerHTML=`<strong style="color:var(--t1)">Constat en bougeant les curseurs :</strong> ε_E et ε_D n'ont <strong>aucun effet mesuré</strong> sur ΔE/ILD/inclusion, quelle que soit leur valeur dans la plage testée (0.05→0.30 pour ε_E, 0.01→0.12 pour ε_D — vérifiez, les 4 tuiles ne bougent pas). Seul <strong style="color:var(--green)">max_merges</strong> fait varier les résultats : sous 300, peu de fusions passent le contrôle EDI (943→918 super-nœuds, ΔE élevé) ; au-delà de 300, ΔE chute nettement et ILD grimpe (943→443 à 500, ratio 47%).`;
+    <div class="tile"><div class="tile-lbl">ΔE</div><div class="tile-val" style="color:${d.dE<.35?'var(--green)':'var(--amber)'}">${d.dE.toFixed(3)}</div><div class="tile-sub">${L('équité — plus bas = mieux','fairness — lower = better')}</div></div>
+    <div class="tile"><div class="tile-lbl">ILD</div><div class="tile-val" style="color:var(--blue)">${d.ILD.toFixed(3)}</div><div class="tile-sub">${L('diversité — plus haut = mieux','diversity — higher = better')}</div></div>
+    <div class="tile"><div class="tile-lbl">${L('Super-nœuds','Supernodes')}</div><div class="tile-val">${d.n}</div><div class="tile-sub">943 → ${d.n} (${L('ratio','ratio')} ${(d.ratio*100).toFixed(0)}%)</div></div>
+    <div class="tile"><div class="tile-lbl">inc_F / inc_M</div><div class="tile-val" style="font-size:1.25rem">${d.incF.toFixed(3)} / ${d.incM.toFixed(3)}</div><div class="tile-sub">${L('inclusion par groupe','inclusion by group')}</div></div>`;
+  document.getElementById('explNote').innerHTML=L(`<strong style="color:var(--t1)">Constat en bougeant les curseurs :</strong> ε_E et ε_D n'ont <strong>aucun effet mesuré</strong> sur ΔE/ILD/inclusion, quelle que soit leur valeur dans la plage testée (0.05→0.30 pour ε_E, 0.01→0.12 pour ε_D — vérifiez, les 4 tuiles ne bougent pas). Seul <strong style="color:var(--green)">max_merges</strong> fait varier les résultats : sous 300, peu de fusions passent le contrôle EDI (943→918 super-nœuds, ΔE élevé) ; au-delà de 300, ΔE chute nettement et ILD grimpe (943→443 à 500, ratio 47%).`,
+  `<strong style="color:var(--t1)">What you find by moving the sliders:</strong> ε_E and ε_D have <strong>no measured effect</strong> on ΔE/ILD/inclusion, whatever their value in the tested range (0.05→0.30 for ε_E, 0.01→0.12 for ε_D — check it, the 4 tiles don't move). Only <strong style="color:var(--green)">max_merges</strong> changes the results: below 300, few merges pass the EDI check (943→918 supernodes, high ΔE); above 300, ΔE drops sharply and ILD climbs (943→443 at 500, 47% ratio).`);
 }
 ['explEE','explED','explMM'].forEach(id=>{
   const el=document.getElementById(id);
@@ -2325,35 +2345,38 @@ function fmtT(s){
   return(s/3600).toFixed(1)+'h';
 }
 const AF1M=0.2829,AM1M=0.7171;
-const INTERP1M={
-  5:`<strong>k=5 :</strong>AURORA atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda ΔE=0.490, Weighted Borda ΔE=0.490, Condorcet ΔE=0.634) sur les deux axes simultanément. <br><br>Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécifiquement conçue pour optimiser l'équité.`,
-  10:`<strong>k=10 :</strong>AURORA ΔE=<strong>0.214</strong>,ILD=<strong>0.440</strong> — meilleur compromis parmi les méthodes de vote (Borda ΔE=0.538, Weighted Borda ΔE=0.371, Condorcet ΔE=0.487). Fair Re-rank reste le plus précis en équité seule (ΔE=0.019, ILD=0.452).`,
-  20:`<strong>k=20 :</strong>AURORA ΔE=<strong>0.277</strong>,ILD=<strong>0.456</strong> — cohérent avec le 100k (ΔE=0.285, ILD=0.462) au même budget de fusion (50%). Bat systématiquement Borda/Weighted Borda/Condorcet sur les deux axes ; Fair Re-rank garde l'avantage en ΔE et ILD pris isolément (0.100 / 0.477).`
-};
+function INTERP1M(){return {
+  5: L(`<strong>k=5 :</strong>AURORA atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda ΔE=0.490, Weighted Borda ΔE=0.490, Condorcet ΔE=0.634) sur les deux axes simultanément. <br><br>Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécifiquement conçue pour optimiser l'équité.`,
+  `<strong>k=5:</strong> AURORA reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda ΔE=0.490, Weighted Borda ΔE=0.490, Condorcet ΔE=0.634) on both axes simultaneously. <br><br>Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specifically designed to optimize fairness.`),
+  10: L(`<strong>k=10 :</strong>AURORA ΔE=<strong>0.214</strong>,ILD=<strong>0.440</strong> — meilleur compromis parmi les méthodes de vote (Borda ΔE=0.538, Weighted Borda ΔE=0.371, Condorcet ΔE=0.487). Fair Re-rank reste le plus précis en équité seule (ΔE=0.019, ILD=0.452).`,
+  `<strong>k=10:</strong> AURORA ΔE=<strong>0.214</strong>, ILD=<strong>0.440</strong> — best trade-off among voting methods (Borda ΔE=0.538, Weighted Borda ΔE=0.371, Condorcet ΔE=0.487). Fair Re-rank remains the most precise on fairness alone (ΔE=0.019, ILD=0.452).`),
+  20: L(`<strong>k=20 :</strong>AURORA ΔE=<strong>0.277</strong>,ILD=<strong>0.456</strong> — cohérent avec le 100k (ΔE=0.285, ILD=0.462) au même budget de fusion (50%). Bat systématiquement Borda/Weighted Borda/Condorcet sur les deux axes ; Fair Re-rank garde l'avantage en ΔE et ILD pris isolément (0.100 / 0.477).`,
+  `<strong>k=20:</strong> AURORA ΔE=<strong>0.277</strong>, ILD=<strong>0.456</strong> — consistent with the 100k set (ΔE=0.285, ILD=0.462) at the same merge budget (50%). Systematically beats Borda/Weighted Borda/Condorcet on both axes; Fair Re-rank keeps the edge on ΔE and ILD taken individually (0.100 / 0.477).`)
+};}
 let cur1MK=10,cmpK=10;
 
 function chip1M(key,v){
-  if(key==='dE') return v<.1?'<span class="chip cg">Excellent</span>':v<.38?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Élevé</span>';
-  if(key==='ILD') return v>=.8?'<span class="chip cg">Très bon</span>':v>=.35?'<span class="chip cw">Moyen</span>':'<span class="chip cb">Faible</span>';
-  if(key==='inc_F') return v>=AF1M?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
-  if(key==='inc_M') return v>=AM1M?'<span class="chip cg">Cible</span>':'<span class="chip cb">< cible</span>';
+  if(key==='dE') return v<.1?`<span class="chip cg">${L('Excellent','Excellent')}</span>`:v<.38?`<span class="chip cw">${L('Moyen','Medium')}</span>`:`<span class="chip cb">${L('Élevé','High')}</span>`;
+  if(key==='ILD') return v>=.8?`<span class="chip cg">${L('Très bon','Very good')}</span>`:v>=.35?`<span class="chip cw">${L('Moyen','Medium')}</span>`:`<span class="chip cb">${L('Faible','Low')}</span>`;
+  if(key==='inc_F') return v>=AF1M?`<span class="chip cg">${L('Cible','Target')}</span>`:`<span class="chip cb">< ${L('cible','target')}</span>`;
+  if(key==='inc_M') return v>=AM1M?`<span class="chip cg">${L('Cible','Target')}</span>`:`<span class="chip cb">< ${L('cible','target')}</span>`;
   return'';
 }
 
 function renderTable1M(){
   const d=ALL1M[cur1MK];
   const bests={};
-  COLS.forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
-  let h='<table><thead><tr><th>Méthode</th>';
- COLS.forEach(c=>{h+=`<th>${c.lbl}</th>`;});
+  COLS().forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+  let h=`<table><thead><tr><th>${L('Méthode','Method')}</th>`;
+ COLS().forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
  METHODS.forEach(m=>{
     const r=d[m],isO=m==='AURORA',isFR=m==='Fair Re-rank';
-    const desc=DESC[m]+(isO&&r.n_sn?` · ${r.n_sn} super-nœuds`:'');
+    const desc=DESC()[m]+(isO&&r.n_sn?` · ${r.n_sn} `+L('super-nœuds','supernodes'):'');
     const rowCls=isO?'tr-AURORA':isFR?'tr-fair':'';
     const prefix=isO?' ':isFR?'↗ ':'';
     h+=`<tr class="${rowCls}"><td><div class="m-name" style="${isFR?'color:var(--cyan)':''}">${prefix}${m}</div><div class="m-desc">${desc}</div></td>`;
-    COLS.forEach(c=>{
+    COLS().forEach(c=>{
       const v=r[c.key],best=v===bests[c.key];
       const bw=Math.min(100,(v/c.max)*100).toFixed(0);
       const bc=c.key==='dE'?(v<.1?'var(--good)':v<.38?'var(--warn)':'var(--bad)')
@@ -2366,7 +2389,7 @@ function renderTable1M(){
   });
   h+='</tbody></table>';
   document.getElementById('res1MWrap').innerHTML=h;
-  document.getElementById('interp1M').innerHTML=`<p>${INTERP1M[cur1MK]}</p>`;
+  document.getElementById('interp1M').innerHTML=`<p>${INTERP1M()[cur1MK]}</p>`;
 }
 
 function buildCmpTable(){
@@ -2374,15 +2397,15 @@ function buildCmpTable(){
   t.innerHTML='';
   const k=cmpK;
   let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">100k</th><th colspan="4">1M</th><th colspan="2">Δ (1M−100k)</th></tr>`;
-  h+=`<tr><th>Méthode</th><th></th>`;
-  ['100k','1M'].forEach(()=>COLS.forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
+  h+=`<tr><th>${L('Méthode','Method')}</th><th></th>`;
+  ['100k','1M'].forEach(()=>COLS().forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
   h+=`<th>ΔΔE</th><th>ΔILD</th></tr></thead><tbody>`;
  METHODS.forEach(m=>{
     const r0=ALL[k][m],r1=ALL1M[k][m];
     const isO=m==='AURORA',isFR=m==='Fair Re-rank';
     h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' AURORA':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
-    COLS.forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
-    COLS.forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
+    COLS().forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
+    COLS().forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
     const ddE=r1.dE-r0.dE,dILD=r1.ILD-r0.ILD;
     const dECol=ddE<0?'var(--good)':'var(--bad)';
     const ILDCol=dILD>0?'var(--good)':'var(--bad)';
@@ -3080,7 +3103,7 @@ function drawScalEdi(){
 function buildScalTable(){
   const tbl=document.getElementById('scalTbl');
   if(!tbl)return;
-  const head=`<tr><th>Méthode</th>${SCAL_SIZES.map(n=>`<th colspan="2">ML-1M ${n>=1000?(n/1000)+'k':n}</th>`).join('')}</tr>
+  const head=`<tr><th>${L('Méthode','Method')}</th>${SCAL_SIZES.map(n=>`<th colspan="2">ML-1M ${n>=1000?(n/1000)+'k':n}</th>`).join('')}</tr>
 <tr><th></th>${SCAL_SIZES.map(()=>'<th>Temps</th><th>ΔE</th>').join('')}</tr>`;
   const rows=METHODS.map(m=>{
     const cells=SCAL_SIZES.map(n=>{
@@ -3119,7 +3142,7 @@ function buildLibTable(){
     const vals=METHODS.map(m=>LIB[m][c.k]);
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
-  const head=`<tr><th>Méthode</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
+  const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
   const rows=METHODS.map(m=>{
     const v=LIB[m];
     const cells=cols.map(c=>{
@@ -3220,7 +3243,7 @@ function buildRmpTable(){
     const vals=METHODS.map(m=>RMP[m][c.k]);
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
-  const head=`<tr><th>Méthode</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
+  const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
   const rows=METHODS.map(m=>{
     const v=RMP[m];
     const cells=cols.map(c=>{
@@ -3335,7 +3358,7 @@ function buildOalexTable(){
     const vals=METHODS.filter(m=>OALEX[m][c.k]!==null).map(m=>OALEX[m][c.k]);
     if(vals.length) best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
-  const head=`<thead><tr><th>Méthode</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
+  const head=`<thead><tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
   const rows=METHODS.map(m=>{
     const v=OALEX[m];
     const isO=m==='AURORA';
@@ -3559,7 +3582,7 @@ function buildAllCmpTable(){
     {key:'OAlex', label:'OpenAlex'},
   ];
   const src={ML100k:ALL[10],Lib:LIB,RMP:RMP,OAlex:OALEX};
-  let h=`<thead><tr><th>Méthode</th>`;
+  let h=`<thead><tr><th>${L('Méthode','Method')}</th>`;
  DATASETS.forEach(ds=>{h+=`<th colspan="2">${ds.label}</th>`;});
   h+=`</tr><tr><th></th>`;
  DATASETS.forEach(()=>{h+=`<th>ΔE ↓</th><th>ILD ↑</th>`;});
