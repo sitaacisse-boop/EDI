@@ -627,13 +627,21 @@ python run_openalex.py           # OpenAlex</div>
       <button class="tog on" id="btnG"><span class="i18n-fr">Graphe original G</span><span class="i18n-en">Original graph G</span></button>
       <button class="tog" id="btnGp"><span class="i18n-fr">Graphe résumé G'</span><span class="i18n-en">Summarized graph G'</span></button>
       <span class="g-stat" id="gStat"></span>
-      <div style="margin-left:auto;display:flex;gap:6px">
+    </div>
+    <div class="g-ctrl" style="margin-top:8px">
+      <div class="pills" id="gDatasetPills">
+        <button class="pill on" data-gds="movielens">MovieLens</button>
+        <button class="pill" data-gds="libimseti">libimseti.cz</button>
+        <button class="pill" data-gds="rmp">Rate My Professors</button>
+        <button class="pill" data-gds="openalex">OpenAlex</button>
+      </div>
+      <div id="gMlSubToggle" style="margin-left:auto;display:flex;gap:6px">
         <button class="tog on" id="gDS100k" style="font-size:.7rem;padding:5px 12px">100k</button>
         <button class="tog" id="gDS1m" style="font-size:.7rem;padding:5px 12px">1M</button>
       </div>
     </div>
     <canvas id="gCanvas" height="340"></canvas>
-    <div class="g-leg">
+    <div class="g-leg" id="gLegend">
       <div class="gleg"><div class="gleg-dot" style="background:#ef6c4a"></div><span class="i18n-fr">Utilisatrice (F)</span><span class="i18n-en">User (F)</span></div>
       <div class="gleg"><div class="gleg-dot" style="background:#5b82ff"></div><span class="i18n-fr">Utilisateur (M)</span><span class="i18n-en">User (M)</span></div>
       <div class="gleg"><div class="gleg-dot" style="background:#6b7280"></div><span class="i18n-fr">Film (item)</span><span class="i18n-en">Movie (item)</span></div>
@@ -680,6 +688,7 @@ python run_openalex.py           # OpenAlex</div>
         <div style="font-size:.82rem;color:var(--t2);line-height:1.6">943 → <strong style="color:var(--amber)">471 <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> −50.1% · <span class="i18n-fr">Ratio</span><span class="i18n-en">Ratio</span> F/M 29→37%<br>ΔE = 0.285 · ILD = 0.462</div>
       </div>
     </div>
+    <div id="graphStatsOther" style="display:none;margin-top:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px"></div>
   </div>
 
   <!-- Structure des graphes — tous les datasets -->
@@ -1836,10 +1845,80 @@ document.querySelectorAll('.acc-head').forEach(h=>{
 });
 
 // ── GRAPH ──
-const GU=[{id:0,g:'F'},{id:1,g:'F'},{id:2,g:'F'},{id:3,g:'F'},{id:4,g:'M'},{id:5,g:'M'},{id:6,g:'M'},{id:7,g:'M'},{id:8,g:'M'},{id:9,g:'M'},{id:10,g:'M'},{id:11,g:'M'}];
-const GI=['A','B','C','D','E','F'];
 const GE=[{u:0,i:0,r:5},{u:0,i:2,r:3},{u:1,i:1,r:4},{u:1,i:3,r:5},{u:2,i:0,r:4},{u:2,i:4,r:2},{u:3,i:2,r:5},{u:3,i:5,r:3},{u:4,i:0,r:3},{u:4,i:1,r:4},{u:5,i:1,r:5},{u:5,i:3,r:2},{u:6,i:2,r:4},{u:6,i:4,r:5},{u:7,i:0,r:2},{u:7,i:3,r:4},{u:8,i:4,r:5},{u:8,i:5,r:3},{u:9,i:1,r:3},{u:9,i:2,r:5},{u:10,i:3,r:4},{u:10,i:5,r:5},{u:11,i:0,r:3},{u:11,i:4,r:4}];
-const SNM=[[4,5,6],[7,8],[9,10,11]];
+const SNM3=[[0,1,2,3],[4,5,6,7],[8,9,10,11]];
+
+// GRAPHS: one spec per corpus. side='left' → the F/M-colored, gender-relevant nodes
+// sit on the left (users) and merge on their own; side='right' → the sensitive
+// attribute lives on the item side (right), and the left-side (U) nodes are the
+// ones that merge, plain/uncolored — AURORA always coarsens the U side regardless
+// of which side carries the sensitive attribute.
+const GRAPHS={
+  movielens:{
+    side:'left',
+    LN:[{id:0,g:'F'},{id:1,g:'F'},{id:2,g:'F'},{id:3,g:'F'},{id:4,g:'M'},{id:5,g:'M'},{id:6,g:'M'},{id:7,g:'M'},{id:8,g:'M'},{id:9,g:'M'},{id:10,g:'M'},{id:11,g:'M'}],
+    RN:[{lbl:'A'},{lbl:'B'},{lbl:'C'},{lbl:'D'},{lbl:'E'},{lbl:'F'}],
+    E:GE,
+    SNM:[[4,5,6],[7,8],[9,10,11]],
+    legend:[
+      {c:'#ef6c4a',fr:'Utilisatrice (F)',en:'Female user (F)'},
+      {c:'#5b82ff',fr:'Utilisateur (M)',en:'Male user (M)'},
+      {c:'#6b7280',fr:'Film (item)',en:'Movie (item)'},
+      {c:'var(--green)',fr:'Super-nœud fusionné',en:'Merged supernode'},
+    ],
+  },
+  libimseti:{
+    side:'left',
+    LN:[{id:0,g:'F'},{id:1,g:'F'},{id:2,g:'F'},{id:3,g:'F'},{id:4,g:'F'},{id:5,g:'F'},{id:6,g:'M'},{id:7,g:'M'},{id:8,g:'M'},{id:9,g:'M'},{id:10,g:'M'},{id:11,g:'M'}],
+    RN:[{lbl:'P1'},{lbl:'P2'},{lbl:'P3'},{lbl:'P4'},{lbl:'P5'},{lbl:'P6'}],
+    E:GE,
+    SNM:[[6,7,8],[9,10],[11]],
+    legend:[
+      {c:'#ef6c4a',fr:'Utilisatrice (F)',en:'Female user (F)'},
+      {c:'#5b82ff',fr:'Utilisateur (M)',en:'Male user (M)'},
+      {c:'#6b7280',fr:'Profil (item)',en:'Profile (item)'},
+      {c:'var(--green)',fr:'Super-nœud fusionné',en:'Merged supernode'},
+    ],
+    infoG:{fr:'1 000 utilisateurs, déjà quasi équilibrés (50% F, 50% M) — l\'équité est plus facile à atteindre ici, mais le graphe est extrêmement épars (densité 0.3%).',en:'1,000 users, already near-balanced (50% F, 50% M) — equity is easier to reach here, but the graph is extremely sparse (density 0.3%).'},
+    infoGp:{fr:'Profils similaires fusionnés côté utilisateur. Avec un ratio déjà équilibré, le gain porte surtout sur la densification du signal, pas sur le rééquilibrage.',en:'Similar profiles merged on the user side. With an already balanced ratio, the gain is mostly signal densification, not rebalancing.'},
+    statReal:{n:1000,merged:500,pct:'−50.0%'},
+  },
+  rmp:{
+    side:'right',
+    LN:[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},{id:11}],
+    RN:[{lbl:'A',g:'F'},{lbl:'B',g:'F'},{lbl:'C',g:'F'},{lbl:'D',g:'M'},{lbl:'E',g:'M'},{lbl:'F',g:'M'}],
+    E:GE,
+    SNM:SNM3,
+    legend:[
+      {c:'#6b7280',fr:'Étudiant·e (fusionné, U)',en:'Student (merged, U)'},
+      {c:'#ef6c4a',fr:'Professeure (item, F)',en:'Female professor (item, F)'},
+      {c:'#5b82ff',fr:'Professeur (item, M)',en:'Male professor (item, M)'},
+      {c:'var(--green)',fr:'Super-nœud fusionné',en:'Merged supernode'},
+    ],
+    infoG:{fr:'1 981 étudiant·es notent des professeur·es (51% de femmes parmi les items). L\'équité se mesure ici côté items, indépendamment du genre des étudiant·es.',en:'1,981 students rate professors (51% women among the items). Equity is measured on the item side here, independent of student gender.'},
+    infoGp:{fr:'Les étudiant·es aux profils similaires sont fusionné·es (côté U, comme toujours). Les professeur·es ne sont jamais fusionné·es : leur proportion F/M est la grandeur à préserver.',en:'Students with similar profiles are merged (U side, as always). Professors are never merged: their F/M proportion is the quantity to preserve.'},
+    statReal:{n:1981,merged:991,pct:'−50.0%'},
+  },
+  openalex:{
+    side:'right',
+    LN:[{id:0},{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9},{id:10},{id:11}],
+    RN:[{lbl:'A',g:'F'},{lbl:'B',g:'M'},{lbl:'C',g:'M'},{lbl:'D',g:'M'},{lbl:'E',g:'M'},{lbl:'F',g:'M'}],
+    E:GE,
+    SNM:SNM3,
+    legend:[
+      {c:'#6b7280',fr:'Venue (fusionnée, U)',en:'Venue (merged, U)'},
+      {c:'#ef6c4a',fr:'Autrice (item, F)',en:'Female author (item, F)'},
+      {c:'#5b82ff',fr:'Auteur (item, M)',en:'Male author (item, M)'},
+      {c:'var(--green)',fr:'Super-nœud fusionné',en:'Merged supernode'},
+    ],
+    infoG:{fr:'~99 venues notent ~904 auteurs (note = nb de papiers de l\'auteur dans la venue, plafonné à 5). Seulement 19% de femmes parmi les auteurs — le déséquilibre le plus marqué des 4 corpus.',en:'~99 venues rate ~904 authors (rating = number of the author\'s papers in the venue, capped at 5). Only 19% women among the authors — the sharpest imbalance of the 4 corpora.'},
+    infoGp:{fr:'Les venues aux profils similaires sont fusionnées (côté U). Le déséquilibre de 19% F chez les auteurs (items) doit être préservé, pas dilué par la fusion.',en:'Venues with similar profiles are merged (U side). The 19% F imbalance among authors (items) must be preserved, not diluted by merging.'},
+    statReal:{n:99,merged:50,pct:'−49.5%'},
+  },
+};
+
+let gDataset='movielens';
+let graphDS='100k';
 let aP=0,aDir=0,aRaf=null;
 function lerp(a,b,t){return a+(b-a)*t;}
 function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
@@ -1858,78 +1937,136 @@ function anim(){
 function drawGraph(){
   const cv=document.getElementById('gCanvas');
   if(!cv) return;
+  const spec=GRAPHS[gDataset];
   const W=cv.offsetWidth||700; cv.width=W; cv.height=340;
   const ctx=cv.getContext('2d');
   const t=ease(aP);
-  const pad=22,H=296,ux=86,ix=W-86,nF=4,nM=8,nI=6;
-  function uY(i){return i<nF?pad+i*(H/(nF-1)):pad+(i-nF)*(H/(nM-1));}
-  function iY(i){return pad+i*(H/(nI-1));}
-  const fYs=GU.filter(u=>u.g==='F').map((_,fi)=>pad+fi*(H/(nF-1)));
-  const snYs=SNM.map((_,si)=>pad+si*(H/(SNM.length-1))+30);
+  const pad=22,H=296,ux=86,ix=W-86;
+  const fixedIds=spec.side==='left'?spec.LN.filter(n=>n.g==='F').map(n=>n.id):[];
+  const mergeIds=spec.side==='left'?spec.LN.filter(n=>n.g==='M').map(n=>n.id):spec.LN.map(n=>n.id);
+  const fYs=fixedIds.map((_,fi)=>pad+fi*(H/Math.max(fixedIds.length-1,1)));
+  const mYs0=mergeIds.map((_,mi)=>pad+mi*(H/Math.max(mergeIds.length-1,1)));
+  const snYs=spec.SNM.map((_,si)=>pad+si*(H/Math.max(spec.SNM.length-1,1))+30);
+  function leftPos(id){
+    const fi=fixedIds.indexOf(id);
+    if(fi>=0) return fYs[fi];
+    const mi=mergeIds.indexOf(id);
+    const si=spec.SNM.findIndex(s=>s.includes(id));
+    return lerp(mYs0[mi],snYs[si],t);
+  }
+  function rightPos(i){return pad+i*(H/Math.max(spec.RN.length-1,1));}
   ctx.clearRect(0,0,W,340);
   // edges
-  GE.forEach(e=>{
-    const u=GU[e.u],isF=u.g==='F';
-    const fi=GU.filter(x=>x.g==='F').findIndex(x=>x.id===u.id);
-    let uy_=isF?fYs[fi]:lerp(uY(u.id),snYs[SNM.findIndex(s=>s.includes(u.id))],t);
-    const iy=iY(e.i);
+  spec.E.forEach(e=>{
+    const attrG=spec.side==='left'?spec.LN[e.u].g:spec.RN[e.i].g;
+    const isF=attrG==='F';
+    const uy_=leftPos(e.u),iy=rightPos(e.i);
     ctx.beginPath();ctx.moveTo(ux+16,uy_);
     ctx.bezierCurveTo(ux+80,uy_,ix-80,iy,ix-16,iy);
     ctx.strokeStyle=isF?`rgba(239,108,74,${.14+e.r*.07})`:`rgba(91,130,255,${.11+e.r*.05})`;
     ctx.lineWidth=.6+e.r*.28;ctx.stroke();
   });
-  // items
-  GI.forEach((lbl,i)=>{
-    const y=iY(i);
-    ctx.beginPath();ctx.arc(ix,y,14,0,Math.PI*2);ctx.fillStyle='#5a6370';ctx.fill();
+  // right-side nodes (items, or attribute-carrying nodes when side==='right')
+  spec.RN.forEach((r,i)=>{
+    const y=rightPos(i);
+    const col=r.g==='F'?'#ef6c4a':r.g==='M'?'#5b82ff':'#5a6370';
+    ctx.beginPath();ctx.arc(ix,y,14,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
     ctx.fillStyle='#fff';ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(lbl,ix,y);
+    ctx.fillText(r.lbl,ix,y);
   });
-  // F nodes
+  // fixed left nodes (F, only when side==='left')
   fYs.forEach(y=>{
     ctx.beginPath();ctx.arc(ux,y,12,0,Math.PI*2);ctx.fillStyle='#ef6c4a';ctx.fill();
     ctx.fillStyle='#fff';ctx.font='bold 8px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('F',ux,y);
   });
-  // M nodes (fade)
-  if(t<.98) GU.filter(u=>u.g==='M').forEach(u=>{
-    const y=lerp(uY(u.id),snYs[SNM.findIndex(s=>s.includes(u.id))],t),a=1-t;
+  // merging left nodes (fade out as they collapse into supernodes)
+  if(t<.98) mergeIds.forEach(id=>{
+    const mi=mergeIds.indexOf(id);
+    const si=spec.SNM.findIndex(s=>s.includes(id));
+    const y=lerp(mYs0[mi],snYs[si],t),a=1-t;
     ctx.beginPath();ctx.arc(ux,y,10,0,Math.PI*2);ctx.fillStyle=`rgba(91,130,255,${a})`;ctx.fill();
-    ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 7px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('M',ux,y);
+    if(spec.side==='left'){
+      ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 7px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('M',ux,y);
+    }
   });
   // supernodes
-  if(t>.05)SNM.forEach((sn,si)=>{
+  if(t>.05)spec.SNM.forEach((sn,si)=>{
     const y=snYs[si],r=13+sn.length*3,a=Math.min(1,t*1.8);
     ctx.beginPath();ctx.arc(ux,y,r*t,0,Math.PI*2);ctx.fillStyle=`rgba(15,209,122,${a})`;ctx.fill();
     ctx.strokeStyle=`rgba(255,255,255,${a*.4})`;ctx.lineWidth=2;ctx.stroke();
-    if(t>.4){ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(`${sn.length}M`,ux,y);}
+    if(t>.4){ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.font='bold 9px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(`${sn.length}`,ux,y);}
   });
-  const n=Math.round(lerp(nF+nM,nF+SNM.length,t));
+  const total=fixedIds.length+mergeIds.length;
+  const n=Math.round(lerp(total,fixedIds.length+spec.SNM.length,t));
   const st=document.getElementById('gStat');
-  if(st) st.textContent=`${L('Nœuds utilisateurs','User nodes')} : ${n} / ${nF+nM}`;
+  if(st) st.textContent=`${L('Nœuds utilisateurs','User nodes')} : ${n} / ${total}`;
 }
 document.getElementById('btnG').addEventListener('click',()=>setMode('g'));
 document.getElementById('btnGp').addEventListener('click',()=>setMode('gp'));
 
-// toggle 100k / 1M pour le graphe
-let graphDS='100k';
-function GDS(){return {
+function renderLegend(){
+  const spec=GRAPHS[gDataset];
+  const el=document.getElementById('gLegend');
+  let html=spec.legend.map(l=>`<div class="gleg"><div class="gleg-dot" style="background:${l.c}"></div><span class="i18n-fr">${l.fr}</span><span class="i18n-en">${l.en}</span></div>`).join('');
+  html+='<span style="font-size:.7rem;color:var(--t3);margin-left:auto"><span class="i18n-fr">Épaisseur = force de la note</span><span class="i18n-en">Thickness = rating strength</span></span>';
+  el.innerHTML=html;
+}
+
+// toggle 100k / 1M pour MovieLens uniquement
+const MLDS={
   '100k':{
-    infoG:L('943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.','943 users (273 F, 670 M). Borda voting gives ~71% of the weight to men → bias toward their preferences.'),
-    infoGp:L('Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre 29%→37% → Borda sur G\' est plus juste.','Similar users from the same group merged. The F/M ratio rebalances 29%→37% → Borda on G\' is fairer.'),
+    infoG:{fr:'943 utilisateurs (273 F, 670 M). Le vote Borda donne ~71% du poids aux hommes → biais vers leurs préférences.',en:'943 users (273 F, 670 M). Borda voting gives ~71% of the weight to men → bias toward their preferences.'},
+    infoGp:{fr:'Utilisateurs similaires du même groupe fusionnés. Le ratio F/M se rééquilibre 29%→37% → Borda sur G\' est plus juste.',en:'Similar users from the same group merged. The F/M ratio rebalances 29%→37% → Borda on G\' is fairer.'},
   },
   '1M':{
-    infoG:L('6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.','6,040 users (1,709 F, 4,331 M). Same 28/72% imbalance but over 6× more users — the Borda bias is proportionally identical.'),
-    infoGp:L('Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6 040→3 020 super-nœuds (−50.0%).','Same similarity-merge principle. Proportional merge budget (50% of n_users), constant regardless of k. At k=20: 6,040→3,020 supernodes (−50.0%).'),
+    infoG:{fr:'6 040 utilisateurs (1 709 F, 4 331 M). Même déséquilibre 28/72% mais sur 6× plus d\'utilisateurs — le biais Borda est proportionnellement identique.',en:'6,040 users (1,709 F, 4,331 M). Same 28/72% imbalance but over 6× more users — the Borda bias is proportionally identical.'},
+    infoGp:{fr:'Même principe de fusion par similarité. Budget de fusion proportionnel (50% de n_users), constant quel que soit k. Sur k=20 : 6 040→3 020 super-nœuds (−50.0%).',en:'Same similarity-merge principle. Proportional merge budget (50% of n_users), constant regardless of k. At k=20: 6,040→3,020 supernodes (−50.0%).'},
   }
-};}
+};
+
+function updateInfoTexts(){
+  const spec=GRAPHS[gDataset];
+  const infoG=gDataset==='movielens'?MLDS[graphDS].infoG:spec.infoG;
+  const infoGp=gDataset==='movielens'?MLDS[graphDS].infoGp:spec.infoGp;
+  document.getElementById('graphInfoG').textContent=L(infoG.fr,infoG.en);
+  document.getElementById('graphInfoGp').textContent=L(infoGp.fr,infoGp.en);
+}
+
+function updateStatsBlocks(){
+  const isML=gDataset==='movielens';
+  document.getElementById('graphStats100k').style.display=isML&&graphDS==='100k'?'grid':'none';
+  document.getElementById('graphStats1M').style.display=isML&&graphDS==='1M'?'block':'none';
+  const other=document.getElementById('graphStatsOther');
+  if(isML){ other.style.display='none'; other.innerHTML=''; return; }
+  const sr=GRAPHS[gDataset].statReal;
+  other.style.display='grid';
+  other.innerHTML=`<div style="grid-column:1/-1;padding:12px 14px;background:var(--s2);border-radius:8px;border-left:3px solid var(--green)">
+    <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:5px">${L('Échelle réelle du corpus (k=10)','Real corpus scale (k=10)')}</div>
+    <div style="font-size:.82rem;color:var(--t2);line-height:1.6">${sr.n.toLocaleString('fr-FR')} → <strong style="color:var(--green)">${sr.merged.toLocaleString('fr-FR')} <span class="i18n-fr">super-nœuds</span><span class="i18n-en">supernodes</span></strong><br><span class="i18n-fr">Compression</span><span class="i18n-en">Compression</span> ${sr.pct}<br><span style="color:var(--t3);font-size:.75rem"><span class="i18n-fr">(le schéma ci-dessus est un exemple illustratif à 12 nœuds)</span><span class="i18n-en">(the diagram above is a 12-node illustrative example)</span></span></div>
+  </div>`;
+}
+
+function applyGraphDataset(ds){
+  gDataset=ds;
+  document.querySelectorAll('#gDatasetPills .pill').forEach(b=>b.classList.toggle('on',b.dataset.gds===ds));
+  document.getElementById('gMlSubToggle').style.display=ds==='movielens'?'flex':'none';
+  renderLegend();
+  updateInfoTexts();
+  updateStatsBlocks();
+  aP=0;aDir=0;
+  if(aRaf){cancelAnimationFrame(aRaf);aRaf=null;}
+  setMode('g');
+}
+document.querySelectorAll('#gDatasetPills .pill').forEach(b=>{
+  b.addEventListener('click',()=>applyGraphDataset(b.dataset.gds));
+});
+
 function applyGraphDS(ds){
   graphDS=ds;
   document.getElementById('gDS100k').classList.toggle('on',ds==='100k');
   document.getElementById('gDS1m').classList.toggle('on',ds==='1M');
-  document.getElementById('graphInfoG').textContent=GDS()[ds].infoG;
-  document.getElementById('graphInfoGp').textContent=GDS()[ds].infoGp;
-  document.getElementById('graphStats100k').style.display=ds==='100k'?'grid':'none';
-  document.getElementById('graphStats1M').style.display=ds==='1M'?'block':'none';
+  updateInfoTexts();
+  updateStatsBlocks();
 }
 document.getElementById('gDS100k').addEventListener('click',()=>applyGraphDS('100k'));
 document.getElementById('gDS1m').addEventListener('click',()=>applyGraphDS('1M'));
