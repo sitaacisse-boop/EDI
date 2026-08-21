@@ -1116,18 +1116,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
     <span><b><span class="i18n-fr">Résultat (k=5) :</span><span class="i18n-en">Result (k=5):</span></b> <span class="i18n-fr">notre méthode atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda, Weighted Borda, Condorcet) sur les deux axes simultanément. Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécialisée dans l'optimisation de l'équité. Aucune méthode de vote classique ne passe sous ΔE=0.49.</span><span class="i18n-en">our method reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda, Weighted Borda, Condorcet) on both axes simultaneously. Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specialized in fairness optimization. No classical voting method drops below ΔE=0.49.</span></span>
   </div>
-  <div class="controls">
-    <div class="ctrl-grp">
-      <div class="ctrl-lbl">Top-k</div>
-      <div class="pills" id="k1MPills">
-        <button class="pill" data-k1m="5">k = 5</button>
-        <button class="pill on" data-k1m="10">k = 10</button>
-        <button class="pill" data-k1m="20">k = 20</button>
-      </div>
-    </div>
-    <div class="alpha-note">α_F = 0.2829 · α_M = 0.7171</div>
-  </div>
-  <div class="two-col" style="margin-top:14px">
+  <div class="two-col">
     <div class="card">
       <div class="card-title"><span class="i18n-fr">Répartition par genre</span><span class="i18n-en">Breakdown by gender</span></div>
       <div class="donut-wrap">
@@ -1151,7 +1140,18 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <div class="bar-rows" id="ratingBars1M"></div>
     </div>
   </div>
-  <div class="card" style="margin-top:14px"><div class="csv-row"><button class="csv-btn" onclick="downloadCSV('res1MWrap','movielens1m_results.csv')">⬇ CSV</button></div><div class="res-wrap" id="res1MWrap"></div></div>
+  <div class="controls" style="margin-top:14px">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="k1MPills">
+        <button class="pill" data-k1m="5">k = 5</button>
+        <button class="pill on" data-k1m="10">k = 10</button>
+        <button class="pill" data-k1m="20">k = 20</button>
+      </div>
+    </div>
+    <div class="alpha-note">α_F = 0.2829 · α_M = 0.7171</div>
+  </div>
+  <div class="card"><div class="csv-row"><button class="csv-btn" onclick="downloadCSV('res1MWrap','movielens1m_results.csv')">⬇ CSV</button></div><div class="res-wrap" id="res1MWrap"></div></div>
   <div class="interp" id="interp1M"></div>
 </div>
 
