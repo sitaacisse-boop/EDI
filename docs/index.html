@@ -1632,6 +1632,28 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   const caption=document.getElementById('cineCaption');
   const flash=document.getElementById('cineFlash');
   const imgs=[...document.querySelectorAll('#auroraGallery img')].map(t=>t.dataset.full);
+  const N=imgs.length; // dernière position (N) = diapo "Merci" générée, après la dernière photo
+  function generateMerciSlide(){
+    const c=document.createElement('canvas');
+    c.width=1920; c.height=1200;
+    const ctx=c.getContext('2d');
+    const g=ctx.createRadialGradient(960,600,80,960,600,1200);
+    g.addColorStop(0,'#1c1848'); g.addColorStop(.55,'#14102e'); g.addColorStop(1,'#05030f');
+    ctx.fillStyle=g; ctx.fillRect(0,0,1920,1200);
+    [['rgba(18,232,122,.32)',420,0],['rgba(107,143,255,.28)',540,1.7],['rgba(176,122,255,.26)',660,3.3]].forEach(([col,y,ph])=>{
+      ctx.beginPath(); ctx.moveTo(-100,y);
+      for(let x=-100;x<=2020;x+=40) ctx.lineTo(x,y+Math.sin(x/220+ph)*70);
+      ctx.lineTo(2020,1300); ctx.lineTo(-100,1300); ctx.closePath();
+      ctx.fillStyle=col; ctx.fill();
+    });
+    const isEn=document.documentElement.dataset.lang==='en';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillStyle='#ede8ff'; ctx.font='900 128px system-ui, sans-serif';
+    ctx.fillText(isEn?'Thank you!':'Merci !', 960, 560);
+    ctx.fillStyle='#9888d0'; ctx.font='600 32px system-ui, sans-serif';
+    ctx.fillText('AURORA — Adji Marieme Sita Cissé', 960, 680);
+    return c.toDataURL('image/png');
+  }
   const SONG_BPM=89.6; // tempo mesuré localement sur la piste audio
   const BEAT_MS=60000/SONG_BPM;
   const SLIDE_MS=BEAT_MS*8; // deux mesures (8 temps) par photo
@@ -1686,7 +1708,8 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
 
   // ── transition CapCut : flash blanc + zoom flouté à chaque coupe ──
   function showSlide(i){
-    idx=(i+imgs.length)%imgs.length;
+    idx=(i+N+1)%(N+1);
+    const isMerci=idx===N;
     const useA=idx%2===0;
     const nxt=useA?imgA:imgB, cur=useA?imgB:imgA;
 
@@ -1702,7 +1725,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     cur.classList.add('exit');
 
     setTimeout(()=>{
-      nxt.src=imgs[idx];
+      nxt.src=isMerci?generateMerciSlide():imgs[idx];
       nxt.classList.remove('show','exit');
       nxt.classList.add('no-anim');
       void nxt.offsetWidth;
@@ -1710,7 +1733,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
       requestAnimationFrame(()=>{ nxt.classList.add('show'); });
     }, 160);
 
-    caption.textContent=(idx+1)+' / '+imgs.length+' · '+L('Aurores boréales, Regina','Northern lights, Regina');
+    caption.textContent=isMerci?L('Merci !','Thank you!'):(idx+1)+' / '+N+' · '+L('Aurores boréales, Regina','Northern lights, Regina');
   }
 
   function advance(){ showSlide(idx+1); }
@@ -1720,7 +1743,10 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
       if(!slideStart) slideStart=ts;
       const elapsed=ts-slideStart;
       barFill.style.width=Math.min(100, elapsed/SLIDE_MS*100)+'%';
-      if(elapsed>=SLIDE_MS){ advance(); slideStart=ts; }
+      if(elapsed>=SLIDE_MS){
+        if(idx===N){ playing=false; playBtn.textContent='▶'; }
+        else { advance(); slideStart=ts; }
+      }
     }
     rafId=requestAnimationFrame(tick);
   }
