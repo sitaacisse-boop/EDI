@@ -1636,10 +1636,11 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   const BEAT_MS=60000/SONG_BPM;
   const SLIDE_MS=BEAT_MS*8; // deux mesures (8 temps) par photo
   const YT_VIDEO_ID='3Bm4fN8EXHk'; // Indila - Love Story (Epic Orchestral Version)
+  const MUSIC_START_SEC=30; // saute l'intro, démarre sur la partie rythmique — à ajuster après écoute
   let idx=-1, playing=true, rafId=null, slideStart=0;
 
   // ── musique via lecteur YouTube caché (pas de fichier audio hébergé) ──
-  let musicOn=true, ytPlayer=null, ytReady=false, ytWantPlay=false;
+  let musicOn=true, ytPlayer=null, ytReady=false, ytWantPlay=false, ytSeeked=false;
   function loadYtApi(cb){
     if(window.YT && window.YT.Player){ cb(); return; }
     const prevCb=window.onYouTubeIframeAPIReady;
@@ -1662,7 +1663,10 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
             ytReady=true;
             e.target.setVolume(35);
             if(musicOn) e.target.unMute();
-            if(ytWantPlay) e.target.playVideo();
+            if(ytWantPlay){
+              if(!ytSeeked){ e.target.seekTo(MUSIC_START_SEC,true); ytSeeked=true; }
+              e.target.playVideo();
+            }
           }
         }
       });
@@ -1672,6 +1676,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     ytWantPlay=true;
     if(!ytReady){ ensureYtPlayer(); return; }
     if(musicOn) ytPlayer.unMute();
+    if(!ytSeeked){ ytPlayer.seekTo(MUSIC_START_SEC,true); ytSeeked=true; }
     ytPlayer.playVideo();
   }
   function stopAudio(){
@@ -1736,6 +1741,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     document.body.style.overflow='';
     cancelAnimationFrame(rafId);
     stopAudio();
+    ytSeeked=false;
     [imgA,imgB].forEach(el=>{ el.classList.add('no-anim'); el.classList.remove('show','exit'); });
   }
 
