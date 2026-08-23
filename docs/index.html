@@ -371,7 +371,7 @@ canvas{width:100%;display:block;border-radius:8px}
         <span class="i18n-fr">Les règles d'agrégation classiques — Borda, Condorcet, Average Score — n'ont aucun mécanisme pour éviter de favoriser les groupes majoritaires, d'homogénéiser les listes ou de sous-représenter les minorités. Ce travail propose une alternative : un coarsening de graphe sous contraintes EDI qui intègre l'équité directement dans la structure, plutôt que de la corriger après coup.</span><span class="i18n-en">Classical aggregation rules — Borda, Condorcet, Average Score — have no mechanism to avoid favoring majority groups, homogenizing lists, or under-representing minorities. This work proposes an alternative: an EDI-constrained graph coarsening that embeds equity directly into the structure, rather than correcting it after the fact.</span>
       </p>
       <p style="font-size:.88rem;color:var(--t2);line-height:1.7">
-        <span class="i18n-fr">Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.145 pour Borda — soit environ <strong style="color:var(--green)">5,6× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée dans l'onglet libimseti.cz (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.051</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.</span><span class="i18n-en">Our method simultaneously improves all 4 EDI metrics <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> over Borda and Condorcet — on MovieLens 100k at k=20 (Weighted Borda also achieves this by explicitly reweighting its scores by group size; AURORA gets there without reformulating the voting rule, through a structural constraint during graph merging). On Rate My Professors, it reaches <strong style="color:var(--green)">ILD = 0.808</strong> versus 0.145 for Borda — roughly <strong style="color:var(--green)">5.6× more diversity</strong>, with the best representation (frac_F=0.60). On libimseti.cz, no improvement: rating patterns differ significantly by gender pair (rater, rated), a structural limitation documented in the libimseti.cz tab (ΔE > 1.0 for the voting methods — Borda, Weighted Borda, Condorcet — as well as for AURORA; Average Score and Fair Re-rank escape this only because they create no group differentiation at all). On OpenAlex, it achieves the <strong style="color:var(--green)">best ΔE = 0.051</strong> — the only method that reduces academic gender bias while maintaining diversity.</span>
+        <span class="i18n-fr">Notre méthode améliore simultanément les 4 métriques EDI <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> par rapport à Borda et Condorcet — sur MovieLens 100k à k=20 (Weighted Borda y parvient aussi en repondérant explicitement ses scores par la taille des groupes ; AURORA l'obtient sans reformuler la règle de vote, par contrainte structurelle pendant la fusion du graphe). Sur Rate My Professors, elle atteint <strong style="color:var(--green)">ILD = 0.808</strong> contre 0.267 pour Borda — soit environ <strong style="color:var(--green)">3× plus de diversité</strong>, avec la meilleure représentation (frac_F=0.60). Sur libimseti.cz, aucune amélioration : les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté), une limite structurelle documentée dans l'onglet libimseti.cz (ΔE > 1.0 pour les méthodes de vote — Borda, Weighted Borda, Condorcet — ainsi que pour AURORA ; Average Score et Fair Re-rank y échappent en ne créant aucune différenciation par groupe). Sur OpenAlex, elle obtient le <strong style="color:var(--green)">meilleur ΔE = 0.031</strong> — seule méthode à réduire le biais de genre académique tout en maintenant la diversité.</span><span class="i18n-en">Our method simultaneously improves all 4 EDI metrics <strong>(ΔE ↓, ILD ↑, inc_F ↑, inc_M ↑)</strong> over Borda and Condorcet — on MovieLens 100k at k=20 (Weighted Borda also achieves this by explicitly reweighting its scores by group size; AURORA gets there without reformulating the voting rule, through a structural constraint during graph merging). On Rate My Professors, it reaches <strong style="color:var(--green)">ILD = 0.808</strong> versus 0.267 for Borda — roughly <strong style="color:var(--green)">3× more diversity</strong>, with the best representation (frac_F=0.60). On libimseti.cz, no improvement: rating patterns differ significantly by gender pair (rater, rated), a structural limitation documented in the libimseti.cz tab (ΔE > 1.0 for the voting methods — Borda, Weighted Borda, Condorcet — as well as for AURORA; Average Score and Fair Re-rank escape this only because they create no group differentiation at all). On OpenAlex, it achieves the <strong style="color:var(--green)">best ΔE = 0.031</strong> — the only method that reduces academic gender bias while maintaining diversity.</span>
       </p>
     </div>
 
@@ -534,7 +534,7 @@ python run_openalex.py           # OpenAlex</div>
 
     <div class="finding fg">
       <h3><span class="i18n-fr">Rate My Professors — l'élargissement de la portée</span><span class="i18n-en">Rate My Professors — broadening the scope</span></h3>
-      <p><span class="i18n-fr">Premier test de l'<em>item-side equity</em> : la méthode ne se limite pas à corriger un biais côté utilisateur, elle généralise à l'autre grande famille de biais. Le résultat (5,6× plus de diversité que Borda) est aussi le plus spectaculaire du lot.</span><span class="i18n-en">First test of <em>item-side equity</em>: the method isn't limited to correcting user-side bias, it generalizes to the other major family of bias. The result (5.6× more diversity than Borda) is also the most spectacular of the bunch.</span></p>
+      <p><span class="i18n-fr">Premier test de l'<em>item-side equity</em> : la méthode ne se limite pas à corriger un biais côté utilisateur, elle généralise à l'autre grande famille de biais. Le résultat (3× plus de diversité que Borda) est aussi le plus spectaculaire du lot.</span><span class="i18n-en">First test of <em>item-side equity</em>: the method isn't limited to correcting user-side bias, it generalizes to the other major family of bias. The result (3× more diversity than Borda) is also the most spectacular of the bunch.</span></p>
     </div>
 
     <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
@@ -758,9 +758,9 @@ utility_M(R) = ⅙·[(w(u₂,i₂)+w(u₂,i₃)) + (w(u₃,i₂)+w(u₃,i₃)) +
         <div class="step"><div class="step-n">1</div><div class="step-t"><span class="i18n-fr">Pour chaque groupe, calculer la <strong>satisfaction moyenne</strong> sur les k films recommandés R.</span><span class="i18n-en">For each group, compute the <strong>average satisfaction</strong> over the k recommended movies R.</span></div></div>
         <div class="formula">utility_F = Σ_{u∈G_F} Σ_{i∈R} w(u,i) / (|G_F| × k)
 utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
-        <div class="step"><div class="step-n">2</div><div class="step-t"><span class="i18n-fr">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></span><span class="i18n-en">Real example (Borda, k=10): <strong>utility_F ≈ 0.90</strong> · <strong>utility_M ≈ 1.32</strong></span></div></div>
-        <div class="formula">ΔE = |utility_F − utility_M| = |0.90 − 1.32| = <strong>0.4249</strong></div>
-        <div class="res-box"><span class="i18n-fr">ΔE = 0.4249 → les hommes retirent ~47% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.4228 (k=10).</span><span class="i18n-en">ΔE = 0.4249 → men get ~47% more satisfaction. Target: ΔE ≈ 0. Our method reaches ΔE=0.4228 (k=10).</span></div>
+        <div class="step"><div class="step-n">2</div><div class="step-t"><span class="i18n-fr">Exemple réel (Borda, k=10) : <strong>utility_F ≈ 1.55</strong> · <strong>utility_M ≈ 2.00</strong></span><span class="i18n-en">Real example (Borda, k=10): <strong>utility_F ≈ 1.55</strong> · <strong>utility_M ≈ 2.00</strong></span></div></div>
+        <div class="formula">ΔE = |utility_F − utility_M| = |1.55 − 2.00| = <strong>0.4522</strong></div>
+        <div class="res-box"><span class="i18n-fr">ΔE = 0.4522 → les hommes retirent ~29% plus de satisfaction. Cible : ΔE ≈ 0. Notre méthode atteint ΔE=0.4228 (k=10).</span><span class="i18n-en">ΔE = 0.4522 → men get ~29% more satisfaction. Target: ΔE ≈ 0. Our method reaches ΔE=0.4228 (k=10).</span></div>
       </div>
     </div>
     <div class="acc-item">
@@ -771,7 +771,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <div class="formula">dist(i,j) = 1 − (v_i · v_j) / (‖v_i‖ × ‖v_j‖)</div>
         <div class="step"><div class="step-n">3</div><div class="step-t"><span class="i18n-fr">k=10 → C(10,2) = <strong>45 paires</strong>. ILD = moyenne des dissimilarités.</span><span class="i18n-en">k=10 → C(10,2) = <strong>45 pairs</strong>. ILD = average of the dissimilarities.</span></div></div>
         <div class="formula">ILD(R) = 2/(k·(k−1)) × Σ_{i,j∈R} dist(i,j)</div>
-        <div class="res-box"><span class="i18n-fr">Borda k=10 : ILD=0.354. Notre méthode : ILD=0.391 (+10.6%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</span><span class="i18n-en">Borda k=10: ILD=0.354. Our method: ILD=0.391 (+10.6%). Average Score gives ILD=1.0 but recommends obscure movies → near-zero inclusion.</span></div>
+        <div class="res-box"><span class="i18n-fr">Borda k=10 : ILD=0.349. Notre méthode : ILD=0.391 (+12.3%). Average Score donne ILD=1.0 mais recommande des films obscurs → inclusion quasi-nulle.</span><span class="i18n-en">Borda k=10: ILD=0.349. Our method: ILD=0.391 (+12.3%). Average Score gives ILD=1.0 but recommends obscure movies → near-zero inclusion.</span></div>
       </div>
     </div>
     <div class="acc-item">
@@ -781,7 +781,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <div class="formula">inclusion_g(R) = (1/|G_g|) × Σ_{u∈G_g} |{i∈R : w(u,i) ≥ θ}| / k</div>
         <div class="step"><div class="step-n">2</div><div class="step-t"><span class="i18n-fr"><strong>Cibles de proportionnalité :</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</span><span class="i18n-en"><strong>Proportionality targets:</strong> inclusion_F ≥ α_F = 0.29 · inclusion_M ≥ α_M = 0.71</span></div></div>
         <div class="step"><div class="step-n">3</div><div class="step-t"><span class="i18n-fr">Notes entières → θ=3.5 et θ=4.0 (sélectionnent toutes deux notes 4 et 5). Seul θ ≤ 3.0 inclurait les 3.</span><span class="i18n-en">Integer ratings → θ=3.5 and θ=4.0 (both select ratings 4 and 5). Only θ ≤ 3.0 would include the 3.</span></div></div>
-        <div class="res-box"><span class="i18n-fr">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.247) et inc_M=0.344 (>Borda 0.339) — bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique : 0.344 vs 0.344). Fair Re-rank reste plus précis sur ΔE seul.</span><span class="i18n-en">For k=20, our method: inc_F=0.277 (>Borda 0.247) and inc_M=0.344 (>Borda 0.339) — beats Borda and Condorcet on all 4 criteria, and Weighted Borda on 3 of 4 (inc_M nearly identical: 0.344 vs 0.344). Fair Re-rank remains more precise on ΔE alone.</span></div>
+        <div class="res-box"><span class="i18n-fr">Pour k=20, notre méthode : inc_F=0.277 (>Borda 0.246) et inc_M=0.344 (>Borda 0.339) — bat Borda, Condorcet et Weighted Borda sur les 4 critères simultanément. Fair Re-rank reste plus précis sur ΔE seul.</span><span class="i18n-en">For k=20, our method: inc_F=0.277 (>Borda 0.246) and inc_M=0.344 (>Borda 0.339) — beats Borda, Condorcet and Weighted Borda on all 4 criteria simultaneously. Fair Re-rank remains more precise on ΔE alone.</span></div>
       </div>
     </div>
   </div>
@@ -832,7 +832,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
           <tr><td>ML 100k</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td style="color:var(--green);font-weight:800">AURORA (k=20)</td></tr>
           <tr><td>ML 1M</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td>Fair Re-rank</td><td>Fair Re-rank</td></tr>
           <tr><td>libimseti</td><td>Fair Re-rank</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Condorcet</td><td><span class="i18n-fr">Aucun (écart persistant)</span><span class="i18n-en">None (persistent gap)</span></td></tr>
-          <tr><td>RMP</td><td>Avg Score / F.R.</td><td>Avg Score</td><td style="color:var(--green);font-weight:800">AURORA</td><td><span class="i18n-fr">Compromis : AURORA (diversité) / F.R. (équité)</span><span class="i18n-en">Trade-off: AURORA (diversity) / F.R. (fairness)</span></td></tr>
+          <tr><td>RMP</td><td>Avg Score / W.Borda / F.R.</td><td>Avg Score</td><td style="color:var(--green);font-weight:800">AURORA</td><td><span class="i18n-fr">Compromis : AURORA (diversité) / F.R. (équité)</span><span class="i18n-en">Trade-off: AURORA (diversity) / F.R. (fairness)</span></td></tr>
           <tr><td>OpenAlex</td><td style="color:var(--green);font-weight:800">AURORA</td><td>Avg Score / F.R.</td><td>Avg Score / F.R.</td><td style="color:var(--green);font-weight:800">AURORA</td></tr>
         </tbody>
       </table>
@@ -852,14 +852,14 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fk">
     <h3><span class="i18n-fr">Notre méthode (coarsening) offre le meilleur équilibre équité+diversité</span><span class="i18n-en">Our method (coarsening) offers the best fairness+diversity balance</span></h3>
-    <p><span class="i18n-fr"><strong>MovieLens 100k k=20 :</strong> bat Borda et Condorcet sur les 4 critères, et Weighted Borda sur 3 des 4 (inc_M quasi identique). 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
-    <br><strong>MovieLens 1M :</strong> le tableau s'inverse — Fair Re-rank domine AURORA sur <strong>ΔE et ILD à la fois</strong>, à tout k testé, pas seulement sur la diversité. Un résultat propre à ce corpus, pas un désavantage général : AURORA bat toujours les 3 méthodes de vote classiques (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient la meilleure inclusion à k=20 (inc_F=0.294).
-    <br><strong>Rate My Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 30–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
-    <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent, ΔE=0.016 et 0.144), ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.
-    <br><br><strong>Le message central :</strong> AURORA n'est pas uniformément meilleure — elle égale ou dépasse le re-ranking post-hoc (Fair Re-rank) sur les petits corpus et les cas item-side (RMP, OpenAlex), mais un corpus à forte base d'utilisateurs (ML1M) ou un domaine à préférences réciproques dépendantes de l'attribut sensible (libimseti) peut favoriser une approche post-hoc, ou révéler une limite structurelle du cadre à classement collectif unique.</span><span class="i18n-en"><strong>MovieLens 100k k=20:</strong> beats Borda and Condorcet on all 4 criteria, and Weighted Borda on 3 of 4 (inc_M nearly identical). 943→471 supernodes (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
-    <br><strong>MovieLens 1M:</strong> the picture reverses — Fair Re-rank dominates AURORA on <strong>both ΔE and ILD</strong>, at every k tested, not just on diversity. A result specific to this corpus, not a general disadvantage: AURORA still beats all 3 classical voting methods (Borda/W-Borda/Condorcet) on ΔE and ILD simultaneously, and achieves the best inclusion at k=20 (inc_F=0.294).
-    <br><strong>Rate My Professors:</strong> AURORA reaches ILD=<strong>0.808</strong> (2nd best, close to Average Score's 0.982) while raising frac_F to 60% (the highest, versus 30–50% for the baselines) — ΔE=0.112 beats Condorcet but remains behind Borda/Fair Re-rank.
-    <br><strong>libimseti:</strong> the only corpus where gender exists on both sides of the graph (raters and rated profiles) — ΔE stays high for voting methods and for AURORA (Average Score and Fair Re-rank escape it, ΔE=0.016 and 0.144), which empirically illustrates Yao &amp; Huang's (2017) argument: demographic parity is not always an appropriate goal when preferences legitimately depend on the sensitive attribute (see the libimseti.cz tab). AURORA nonetheless keeps a clear diversity advantage over voting methods.
+    <p><span class="i18n-fr"><strong>MovieLens 100k k=20 :</strong> bat Borda, Condorcet et Weighted Borda sur les 4 critères simultanément. 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <br><strong>MovieLens 1M :</strong> le tableau s'inverse — Fair Re-rank domine AURORA sur <strong>ΔE et ILD à la fois</strong>, à tout k testé, pas seulement sur la diversité. Un résultat propre à ce corpus, pas un désavantage général : AURORA bat toujours les 3 méthodes de vote classiques (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et reste compétitive en inclusion à k=20 (inc_F=0.294, quasi identique au meilleur, Weighted Borda à 0.295).
+    <br><strong>Rate My Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 20–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
+    <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent, ΔE=0.016 et 0.139), ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.
+    <br><br><strong>Le message central :</strong> AURORA n'est pas uniformément meilleure — elle égale ou dépasse le re-ranking post-hoc (Fair Re-rank) sur les petits corpus et les cas item-side (RMP, OpenAlex), mais un corpus à forte base d'utilisateurs (ML1M) ou un domaine à préférences réciproques dépendantes de l'attribut sensible (libimseti) peut favoriser une approche post-hoc, ou révéler une limite structurelle du cadre à classement collectif unique.</span><span class="i18n-en"><strong>MovieLens 100k k=20:</strong> beats Borda, Condorcet and Weighted Borda on all 4 criteria simultaneously. 943→471 supernodes (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
+    <br><strong>MovieLens 1M:</strong> the picture reverses — Fair Re-rank dominates AURORA on <strong>both ΔE and ILD</strong>, at every k tested, not just on diversity. A result specific to this corpus, not a general disadvantage: AURORA still beats all 3 classical voting methods (Borda/W-Borda/Condorcet) on ΔE and ILD simultaneously, and stays competitive on inclusion at k=20 (inc_F=0.294, nearly identical to the best, Weighted Borda at 0.295).
+    <br><strong>Rate My Professors:</strong> AURORA reaches ILD=<strong>0.808</strong> (2nd best, close to Average Score's 0.982) while raising frac_F to 60% (the highest, versus 20–50% for the baselines) — ΔE=0.112 beats Condorcet but remains behind Borda/Fair Re-rank.
+    <br><strong>libimseti:</strong> the only corpus where gender exists on both sides of the graph (raters and rated profiles) — ΔE stays high for voting methods and for AURORA (Average Score and Fair Re-rank escape it, ΔE=0.016 and 0.139), which empirically illustrates Yao &amp; Huang's (2017) argument: demographic parity is not always an appropriate goal when preferences legitimately depend on the sensitive attribute (see the libimseti.cz tab). AURORA nonetheless keeps a clear diversity advantage over voting methods.
     <br><br><strong>The central message:</strong> AURORA is not uniformly better — it matches or beats post-hoc re-ranking (Fair Re-rank) on smaller corpora and item-side cases (RMP, OpenAlex), but a corpus with a large user base (ML1M) or a domain with reciprocal preferences dependent on the sensitive attribute (libimseti) can favor a post-hoc approach, or reveal a structural limitation of the single-collective-ranking framework.</span></p>
   </div>
 
@@ -870,7 +870,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
   <div class="finding fg" style="border-color:rgba(176,122,255,.4)">
     <h3><span class="i18n-fr">Biais académique massif — OpenAlex confirme le pire cas</span><span class="i18n-en">Massive academic bias — OpenAlex confirms the worst case</span></h3>
-    <p><span class="i18n-fr">Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. AURORA atteint ΔE=0.051 (−28% vs Average Score) tout en maintenant frac_F=20% — seule méthode à corriger ce biais extrême tout en préservant la représentation féminine.</span><span class="i18n-en">Only 19% female authors in AI/ML. Borda, Condorcet, and Weighted Borda recommend 0% women (ΔE=1.23, ILD=0). This is the most extreme bias observed across our 4 corpora, comparable to published studies on citations in the sciences. AURORA reaches ΔE=0.051 (−28% vs Average Score) while maintaining frac_F=20% — the only method that corrects this extreme bias while preserving female representation.</span></p>
+    <p><span class="i18n-fr">Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. AURORA atteint ΔE=0.031 (−56% vs Average Score) tout en maintenant frac_F=19% — seule méthode à corriger ce biais extrême tout en préservant la représentation féminine.</span><span class="i18n-en">Only 19% female authors in AI/ML. Borda, Condorcet, and Weighted Borda recommend 0% women (ΔE=1.23, ILD=0). This is the most extreme bias observed across our 4 corpora, comparable to published studies on citations in the sciences. AURORA reaches ΔE=0.031 (−56% vs Average Score) while maintaining frac_F=19% — the only method that corrects this extreme bias while preserving female representation.</span></p>
   </div>
 
   <div class="card" style="margin-top:18px">
@@ -1114,7 +1114,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   </div>
   <div class="notice" style="border-color:rgba(18,232,122,.3);background:rgba(18,232,122,.06)">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b><span class="i18n-fr">Résultat (k=5) :</span><span class="i18n-en">Result (k=5):</span></b> <span class="i18n-fr">notre méthode atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda, Weighted Borda, Condorcet) sur les deux axes simultanément. Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécialisée dans l'optimisation de l'équité. Aucune méthode de vote classique ne passe sous ΔE=0.49.</span><span class="i18n-en">our method reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda, Weighted Borda, Condorcet) on both axes simultaneously. Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specialized in fairness optimization. No classical voting method drops below ΔE=0.49.</span></span>
+    <span><b><span class="i18n-fr">Résultat (k=5) :</span><span class="i18n-en">Result (k=5):</span></b> <span class="i18n-fr">notre méthode atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda, Weighted Borda, Condorcet) sur les deux axes simultanément. Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécialisée dans l'optimisation de l'équité. La meilleure méthode de vote classique (Weighted Borda) reste à ΔE=0.4675, largement au-dessus de notre 0.416.</span><span class="i18n-en">our method reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda, Weighted Borda, Condorcet) on both axes simultaneously. Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specialized in fairness optimization. The best classical voting method (Weighted Borda) stays at ΔE=0.4675, well above our 0.416.</span></span>
   </div>
   <div class="two-col">
     <div class="card">
@@ -1192,7 +1192,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55">
-      <strong style="color:var(--t1)"><span class="i18n-fr">Observation principale :</span><span class="i18n-en">Main observation:</span></strong> <span class="i18n-fr">aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.22) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.145) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.008). Sur libimseti, aucune amélioration.</span><span class="i18n-en">no classical method is good on all datasets simultaneously. Average Score has ΔE≈0 everywhere but very low ILD (plus near-zero inclusion). Borda is catastrophic on libimseti (ΔE=1.22) and OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> systematically beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k and OpenAlex. On RMP, it dominates strongly on diversity (ILD=0.808 versus 0.145) but not on fairness (ΔE=0.112, worse than Borda's 0.008). On libimseti, no improvement.</span>
+      <strong style="color:var(--t1)"><span class="i18n-fr">Observation principale :</span><span class="i18n-en">Main observation:</span></strong> <span class="i18n-fr">aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.30) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.267) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.065). Sur libimseti, aucune amélioration.</span><span class="i18n-en">no classical method is good on all datasets simultaneously. Average Score has ΔE≈0 everywhere but very low ILD (plus near-zero inclusion). Borda is catastrophic on libimseti (ΔE=1.30) and OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> systematically beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k and OpenAlex. On RMP, it dominates strongly on diversity (ILD=0.808 versus 0.267) but not on fairness (ΔE=0.112, worse than Borda's 0.065). On libimseti, no improvement.</span>
     </div>
   </div>
 
@@ -1484,7 +1484,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="card-title"><span class="i18n-fr">Lecture du graphique</span><span class="i18n-en">Reading the chart</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--green)"><span class="i18n-fr">Zone idéale :</span><span class="i18n-en">Ideal zone:</span></strong> <span class="i18n-fr">bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur MovieLens (100k et 1M) ; sur RMP et libimseti, Borda a un ΔE plus bas (AURORA privilégie la diversité sur ces deux corpus).</span><span class="i18n-en">bottom-left (low ΔE) + top (high ILD). <strong>Average Score</strong> (purple) lands there on all 3 datasets: without group weighting, it creates no gap — but no guarantee either. <strong>AURORA</strong> gets close on RMP (ΔE=0.112, ILD=0.808) and improves fairness vs Borda on MovieLens (100k and 1M); on RMP and libimseti, Borda has a lower ΔE (AURORA favors diversity on these two corpora).</span>
+        <strong style="color:var(--green)"><span class="i18n-fr">Zone idéale :</span><span class="i18n-en">Ideal zone:</span></strong> <span class="i18n-fr">bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur MovieLens (100k et 1M) ainsi que sur libimseti ; sur RMP uniquement, Borda a un ΔE plus bas (AURORA privilégie la diversité sur ce corpus).</span><span class="i18n-en">bottom-left (low ΔE) + top (high ILD). <strong>Average Score</strong> (purple) lands there on all 3 datasets: without group weighting, it creates no gap — but no guarantee either. <strong>AURORA</strong> gets close on RMP (ΔE=0.112, ILD=0.808) and improves fairness vs Borda on MovieLens (100k and 1M) as well as on libimseti; on RMP only, Borda has a lower ΔE (AURORA favors diversity on that corpus).</span>
       </div>
       <div>
         <strong style="color:var(--amber)"><span class="i18n-fr">Compromis observé :</span><span class="i18n-en">Observed trade-off:</span></strong> <span class="i18n-fr">Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.</span><span class="i18n-en">Borda/Condorcet are poor on both axes on RMP. Fair Re-rank improves fairness but reduces diversity (low ILD). AURORA's value is its <em>formal guarantee</em> on ΔE through graph construction, whereas Average Score gets a good result without explicit control.</span>
@@ -1499,8 +1499,8 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 function L(fr,en){ return document.documentElement.dataset.lang==='en' ? en : fr; }
 const ALL={
   5:{"Average Score":{dE:.0083,ILD:1,inc_F:.0007,inc_M:.0024},"Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Weighted Borda":{dE:.4912,ILD:.3034,inc_F:.337,inc_M:.4531},"Condorcet":{dE:.4777,ILD:.3399,inc_F:.3333,inc_M:.4463},"Fair Re-rank":{dE:.1511,ILD:.3695,inc_F:.2967,inc_M:.3325},"AURORA":{dE:.4387,ILD:.3302,inc_F:.3465,inc_M:.4501,n_sn:471,ratio:.499}},
-  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"AURORA":{dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_sn:471,ratio:.499}},
-  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4233,ILD:.376,inc_F:.2467,inc_M:.3394},"Weighted Borda":{dE:.3933,ILD:.3904,inc_F:.2548,inc_M:.3444},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"AURORA":{dE:.2849,ILD:.4623,inc_F:.2766,inc_M:.3437,n_sn:471,ratio:.499}}
+  10:{"Average Score":{dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},"Borda":{dE:.4522,ILD:.3486,inc_F:.2872,inc_M:.3933},"Weighted Borda":{dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},"Condorcet":{dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},"Fair Re-rank":{dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},"AURORA":{dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_sn:471,ratio:.499}},
+  20:{"Average Score":{dE:.056,ILD:.9555,inc_F:.0335,inc_M:.0446},"Borda":{dE:.4242,ILD:.3782,inc_F:.2456,inc_M:.3393},"Weighted Borda":{dE:.3882,ILD:.3764,inc_F:.2496,inc_M:.3362},"Condorcet":{dE:.4408,ILD:.3802,inc_F:.2436,inc_M:.3395},"Fair Re-rank":{dE:.2403,ILD:.4269,inc_F:.2575,inc_M:.3103},"AURORA":{dE:.2849,ILD:.4623,inc_F:.2766,inc_M:.3437,n_sn:471,ratio:.499}}
 };
 const AF=0.289,AM=0.710;
 const METHODS=["Average Score","Borda","Weighted Borda","Condorcet","Fair Re-rank","AURORA"];
@@ -1519,25 +1519,25 @@ function INTERP(){return {
     <span style="color:var(--blue);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Proportional merge budget:</strong> 471 supernodes (ratio 0.50) — budget fixed at 50% of n_users, validated by a robustness test over a 30–60% range. A fixed budget not adapted to corpus size would produce over- or under-merging depending on k (see methodological discussion).</span>
   </span>`),
-  10: L(`<strong>k=10 :</strong>Meilleure inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, les deux meilleures du tableau) et diversité (ILD=<strong>0.391</strong>, +10.6% vs Borda). ΔE légèrement meilleur que Borda, mais Fair Re-rank reste plus précis sur cet axe seul.
+  10: L(`<strong>k=10 :</strong>Meilleure inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, les deux meilleures du tableau) et diversité (ILD=<strong>0.391</strong>, +12.3% vs Borda). ΔE meilleur que Borda, mais Fair Re-rank reste plus précis sur cet axe seul.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--blue);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Même budget proportionnel :</strong>471 super-nœuds (ratio 0.50), identique à k=5 et k=20 — le budget de fusion ne dépend que de n_users, pas de k.</span>
   </span>`,
-  `<strong>k=10:</strong> Best inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, both the best in the table) and diversity (ILD=<strong>0.391</strong>, +10.6% vs Borda). ΔE slightly better than Borda, but Fair Re-rank remains more precise on that axis alone.
+  `<strong>k=10:</strong> Best inclusion (inc_F=<strong>0.307</strong>, inc_M=<strong>0.405</strong>, both the best in the table) and diversity (ILD=<strong>0.391</strong>, +12.3% vs Borda). ΔE better than Borda, but Fair Re-rank remains more precise on that axis alone.
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(107,143,255,.08);border:1px solid rgba(107,143,255,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--blue);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Same proportional budget:</strong> 471 supernodes (ratio 0.50), identical to k=5 and k=20 — the merge budget only depends on n_users, not k.</span>
   </span>`),
-  20: L(`<strong>k=20 — meilleure configuration :</strong>AURORA bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément. ΔE=<strong>0.285</strong>,ILD=<strong>0.462</strong> (meilleur de toutes les méthodes non triviales), inc_F=<strong>0.277</strong> (>Borda 0.247), inc_M=<strong>0.344</strong> (proche du meilleur, W-Borda 0.344). <strong>471 super-nœuds</strong>, ratio F/M rééquilibré 29→37%. Fair Re-rank reste plus précis sur ΔE seul (0.240).
+  20: L(`<strong>k=20 — meilleure configuration :</strong>AURORA bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément. ΔE=<strong>0.285</strong>,ILD=<strong>0.462</strong> (meilleur de toutes les méthodes non triviales), inc_F=<strong>0.277</strong> (>Borda 0.246), inc_M=<strong>0.344</strong> (meilleur du tableau, devant Condorcet 0.340). <strong>471 super-nœuds</strong>, ratio F/M rééquilibré 29→37%. Fair Re-rank reste plus précis sur ΔE seul (0.240).
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--green);flex-shrink:0"></span>
     <span><strong style="color:var(--t1)">Pourquoi k=20 fonctionne mieux ?</strong>Avec un top-20, chaque fusion qui change la liste est davantage contrainte (plus d'items à maintenir), donc les fusions acceptées améliorent plus systématiquement l'EDI. Compression : 50%, ratio F/M amélioré de 8 points.</span>
   </span>`,
-  `<strong>k=20 — best configuration:</strong> AURORA beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously. ΔE=<strong>0.285</strong>, ILD=<strong>0.462</strong> (best of all non-trivial methods), inc_F=<strong>0.277</strong> (>Borda 0.247), inc_M=<strong>0.344</strong> (close to the best, W-Borda 0.344). <strong>471 supernodes</strong>, F/M ratio rebalanced 29→37%. Fair Re-rank remains more precise on ΔE alone (0.240).
+  `<strong>k=20 — best configuration:</strong> AURORA beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously. ΔE=<strong>0.285</strong>, ILD=<strong>0.462</strong> (best of all non-trivial methods), inc_F=<strong>0.277</strong> (>Borda 0.246), inc_M=<strong>0.344</strong> (best in the table, ahead of Condorcet 0.340). <strong>471 supernodes</strong>, F/M ratio rebalanced 29→37%. Fair Re-rank remains more precise on ΔE alone (0.240).
   <br><br>
   <span style="display:inline-flex;gap:8px;align-items:flex-start;padding:10px 13px;background:rgba(15,209,122,.08);border:1px solid rgba(15,209,122,.2);border-radius:7px;font-size:.78rem;margin-top:4px">
     <span style="color:var(--green);flex-shrink:0"></span>
@@ -2477,26 +2477,26 @@ updateExplorer();
 const ALL1M={
   5:{
     "Average Score":{dE:.001,ILD:1,inc_F:.0001,inc_M:.0003},
-    "Borda":{dE:.4895,ILD:.3857,inc_F:.336,inc_M:.4445},
-    "Weighted Borda":{dE:.4895,ILD:.3857,inc_F:.336,inc_M:.4445},
+    "Borda":{dE:.6335,ILD:.3616,inc_F:.3133,inc_M:.4497},
+    "Weighted Borda":{dE:.4675,ILD:.3918,inc_F:.3328,inc_M:.4363},
     "Condorcet":{dE:.6335,ILD:.3616,inc_F:.3133,inc_M:.4497},
     "Fair Re-rank":{dE:.0036,ILD:.4163,inc_F:.3627,inc_M:.3655},
     "AURORA":{dE:.4156,ILD:.3953,inc_F:.3414,inc_M:.4338,n_sn:3020,ratio:.5}
   },
   10:{
     "Average Score":{dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
-    "Borda":{dE:.538,ILD:.4015,inc_F:.3016,inc_M:.4169},
-    "Weighted Borda":{dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
+    "Borda":{dE:.4818,ILD:.4178,inc_F:.3054,inc_M:.4093},
+    "Weighted Borda":{dE:.4142,ILD:.4258,inc_F:.3106,inc_M:.3995},
     "Condorcet":{dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
     "Fair Re-rank":{dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
     "AURORA":{dE:.2137,ILD:.4403,inc_F:.3211,inc_M:.3703,n_sn:3020,ratio:.5}
   },
   20:{
     "Average Score":{dE:.0703,ILD:.9582,inc_F:.0638,inc_M:.0787},
-    "Borda":{dE:.4238,ILD:.4333,inc_F:.2853,inc_M:.3788},
-    "Weighted Borda":{dE:.3923,ILD:.436,inc_F:.2874,inc_M:.3742},
+    "Borda":{dE:.4059,ILD:.438,inc_F:.284,inc_M:.3721},
+    "Weighted Borda":{dE:.3408,ILD:.4435,inc_F:.2952,inc_M:.3699},
     "Condorcet":{dE:.4371,ILD:.432,inc_F:.2838,inc_M:.3787},
-    "Fair Re-rank":{dE:.0998,ILD:.4768,inc_F:.2903,inc_M:.3146},
+    "Fair Re-rank":{dE:.1475,ILD:.4706,inc_F:.2908,inc_M:.3255},
     "AURORA":{dE:.2773,ILD:.4562,inc_F:.2942,inc_M:.3564,n_sn:3020,ratio:.5}
   }
 };
@@ -2525,12 +2525,12 @@ function fmtT(s){
 }
 const AF1M=0.2829,AM1M=0.7171;
 function INTERP1M(){return {
-  5: L(`<strong>k=5 :</strong>AURORA atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda ΔE=0.490, Weighted Borda ΔE=0.490, Condorcet ΔE=0.634) sur les deux axes simultanément. <br><br>Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécifiquement conçue pour optimiser l'équité.`,
-  `<strong>k=5:</strong> AURORA reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda ΔE=0.490, Weighted Borda ΔE=0.490, Condorcet ΔE=0.634) on both axes simultaneously. <br><br>Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specifically designed to optimize fairness.`),
-  10: L(`<strong>k=10 :</strong>AURORA ΔE=<strong>0.214</strong>,ILD=<strong>0.440</strong> — meilleur compromis parmi les méthodes de vote (Borda ΔE=0.538, Weighted Borda ΔE=0.371, Condorcet ΔE=0.487). Fair Re-rank reste le plus précis en équité seule (ΔE=0.019, ILD=0.452).`,
-  `<strong>k=10:</strong> AURORA ΔE=<strong>0.214</strong>, ILD=<strong>0.440</strong> — best trade-off among voting methods (Borda ΔE=0.538, Weighted Borda ΔE=0.371, Condorcet ΔE=0.487). Fair Re-rank remains the most precise on fairness alone (ΔE=0.019, ILD=0.452).`),
-  20: L(`<strong>k=20 :</strong>AURORA ΔE=<strong>0.277</strong>,ILD=<strong>0.456</strong> — cohérent avec le 100k (ΔE=0.285, ILD=0.462) au même budget de fusion (50%). Bat systématiquement Borda/Weighted Borda/Condorcet sur les deux axes ; Fair Re-rank garde l'avantage en ΔE et ILD pris isolément (0.100 / 0.477).`,
-  `<strong>k=20:</strong> AURORA ΔE=<strong>0.277</strong>, ILD=<strong>0.456</strong> — consistent with the 100k set (ΔE=0.285, ILD=0.462) at the same merge budget (50%). Systematically beats Borda/Weighted Borda/Condorcet on both axes; Fair Re-rank keeps the edge on ΔE and ILD taken individually (0.100 / 0.477).`)
+  5: L(`<strong>k=5 :</strong>AURORA atteint <strong>ΔE=0.416</strong> et <strong>ILD=0.395</strong> — bat toutes les méthodes de vote (Borda ΔE=0.634, Weighted Borda ΔE=0.468, Condorcet ΔE=0.634) sur les deux axes simultanément. <br><br>Fair Re-rank reste plus précis à ce k (ΔE=0.0036, ILD=0.416) — méthode spécifiquement conçue pour optimiser l'équité.`,
+  `<strong>k=5:</strong> AURORA reaches <strong>ΔE=0.416</strong> and <strong>ILD=0.395</strong> — beats every voting method (Borda ΔE=0.634, Weighted Borda ΔE=0.468, Condorcet ΔE=0.634) on both axes simultaneously. <br><br>Fair Re-rank remains more precise at this k (ΔE=0.0036, ILD=0.416) — a method specifically designed to optimize fairness.`),
+  10: L(`<strong>k=10 :</strong>AURORA ΔE=<strong>0.214</strong>,ILD=<strong>0.440</strong> — meilleur compromis parmi les méthodes de vote (Borda ΔE=0.482, Weighted Borda ΔE=0.414, Condorcet ΔE=0.487). Fair Re-rank reste le plus précis en équité seule (ΔE=0.019, ILD=0.452).`,
+  `<strong>k=10:</strong> AURORA ΔE=<strong>0.214</strong>, ILD=<strong>0.440</strong> — best trade-off among voting methods (Borda ΔE=0.482, Weighted Borda ΔE=0.414, Condorcet ΔE=0.487). Fair Re-rank remains the most precise on fairness alone (ΔE=0.019, ILD=0.452).`),
+  20: L(`<strong>k=20 :</strong>AURORA ΔE=<strong>0.277</strong>,ILD=<strong>0.456</strong> — cohérent avec le 100k (ΔE=0.285, ILD=0.462) au même budget de fusion (50%). Bat systématiquement Borda/Weighted Borda/Condorcet sur les deux axes ; Fair Re-rank garde l'avantage en ΔE et ILD pris isolément (0.148 / 0.471).`,
+  `<strong>k=20:</strong> AURORA ΔE=<strong>0.277</strong>, ILD=<strong>0.456</strong> — consistent with the 100k set (ΔE=0.285, ILD=0.462) at the same merge budget (50%). Systematically beats Borda/Weighted Borda/Condorcet on both axes; Fair Re-rank keeps the edge on ΔE and ILD taken individually (0.148 / 0.471).`)
 };}
 let cur1MK=10,cmpK=10;
 
@@ -3304,12 +3304,12 @@ function drawScalAll(){drawScalRuntime();drawScalSn();drawScalEdi();buildScalTab
 
 // ── LIBIMSETI ──────────────────────────────────────────────────────────────
 const LIB={
-  "Average Score":{dE:.016, ILD:.8667,inc_F:.0018,inc_M:.0002,elapsed_s:.009},
-  "Borda":        {dE:1.2182,ILD:.7436,inc_F:.1466,inc_M:.0244,elapsed_s:.667},
-  "Weighted Borda":{dE:1.2182,ILD:.7436,inc_F:.1466,inc_M:.0244,elapsed_s:.705},
-  "Condorcet":    {dE:1.296, ILD:.7462,inc_F:.157, inc_M:.0244,elapsed_s:.257},
-  "Fair Re-rank": {dE:.144,  ILD:.7194,inc_F:.0386,inc_M:.0236,elapsed_s:.807},
-  "AURORA":         {dE:1.2324, ILD:.7606, inc_F:.148, inc_M:.0244,elapsed_s:7.061,n_sn:500,ratio:.5}
+  "Average Score":{dE:.016, ILD:.8667,inc_F:.0018,inc_M:.0002,elapsed_s:.005},
+  "Borda":        {dE:1.3014,ILD:.7159,inc_F:.1428,inc_M:.0244,elapsed_s:.206},
+  "Weighted Borda":{dE:1.3014,ILD:.7159,inc_F:.1428,inc_M:.0244,elapsed_s:.234},
+  "Condorcet":    {dE:1.296, ILD:.7462,inc_F:.157, inc_M:.0244,elapsed_s:.084},
+  "Fair Re-rank": {dE:.1386, ILD:.7157,inc_F:.0382,inc_M:.0236,elapsed_s:.269},
+  "AURORA":         {dE:1.2324, ILD:.7606, inc_F:.148, inc_M:.0244,elapsed_s:2.258,n_sn:500,ratio:.5}
 };
 
 function buildLibTable(){
@@ -3400,12 +3400,12 @@ function drawLibCharts(){
 
 /* ─── Rate My Professors ─── */
 const RMP={
-  "Average Score": {dE:.0000,ILD:.9819,frac_F:.40,elapsed_s:.012},
-  "Borda":         {dE:.0083,ILD:.1448,frac_F:.40,elapsed_s:1.308},
-  "Weighted Borda":{dE:.0083,ILD:.1448,frac_F:.40,elapsed_s:41.288},
-  "Condorcet":     {dE:.0757,ILD:.2533,frac_F:.30,elapsed_s:.289},
-  "Fair Re-rank":  {dE:.0000,ILD:.1956,frac_F:.50,elapsed_s:1.455},
-  "AURORA":          {dE:.1116,ILD:.8081,frac_F:.60,elapsed_s:31.514,n_sn:990}
+  "Average Score": {dE:.0000,ILD:.9819,frac_F:.40,elapsed_s:.008},
+  "Borda":         {dE:.0650,ILD:.2669,frac_F:.50,elapsed_s:.428},
+  "Weighted Borda":{dE:.0000,ILD:.2445,frac_F:.20,elapsed_s:22.872},
+  "Condorcet":     {dE:.0757,ILD:.2533,frac_F:.30,elapsed_s:.109},
+  "Fair Re-rank":  {dE:.0000,ILD:.2761,frac_F:.50,elapsed_s:.483},
+  "AURORA":          {dE:.1116,ILD:.8081,frac_F:.60,elapsed_s:11.253,n_sn:990}
 };
 
 function buildRmpTable(){
@@ -3441,8 +3441,8 @@ function buildRmpTable(){
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('rmpInterp').innerHTML=L(
-    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.145 pour Borda — soit environ <strong>5,6× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`,
-    `<strong style="color:var(--t1)">The big lesson from RMP:</strong> most methods are fair here (ΔE ≤ 0.076, except AURORA at 0.112) — no systematic gender bias in student ratings. The real battle is over <strong style="color:var(--blue)">ILD diversity</strong>. Our coarsening reaches <strong style="color:var(--green)">ILD=0.808</strong> versus 0.145 for Borda — roughly <strong>5.6× more diversity</strong> among recommended professors, with the best representation (frac_F=0.60).`);
+    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.267 pour Borda — soit environ <strong>3× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`,
+    `<strong style="color:var(--t1)">The big lesson from RMP:</strong> most methods are fair here (ΔE ≤ 0.076, except AURORA at 0.112) — no systematic gender bias in student ratings. The real battle is over <strong style="color:var(--blue)">ILD diversity</strong>. Our coarsening reaches <strong style="color:var(--green)">ILD=0.808</strong> versus 0.267 for Borda — roughly <strong>3× more diversity</strong> among recommended professors, with the best representation (frac_F=0.60).`);
 }
 
 function drawRmpCharts(){
@@ -3527,7 +3527,7 @@ const OALEX={
   "Weighted Borda":{dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.011},
   "Condorcet":     {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.008},
   "Fair Re-rank":  {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.013},
-  "AURORA":          {dE:.0509, ILD:.3508, frac_F:.20, elapsed_s:.144, n_sn:5}
+  "AURORA":          {dE:.0312, ILD:.3448, frac_F:.19, elapsed_s:.070, n_sn:2}
 };
 function buildOalexTable(){
   const tbl=document.getElementById('oalexTbl');

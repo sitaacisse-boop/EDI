@@ -209,12 +209,12 @@ def build_matrix(raw, venue_names, author_gender):
         [(v, c) for v, c in venue_uniq.items() if c >= MIN_AUTHORS],
         key=lambda x: -x[1]
     )[:N_VENUES]
-    sel_venues = {v for v, _ in top_venues}
-    print(f"\nVenues sélectionnées : {len(sel_venues)} (≥{MIN_AUTHORS} auteurs uniques)")
+    venue_list = [v for v, _ in top_venues]
+    print(f"\nVenues sélectionnées : {len(venue_list)} (≥{MIN_AUTHORS} auteurs uniques)")
 
     # Nb de venues par auteur (sur les venues sélectionnées)
     auth_v_cnt: dict[str, int] = defaultdict(int)
-    for vid in sel_venues:
+    for vid in venue_list:
         for aname in raw[vid]:
             auth_v_cnt[aname] += 1
 
@@ -222,13 +222,12 @@ def build_matrix(raw, venue_names, author_gender):
     print(f"Auteurs valides (≥{MIN_VENUES_AUTH} venues) : {len(valid_authors)}")
 
     # Matrice ratings : venue_idx → {author → rating}
-    venue_list   = [v for v, _ in top_venues]
     venue_to_idx = {v: i for i, v in enumerate(venue_list)}
 
     ratings:    dict[int, dict[str, float]] = {}
     gender_map: dict[str, str]              = {}
 
-    for vid in sel_venues:
+    for vid in venue_list:
         row: dict[str, float] = {}
         for aname, cnt in raw[vid].items():
             if aname not in valid_authors:
@@ -346,7 +345,7 @@ def edi_metrics_item(all_topk: dict[int, list[str]], gender_map: dict[str,str],
 
 # ── Coarsening (item-side) ────────────────────────────────────────────────────
 def cosine_sim(r1: dict, r2: dict) -> float:
-    common = set(r1) & set(r2)
+    common = sorted(set(r1) & set(r2))
     if not common:
         return 0.0
     dot   = sum(r1[i]*r2[i] for i in common)
@@ -412,7 +411,7 @@ def run_coarsening_item(ratings_in, gender_map, alpha_F, alpha_M, k,
 
         # Fusion pondérée
         merged: dict[str, float] = {}
-        for item in set(ratings[ru]) | set(ratings[rv]):
+        for item in sorted(set(ratings[ru]) | set(ratings[rv])):
             merged[item] = (wu * ratings[ru].get(item, 0) +
                             wv * ratings[rv].get(item, 0)) / (wu + wv)
 

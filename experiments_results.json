@@ -541,7 +541,7 @@
         "inc_M": 0.4501,
         "ratio": 0.499,
         "n_supernodes": 471,
-        "elapsed_s": 4.0,
+        "elapsed_s": 1.4,
         "n_F_sn": 174,
         "n_M_sn": 297
       }
@@ -586,7 +586,7 @@
         "inc_M": 0.4501,
         "ratio": 0.499,
         "n_supernodes": 471,
-        "elapsed_s": 3.8,
+        "elapsed_s": 1.4,
         "n_F_sn": 174,
         "n_M_sn": 297
       }
@@ -601,10 +601,10 @@
         "inc_M": 0.0021
       },
       "Borda": {
-        "dE": 0.4249,
-        "ILD": 0.354,
-        "inc_F": 0.293,
-        "inc_M": 0.3924
+        "dE": 0.4522,
+        "ILD": 0.3486,
+        "inc_F": 0.2872,
+        "inc_M": 0.3933
       },
       "Weighted Borda": {
         "dE": 0.4249,
@@ -631,7 +631,7 @@
         "inc_M": 0.4051,
         "ratio": 0.499,
         "n_supernodes": 471,
-        "elapsed_s": 3.8,
+        "elapsed_s": 1.4,
         "n_F_sn": 174,
         "n_M_sn": 297
       }
@@ -646,10 +646,10 @@
         "inc_M": 0.0021
       },
       "Borda": {
-        "dE": 0.4249,
-        "ILD": 0.354,
-        "inc_F": 0.293,
-        "inc_M": 0.3924
+        "dE": 0.4522,
+        "ILD": 0.3486,
+        "inc_F": 0.2872,
+        "inc_M": 0.3933
       },
       "Weighted Borda": {
         "dE": 0.4249,
@@ -676,7 +676,7 @@
         "inc_M": 0.4051,
         "ratio": 0.499,
         "n_supernodes": 471,
-        "elapsed_s": 3.8,
+        "elapsed_s": 1.4,
         "n_F_sn": 174,
         "n_M_sn": 297
       }
@@ -691,16 +691,16 @@
         "inc_M": 0.0446
       },
       "Borda": {
-        "dE": 0.4233,
-        "ILD": 0.376,
-        "inc_F": 0.2467,
-        "inc_M": 0.3394
+        "dE": 0.4242,
+        "ILD": 0.3782,
+        "inc_F": 0.2456,
+        "inc_M": 0.3393
       },
       "Weighted Borda": {
-        "dE": 0.3933,
-        "ILD": 0.3904,
-        "inc_F": 0.2548,
-        "inc_M": 0.3444
+        "dE": 0.3882,
+        "ILD": 0.3764,
+        "inc_F": 0.2496,
+        "inc_M": 0.3362
       },
       "Condorcet": {
         "dE": 0.4408,
@@ -721,7 +721,7 @@
         "inc_M": 0.3437,
         "ratio": 0.499,
         "n_supernodes": 471,
-        "elapsed_s": 3.9,
+        "elapsed_s": 1.5,
         "n_F_sn": 174,
         "n_M_sn": 297
       }
@@ -736,16 +736,16 @@
         "inc_M": 0.0446
       },
       "Borda": {
-        "dE": 0.4233,
-        "ILD": 0.376,
-        "inc_F": 0.2467,
-        "inc_M": 0.3394
+        "dE": 0.4242,
+        "ILD": 0.3782,
+        "inc_F": 0.2456,
+        "inc_M": 0.3393
       },
       "Weighted Borda": {
-        "dE": 0.3933,
-        "ILD": 0.3904,
-        "inc_F": 0.2548,
-        "inc_M": 0.3444
+        "dE": 0.3882,
+        "ILD": 0.3764,
+        "inc_F": 0.2496,
+        "inc_M": 0.3362
       },
       "Condorcet": {
         "dE": 0.4408,
@@ -766,7 +766,7 @@
         "inc_M": 0.3437,
         "ratio": 0.499,
         "n_supernodes": 471,
-        "elapsed_s": 3.9,
+        "elapsed_s": 1.5,
         "n_F_sn": 174,
         "n_M_sn": 297
       }

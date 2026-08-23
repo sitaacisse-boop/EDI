@@ -80,10 +80,11 @@ and Condorcet. On item-side equity settings, it uniquely combines
 high diversity (ILD\,$=$\,0.808) with the highest female item
 representation ($\mathrm{frac}_F=60\%$) on Rate My Professors --- though
 at a moderate equity cost relative to Borda on this dataset --- and
-achieves the lowest equity gap ($\Delta E = 0.051$) on OpenAlex, where
+achieves the lowest equity gap ($\Delta E = 0.031$) on OpenAlex, where
 Borda-based methods recommend zero female authors. On libimseti.cz, the
 only dataset where the sensitive attribute is present on both sides of the
-bipartite graph, no method reduces the equity gap, a limitation we
+bipartite graph, our method --- like classical voting rules --- does not
+reduce the equity gap, a limitation we
 analyze and connect to prior findings that demographic parity is not
 always an appropriate target when preferences genuinely differ across
 groups. These results demonstrate that embedding EDI constraints into
@@ -615,7 +616,7 @@ Method & $\Delta E\downarrow$ & ILD$\uparrow$ & $\mathrm{inc}_F\uparrow$
        & $\mathrm{inc}_M\uparrow$ & Ratio$\downarrow$ \\
 \hline
 Average Score & \textbf{0.007} & \textbf{1.000} & 0.001 & 0.002 & -- \\
-Borda         & 0.425 & 0.354 & 0.293 & 0.392 & -- \\
+Borda         & 0.452 & 0.349 & 0.287 & 0.393 & -- \\
 Weighted Borda & 0.425 & 0.354 & 0.293 & 0.392 & -- \\
 Condorcet     & 0.446 & 0.356 & 0.292 & 0.394 & -- \\
 Fair Re-rank  & 0.162 & 0.429 & 0.271 & 0.313 & -- \\
@@ -637,11 +638,11 @@ Method & $\Delta E\downarrow$ & ILD$\uparrow$ & $\mathrm{inc}_F\uparrow$
        & $\mathrm{inc}_M\uparrow$ & Ratio$\downarrow$ \\
 \hline
 Average Score & \textbf{0.056} & \textbf{0.956} & 0.034 & 0.045 & -- \\
-Borda         & 0.423 & 0.376 & 0.247 & 0.339 & -- \\
-Weighted Borda & 0.393 & 0.390 & 0.255 & \textbf{0.344} & -- \\
+Borda         & 0.424 & 0.378 & 0.246 & 0.339 & -- \\
+Weighted Borda & 0.388 & 0.376 & 0.250 & 0.336 & -- \\
 Condorcet     & 0.441 & 0.380 & 0.244 & 0.340 & -- \\
 Fair Re-rank  & 0.240 & 0.427 & 0.258 & 0.310 & -- \\
-AURORA          & 0.285 & 0.462 & \textbf{0.277} & 0.344
+AURORA          & 0.285 & 0.462 & \textbf{0.277} & \textbf{0.344}
               & \textbf{0.499} \\
 \hline
 $\alpha_g$ target & -- & -- & 0.29 & 0.71 & -- \\
@@ -659,17 +660,13 @@ can reduce the equity gap effectively. Third, \textbf{our method} beats all
 three classical voting rules (Borda, Weighted Borda, Condorcet) on $\Delta
 E$ at every $k$, though it does not close the gap with Fair Re-rank; it
 also achieves the best inclusion score for at least one group at every
-$k$. At $k=10$, AURORA is the only method to improve all four metrics
-over Borda simultaneously: Weighted Borda ties Borda exactly at this $k$
-(identical top-$k$ item set), while Condorcet and Fair Re-rank each fail
-on one criterion ($\Delta E$ and $\mathrm{inc}_F$ respectively). At
-$k=20$ it improves $\Delta E$, ILD, and $\mathrm{inc}_F$ over
-Borda and Condorcet simultaneously, and over Weighted Borda on all but
-$\mathrm{inc}_M$, where the two methods are within 0.001 of each other ---
-a property it shares only with Weighted Borda among the classical rules,
-though Weighted Borda achieves it by directly reweighting scores by group
-size, whereas AURORA requires no such explicit demographic reweighting of
-the aggregation rule itself. On ILD specifically, AURORA
+$k$. At $k=10$, AURORA and Condorcet each improve all four metrics over
+Borda simultaneously; Weighted Borda falls just short on
+$\mathrm{inc}_M$, and Fair Re-rank, despite its large $\Delta E$
+advantage, trails Borda on both inclusion criteria. At $k=20$ AURORA
+improves $\Delta E$, ILD, $\mathrm{inc}_F$, and $\mathrm{inc}_M$ over
+Borda, Condorcet, and Weighted Borda simultaneously, without directly
+reweighting scores by group size the way Weighted Borda does. On ILD specifically, AURORA
 outperforms Borda and Condorcet at every $k$, with the single exception of
 $k=5$, where Condorcet is marginally higher (0.340 vs.\ 0.330); against
 Fair Re-rank, AURORA's advantage only materializes at $k=20$ (0.462 vs.\
@@ -728,10 +725,10 @@ $\theta=7.0$ on the platform's 1--10 rating scale), Average Score achieves
 both the lowest $\Delta E$ (0.016) and the highest ILD (0.867), again by
 recommending the same globally popular profiles to every rater regardless of
 group. Borda-based methods and AURORA all produce equity gaps above 1.2,
-whereas Fair Re-rank (0.144) is a clear outlier among the non-degenerate
+whereas Fair Re-rank (0.139) is a clear outlier among the non-degenerate
 methods. AURORA achieves the best ILD among all methods that produce
 non-trivial inclusion (0.761, ahead of Borda, Weighted Borda, and Condorcet,
-all around 0.744--0.746), but does not reduce $\Delta E$ relative to Borda.
+which range from 0.716 to 0.746), but does not reduce $\Delta E$ relative to Borda.
 We analyze this limitation in detail in
 Section~\ref{sec:libimseti-limitation}: unlike the other three
 datasets, libimseti is the only corpus where the sensitive attribute is
@@ -747,12 +744,12 @@ On \textbf{Rate My Professors} (Table~\ref{tab:rmp}), AURORA achieves the
 second-highest intra-list diversity (ILD\,$=$\,0.808, behind only Average
 Score's 0.982) together with the highest female professor representation
 ($\mathrm{frac}_F = 0.60$) among all methods. This comes at a moderate cost
-on equity: AURORA's $\Delta E$ (0.112) is higher than Borda's (0.008) and
-further from the near-zero gap achieved by Average Score and Fair Re-rank
-(both 0.000), so the method should be read as trading a real amount of
-equity for a large gain in diversity and representation on this dataset.
-Fair Re-rank raises $\mathrm{frac}_F$ to 0.50 but at the
-cost of dramatically lower diversity (ILD\,$=$\,0.196), confirming that
+on equity: AURORA's $\Delta E$ (0.112) is higher than Borda's (0.065) and
+further from the near-zero gap achieved by Average Score, Weighted Borda,
+and Fair Re-rank (all 0.000), so the method should be read as trading a
+real amount of equity for a large gain in diversity and representation on
+this dataset. Fair Re-rank raises $\mathrm{frac}_F$ to 0.50 but at the
+cost of dramatically lower diversity (ILD\,$=$\,0.276), confirming that
 post-hoc re-ranking cannot jointly optimize diversity and item-side
 inclusion the way structural coarsening does.
 
@@ -760,9 +757,9 @@ On \textbf{OpenAlex} (Table~\ref{tab:oalex}), the item-side imbalance is
 stark: Borda, Weighted Borda, and Condorcet all recommend \emph{zero} female
 authors ($\mathrm{frac}_F = 0.00$) despite women representing 19\% of the
 author pool. Average Score and Fair Re-rank both reach $\mathrm{frac}_F = 0.20$,
-while our method achieves the lowest equity gap ($\Delta E = 0.051$, a 28\%
+while our method achieves the lowest equity gap ($\Delta E = 0.031$, a 56\%
 improvement over Average Score's 0.071) while maintaining comparable female
-representation ($\mathrm{frac}_F = 0.197$). Here, unlike on RMP, AURORA
+representation ($\mathrm{frac}_F = 0.194$). Here, unlike on RMP, AURORA
 improves equity \emph{and} maintains diversity simultaneously, confirming
 that EDI-constrained graph coarsening generalizes meaningfully to item-side
 equity settings, though its benefits are domain-dependent rather than
@@ -779,10 +776,10 @@ Method & $\Delta E \downarrow$ & ILD $\uparrow$ &
 $\mathrm{inc}_F \uparrow$ & $\mathrm{inc}_M \uparrow$ \\
 \hline
 Average Score  & \textbf{0.016} & \textbf{0.867} & 0.002 & 0.000 \\
-Borda          & 1.218 & 0.744 & 0.147 & \textbf{0.024} \\
-Weighted Borda & 1.218 & 0.744 & 0.147 & \textbf{0.024} \\
+Borda          & 1.301 & 0.716 & 0.143 & \textbf{0.024} \\
+Weighted Borda & 1.301 & 0.716 & 0.143 & \textbf{0.024} \\
 Condorcet      & 1.296 & 0.746 & \textbf{0.157} & \textbf{0.024} \\
-Fair Re-rank   & 0.144 & 0.719 & 0.039 & \textbf{0.024} \\
+Fair Re-rank   & 0.139 & 0.716 & 0.038 & \textbf{0.024} \\
 AURORA           & 1.232 & 0.761 & 0.148 & \textbf{0.024} \\
 \hline
 \end{tabular}
@@ -796,7 +793,7 @@ of the bipartite graph: gender is a property of users on MovieLens, and a
 property of items on Rate My Professors and OpenAlex. libimseti is
 different: both the raters and the rated profiles carry a gender label,
 because the items being recommended are themselves people. To understand
-why no method --- including AURORA --- meaningfully reduces $\Delta E$ on this
+why AURORA, like the voting rules, does not reduce $\Delta E$ on this
 dataset, we cross-tabulate the mean rating by the gender pair (rater,
 rated profile) across the full 17.3M-edge libimseti graph (12{,}258{,}052
 ratings with gender known on both sides), shown in
@@ -866,10 +863,10 @@ Method & $\Delta E \downarrow$ & ILD $\uparrow$ &
 $\mathrm{frac}_F \uparrow$ \\
 \hline
 Average Score  & \textbf{0.000} & \textbf{0.982} & 0.40 \\
-Borda          & 0.008 & 0.145 & 0.40 \\
-Weighted Borda & 0.008 & 0.145 & 0.40 \\
+Borda          & 0.065 & 0.267 & 0.50 \\
+Weighted Borda & \textbf{0.000} & 0.245 & 0.20 \\
 Condorcet      & 0.076 & 0.253 & 0.30 \\
-Fair Re-rank   & \textbf{0.000} & 0.196 & 0.50 \\
+Fair Re-rank   & \textbf{0.000} & 0.276 & 0.50 \\
 AURORA           & 0.112 & 0.808 & \textbf{0.60} \\
 \hline
 \end{tabular}
@@ -890,7 +887,7 @@ Borda          & 1.233 & 0.000 & 0.000 \\
 Weighted Borda & 1.233 & 0.000 & 0.000 \\
 Condorcet      & 1.233 & 0.000 & 0.000 \\
 Fair Re-rank   & 0.071 & \textbf{0.356} & \textbf{0.200} \\
-AURORA           & \textbf{0.051} & 0.351 & 0.197 \\
+AURORA           & \textbf{0.031} & 0.345 & 0.194 \\
 \hline
 \end{tabular}
 \end{table}
@@ -938,7 +935,7 @@ by contrast, does not vary smoothly with the budget and is not
 monotonically improved by more or less compression, which we attribute to
 the coarse granularity of a $k=10$ ranking (only a limited number of
 distinct top-$k$ configurations are reachable as merges accumulate). Borda
-remains close to $\Delta E \approx 0.008$ throughout this range on Rate My
+remains close to $\Delta E \approx 0.065$ throughout this range on Rate My
 Professors, so the equity trade-off described in Section~5.4 holds
 regardless of the exact budget chosen. We did not observe a budget within
 30--60\% that closes this gap while preserving AURORA's diversity
@@ -976,7 +973,7 @@ Overall \\
 ML 100k  & Fair Re-rank & Fair Re-rank & \textbf{AURORA} & \textbf{AURORA} ($k{=}20$) \\
 ML 1M    & Fair Re-rank & Fair Re-rank & Fair Re-rank & Fair Re-rank \\
 libimseti & Fair Re-rank & \textbf{AURORA} & Condorcet & None (persistent gap) \\
-RMP      & Avg Score / F.R. & Avg Score & \textbf{AURORA} & Trade-off: AURORA (div.) / F.R. (eq.) \\
+RMP      & Avg Score / W.Borda / F.R. & Avg Score & \textbf{AURORA} & Trade-off: AURORA (div.) / F.R. (eq.) \\
 OpenAlex & \textbf{AURORA} & Avg Score / F.R. & Avg Score / F.R. & \textbf{AURORA} \\
 \hline
 \end{tabular}%
@@ -1009,9 +1006,9 @@ Method & $\Delta E \downarrow$ & ILD $\uparrow$ &
 $\mathrm{inc}_F \uparrow$ & $\mathrm{inc}_M \uparrow$ \\
 \hline
 Average Score  & \textbf{0.000} & \textbf{1.000} & 0.000 & 0.000 \\
-Borda          & 0.538 & 0.402 & 0.302 & \textbf{0.417} \\
-Weighted Borda & 0.371 & 0.413 & 0.324 & 0.404 \\
-Condorcet      & 0.487 & 0.408 & 0.305 & 0.412 \\
+Borda          & 0.482 & 0.418 & 0.305 & 0.409 \\
+Weighted Borda & 0.414 & 0.426 & 0.311 & 0.400 \\
+Condorcet      & 0.487 & 0.408 & 0.305 & \textbf{0.412} \\
 Fair Re-rank   & 0.019 & 0.452 & \textbf{0.336} & 0.343 \\
 AURORA           & 0.214 & 0.440 & 0.321 & 0.370 \\
 \hline
@@ -1019,8 +1016,8 @@ AURORA           & 0.214 & 0.440 & 0.321 & 0.370 \\
 \end{table}
 
 The relative ordering among the classical voting rules is broadly consistent
-with MovieLens 100k: Weighted Borda improves over Borda on $\Delta E$ (0.538
-$\to$ 0.371 at $k=10$), and AURORA beats all three voting rules (Borda, Weighted
+with MovieLens 100k: Weighted Borda improves over Borda on $\Delta E$ (0.482
+$\to$ 0.414 at $k=10$), and AURORA beats all three voting rules (Borda, Weighted
 Borda, Condorcet) on both $\Delta E$ and ILD at every $k \in \{5,10,20\}$.
 However, unlike on MovieLens 100k, Fair Re-rank dominates AURORA on
 \emph{both} $\Delta E$ and ILD at every $k$ on this larger dataset (e.g.\ at
@@ -1030,9 +1027,9 @@ post-hoc re-ranking baseline more effective: with 6,040 users to draw
 candidates from, Fair Re-rank's greedy re-ranking of the top-40 Borda
 candidates has considerably more room to satisfy both groups than on the
 943-user MovieLens 100k graph. AURORA's most distinctive result on 1M is at
-$k=20$, where it achieves the highest $\mathrm{inc}_F$ of any method (0.294,
-versus 0.290 for Fair Re-rank and 0.284--0.287 for the voting rules),
-suggesting that its advantage is concentrated in balancing inclusion across
+$k=20$, where it remains competitive on $\mathrm{inc}_F$ (0.294, within
+0.001 of the best, Weighted Borda at 0.295, and ahead of Fair Re-rank at
+0.291), suggesting that its advantage is concentrated in balancing inclusion across
 groups rather than in minimizing $\Delta E$ or maximizing ILD outright at
 this scale. Figure~\ref{fig:comparison1m} shows the side-by-side comparison of $\Delta E$ and
 ILD across all methods at $k \in \{10, 20\}$.
@@ -1069,14 +1066,14 @@ alone, at some cost to diversity. This picture is dataset-dependent rather than
 universal: on the larger MovieLens~1M, Fair Re-rank dominates AURORA on both
 axes, which we attribute to its larger candidate pool for re-ranking; on
 libimseti, where the sensitive attribute sits on both sides of the bipartite
-graph, no method --- including AURORA --- meaningfully reduces the equity gap,
+graph, AURORA --- like the classical voting rules --- does not reduce the equity gap,
 a limitation traced to a genuine difference in rating behavior between groups
 rather than an algorithmic shortcoming. On the item-side datasets, AURORA shows
 two distinct patterns: on Rate My Professors it trades equity for a large gain
 in diversity (ILD\,$=$\,0.808) and female representation ($\mathrm{frac}_F=60\%$),
 while on OpenAlex it improves equity \emph{and} maintains diversity
 simultaneously, reaching the lowest equity gap observed across all five datasets
-($\Delta E = 0.051$) and correcting the most extreme bias in our evaluation.
+($\Delta E = 0.031$) and correcting the most extreme bias in our evaluation.
 
 Taken together, these results support a more precise claim than "AURORA is
 uniformly better": embedding EDI constraints into the coarsening structure
