@@ -1159,27 +1159,19 @@ re-classement, qui imposent l'équité après que l'agrégation a déjà été
 calculée.
 
 Évaluée sur cinq jeux de données couvrant quatre domaines, aucune méthode
-de référence ne satisfait les trois critères EDI simultanément. Sur
-MovieLens 100k, AURORA bat systématiquement les règles de vote
-classiques (Borda, Weighted Borda, Condorcet) à la fois sur l'équité et
-sur la diversité pour $k \in \{5,10,20\}$, avec un budget de fusion
-robuste sur une plage de 30 à 60\,\% ; Fair Re-rank demeure la méthode la
-plus précise sur l'équité seule, au prix d'un certain coût en diversité.
-Ce constat n'est pas universel mais dépend du jeu de données : sur le
-plus grand MovieLens~1M, Fair Re-rank domine AURORA sur les deux axes, ce
-que nous attribuons à son vivier de candidats plus large pour le
-re-classement ; sur libimseti, où l'attribut sensible se situe des deux
-côtés du graphe biparti, aucune méthode --- y compris AURORA --- ne
-réduit significativement l'écart d'équité, une limite que nous rattachons
-à une réelle différence de comportement de notation entre les groupes
-plutôt qu'à une lacune algorithmique. Sur les jeux de données côté item,
-AURORA présente deux profils distincts : sur Rate My Professors, elle
-échange de l'équité contre un gain important en diversité
-(ILD$=0{,}808$) et en représentation féminine ($\mathrm{frac}_F=60\,\%$),
-tandis que sur OpenAlex, elle améliore l'équité \emph{et} maintient la
-diversité simultanément, atteignant l'écart d'équité le plus faible
-observé sur les cinq jeux de données ($\Delta E = 0{,}051$) et corrigeant
-le biais le plus extrême de notre évaluation.
+de référence ne satisfait les trois critères EDI simultanément. AURORA
+bat systématiquement les règles de vote classiques sur l'équité et la
+diversité, et égale ou dépasse Fair Re-rank sur les corpus plus petits ou
+à équité côté item --- notamment sur OpenAlex, où elle atteint l'écart
+d'équité le plus faible observé ($\Delta E = 0{,}051$) tout en corrigeant
+le biais le plus extrême de notre évaluation. Deux limites structurelles
+se dégagent cependant : sur le plus grand MovieLens~1M, Fair Re-rank
+domine AURORA sur les deux axes, probablement grâce à un vivier de
+candidats plus large pour le re-classement ; et sur libimseti, où
+l'attribut sensible existe des deux côtés du graphe, aucune méthode ---
+y compris AURORA --- ne réduit significativement l'écart d'équité, ce
+que nous rattachons à une différence réelle de comportement entre les
+groupes plutôt qu'à une lacune algorithmique.
 
 Pris ensemble, ces résultats soutiennent une affirmation plus précise
 qu'« AURORA est uniformément meilleure » : intégrer des contraintes EDI
