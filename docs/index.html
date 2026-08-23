@@ -854,11 +854,11 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <h3><span class="i18n-fr">Notre méthode (coarsening) offre le meilleur équilibre équité+diversité</span><span class="i18n-en">Our method (coarsening) offers the best fairness+diversity balance</span></h3>
     <p><span class="i18n-fr"><strong>MovieLens 100k k=20 :</strong> bat Borda, Condorcet et Weighted Borda sur les 4 critères simultanément. 943→471 super-nœuds (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
     <br><strong>MovieLens 1M :</strong> le tableau s'inverse — Fair Re-rank domine AURORA sur <strong>ΔE et ILD à la fois</strong>, à tout k testé, pas seulement sur la diversité. Un résultat propre à ce corpus, pas un désavantage général : AURORA bat toujours les 3 méthodes de vote classiques (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et reste compétitive en inclusion à k=20 (inc_F=0.294, quasi identique au meilleur, Weighted Borda à 0.295).
-    <br><strong>Rate My Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 20–50% pour les baselines) — ΔE=0.112 bat Condorcet mais reste derrière Borda/Fair Re-rank.
+    <br><strong>Rate My Professors :</strong> AURORA atteint ILD=<strong>0.808</strong> (2ᵉ meilleure, proche d'Average Score 0.982) tout en portant frac_F à 60% (le plus haut, contre 20–50% pour les baselines) — ΔE=0.112, le plus élevé du tableau, derrière toutes les autres méthodes.
     <br><strong>libimseti :</strong> seul corpus où le genre existe des deux côtés du graphe (notateurs et profils notés) — ΔE reste élevé pour les méthodes de vote et pour AURORA (Average Score et Fair Re-rank y échappent, ΔE=0.016 et 0.139), ce qui illustre empiriquement l'argument de Yao &amp; Huang (2017) : la parité démographique n'est pas toujours un objectif approprié quand les préférences dépendent légitimement de l'attribut sensible (voir onglet libimseti.cz). AURORA garde néanmoins un net avantage de diversité sur les méthodes de vote.
     <br><br><strong>Le message central :</strong> AURORA n'est pas uniformément meilleure — elle égale ou dépasse le re-ranking post-hoc (Fair Re-rank) sur les petits corpus et les cas item-side (RMP, OpenAlex), mais un corpus à forte base d'utilisateurs (ML1M) ou un domaine à préférences réciproques dépendantes de l'attribut sensible (libimseti) peut favoriser une approche post-hoc, ou révéler une limite structurelle du cadre à classement collectif unique.</span><span class="i18n-en"><strong>MovieLens 100k k=20:</strong> beats Borda, Condorcet and Weighted Borda on all 4 criteria simultaneously. 943→471 supernodes (−50.1%), ILD=0.462, ΔE=0.285, inc_F=0.277.
     <br><strong>MovieLens 1M:</strong> the picture reverses — Fair Re-rank dominates AURORA on <strong>both ΔE and ILD</strong>, at every k tested, not just on diversity. A result specific to this corpus, not a general disadvantage: AURORA still beats all 3 classical voting methods (Borda/W-Borda/Condorcet) on ΔE and ILD simultaneously, and stays competitive on inclusion at k=20 (inc_F=0.294, nearly identical to the best, Weighted Borda at 0.295).
-    <br><strong>Rate My Professors:</strong> AURORA reaches ILD=<strong>0.808</strong> (2nd best, close to Average Score's 0.982) while raising frac_F to 60% (the highest, versus 20–50% for the baselines) — ΔE=0.112 beats Condorcet but remains behind Borda/Fair Re-rank.
+    <br><strong>Rate My Professors:</strong> AURORA reaches ILD=<strong>0.808</strong> (2nd best, close to Average Score's 0.982) while raising frac_F to 60% (the highest, versus 20–50% for the baselines) — ΔE=0.112, the highest in the table, behind every other method.
     <br><strong>libimseti:</strong> the only corpus where gender exists on both sides of the graph (raters and rated profiles) — ΔE stays high for voting methods and for AURORA (Average Score and Fair Re-rank escape it, ΔE=0.016 and 0.139), which empirically illustrates Yao &amp; Huang's (2017) argument: demographic parity is not always an appropriate goal when preferences legitimately depend on the sensitive attribute (see the libimseti.cz tab). AURORA nonetheless keeps a clear diversity advantage over voting methods.
     <br><br><strong>The central message:</strong> AURORA is not uniformly better — it matches or beats post-hoc re-ranking (Fair Re-rank) on smaller corpora and item-side cases (RMP, OpenAlex), but a corpus with a large user base (ML1M) or a domain with reciprocal preferences dependent on the sensitive attribute (libimseti) can favor a post-hoc approach, or reveal a structural limitation of the single-collective-ranking framework.</span></p>
   </div>
@@ -1379,7 +1379,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       </div>
       <div>
         <strong style="color:var(--green)"><span class="i18n-fr">Notre méthode (AURORA)</span><span class="i18n-en">Our method (AURORA)</span></strong><br>
-        <span class="i18n-fr">Coarsening : 1 981 cours → 990 super-nœuds (budget 50%). ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (bat Condorcet, derrière Borda/Fair Re-rank), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 31.5s pour 59 066 professeurs.</span><span class="i18n-en">Coarsening: 1,981 courses → 990 supernodes (50% budget). ILD=0.808 — <em>diverse and relevant</em> professors. ΔE=0.112 (beats Condorcet, behind Borda/Fair Re-rank), frac_F=60% (slight over-representation of F professors — coarsening naturally favors diversity). 31.5s for 59,066 professors.</span>
+        <span class="i18n-fr">Coarsening : 1 981 cours → 990 super-nœuds (budget 50%). ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (le plus élevé du tableau, derrière toutes les autres méthodes), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 11.3s pour 59 066 professeurs.</span><span class="i18n-en">Coarsening: 1,981 courses → 990 supernodes (50% budget). ILD=0.808 — <em>diverse and relevant</em> professors. ΔE=0.112 (the highest in the table, behind every other method), frac_F=60% (slight over-representation of F professors — coarsening naturally favors diversity). 11.3s for 59,066 professors.</span>
       </div>
     </div>
   </div>
@@ -2924,42 +2924,42 @@ window.addEventListener('resize',()=>{
 const SCAL_DATA={
   500:{n_F:141,n_M:359,n_ratings:88748,
     "Average Score":{elapsed_s:.0048,dE:.0115,ILD:.9732,inc_F:.0043,inc_M:.0019},
-    "Borda":{elapsed_s:.3367,dE:.3957,ILD:.3918,inc_F:.3298,inc_M:.4212},
-    "Weighted Borda":{elapsed_s:.3758,dE:.1196,ILD:.4085,inc_F:.3688,inc_M:.3969},
+    "Borda":{elapsed_s:.1057,dE:.4199,ILD:.4027,inc_F:.3277,inc_M:.4184},
+    "Weighted Borda":{elapsed_s:.1142,dE:.1369,ILD:.4189,inc_F:.3681,inc_M:.3969},
     "Condorcet":{elapsed_s:.1067,dE:.31,ILD:.395,inc_F:.3482,inc_M:.4131},
-    "Fair Re-rank":{elapsed_s:.4987,dE:.0115,ILD:.453,inc_F:.3397,inc_M:.3538},
+    "Fair Re-rank":{elapsed_s:.1567,dE:.0088,ILD:.4355,inc_F:.3518,inc_M:.361},
     "AURORA":{elapsed_s:3.498,dE:.0967,ILD:.4462,inc_F:.3489,inc_M:.3744,n_supernodes:250,ratio:.5}
     },
   1000:{n_F:283,n_M:717,n_ratings:162306,
     "Average Score":{elapsed_s:.0066,dE:.0075,ILD:.9889,inc_F:.0025,inc_M:.001},
-    "Borda":{elapsed_s:.6593,dE:.4227,ILD:.412,inc_F:.3194,inc_M:.4053},
-    "Weighted Borda":{elapsed_s:.7429,dE:.3618,ILD:.4131,inc_F:.3254,inc_M:.3976},
+    "Borda":{elapsed_s:.1994,dE:.5118,ILD:.417,inc_F:.3011,inc_M:.4088},
+    "Weighted Borda":{elapsed_s:.2331,dE:.3443,ILD:.4252,inc_F:.3244,inc_M:.3923},
     "Condorcet":{elapsed_s:.1991,dE:.3982,ILD:.4129,inc_F:.3219,inc_M:.4038},
-    "Fair Re-rank":{elapsed_s:.9073,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
+    "Fair Re-rank":{elapsed_s:.2964,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
     "AURORA":{elapsed_s:6.897,dE:.2592,ILD:.4263,inc_F:.3233,inc_M:.3759,n_supernodes:500,ratio:.5}
     },
   2000:{n_F:566,n_M:1434,n_ratings:326612,
     "Average Score":{elapsed_s:.0146,dE:.0023,ILD:1,inc_F:.0002,inc_M:.0006},
-    "Borda":{elapsed_s:1.3554,dE:.4034,ILD:.4089,inc_F:.3228,inc_M:.4086},
-    "Weighted Borda":{elapsed_s:1.5345,dE:.3237,ILD:.416,inc_F:.3327,inc_M:.4016},
+    "Borda":{elapsed_s:.4099,dE:.4005,ILD:.4235,inc_F:.3166,inc_M:.4011},
+    "Weighted Borda":{elapsed_s:.4775,dE:.3246,ILD:.4251,inc_F:.3292,inc_M:.3977},
     "Condorcet":{elapsed_s:.3968,dE:.3981,ILD:.416,inc_F:.3196,inc_M:.404},
-    "Fair Re-rank":{elapsed_s:2.0114,dE:.0011,ILD:.4873,inc_F:.326,inc_M:.3273},
+    "Fair Re-rank":{elapsed_s:.5657,dE:.0212,ILD:.4601,inc_F:.333,inc_M:.3384},
     "AURORA":{elapsed_s:16.536,dE:.2334,ILD:.4468,inc_F:.327,inc_M:.379,n_supernodes:1000,ratio:.5}
     },
   4000:{n_F:1132,n_M:2868,n_ratings:664230,
     "Average Score":{elapsed_s:.0266,dE:.0011,ILD:.9872,inc_F:.0005,inc_M:.0003},
-    "Borda":{elapsed_s:2.7647,dE:.4714,ILD:.4082,inc_F:.306,inc_M:.4099},
-    "Weighted Borda":{elapsed_s:3.0332,dE:.3752,ILD:.4126,inc_F:.3211,inc_M:.4045},
+    "Borda":{elapsed_s:.8384,dE:.4733,ILD:.418,inc_F:.3035,inc_M:.4067},
+    "Weighted Borda":{elapsed_s:.9567,dE:.3673,ILD:.4243,inc_F:.3172,inc_M:.3983},
     "Condorcet":{elapsed_s:.8371,dE:.4912,ILD:.4092,inc_F:.3024,inc_M:.411},
-    "Fair Re-rank":{elapsed_s:3.4531,dE:.001,ILD:.4794,inc_F:.3266,inc_M:.3326},
+    "Fair Re-rank":{elapsed_s:1.1151,dE:.0134,ILD:.4638,inc_F:.3298,inc_M:.3374},
     "AURORA":{elapsed_s:43.26,dE:.2241,ILD:.43,inc_F:.3212,inc_M:.3755,n_supernodes:2000,ratio:.5}
     },
   6040:{n_F:1709,n_M:4331,n_ratings:1000209,
     "Average Score":{elapsed_s:.0356,dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
-    "Borda":{elapsed_s:4.2408,dE:.538,ILD:.4015,inc_F:.3016,inc_M:.4169},
-    "Weighted Borda":{elapsed_s:4.6253,dE:.3709,ILD:.4129,inc_F:.3235,inc_M:.4039},
+    "Borda":{elapsed_s:1.2818,dE:.4818,ILD:.4178,inc_F:.3054,inc_M:.4093},
+    "Weighted Borda":{elapsed_s:1.4833,dE:.4142,ILD:.4258,inc_F:.3106,inc_M:.3995},
     "Condorcet":{elapsed_s:1.2476,dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
-    "Fair Re-rank":{elapsed_s:5.1664,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
+    "Fair Re-rank":{elapsed_s:1.6477,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
     "AURORA":{elapsed_s:77.427,dE:.2137,ILD:.4403,inc_F:.3211,inc_M:.3703,n_supernodes:3020,ratio:.5}
     }
 };
@@ -2969,68 +2969,68 @@ const SCAL_SIZES=[500,1000,2000,4000,6040];
 // budget de fusion = 50% de n_users (proportionnel, ratio constant sur toute la plage)
 const SCAL_100K_DATA={
   100:{n_F:29,n_M:71,n_ratings:9619,
-    "Average Score":{elapsed_s:.0015,dE:.0852,ILD:.4376,inc_F:.0069,inc_M:.0239},
-    "Borda":{elapsed_s:.0668,dE:.4892,ILD:.3477,inc_F:.2655,inc_M:.3577},
-    "Weighted Borda":{elapsed_s:.0746,dE:.3555,ILD:.3317,inc_F:.2759,inc_M:.3408},
-    "Condorcet":{elapsed_s:.0126,dE:.4475,ILD:.3528,inc_F:.2655,inc_M:.3521},
-    "Fair Re-rank":{elapsed_s:.2019,dE:.0246,ILD:.4738,inc_F:.2966,inc_M:.293},
-    "AURORA":{elapsed_s:.343,dE:.1607,ILD:.5252,inc_F:.3034,inc_M:.3507,n_supernodes:50,ratio:.5}
+    "Average Score":{elapsed_s:.0007,dE:.0852,ILD:.4376,inc_F:.0069,inc_M:.0239},
+    "Borda":{elapsed_s:.0213,dE:.4251,ILD:.3503,inc_F:.2724,inc_M:.3563},
+    "Weighted Borda":{elapsed_s:.025,dE:.4557,ILD:.3414,inc_F:.2759,inc_M:.3577},
+    "Condorcet":{elapsed_s:.0115,dE:.4475,ILD:.3528,inc_F:.2655,inc_M:.3521},
+    "Fair Re-rank":{elapsed_s:.0579,dE:.0246,ILD:.4738,inc_F:.2966,inc_M:.293},
+    "AURORA":{elapsed_s:.121,dE:.1607,ILD:.5252,inc_F:.3034,inc_M:.3507,n_supernodes:50,ratio:.5}
     },
   150:{n_F:43,n_M:107,n_ratings:13953,
     "Average Score":{elapsed_s:.0015,dE:.0072,ILD:.9333,inc_F:.007,inc_M:.0084},
-    "Borda":{elapsed_s:.0997,dE:.458,ILD:.3795,inc_F:.2698,inc_M:.4019},
-    "Weighted Borda":{elapsed_s:.1139,dE:.4158,ILD:.3761,inc_F:.2605,inc_M:.3879},
-    "Condorcet":{elapsed_s:.0187,dE:.4556,ILD:.3772,inc_F:.2651,inc_M:.3897},
-    "Fair Re-rank":{elapsed_s:.2041,dE:.0398,ILD:.4828,inc_F:.2674,inc_M:.3028},
-    "AURORA":{elapsed_s:.483,dE:.3491,ILD:.4717,inc_F:.2256,inc_M:.3159,n_supernodes:75,ratio:.5}
+    "Borda":{elapsed_s:.0353,dE:.458,ILD:.3795,inc_F:.2698,inc_M:.4019},
+    "Weighted Borda":{elapsed_s:.0364,dE:.4201,ILD:.3589,inc_F:.2558,inc_M:.3869},
+    "Condorcet":{elapsed_s:.0065,dE:.4556,ILD:.3772,inc_F:.2651,inc_M:.3897},
+    "Fair Re-rank":{elapsed_s:.0581,dE:.0961,ILD:.4512,inc_F:.2674,inc_M:.3065},
+    "AURORA":{elapsed_s:.17,dE:.3491,ILD:.4717,inc_F:.2256,inc_M:.3159,n_supernodes:75,ratio:.5}
     },
   200:{n_F:58,n_M:142,n_ratings:20615,
-    "Average Score":{elapsed_s:.0015,dE:.0129,ILD:.9872,inc_F:.0052,inc_M:.0077},
-    "Borda":{elapsed_s:.13,dE:.2055,ILD:.3703,inc_F:.3,inc_M:.3585},
-    "Weighted Borda":{elapsed_s:.1445,dE:.1728,ILD:.3314,inc_F:.2879,inc_M:.343},
-    "Condorcet":{elapsed_s:.0259,dE:.1673,ILD:.3635,inc_F:.3017,inc_M:.3479},
-    "Fair Re-rank":{elapsed_s:.2393,dE:.0037,ILD:.4186,inc_F:.319,inc_M:.3239},
-    "AURORA":{elapsed_s:.698,dE:.1948,ILD:.4638,inc_F:.3121,inc_M:.3528,n_supernodes:100,ratio:.5}
+    "Average Score":{elapsed_s:.0005,dE:.0129,ILD:.9872,inc_F:.0052,inc_M:.0077},
+    "Borda":{elapsed_s:.0414,dE:.1723,ILD:.3662,inc_F:.3069,inc_M:.35},
+    "Weighted Borda":{elapsed_s:.048,dE:.1441,ILD:.354,inc_F:.3034,inc_M:.3408},
+    "Condorcet":{elapsed_s:.0091,dE:.1673,ILD:.3635,inc_F:.3017,inc_M:.3479},
+    "Fair Re-rank":{elapsed_s:.0711,dE:.0037,ILD:.4186,inc_F:.319,inc_M:.3239},
+    "AURORA":{elapsed_s:.249,dE:.1948,ILD:.4638,inc_F:.3121,inc_M:.3528,n_supernodes:100,ratio:.5}
     },
   300:{n_F:87,n_M:213,n_ratings:33475,
-    "Average Score":{elapsed_s:.0016,dE:.0096,ILD:.9778,inc_F:.0023,inc_M:.0042},
-    "Borda":{elapsed_s:.1956,dE:.4975,ILD:.3216,inc_F:.3069,inc_M:.4258},
-    "Weighted Borda":{elapsed_s:.2254,dE:.3732,ILD:.3469,inc_F:.323,inc_M:.4174},
-    "Condorcet":{elapsed_s:.0466,dE:.3732,ILD:.3469,inc_F:.323,inc_M:.4174},
-    "Fair Re-rank":{elapsed_s:.3591,dE:.0906,ILD:.4356,inc_F:.2885,inc_M:.3197},
-    "AURORA":{elapsed_s:1.123,dE:.3661,ILD:.3819,inc_F:.3287,inc_M:.4202,n_supernodes:150,ratio:.5}
+    "Average Score":{elapsed_s:.0007,dE:.0096,ILD:.9778,inc_F:.0023,inc_M:.0042},
+    "Borda":{elapsed_s:.0615,dE:.4547,ILD:.3306,inc_F:.3149,inc_M:.423},
+    "Weighted Borda":{elapsed_s:.0704,dE:.3732,ILD:.3469,inc_F:.323,inc_M:.4174},
+    "Condorcet":{elapsed_s:.0145,dE:.3732,ILD:.3469,inc_F:.323,inc_M:.4174},
+    "Fair Re-rank":{elapsed_s:.1046,dE:.0616,ILD:.4347,inc_F:.2977,inc_M:.3221},
+    "AURORA":{elapsed_s:.407,dE:.3661,ILD:.3819,inc_F:.3287,inc_M:.4202,n_supernodes:150,ratio:.5}
     },
   400:{n_F:116,n_M:284,n_ratings:42612,
-    "Average Score":{elapsed_s:.002,dE:.0032,ILD:.9306,inc_F:.0034,inc_M:.0028},
-    "Borda":{elapsed_s:.2699,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
-    "Weighted Borda":{elapsed_s:.2961,dE:.4343,ILD:.3855,inc_F:.2793,inc_M:.3796},
-    "Condorcet":{elapsed_s:.0522,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
-    "Fair Re-rank":{elapsed_s:.4128,dE:.0796,ILD:.504,inc_F:.2888,inc_M:.3127},
-    "AURORA":{elapsed_s:1.483,dE:.4349,ILD:.4076,inc_F:.2905,inc_M:.3961,n_supernodes:200,ratio:.5}
+    "Average Score":{elapsed_s:.0006,dE:.0032,ILD:.9306,inc_F:.0034,inc_M:.0028},
+    "Borda":{elapsed_s:.086,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
+    "Weighted Borda":{elapsed_s:.0904,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
+    "Condorcet":{elapsed_s:.0186,dE:.4757,ILD:.3674,inc_F:.2741,inc_M:.3842},
+    "Fair Re-rank":{elapsed_s:.1369,dE:.1305,ILD:.4787,inc_F:.2905,inc_M:.3236},
+    "AURORA":{elapsed_s:.533,dE:.4349,ILD:.4076,inc_F:.2905,inc_M:.3961,n_supernodes:200,ratio:.5}
     },
   500:{n_F:145,n_M:355,n_ratings:52603,
-    "Average Score":{elapsed_s:.0029,dE:.0156,ILD:.9678,inc_F:.0014,inc_M:.0045},
-    "Borda":{elapsed_s:.323,dE:.496,ILD:.3354,inc_F:.2869,inc_M:.3955},
-    "Weighted Borda":{elapsed_s:.3626,dE:.4868,ILD:.3289,inc_F:.2862,inc_M:.3935},
-    "Condorcet":{elapsed_s:.0649,dE:.496,ILD:.3354,inc_F:.2869,inc_M:.3955},
-    "Fair Re-rank":{elapsed_s:.4969,dE:.1896,ILD:.403,inc_F:.2855,inc_M:.3169},
-    "AURORA":{elapsed_s:1.921,dE:.4463,ILD:.3775,inc_F:.3048,inc_M:.4039,n_supernodes:250,ratio:.5}
+    "Average Score":{elapsed_s:.0007,dE:.0156,ILD:.9678,inc_F:.0014,inc_M:.0045},
+    "Borda":{elapsed_s:.0994,dE:.496,ILD:.3354,inc_F:.2869,inc_M:.3955},
+    "Weighted Borda":{elapsed_s:.1139,dE:.4753,ILD:.3396,inc_F:.291,inc_M:.3958},
+    "Condorcet":{elapsed_s:.0222,dE:.496,ILD:.3354,inc_F:.2869,inc_M:.3955},
+    "Fair Re-rank":{elapsed_s:.1723,dE:.1409,ILD:.4143,inc_F:.2703,inc_M:.2941},
+    "AURORA":{elapsed_s:.686,dE:.4463,ILD:.3775,inc_F:.3048,inc_M:.4039,n_supernodes:250,ratio:.5}
     },
   700:{n_F:203,n_M:497,n_ratings:73879,
-    "Average Score":{elapsed_s:.0035,dE:.0071,ILD:.9909,inc_F:.001,inc_M:.0024},
-    "Borda":{elapsed_s:.4635,dE:.3923,ILD:.3512,inc_F:.3,inc_M:.3903},
-    "Weighted Borda":{elapsed_s:.504,dE:.3923,ILD:.3512,inc_F:.3,inc_M:.3903},
-    "Condorcet":{elapsed_s:.0904,dE:.412,ILD:.3531,inc_F:.298,inc_M:.3922},
-    "Fair Re-rank":{elapsed_s:.6495,dE:.1336,ILD:.3789,inc_F:.2842,inc_M:.3149},
-    "AURORA":{elapsed_s:2.757,dE:.4064,ILD:.3862,inc_F:.3123,inc_M:.4052,n_supernodes:350,ratio:.5}
+    "Average Score":{elapsed_s:.0009,dE:.0071,ILD:.9909,inc_F:.001,inc_M:.0024},
+    "Borda":{elapsed_s:.1404,dE:.412,ILD:.3531,inc_F:.298,inc_M:.3922},
+    "Weighted Borda":{elapsed_s:.1578,dE:.3923,ILD:.3512,inc_F:.3,inc_M:.3903},
+    "Condorcet":{elapsed_s:.0315,dE:.412,ILD:.3531,inc_F:.298,inc_M:.3922},
+    "Fair Re-rank":{elapsed_s:.2232,dE:.1336,ILD:.3789,inc_F:.2842,inc_M:.3149},
+    "AURORA":{elapsed_s:1.005,dE:.4064,ILD:.3862,inc_F:.3123,inc_M:.4052,n_supernodes:350,ratio:.5}
     },
   943:{n_F:273,n_M:670,n_ratings:100000,
-    "Average Score":{elapsed_s:.0038,dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},
-    "Borda":{elapsed_s:.6728,dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},
-    "Weighted Borda":{elapsed_s:.7112,dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},
-    "Condorcet":{elapsed_s:.1213,dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},
-    "Fair Re-rank":{elapsed_s:.8435,dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},
-    "AURORA":{elapsed_s:4.149,dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_supernodes:471,ratio:.499}
+    "Average Score":{elapsed_s:.001,dE:.0068,ILD:1,inc_F:.0007,inc_M:.0021},
+    "Borda":{elapsed_s:.1867,dE:.4522,ILD:.3486,inc_F:.2872,inc_M:.3933},
+    "Weighted Borda":{elapsed_s:.2144,dE:.4249,ILD:.354,inc_F:.293,inc_M:.3924},
+    "Condorcet":{elapsed_s:.0427,dE:.4459,ILD:.3559,inc_F:.2916,inc_M:.394},
+    "Fair Re-rank":{elapsed_s:.3085,dE:.1623,ILD:.4295,inc_F:.2714,inc_M:.3128},
+    "AURORA":{elapsed_s:1.459,dE:.4228,ILD:.3914,inc_F:.3073,inc_M:.4051,n_supernodes:471,ratio:.5}
     }
 };
 const SCAL_100K_SIZES=[100,150,200,300,400,500,700,943];
