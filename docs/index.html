@@ -3424,8 +3424,10 @@ function buildRmpTable(){
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
   const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
+  const AURORA_PINK='#ff2fd4';
   const rows=METHODS.map(m=>{
     const v=RMP[m];
+    const isO=m==='AURORA';
     const cells=cols.map(c=>{
       const val=v[c.k];
       let tStr;
@@ -3433,11 +3435,10 @@ function buildRmpTable(){
       else if(c.k==='frac_F') tStr=(val*100).toFixed(0)+'%';
       else tStr=val.toFixed(4);
       const isBest=c.dir!=='mid'&&val===best[c.k];
-      const hi=isBest?'font-weight:900;color:var(--green)':'';
+      const hi=isO?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?'font-weight:900;color:var(--green)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}">${tStr}</td>`;
     }).join('');
-    const isO=m==='AURORA';
-    return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
+    return `<tr style="${isO?`font-weight:700;color:${AURORA_PINK}`:''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
   document.getElementById('rmpInterp').innerHTML=L(
