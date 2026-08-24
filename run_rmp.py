@@ -33,7 +33,7 @@ SEED       = 42
 N_CLASSES  = 2000   # nombre de codes-cours (= utilisateurs) a conserver
 MIN_PROFS  = 2      # un cours doit avoir note ≥ MIN_PROFS profs differents
 MIN_CLASSES = 2     # un prof doit avoir ete note dans ≥ MIN_CLASSES cours du top
-K_VALUES   = [10]
+K_VALUES   = [5, 10, 20]
 THETA      = 4.0    # seuil "bon prof" (1-5, identique a MovieLens)
 MAX_MERGES = 991
 

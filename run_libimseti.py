@@ -19,7 +19,7 @@ EDGES_FILE = os.path.join(DATA_DIR, "rec-libimseti-dir.edges")
 GENDER_FILE = os.path.join(DATA_DIR, "gender.dat")
 SEED      = 42
 N_USERS   = 1000   # sous-echantillon de rateurs (500 F + 500 M)
-K_VALUES  = [10]
+K_VALUES  = [5, 10, 20]
 THETA     = 7.0    # sur echelle 1-10 (equivalent de 4.0/5 sur MovieLens)
 
 def load():

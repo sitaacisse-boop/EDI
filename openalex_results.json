@@ -13,11 +13,52 @@
     "n_ratings": 2124,
     "theta": 1.0,
     "k_values": [
-      10
+      5,
+      10,
+      20
     ],
     "note": "item-side equity : genre des auteurs recommandés"
   },
   "experiments": {
+    "k5": {
+      "Average Score": {
+        "dE": 1.2333,
+        "ILD": 0.0,
+        "frac_F": 0.0,
+        "elapsed_s": 0.011
+      },
+      "Borda": {
+        "dE": 1.2333,
+        "ILD": 0.0,
+        "frac_F": 0.0,
+        "elapsed_s": 0.004
+      },
+      "Weighted Borda": {
+        "dE": 1.2333,
+        "ILD": 0.0,
+        "frac_F": 0.0,
+        "elapsed_s": 0.004
+      },
+      "Condorcet": {
+        "dE": 1.2333,
+        "ILD": 0.0,
+        "frac_F": 0.0,
+        "elapsed_s": 0.003
+      },
+      "Fair Re-rank": {
+        "dE": 0.0707,
+        "ILD": 0.4,
+        "frac_F": 0.2,
+        "elapsed_s": 0.004
+      },
+      "AURORA": {
+        "dE": 0.0575,
+        "ILD": 0.396,
+        "frac_F": 0.198,
+        "elapsed_s": 0.039,
+        "n_supernodes": 4
+      }
+    },
     "k10": {
       "Average Score": {
         "dE": 0.0707,
@@ -41,7 +82,7 @@
         "dE": 1.2333,
         "ILD": 0.0,
         "frac_F": 0.0,
-        "elapsed_s": 0.003
+        "elapsed_s": 0.004
       },
       "Fair Re-rank": {
         "dE": 0.0707,
@@ -53,8 +94,47 @@
         "dE": 0.0312,
         "ILD": 0.3448,
         "frac_F": 0.1939,
-        "elapsed_s": 0.07,
+        "elapsed_s": 0.073,
         "n_supernodes": 2
+      }
+    },
+    "k20": {
+      "Average Score": {
+        "dE": 0.5813,
+        "ILD": 0.1895,
+        "frac_F": 0.1,
+        "elapsed_s": 0.024
+      },
+      "Borda": {
+        "dE": 0.9073,
+        "ILD": 0.1,
+        "frac_F": 0.05,
+        "elapsed_s": 0.005
+      },
+      "Weighted Borda": {
+        "dE": 0.9073,
+        "ILD": 0.1,
+        "frac_F": 0.05,
+        "elapsed_s": 0.005
+      },
+      "Condorcet": {
+        "dE": 0.9073,
+        "ILD": 0.1,
+        "frac_F": 0.05,
+        "elapsed_s": 0.004
+      },
+      "Fair Re-rank": {
+        "dE": 0.0707,
+        "ILD": 0.3368,
+        "frac_F": 0.2,
+        "elapsed_s": 0.007
+      },
+      "AURORA": {
+        "dE": 0.0575,
+        "ILD": 0.3334,
+        "frac_F": 0.198,
+        "elapsed_s": 0.14,
+        "n_supernodes": 3
       }
     }
   }

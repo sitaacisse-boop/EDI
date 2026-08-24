@@ -25,7 +25,7 @@ N_VENUES        = 100   # top venues par nb d'auteurs uniques
 MIN_AUTHORS     = 20    # auteurs uniques minimum par venue
 MIN_VENUES_AUTH = 2     # auteur doit publier dans ≥ 2 venues
 THETA           = 1.0   # auteur "aimé" dès 1 paper dans cette venue
-k_VALUES        = [10]
+k_VALUES        = [5, 10, 20]
 MAX_WORKS       = 60_000
 SEED            = 42
 

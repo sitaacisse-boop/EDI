@@ -1264,8 +1264,19 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Équilibre F/M</span><span class="i18n-en">F/M balance</span></div><div class="tile-val">50%</div><div class="tile-sub">α_F = α_M = 0.50</div></div>
   </div>
 
+  <div class="controls">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="libKPills">
+        <button class="pill" data-lk="5">k = 5</button>
+        <button class="pill on" data-lk="10">k = 10</button>
+        <button class="pill" data-lk="20">k = 20</button>
+      </div>
+    </div>
+    <div class="alpha-note">α_F = α_M = 0.50</div>
+  </div>
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — libimseti.cz (k=10, θ=7.0)</span><span class="i18n-en">EDI results — libimseti.cz (k=10, θ=7.0)</span></div><button class="csv-btn" onclick="downloadCSV('libTbl','libimseti_results.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — libimseti.cz (k=<span id="libKLabel1">10</span>, θ=7.0)</span><span class="i18n-en">EDI results — libimseti.cz (k=<span id="libKLabel1b">10</span>, θ=7.0)</span></div><button class="csv-btn" onclick="downloadCSV('libTbl','libimseti_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="libTbl"></table>
     </div>
@@ -1274,12 +1285,12 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
-      <div class="card-title">ΔE (<span class="i18n-fr">Équité</span><span class="i18n-en">Fairness</span>) — libimseti — k=10</div>
+      <div class="card-title">ΔE (<span class="i18n-fr">Équité</span><span class="i18n-en">Fairness</span>) — libimseti — k=<span id="libKLabel2">10</span></div>
       <canvas id="libDeCanvas" style="width:100%;display:block"></canvas>
       <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">ΔE > 1.0 pour Borda/Condorcet : les rateurs M et F ont des patterns de notation distincts (voir tableau croisé ci-dessous) — inédit sur MovieLens, où le genre n'influence pas structurellement la note d'un film.</span><span class="i18n-en">ΔE > 1.0 for Borda/Condorcet: M and F raters have distinct rating patterns (see the cross-table below) — unlike MovieLens, where gender doesn't structurally influence a movie's rating.</span></p>
     </div>
     <div class="card">
-      <div class="card-title">ILD (<span class="i18n-fr">Diversité</span><span class="i18n-en">Diversity</span>) — libimseti — k=10</div>
+      <div class="card-title">ILD (<span class="i18n-fr">Diversité</span><span class="i18n-en">Diversity</span>) — libimseti — k=<span id="libKLabel3">10</span></div>
       <canvas id="libIldCanvas" style="width:100%;display:block"></canvas>
       <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">Notre méthode garde un net avantage de diversité sur les méthodes de vote (Borda, Condorcet, Weighted Borda) — même avantage relatif que sur MovieLens.</span><span class="i18n-en">Our method keeps a clear diversity advantage over voting methods (Borda, Condorcet, Weighted Borda) — the same relative advantage as on MovieLens.</span></p>
     </div>
@@ -1305,7 +1316,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <p><strong style="color:var(--green)"><span class="i18n-fr">Lien avec la littérature</span><span class="i18n-en">Link to the literature</span></strong><br>
       <span class="i18n-fr">Ce résultat illustre empiriquement l'argument de Yao &amp; Huang (2017, section 3.3) : la parité démographique (viser ΔE≈0) n'est pas toujours un objectif approprié en recommandation lorsque les préférences des groupes dépendent légitimement de l'attribut sensible étudié. Un ΔE élevé sur libimseti ne signale donc pas nécessairement une injustice algorithmique, mais peut refléter une différence de préférence structurelle du domaine — contrairement à MovieLens ou Rate My Professors, où rien ne justifie a priori que le genre influence l'appréciation d'un film ou la qualité perçue d'un cours.</span><span class="i18n-en">This result empirically illustrates Yao &amp; Huang's (2017, section 3.3) argument: demographic parity (targeting ΔE≈0) is not always an appropriate goal in recommendation when group preferences legitimately depend on the sensitive attribute studied. A high ΔE on libimseti therefore does not necessarily signal algorithmic injustice, but may reflect a structural preference difference of the domain — unlike MovieLens or Rate My Professors, where nothing a priori justifies gender influencing how a movie is enjoyed or a course's perceived quality.</span></p>
       <p><strong style="color:var(--t1)"><span class="i18n-fr">Notre méthode (AURORA)</span><span class="i18n-en">Our method (AURORA)</span></strong><br>
-      <span class="i18n-fr">Le budget de fusion proportionnel n'améliore pas ΔE sur ce corpus (résultat stable sur une plage de 30 à 60% de compression testée), ni un resserrement de la tolérance de contrainte — cohérent avec la lecture ci-dessus : ce n'est pas un problème de réglage, mais une limite structurelle du cadre à classement collectif unique sur un domaine où la préférence est intrinsèquement différenciée par genre. AURORA conserve néanmoins un net avantage en diversité (ILD) sur les méthodes de vote (Borda, Condorcet).</span><span class="i18n-en">The proportional merge budget does not improve ΔE on this corpus (result stable over a 30–60% compression range tested), nor does tightening the constraint tolerance — consistent with the reading above: this is not a tuning problem, but a structural limitation of the single-collective-ranking framework on a domain where preference is intrinsically differentiated by gender. AURORA nonetheless retains a clear diversity advantage (ILD) over voting methods (Borda, Condorcet).</span></p>
+      <span class="i18n-fr">Le budget de fusion proportionnel n'améliore pas ΔE sur ce corpus (résultat stable sur une plage de 30 à 60% de compression testée), ni un resserrement de la tolérance de contrainte — cohérent avec la lecture ci-dessus : ce n'est pas un problème de réglage, mais une limite structurelle du cadre à classement collectif unique sur un domaine où la préférence est intrinsèquement différenciée par genre. AURORA conserve néanmoins un avantage en diversité (ILD) sur les méthodes de vote (Borda, Condorcet) à k=10 et k=20 — à k=5, elle leur est tout juste égale (voir le tableau ci-dessus pour le détail par k).</span><span class="i18n-en">The proportional merge budget does not improve ΔE on this corpus (result stable over a 30–60% compression range tested), nor does tightening the constraint tolerance — consistent with the reading above: this is not a tuning problem, but a structural limitation of the single-collective-ranking framework on a domain where preference is intrinsically differentiated by gender. AURORA nonetheless retains a diversity advantage (ILD) over voting methods (Borda, Condorcet) at k=10 and k=20 — at k=5, it is merely tied with them (see the table above for the per-k breakdown).</span></p>
     </div>
   </div>
 </div>
@@ -1325,8 +1336,18 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="tile"><div class="tile-lbl">ProfsF/M</div><div class="tile-val">51%</div><div class="tile-sub">F=30 141 · M=28 925</div></div>
   </div>
 
+  <div class="controls">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="rmpKPills">
+        <button class="pill" data-rk="5">k = 5</button>
+        <button class="pill on" data-rk="10">k = 10</button>
+        <button class="pill" data-rk="20">k = 20</button>
+      </div>
+    </div>
+  </div>
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — Rate My Professors (k=10, θ=4.0)</span><span class="i18n-en">EDI results — Rate My Professors (k=10, θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('rmpTbl','rmp_results.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — Rate My Professors (k=<span id="rmpKLabel1">10</span>, θ=4.0)</span><span class="i18n-en">EDI results — Rate My Professors (k=<span id="rmpKLabel1b">10</span>, θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('rmpTbl','rmp_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="rmpTbl"></table>
     </div>
@@ -1335,14 +1356,14 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 
   <div class="two-col" style="margin-top:14px;grid-template-columns:1fr 1fr">
     <div class="card">
-      <div class="card-title">ΔE (<span class="i18n-fr">Équité genre des profs</span><span class="i18n-en">Professor gender fairness</span>) — RMP — k=10</div>
+      <div class="card-title">ΔE (<span class="i18n-fr">Équité genre des profs</span><span class="i18n-en">Professor gender fairness</span>) — RMP — k=<span id="rmpKLabel2">10</span></div>
       <canvas id="rmpDeCanvas" style="width:100%;display:block"></canvas>
       <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">ΔE reste faible pour toutes les méthodes : pas de biais de genre systématique dans les évaluations étudiantes sur RMP.</span><span class="i18n-en">ΔE stays low for all methods: no systematic gender bias in student evaluations on RMP.</span></p>
     </div>
     <div class="card">
-      <div class="card-title">ILD (<span class="i18n-fr">Diversité des profs recommandés</span><span class="i18n-en">Diversity of recommended professors</span>) — RMP — k=10</div>
+      <div class="card-title">ILD (<span class="i18n-fr">Diversité des profs recommandés</span><span class="i18n-en">Diversity of recommended professors</span>) — RMP — k=<span id="rmpKLabel3">10</span></div>
       <canvas id="rmpIldCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin-top:8px"><span class="i18n-fr">Notre méthode : ILD=0.808 — 2ᵉ meilleure, proche de la moyenne simple (0.982). Borda et ses variantes s'effondrent à 0.14 (effet de popularité).</span><span class="i18n-en">Our method: ILD=0.808 — 2nd best, close to the simple average (0.982). Borda and its variants collapse to 0.14 (popularity effect).</span></p>
+      <p style="font-size:.68rem;color:var(--t3);margin-top:8px" id="rmpIldNote"></p>
     </div>
   </div>
 
@@ -1351,11 +1372,11 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
       <div>
         <strong style="color:var(--blue)"><span class="i18n-fr">Pourquoi ILD s'effondre avec Borda/Condorcet ?</span><span class="i18n-en">Why does ILD collapse with Borda/Condorcet?</span></strong><br>
-        <span class="i18n-fr">Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cours → les top-10 se ressemblent → diversité effondrée (ILD=0.14). C'est l'effet de popularité classique en systèmes de recommandation.</span><span class="i18n-en">On RMP, a handful of "super-professors" concentrate thousands of ratings. Borda voting systematically places them at the top for every course → the top-10 lists all look alike → diversity collapses (ILD=0.14). This is the classic popularity effect in recommender systems.</span>
+        <span class="i18n-fr">Sur RMP, quelques "super-profs" concentrent des milliers de notes. Le vote par Borda les place systématiquement en tête pour tous les cours → les top-k se ressemblent → diversité effondrée (ILD=0.27 à k=10, 0.20 à k=20). C'est l'effet de popularité classique en systèmes de recommandation.</span><span class="i18n-en">On RMP, a handful of "super-professors" concentrate thousands of ratings. Borda voting systematically places them at the top for every course → the top-k lists all look alike → diversity collapses (ILD=0.27 at k=10, 0.20 at k=20). This is the classic popularity effect in recommender systems.</span>
       </div>
       <div>
         <strong style="color:var(--green)"><span class="i18n-fr">Notre méthode (AURORA)</span><span class="i18n-en">Our method (AURORA)</span></strong><br>
-        <span class="i18n-fr">Coarsening : 1 981 cours → 990 super-nœuds (budget 50%). ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (le plus élevé du tableau, derrière toutes les autres méthodes), frac_F=60% (légère sur-représentation des profs F — le coarsening favorise naturellement la diversité). 11.3s pour 59 066 professeurs.</span><span class="i18n-en">Coarsening: 1,981 courses → 990 supernodes (50% budget). ILD=0.808 — <em>diverse and relevant</em> professors. ΔE=0.112 (the highest in the table, behind every other method), frac_F=60% (slight over-representation of F professors — coarsening naturally favors diversity). 11.3s for 59,066 professors.</span>
+        <span class="i18n-fr">Coarsening : 1 981 cours → 990 super-nœuds (budget 50%, constant quel que soit k). <strong>À k=10</strong> : ILD=0.808 — profs <em>diversifiés et pertinents</em>. ΔE=0.112 (le plus élevé du tableau à ce k), frac_F=60% (légère sur-représentation des profs F). Ce compromis équité/diversité varie avec k — voir le tableau ci-dessus pour k=5 et k=20.</span><span class="i18n-en">Coarsening: 1,981 courses → 990 supernodes (50% budget, constant regardless of k). <strong>At k=10</strong>: ILD=0.808 — <em>diverse and relevant</em> professors. ΔE=0.112 (the highest in the table at this k), frac_F=60% (slight over-representation of F professors). This fairness/diversity trade-off varies with k — see the table above for k=5 and k=20.</span>
       </div>
     </div>
   </div>
@@ -1376,19 +1397,30 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="tile"><div class="tile-lbl"><span class="i18n-fr">Auteurs F</span><span class="i18n-en">F Authors</span></div><div class="tile-val">19%</div><div class="tile-sub"><span class="i18n-fr">fort déséquilibre en AI/ML</span><span class="i18n-en">strong imbalance in AI/ML</span></div></div>
   </div>
 
+  <div class="controls">
+    <div class="ctrl-grp">
+      <div class="ctrl-lbl">Top-k</div>
+      <div class="pills" id="oalexKPills">
+        <button class="pill" data-ok="5">k = 5</button>
+        <button class="pill on" data-ok="10">k = 10</button>
+        <button class="pill" data-ok="20">k = 20</button>
+      </div>
+    </div>
+  </div>
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — OpenAlex (k=10, θ=1.0)</span><span class="i18n-en">EDI results — OpenAlex (k=10, θ=1.0)</span></div><button class="csv-btn" onclick="downloadCSV('oalexTbl','openalex_results.csv')">⬇ CSV</button></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Résultats EDI — OpenAlex (k=<span id="oalexKLabel1">10</span>, θ=1.0)</span><span class="i18n-en">EDI results — OpenAlex (k=<span id="oalexKLabel1b">10</span>, θ=1.0)</span></div><button class="csv-btn" onclick="downloadCSV('oalexTbl','openalex_results.csv')">⬇ CSV</button></div>
     <div style="overflow-x:auto">
       <table class="ftbl" id="oalexTbl"></table>
     </div>
+    <div id="oalexInterp" style="margin-top:14px;font-size:.8rem;color:var(--t2);line-height:1.6;padding:11px 14px;border-radius:9px;background:rgba(176,122,255,.06);border:1px solid rgba(176,122,255,.18)"></div>
   </div>
 
   <div class="card" style="margin-top:14px">
     <div class="card-title"><span class="i18n-fr">Observation — biais de genre en académique</span><span class="i18n-en">Observation — gender bias in academia</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.81rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--coral)"><span class="i18n-fr">Pourquoi ΔE = 1.23 pour Borda ?</span><span class="i18n-en">Why ΔE = 1.23 for Borda?</span></strong><br>
-        <span class="i18n-fr">En AI/ML, seulement 19% des auteurs avec genre connu sont des femmes. Borda recommande systématiquement les auteurs les plus prolifiques — tous masculins. Résultat : 0% d'autrices dans le top-10 pour toutes les venues → ΔE = 1.23, ILD = 0. C'est le biais académique de genre le plus fort observé dans nos 4 corpus.</span><span class="i18n-en">In AI/ML, only 19% of authors with known gender are women. Borda systematically recommends the most prolific authors — all men. Result: 0% female authors in the top-10 for every venue → ΔE = 1.23, ILD = 0. This is the strongest academic gender bias observed across our 4 corpora.</span>
+        <strong style="color:var(--coral)"><span class="i18n-fr">Pourquoi ΔE = 1.23 pour Borda (k=5/10) ?</span><span class="i18n-en">Why ΔE = 1.23 for Borda (k=5/10)?</span></strong><br>
+        <span class="i18n-fr">En AI/ML, seulement 19% des auteurs avec genre connu sont des femmes. Borda recommande systématiquement les auteurs les plus prolifiques — tous masculins. Résultat : 0% d'autrices dans le top-k pour toutes les venues → ΔE = 1.23, ILD = 0. C'est le biais académique de genre le plus fort observé dans nos 4 corpus. À k=20, l'effet s'atténue un peu (ΔE=0.91, 5% d'autrices) — la liste s'allonge assez pour inclure quelques femmes par nécessité.</span><span class="i18n-en">In AI/ML, only 19% of authors with known gender are women. Borda systematically recommends the most prolific authors — all men. Result: 0% female authors in the top-k for every venue → ΔE = 1.23, ILD = 0. This is the strongest academic gender bias observed across our 4 corpora. At k=20, the effect eases slightly (ΔE=0.91, 5% female authors) — the list grows long enough to include a few women out of necessity.</span>
       </div>
       <div>
         <strong style="color:var(--purple)"><span class="i18n-fr">Contexte académique</span><span class="i18n-en">Academic context</span></strong><br>
@@ -2692,9 +2724,9 @@ function drawAllRuntime(){
   const DS=[
     {lbl:'ML 100k',   col:'#6b8fff', get:m=>RT_100K[m].k10},
     {lbl:'ML 1M',     col:'#22d4f5', get:m=>RT_1M[m].k10},
-    {lbl:'libimseti', col:'#ff7a5c', get:m=>LIB[m].elapsed_s},
-    {lbl:'RMP',       col:'#b07aff', get:m=>RMP[m].elapsed_s},
-    {lbl:'OpenAlex',  col:'#f5a523', get:m=>OALEX[m].elapsed_s},
+    {lbl:'libimseti', col:'#ff7a5c', get:m=>LIB[10][m].elapsed_s},
+    {lbl:'RMP',       col:'#b07aff', get:m=>RMP[10][m].elapsed_s},
+    {lbl:'OpenAlex',  col:'#f5a523', get:m=>OALEX[10][m].elapsed_s},
   ];
   const dpr=window.devicePixelRatio||1;
   const W=cv.offsetWidth||700;
@@ -3280,26 +3312,54 @@ function drawScalAll(){drawScalRuntime();drawScalSn();drawScalEdi();buildScalTab
 
 // ── LIBIMSETI ──────────────────────────────────────────────────────────────
 const LIB={
-  "Average Score":{dE:.016, ILD:.8667,inc_F:.0018,inc_M:.0002,elapsed_s:.005},
-  "Borda":        {dE:1.3014,ILD:.7159,inc_F:.1428,inc_M:.0244,elapsed_s:.206},
-  "Weighted Borda":{dE:1.3014,ILD:.7159,inc_F:.1428,inc_M:.0244,elapsed_s:.234},
-  "Condorcet":    {dE:1.296, ILD:.7462,inc_F:.157, inc_M:.0244,elapsed_s:.084},
-  "Fair Re-rank": {dE:.1386, ILD:.7157,inc_F:.0382,inc_M:.0236,elapsed_s:.269},
-  "AURORA":         {dE:1.2324, ILD:.7606, inc_F:.148, inc_M:.0244,elapsed_s:2.258,n_sn:500,ratio:.5}
+  5:{
+    "Average Score":{dE:.012,ILD:.9,inc_F:.0016,inc_M:.0004,elapsed_s:.006},
+    "Borda":{dE:1.1384,ILD:.7584,inc_F:.1624,inc_M:.0476,elapsed_s:.209},
+    "Weighted Borda":{dE:1.1384,ILD:.7584,inc_F:.1624,inc_M:.0476,elapsed_s:.229},
+    "Condorcet":{dE:1.1384,ILD:.7584,inc_F:.1624,inc_M:.0476,elapsed_s:.085},
+    "Fair Re-rank":{dE:.0004,ILD:.7622,inc_F:.0488,inc_M:.0472,elapsed_s:.258},
+    "AURORA":{dE:1.1384,ILD:.7584,inc_F:.1624,inc_M:.0476,elapsed_s:2.253,n_sn:500,ratio:.5}
+  },
+  10:{
+    "Average Score":{dE:.016, ILD:.8667,inc_F:.0018,inc_M:.0002,elapsed_s:.005},
+    "Borda":        {dE:1.3014,ILD:.7159,inc_F:.1428,inc_M:.0244,elapsed_s:.206},
+    "Weighted Borda":{dE:1.3014,ILD:.7159,inc_F:.1428,inc_M:.0244,elapsed_s:.234},
+    "Condorcet":    {dE:1.296, ILD:.7462,inc_F:.157, inc_M:.0244,elapsed_s:.084},
+    "Fair Re-rank": {dE:.1386, ILD:.7157,inc_F:.0382,inc_M:.0236,elapsed_s:.269},
+    "AURORA":         {dE:1.2324, ILD:.7606, inc_F:.148, inc_M:.0244,elapsed_s:2.258,n_sn:500,ratio:.5}
+  },
+  20:{
+    "Average Score":{dE:.005,ILD:.8987,inc_F:.0018,inc_M:.0013,elapsed_s:.005},
+    "Borda":{dE:1.1054,ILD:.7551,inc_F:.1198,inc_M:.0124,elapsed_s:.206},
+    "Weighted Borda":{dE:1.1054,ILD:.7551,inc_F:.1198,inc_M:.0124,elapsed_s:.295},
+    "Condorcet":{dE:1.1147,ILD:.7596,inc_F:.1208,inc_M:.0124,elapsed_s:.084},
+    "Fair Re-rank":{dE:.3152,ILD:.7454,inc_F:.0434,inc_M:.012,elapsed_s:.265},
+    "AURORA":{dE:1.1152,ILD:.781,inc_F:.1218,inc_M:.0128,elapsed_s:2.313,n_sn:500,ratio:.5}
+  }
 };
+let curLibK=10;
+function LIB_INTERP(){return {
+  5: L(`<strong style="color:var(--t1)">k=5 :</strong> les méthodes de vote et AURORA convergent toutes vers <strong style="color:var(--red)">ΔE=1.138</strong> (aucune n'améliore l'équité à cette échelle). Fair Re-rank est la seule à s'en écarter, avec un ΔE quasi nul (0.0004) et <strong style="color:var(--green)">la meilleure ILD (0.762)</strong> — un cas unique parmi les 3 k testés où elle domine sur les deux axes à la fois.`,
+    `<strong style="color:var(--t1)">k=5:</strong> voting methods and AURORA all converge to <strong style="color:var(--red)">ΔE=1.138</strong> (none improves fairness at this scale). Fair Re-rank is the only one that departs from this, with a near-zero ΔE (0.0004) and <strong style="color:var(--green)">the best ILD (0.762)</strong> — a unique case among the 3 k values tested where it dominates on both axes at once.`),
+  10: L(`<strong style="color:var(--t1)">k=10 :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé ci-dessous. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`,
+    `<strong style="color:var(--t1)">k=10:</strong> rating patterns differ significantly by (rater, rated) gender pair — see the cross-table below. Voting methods (Borda, Condorcet) create a fairness gap of <strong style="color:var(--red)">ΔE > 1.0</strong> — a level unseen on MovieLens. Our method improves no metric on this corpus: it nonetheless remains <strong style="color:var(--green)">2nd best on diversity (ILD=0.761)</strong> among non-trivial approaches.`),
+  20: L(`<strong style="color:var(--t1)">k=20 :</strong> Fair Re-rank perd une grande partie de son avantage à cette échelle (<strong style="color:var(--red)">ΔE=0.315</strong>, contre 0.0004–0.139 à k=5/10) — son pool de candidats se raréfie. AURORA reste alignée sur les méthodes de vote en équité (ΔE≈1.12) mais prend la tête en diversité parmi les approches non triviales (<strong style="color:var(--green)">ILD=0.781</strong>, devant Condorcet à 0.760).`,
+    `<strong style="color:var(--t1)">k=20:</strong> Fair Re-rank loses much of its edge at this scale (<strong style="color:var(--red)">ΔE=0.315</strong>, versus 0.0004–0.139 at k=5/10) — its candidate pool thins out. AURORA stays aligned with voting methods on fairness (ΔE≈1.12) but takes the lead on diversity among non-trivial approaches (<strong style="color:var(--green)">ILD=0.781</strong>, ahead of Condorcet at 0.760).`)
+};}
 
 function buildLibTable(){
   const tbl=document.getElementById('libTbl');
+  const LIBK=LIB[curLibK];
   const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},
               {k:'inc_F',l:'inc_F ↑',dir:'max'},{k:'inc_M',l:'inc_M ↑',dir:'max'},{k:'elapsed_s',l:L('Temps','Time'),dir:'min'}];
   const best={};
   cols.forEach(c=>{
-    const vals=METHODS.map(m=>LIB[m][c.k]);
+    const vals=METHODS.map(m=>LIBK[m][c.k]);
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
   const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
   const rows=METHODS.map(m=>{
-    const v=LIB[m];
+    const v=LIBK[m];
     const cells=cols.map(c=>{
       const val=v[c.k];
       const isBest=val===best[c.k];
@@ -3313,10 +3373,20 @@ function buildLibTable(){
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
-  document.getElementById('libInterp').innerHTML=L(
-    `<strong style="color:var(--t1)">Ce qu'on observe ici :</strong> les patterns de notation diffèrent significativement selon la paire de genres (notateur, noté) — voir le tableau croisé dans l'onglet libimseti.cz. Les méthodes de vote (Borda, Condorcet) créent un écart d'équité <strong style="color:var(--red)">ΔE > 1.0</strong> — un niveau inédit sur MovieLens. Notre méthode n'améliore aucune métrique sur ce corpus (limite structurelle confirmée par test de robustesse, cf. discussion dans l'onglet libimseti.cz) : elle reste néanmoins <strong style="color:var(--green)">2ᵉ meilleure en diversité (ILD=0.761)</strong> parmi les approches non triviales.`,
-    `<strong style="color:var(--t1)">What we observe here:</strong> rating patterns differ significantly by (rater, rated) gender pair — see the cross-table in the libimseti.cz tab. Voting methods (Borda, Condorcet) create a fairness gap of <strong style="color:var(--red)">ΔE > 1.0</strong> — a level unseen on MovieLens. Our method improves no metric on this corpus (structural limitation confirmed by a robustness test, see discussion in the libimseti.cz tab): it nonetheless remains <strong style="color:var(--green)">2nd best on diversity (ILD=0.761)</strong> among non-trivial approaches.`);
+  document.getElementById('libInterp').innerHTML=LIB_INTERP()[curLibK];
+  ['libKLabel1','libKLabel1b','libKLabel2','libKLabel3'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent=curLibK;
+  });
 }
+document.querySelectorAll('#libKPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    curLibK=parseInt(btn.dataset.lk);
+    document.querySelectorAll('#libKPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    buildLibTable();
+    drawLibCharts();
+  });
+});
 
 function drawLibBar(canvasId, getter, colorFn, maxVal){
   const cnv=document.getElementById(canvasId);
@@ -3370,23 +3440,51 @@ function drawLibCharts(){
   const deMax=1.4;
   const deCol=(m,v)=>v>1?'#ff6464':(m==='AURORA'?'#12e87a':'#6b8fff');
   const ildCol=(m,v)=>m==='AURORA'?'#12e87a':'#6b8fff';
-  drawLibBar('libDeCanvas',m=>LIB[m].dE,deCol,deMax);
-  drawLibBar('libIldCanvas',m=>LIB[m].ILD,ildCol,1.0);
+  drawLibBar('libDeCanvas',m=>LIB[curLibK][m].dE,deCol,deMax);
+  drawLibBar('libIldCanvas',m=>LIB[curLibK][m].ILD,ildCol,1.0);
 }
 
 /* ─── Rate My Professors ─── */
 const RMP={
-  "Average Score": {dE:.0000,ILD:.9819,frac_F:.40,elapsed_s:.008},
-  "Borda":         {dE:.0650,ILD:.2669,frac_F:.50,elapsed_s:.428},
-  "Weighted Borda":{dE:.0000,ILD:.2445,frac_F:.20,elapsed_s:22.872},
-  "Condorcet":     {dE:.0757,ILD:.2533,frac_F:.30,elapsed_s:.109},
-  "Fair Re-rank":  {dE:.0000,ILD:.2761,frac_F:.50,elapsed_s:.483},
-  "AURORA":          {dE:.1116,ILD:.8081,frac_F:.60,elapsed_s:11.253,n_sn:990}
+  5:{
+    "Average Score":{dE:0,ILD:1,frac_F:.4,elapsed_s:.007},
+    "Borda":{dE:0,ILD:.2979,frac_F:.2,elapsed_s:.416},
+    "Weighted Borda":{dE:0,ILD:.2979,frac_F:.2,elapsed_s:22.874},
+    "Condorcet":{dE:0,ILD:.2214,frac_F:.2,elapsed_s:.107},
+    "Fair Re-rank":{dE:0,ILD:.2358,frac_F:.6,elapsed_s:.453},
+    "AURORA":{dE:.0417,ILD:.4162,frac_F:.8,elapsed_s:11.128,n_sn:990}
+  },
+  10:{
+    "Average Score": {dE:.0000,ILD:.9819,frac_F:.40,elapsed_s:.008},
+    "Borda":         {dE:.0650,ILD:.2669,frac_F:.50,elapsed_s:.428},
+    "Weighted Borda":{dE:.0000,ILD:.2445,frac_F:.20,elapsed_s:22.872},
+    "Condorcet":     {dE:.0757,ILD:.2533,frac_F:.30,elapsed_s:.109},
+    "Fair Re-rank":  {dE:.0000,ILD:.2761,frac_F:.50,elapsed_s:.483},
+    "AURORA":          {dE:.1116,ILD:.8081,frac_F:.60,elapsed_s:11.253,n_sn:990}
+  },
+  20:{
+    "Average Score":{dE:0,ILD:.9918,frac_F:.3,elapsed_s:.008},
+    "Borda":{dE:.1386,ILD:.1952,frac_F:.45,elapsed_s:.44},
+    "Weighted Borda":{dE:.0332,ILD:.2422,frac_F:.3,elapsed_s:23.254},
+    "Condorcet":{dE:.015,ILD:.1817,frac_F:.45,elapsed_s:.108},
+    "Fair Re-rank":{dE:.025,ILD:.1929,frac_F:.5,elapsed_s:.513},
+    "AURORA":{dE:.0782,ILD:.818,frac_F:.45,elapsed_s:10.95,n_sn:990}
+  }
 };
+let curRmpK=10;
+function RMP_INTERP(){return {
+  5: L(`<strong style="color:var(--t1)">k=5 :</strong> quatre méthodes sur six atteignent ΔE=0 exactement (Average Score, Borda, Weighted Borda, Condorcet). AURORA a le seul ΔE non-nul (0.042) mais aussi <strong style="color:var(--green)">la meilleure représentation féminine de loin (frac_F=0.80)</strong> et l'ILD le plus élevé parmi les non-dégénérées (0.416) — à ce k, le compromis équité/représentation est le plus marqué des trois.`,
+    `<strong style="color:var(--t1)">k=5:</strong> four of six methods reach exactly ΔE=0 (Average Score, Borda, Weighted Borda, Condorcet). AURORA has the only non-zero ΔE (0.042) but also <strong style="color:var(--green)">by far the best female representation (frac_F=0.80)</strong> and the highest ILD among non-degenerate methods (0.416) — at this k, the fairness/representation trade-off is the sharpest of the three.`),
+  10: L(`<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.267 pour Borda — soit environ <strong>3× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`,
+    `<strong style="color:var(--t1)">The big lesson from RMP:</strong> most methods are fair here (ΔE ≤ 0.076, except AURORA at 0.112) — no systematic gender bias in student ratings. The real battle is over <strong style="color:var(--blue)">ILD diversity</strong>. Our coarsening reaches <strong style="color:var(--green)">ILD=0.808</strong> versus 0.267 for Borda — roughly <strong>3× more diversity</strong> among recommended professors, with the best representation (frac_F=0.60).`),
+  20: L(`<strong style="color:var(--t1)">k=20 :</strong> cette fois Borda a le <strong style="color:var(--red)">pire ΔE du tableau (0.139)</strong> — AURORA (0.078) le bat, ainsi que Weighted Borda et Fair Re-rank. AURORA garde <strong style="color:var(--green)">la meilleure ILD (0.818)</strong>, désormais devant Average Score, mais sa représentation féminine redescend à 0.45 (contre 0.80 à k=5 et 0.60 à k=10) — l'avantage se déplace clairement vers la diversité à cette échelle.`,
+    `<strong style="color:var(--t1)">k=20:</strong> this time Borda has the <strong style="color:var(--red)">worst ΔE in the table (0.139)</strong> — AURORA (0.078) beats it, along with Weighted Borda and Fair Re-rank. AURORA keeps <strong style="color:var(--green)">the best ILD (0.818)</strong>, now ahead of Average Score too, but its female representation drops back to 0.45 (versus 0.80 at k=5 and 0.60 at k=10) — the advantage clearly shifts toward diversity at this scale.`)
+};}
 
 function buildRmpTable(){
   const tbl=document.getElementById('rmpTbl');
   if(!tbl)return;
+  const RMPK=RMP[curRmpK];
   const cols=[
     {k:'dE',     l:'ΔE ↓',      dir:'min'},
     {k:'ILD',    l:'ILD ↑',     dir:'max'},
@@ -3396,13 +3494,13 @@ function buildRmpTable(){
   const best={};
   cols.forEach(c=>{
     if(c.dir==='mid')return;
-    const vals=METHODS.map(m=>RMP[m][c.k]);
+    const vals=METHODS.map(m=>RMPK[m][c.k]);
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
   const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
   const AURORA_PINK='#ff2fd4';
   const rows=METHODS.map(m=>{
-    const v=RMP[m];
+    const v=RMPK[m];
     const isO=m==='AURORA';
     const cells=cols.map(c=>{
       const val=v[c.k];
@@ -3417,16 +3515,30 @@ function buildRmpTable(){
     return `<tr style="${isO?`font-weight:700;color:${AURORA_PINK}`:''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
-  document.getElementById('rmpInterp').innerHTML=L(
-    `<strong style="color:var(--t1)">Le grand enseignement de RMP :</strong> la plupart des méthodes sont équitables ici (ΔE ≤ 0.076, sauf AURORA à 0.112) — aucun biais de genre systématique dans les notes étudiantes. La vraie bataille se joue sur <strong style="color:var(--blue)">la diversité ILD</strong>. Notre coarsening atteint <strong style="color:var(--green)">ILD=0.808</strong> contre 0.267 pour Borda — soit environ <strong>3× plus de diversité</strong> dans les profs recommandés, avec la meilleure représentation (frac_F=0.60).`,
-    `<strong style="color:var(--t1)">The big lesson from RMP:</strong> most methods are fair here (ΔE ≤ 0.076, except AURORA at 0.112) — no systematic gender bias in student ratings. The real battle is over <strong style="color:var(--blue)">ILD diversity</strong>. Our coarsening reaches <strong style="color:var(--green)">ILD=0.808</strong> versus 0.267 for Borda — roughly <strong>3× more diversity</strong> among recommended professors, with the best representation (frac_F=0.60).`);
+  document.getElementById('rmpInterp').innerHTML=RMP_INTERP()[curRmpK];
+  const ildNote=L(
+    `Notre méthode : ILD=${RMPK.AURORA.ILD.toFixed(3)} contre ${RMPK.Borda.ILD.toFixed(3)} pour Borda (effet de popularité).`,
+    `Our method: ILD=${RMPK.AURORA.ILD.toFixed(3)} versus ${RMPK.Borda.ILD.toFixed(3)} for Borda (popularity effect).`);
+  const noteEl=document.getElementById('rmpIldNote'); if(noteEl) noteEl.innerHTML=ildNote;
+  ['rmpKLabel1','rmpKLabel1b','rmpKLabel2','rmpKLabel3'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent=curRmpK;
+  });
 }
+document.querySelectorAll('#rmpKPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    curRmpK=parseInt(btn.dataset.rk);
+    document.querySelectorAll('#rmpKPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    buildRmpTable();
+    drawRmpCharts();
+  });
+});
 
 function drawRmpCharts(){
   const deColR=(m,v)=>m==='Fair Re-rank'||m==='Average Score'?'#22d4f5':(m==='AURORA'?'#12e87a':'#6b8fff');
   const ildColR=(m,v)=>m==='AURORA'||m==='Average Score'?'#12e87a':'#6b8fff';
-  drawLibBar('rmpDeCanvas', m=>RMP[m].dE, deColR, .10);
-  drawLibBar('rmpIldCanvas',m=>RMP[m].ILD,ildColR,1.0);
+  drawLibBar('rmpDeCanvas', m=>RMP[curRmpK][m].dE, deColR, .15);
+  drawLibBar('rmpIldCanvas',m=>RMP[curRmpK][m].ILD,ildColR,1.0);
 }
 
 // ═══ GRAPHIQUE COMPARAISON DATASETS (p-data) ══════════════════════════════
@@ -3499,26 +3611,54 @@ function drawRmpCharts(){
 
 // ═══ OPENALEX ═══════════════════════════════════════════════════════════════
 const OALEX={
-  "Average Score": {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.029},
-  "Borda":         {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.010},
-  "Weighted Borda":{dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.011},
-  "Condorcet":     {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.008},
-  "Fair Re-rank":  {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.013},
-  "AURORA":          {dE:.0312, ILD:.3448, frac_F:.19, elapsed_s:.070, n_sn:2}
+  5:{
+    "Average Score":{dE:1.2333,ILD:0,frac_F:0,elapsed_s:.011},
+    "Borda":{dE:1.2333,ILD:0,frac_F:0,elapsed_s:.004},
+    "Weighted Borda":{dE:1.2333,ILD:0,frac_F:0,elapsed_s:.004},
+    "Condorcet":{dE:1.2333,ILD:0,frac_F:0,elapsed_s:.003},
+    "Fair Re-rank":{dE:.0707,ILD:.4,frac_F:.2,elapsed_s:.004},
+    "AURORA":{dE:.0575,ILD:.396,frac_F:.198,elapsed_s:.039,n_sn:4}
+  },
+  10:{
+    "Average Score": {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.029},
+    "Borda":         {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.010},
+    "Weighted Borda":{dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.011},
+    "Condorcet":     {dE:1.2333,ILD:.0000, frac_F:.00, elapsed_s:.008},
+    "Fair Re-rank":  {dE:.0707, ILD:.3556, frac_F:.20, elapsed_s:.013},
+    "AURORA":          {dE:.0312, ILD:.3448, frac_F:.19, elapsed_s:.070, n_sn:2}
+  },
+  20:{
+    "Average Score":{dE:.5813,ILD:.1895,frac_F:.1,elapsed_s:.024},
+    "Borda":{dE:.9073,ILD:.1,frac_F:.05,elapsed_s:.005},
+    "Weighted Borda":{dE:.9073,ILD:.1,frac_F:.05,elapsed_s:.005},
+    "Condorcet":{dE:.9073,ILD:.1,frac_F:.05,elapsed_s:.004},
+    "Fair Re-rank":{dE:.0707,ILD:.3368,frac_F:.2,elapsed_s:.007},
+    "AURORA":{dE:.0575,ILD:.3334,frac_F:.198,elapsed_s:.14,n_sn:3}
+  }
 };
+let curOalexK=10;
+function OALEX_INTERP(){return {
+  5: L(`<strong style="color:var(--t1)">k=5 :</strong> à cette échelle, <strong style="color:var(--red)">même Average Score échoue</strong> (ΔE=1.23, comme Borda) — trop peu de candidats pour diluer le biais. Seuls Fair Re-rank et AURORA restent équitables (ΔE=0.071 et 0.058), avec une ILD proche (0.40 vs 0.40).`,
+    `<strong style="color:var(--t1)">k=5:</strong> at this scale, <strong style="color:var(--red)">even Average Score fails</strong> (ΔE=1.23, like Borda) — too few candidates to dilute the bias. Only Fair Re-rank and AURORA stay fair (ΔE=0.071 and 0.058), with similar ILD (0.40 vs 0.40).`),
+  10: L(`<strong style="color:var(--t1)">k=10 :</strong> AURORA atteint le <strong style="color:var(--green)">meilleur ΔE du tableau (0.031)</strong> — encore mieux qu'Average Score et Fair Re-rank (0.071) — tout en maintenant une représentation féminine comparable (frac_F=0.19). Borda/Weighted Borda/Condorcet recommandent 0% de femmes.`,
+    `<strong style="color:var(--t1)">k=10:</strong> AURORA reaches the <strong style="color:var(--green)">best ΔE in the table (0.031)</strong> — even better than Average Score and Fair Re-rank (0.071) — while maintaining comparable female representation (frac_F=0.19). Borda/Weighted Borda/Condorcet recommend 0% women.`),
+  20: L(`<strong style="color:var(--t1)">k=20 :</strong> le biais de Borda s'atténue un peu (ΔE=0.907, contre 1.23 à k=5/10) — la liste s'allonge assez pour inclure 5% d'autrices. AURORA garde <strong style="color:var(--green)">le meilleur ΔE (0.058)</strong>, à égalité avec sa propre valeur de k=5, et reste la seule méthode sous 0.06 sur les trois k testés.`,
+    `<strong style="color:var(--t1)">k=20:</strong> Borda's bias eases slightly (ΔE=0.907, versus 1.23 at k=5/10) — the list grows long enough to include 5% female authors. AURORA keeps <strong style="color:var(--green)">the best ΔE (0.058)</strong>, tied with its own k=5 value, and remains the only method under 0.06 across all three k values tested.`)
+};}
 function buildOalexTable(){
   const tbl=document.getElementById('oalexTbl');
-  if(!tbl||tbl.querySelector('tbody'))return;
+  if(!tbl)return;
+  const OAK=OALEX[curOalexK];
   const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},{k:'frac_F',l:'frac F',dir:'mid'},{k:'elapsed_s',l:L('Temps','Time'),dir:'min'}];
   const best={};
   cols.forEach(c=>{
     if(c.dir==='mid')return;
-    const vals=METHODS.filter(m=>OALEX[m][c.k]!==null).map(m=>OALEX[m][c.k]);
+    const vals=METHODS.filter(m=>OAK[m][c.k]!==null).map(m=>OAK[m][c.k]);
     if(vals.length) best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
   const head=`<thead><tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
   const rows=METHODS.map(m=>{
-    const v=OALEX[m];
+    const v=OAK[m];
     const isO=m==='AURORA';
     const cells=cols.map(c=>{
       const val=v[c.k];
@@ -3535,7 +3675,19 @@ function buildOalexTable(){
     return `<tr ${isO?'class="tr-AURORA"':''}><td><div class="m-name">${m}</div></td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`${head}<tbody>${rows}</tbody>`;
+  const interpEl=document.getElementById('oalexInterp'); if(interpEl) interpEl.innerHTML=OALEX_INTERP()[curOalexK];
+  ['oalexKLabel1','oalexKLabel1b'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent=curOalexK;
+  });
 }
+document.querySelectorAll('#oalexKPills .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    curOalexK=parseInt(btn.dataset.ok);
+    document.querySelectorAll('#oalexKPills .pill').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    buildOalexTable();
+  });
+});
 
 // ═══ RADAR EDI par dataset (p-radar) ═════════════════════════════════════════
 function drawDatasetRadar(canvasId,pts){
@@ -3587,12 +3739,12 @@ function buildRadarCharts(){
   const normDE=v=>Math.max(0,1-Math.min(v,1.0));
   const ptML=METHODS.map(m=>{const d=ALL[10][m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.inc_F/.36)]};});
   drawDatasetRadar('radarML100k',ptML);
-  const ptLib=METHODS.map(m=>{const d=LIB[m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.inc_F/.50)]};});
+  const ptLib=METHODS.map(m=>{const d=LIB[10][m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.inc_F/.50)]};});
   drawDatasetRadar('radarLib',ptLib);
-  const ptRmp=METHODS.map(m=>{const d=RMP[m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.frac_F/.60)]};});
+  const ptRmp=METHODS.map(m=>{const d=RMP[10][m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,d.frac_F/.60)]};});
   drawDatasetRadar('radarRmp',ptRmp);
-  const maxFracOa=Math.max(...METHODS.map(m=>OALEX[m].frac_F||0))||.20;
-  const ptOa=METHODS.map(m=>{const d=OALEX[m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,(d.frac_F||0)/maxFracOa)]};});
+  const maxFracOa=Math.max(...METHODS.map(m=>OALEX[10][m].frac_F||0))||.20;
+  const ptOa=METHODS.map(m=>{const d=OALEX[10][m]; return {label:m,color:MC[m],vals:[Math.min(1,d.ILD),normDE(d.dE),Math.min(1,(d.frac_F||0)/maxFracOa)]};});
   drawDatasetRadar('radarOalex',ptOa);
   const leg=document.getElementById('radarLegend');
   if(leg&&!leg.querySelector('div')){
@@ -3623,7 +3775,7 @@ function buildPareto(){
   ];
   const allPts=[];
   DATASETS.forEach(ds=>{
-    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
+    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB[10]:ds.key==='RMP'?RMP[10]:OALEX[10];
     METHODS.forEach(m=>{
       const d=src[m];
       allPts.push({ds:ds.key,m,dE:d.dE,ILD:d.ILD});
@@ -3682,7 +3834,7 @@ function buildPareto(){
   }
   // marks — passe 1 : baselines (bons résultats plus opaques, mauvais atténués)
   DATASETS.forEach(ds=>{
-    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
+    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB[10]:ds.key==='RMP'?RMP[10]:OALEX[10];
     METHODS.filter(m=>m!=='AURORA').forEach(m=>{
       const d=src[m]; const x=toX(d.dE),y=toY(d.ILD);
       const col=MC[m];
@@ -3695,7 +3847,7 @@ function buildPareto(){
   });
   // marks — passe 2 : AURORA (plus grand, lumineux, étiqueté)
   DATASETS.forEach(ds=>{
-    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB:ds.key==='RMP'?RMP:OALEX;
+    const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB[10]:ds.key==='RMP'?RMP[10]:OALEX[10];
     const d=src['AURORA']; const x=toX(d.dE),y=toY(d.ILD);
     const col=MC['AURORA']; const r=9;
     ctx.shadowBlur=16; ctx.shadowColor=col;
@@ -3739,7 +3891,7 @@ function buildAllCmpTable(){
     {key:'RMP',   label:'RMP'},
     {key:'OAlex', label:'OpenAlex'},
   ];
-  const src={ML100k:ALL[10],Lib:LIB,RMP:RMP,OAlex:OALEX};
+  const src={ML100k:ALL[10],Lib:LIB[10],RMP:RMP[10],OAlex:OALEX[10]};
   let h=`<thead><tr><th>${L('Méthode','Method')}</th>`;
  DATASETS.forEach(ds=>{h+=`<th colspan="2">${ds.label}</th>`;});
   h+=`</tr><tr><th></th>`;
@@ -3775,8 +3927,8 @@ function drawAllCmpScatter(){
   ctx.clearRect(0,0,W,H);
   const DATASETS=[
     {key:'ML100k',src:ALL[10],  label:'ML 100k',   shape:'circle',  col:'#6b8fff'},
-    {key:'Lib',   src:LIB,      label:'libimseti',  shape:'diamond', col:'#ff7a5c'},
-    {key:'RMP',   src:RMP,      label:'RMP',         shape:'square',  col:'#b07aff'},
+    {key:'Lib',   src:LIB[10],  label:'libimseti',  shape:'diamond', col:'#ff7a5c'},
+    {key:'RMP',   src:RMP[10],  label:'RMP',         shape:'square',  col:'#b07aff'},
   ];
   const allPts=[];
   DATASETS.forEach(ds=>METHODS.forEach(m=>{

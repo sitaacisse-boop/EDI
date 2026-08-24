@@ -9,13 +9,63 @@
     "n_ratings": 97707,
     "n_profiles": 32677,
     "k_values": [
-      10
+      5,
+      10,
+      20
     ],
     "theta": 7.0,
     "seed": 42,
     "note": "items = profils de personnes (genre M/F explicite)"
   },
   "experiments": {
+    "k5_t7_0": {
+      "k": 5,
+      "theta": 7.0,
+      "Average Score": {
+        "dE": 0.012,
+        "ILD": 0.9,
+        "inc_F": 0.0016,
+        "inc_M": 0.0004,
+        "elapsed_s": 0.0048
+      },
+      "Borda": {
+        "dE": 1.1384,
+        "ILD": 0.7584,
+        "inc_F": 0.1624,
+        "inc_M": 0.0476,
+        "elapsed_s": 0.2105
+      },
+      "Weighted Borda": {
+        "dE": 1.1384,
+        "ILD": 0.7584,
+        "inc_F": 0.1624,
+        "inc_M": 0.0476,
+        "elapsed_s": 0.2412
+      },
+      "Condorcet": {
+        "dE": 1.1384,
+        "ILD": 0.7584,
+        "inc_F": 0.1624,
+        "inc_M": 0.0476,
+        "elapsed_s": 0.0896
+      },
+      "Fair Re-rank": {
+        "dE": 0.0004,
+        "ILD": 0.7622,
+        "inc_F": 0.0488,
+        "inc_M": 0.0472,
+        "elapsed_s": 0.2703
+      },
+      "AURORA": {
+        "dE": 1.1384,
+        "ILD": 0.7584,
+        "inc_F": 0.1624,
+        "inc_M": 0.0476,
+        "ratio": 0.5,
+        "n_supernodes": 500,
+        "elapsed_s": 2.34
+      }
+    },
     "k10_t7_0": {
       "k": 10,
       "theta": 7.0,
@@ -31,28 +81,28 @@
         "ILD": 0.7159,
         "inc_F": 0.1428,
         "inc_M": 0.0244,
-        "elapsed_s": 0.2113
+        "elapsed_s": 0.204
       },
       "Weighted Borda": {
         "dE": 1.3014,
         "ILD": 0.7159,
         "inc_F": 0.1428,
         "inc_M": 0.0244,
-        "elapsed_s": 0.2362
+        "elapsed_s": 0.2394
       },
       "Condorcet": {
         "dE": 1.296,
         "ILD": 0.7462,
         "inc_F": 0.157,
         "inc_M": 0.0244,
-        "elapsed_s": 0.0835
+        "elapsed_s": 0.0836
       },
       "Fair Re-rank": {
         "dE": 0.1386,
         "ILD": 0.7157,
         "inc_F": 0.0382,
         "inc_M": 0.0236,
-        "elapsed_s": 0.2678
+        "elapsed_s": 0.2633
       },
       "AURORA": {
         "dE": 1.2324,
@@ -61,7 +111,55 @@
         "inc_M": 0.0244,
         "ratio": 0.5,
         "n_supernodes": 500,
-        "elapsed_s": 2.274
+        "elapsed_s": 2.308
+      }
+    },
+    "k20_t7_0": {
+      "k": 20,
+      "theta": 7.0,
+      "Average Score": {
+        "dE": 0.005,
+        "ILD": 0.8987,
+        "inc_F": 0.0018,
+        "inc_M": 0.0013,
+        "elapsed_s": 0.0047
+      },
+      "Borda": {
+        "dE": 1.1054,
+        "ILD": 0.7551,
+        "inc_F": 0.1198,
+        "inc_M": 0.0124,
+        "elapsed_s": 0.2094
+      },
+      "Weighted Borda": {
+        "dE": 1.1054,
+        "ILD": 0.7551,
+        "inc_F": 0.1198,
+        "inc_M": 0.0124,
+        "elapsed_s": 0.2344
+      },
+      "Condorcet": {
+        "dE": 1.1147,
+        "ILD": 0.7596,
+        "inc_F": 0.1208,
+        "inc_M": 0.0124,
+        "elapsed_s": 0.0847
+      },
+      "Fair Re-rank": {
+        "dE": 0.3152,
+        "ILD": 0.7454,
+        "inc_F": 0.0434,
+        "inc_M": 0.012,
+        "elapsed_s": 0.2667
+      },
+      "AURORA": {
+        "dE": 1.1152,
+        "ILD": 0.781,
+        "inc_F": 0.1218,
+        "inc_M": 0.0128,
+        "ratio": 0.5,
+        "n_supernodes": 500,
+        "elapsed_s": 2.32
       }
     }
   }

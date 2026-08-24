@@ -13,13 +13,75 @@
     "alpha_M": 0.4897,
     "n_ratings": 150800,
     "k_values": [
-      10
+      5,
+      10,
+      20
     ],
     "theta": 4.0,
     "seed": 42,
     "gender_inference": "gender_guesser v0.4.0 (premier prenom)"
   },
   "experiments": {
+    "k5_t4_0": {
+      "k": 5,
+      "theta": 4.0,
+      "Average Score": {
+        "dE": 0.0,
+        "ILD": 1.0,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.4,
+        "frac_M": 0.6,
+        "elapsed_s": 0.0079
+      },
+      "Borda": {
+        "dE": 0.0,
+        "ILD": 0.2979,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.2,
+        "frac_M": 0.8,
+        "elapsed_s": 0.4379
+      },
+      "Weighted Borda": {
+        "dE": 0.0,
+        "ILD": 0.2979,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.2,
+        "frac_M": 0.8,
+        "elapsed_s": 22.4481
+      },
+      "Condorcet": {
+        "dE": 0.0,
+        "ILD": 0.2214,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.2,
+        "frac_M": 0.8,
+        "elapsed_s": 0.1074
+      },
+      "Fair Re-rank": {
+        "dE": 0.0,
+        "ILD": 0.2358,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.6,
+        "frac_M": 0.4,
+        "elapsed_s": 0.4509
+      },
+      "AURORA": {
+        "dE": 0.0417,
+        "ILD": 0.4162,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.8,
+        "frac_M": 0.2,
+        "ratio": 0.5,
+        "n_supernodes": 990,
+        "elapsed_s": 10.991
+      }
+    },
     "k10_t4_0": {
       "k": 10,
       "theta": 4.0,
@@ -39,7 +101,7 @@
         "inc_M": 1.0,
         "frac_F": 0.5,
         "frac_M": 0.5,
-        "elapsed_s": 0.4745
+        "elapsed_s": 0.4212
       },
       "Weighted Borda": {
         "dE": 0.0,
@@ -48,7 +110,7 @@
         "inc_M": 1.0,
         "frac_F": 0.2,
         "frac_M": 0.8,
-        "elapsed_s": 22.7146
+        "elapsed_s": 22.3655
       },
       "Condorcet": {
         "dE": 0.0757,
@@ -57,7 +119,7 @@
         "inc_M": 0.9841,
         "frac_F": 0.3,
         "frac_M": 0.7,
-        "elapsed_s": 0.1087
+        "elapsed_s": 0.1083
       },
       "Fair Re-rank": {
         "dE": 0.0,
@@ -66,7 +128,7 @@
         "inc_M": 1.0,
         "frac_F": 0.5,
         "frac_M": 0.5,
-        "elapsed_s": 0.4844
+        "elapsed_s": 0.4725
       },
       "AURORA": {
         "dE": 0.1116,
@@ -77,7 +139,67 @@
         "frac_M": 0.4,
         "ratio": 0.5,
         "n_supernodes": 990,
-        "elapsed_s": 11.398
+        "elapsed_s": 11.0
+      }
+    },
+    "k20_t4_0": {
+      "k": 20,
+      "theta": 4.0,
+      "Average Score": {
+        "dE": 0.0,
+        "ILD": 0.9918,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.3,
+        "frac_M": 0.7,
+        "elapsed_s": 0.0077
+      },
+      "Borda": {
+        "dE": 0.1386,
+        "ILD": 0.1952,
+        "inc_F": 0.9778,
+        "inc_M": 1.0,
+        "frac_F": 0.45,
+        "frac_M": 0.55,
+        "elapsed_s": 0.4309
+      },
+      "Weighted Borda": {
+        "dE": 0.0332,
+        "ILD": 0.2422,
+        "inc_F": 1.0,
+        "inc_M": 0.9921,
+        "frac_F": 0.3,
+        "frac_M": 0.7,
+        "elapsed_s": 22.5776
+      },
+      "Condorcet": {
+        "dE": 0.015,
+        "ILD": 0.1817,
+        "inc_F": 1.0,
+        "inc_M": 0.9899,
+        "frac_F": 0.45,
+        "frac_M": 0.55,
+        "elapsed_s": 0.1079
+      },
+      "Fair Re-rank": {
+        "dE": 0.025,
+        "ILD": 0.1929,
+        "inc_F": 1.0,
+        "inc_M": 1.0,
+        "frac_F": 0.5,
+        "frac_M": 0.5,
+        "elapsed_s": 0.5031
+      },
+      "AURORA": {
+        "dE": 0.0782,
+        "ILD": 0.818,
+        "inc_F": 1.0,
+        "inc_M": 0.9818,
+        "frac_F": 0.45,
+        "frac_M": 0.55,
+        "ratio": 0.5,
+        "n_supernodes": 990,
+        "elapsed_s": 11.014
       }
     }
   }
