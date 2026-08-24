@@ -738,7 +738,11 @@ behavior between groups rather than an algorithmic shortcoming that
 compression could fix. A robustness sweep over the merge budget (30\%--60\%
 of $|U|$) confirms that this limitation is not a matter of under- or
 over-compression: $\Delta E$ remains high across the whole range without
-approaching the reduction seen on the other three datasets.
+approaching the reduction seen on the other three datasets. This holds at
+$k=5$ and $k=20$ too, except that at $k=5$ Fair Re-rank alone dominates
+on both axes ($\Delta E=0.0004$, ILD$=0.762$), while at $k=20$ its edge
+shrinks sharply ($\Delta E=0.315$) as AURORA takes the diversity lead
+(ILD$=0.781$).
 
 On \textbf{Rate My Professors} (Table~\ref{tab:rmp}), AURORA achieves the
 second-highest intra-list diversity (ILD\,$=$\,0.808, behind only Average
@@ -751,7 +755,11 @@ real amount of equity for a large gain in diversity and representation on
 this dataset. Fair Re-rank raises $\mathrm{frac}_F$ to 0.50 but at the
 cost of dramatically lower diversity (ILD\,$=$\,0.276), confirming that
 post-hoc re-ranking cannot jointly optimize diversity and item-side
-inclusion the way structural coarsening does.
+inclusion the way structural coarsening does. This trade-off shifts with
+$k$: at $k=5$, AURORA has the only non-zero $\Delta E$ (0.042) but by
+far the best representation ($\mathrm{frac}_F=0.80$); at $k=20$, Borda
+instead has the worst $\Delta E$ (0.139), which AURORA (0.078) beats
+while keeping the best ILD (0.818).
 
 On \textbf{OpenAlex} (Table~\ref{tab:oalex}), the item-side imbalance is
 stark: Borda, Weighted Borda, and Condorcet all recommend \emph{zero} female
@@ -763,7 +771,11 @@ representation ($\mathrm{frac}_F = 0.194$). Here, unlike on RMP, AURORA
 improves equity \emph{and} maintains diversity simultaneously, confirming
 that EDI-constrained graph coarsening generalizes meaningfully to item-side
 equity settings, though its benefits are domain-dependent rather than
-uniform.
+uniform: the bias stays severe at all three $k$ tested — at $k=5$ even
+Average Score fails ($\Delta E=1.23$) for lack of candidates to dilute
+it, and at $k=20$ Borda's bias only eases slightly ($\Delta E=0.907$,
+5\% female authors); AURORA keeps the lowest $\Delta E$ throughout
+(0.058 at $k=5$/20, 0.031 at $k=10$).
 
 \begin{table}[h!]
 \caption{EDI metrics on libimseti.cz ($k=10$, user-side equity, $\theta=7.0$

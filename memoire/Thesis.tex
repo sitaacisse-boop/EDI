@@ -902,7 +902,14 @@ données --- est analysée en détail en
 section~\ref{sec:libimseti-limitation} : elle reflète une réelle
 différence de comportement de notation entre groupes plutôt qu'une
 lacune algorithmique, et persiste même en faisant varier le budget de
-fusion de 30\,\% à 60\,\% de $|U|$.
+fusion de 30\,\% à 60\,\% de $|U|$. Ce constat tient à $k=5$ et
+$k=20$ également, avec une nuance notable à $k=5$ : Borda, Weighted
+Borda, Condorcet et AURORA convergent tous exactement vers
+$\Delta E = 1{,}138$, tandis que Fair Re-rank domine seul sur les deux
+axes ($\Delta E = 0{,}0004$, ILD$=0{,}762$) --- un cas unique parmi les
+trois $k$ testés. À $k=20$, Fair Re-rank perd une grande partie de son
+avantage ($\Delta E = 0{,}315$) tandis qu'AURORA prend la tête en
+diversité parmi les approches non dégénérées (ILD$=0{,}781$).
 
 Sur \textbf{Rate My Professors} (tableau~\ref{tab:rmp}), AURORA obtient
 la deuxième meilleure diversité (ILD$=0{,}808$) et la meilleure
@@ -912,7 +919,13 @@ méthode échange une part d'équité contre un net gain de diversité et de
 représentation. Fair Re-rank monte $\mathrm{frac}_F$ à 0,50 mais avec une
 diversité bien plus faible (ILD$=0{,}276$), montrant que le re-classement
 a posteriori ne peut pas optimiser diversité et représentation aussi
-bien que le \emph{coarsening} structurel.
+bien que le \emph{coarsening} structurel. Le compromis équité/diversité
+d'AURORA se déplace avec $k$ : à $k=5$, quatre méthodes sur six
+atteignent $\Delta E = 0$ exactement, tandis qu'AURORA a le seul écart
+non nul (0,042) mais aussi de loin la meilleure représentation
+féminine ($\mathrm{frac}_F=0{,}80$) ; à $k=20$, c'est au contraire Borda
+qui affiche le pire $\Delta E$ du tableau (0,139), qu'AURORA (0,078)
+dépasse, tout en gardant la meilleure ILD (0,818).
 
 Sur \textbf{OpenAlex} (tableau~\ref{tab:oalex}), le déséquilibre est
 extrême : Borda, Weighted Borda et Condorcet recommandent \emph{zéro}
@@ -923,7 +936,13 @@ représentation féminine comparable ($\mathrm{frac}_F=0{,}194$) ---
 contrairement à RMP, elle améliore équité \emph{et} diversité
 simultanément, confirmant que la méthode généralise à d'autres
 configurations d'équité côté item, avec des bénéfices qui restent
-toutefois dépendants du domaine.
+toutefois dépendants du domaine. Le biais reste sévère aux trois $k$
+testés : à $k=5$, même Average Score échoue ($\Delta E=1{,}23$, comme
+Borda) faute d'assez de candidats pour le diluer, et seuls Fair Re-rank
+et AURORA restent équitables. À $k=20$, le biais de Borda s'atténue
+légèrement ($\Delta E=0{,}907$, 5\,\% d'autrices contre 0\,\% à $k=5$/10) ;
+AURORA conserve dans tous les cas le meilleur $\Delta E$ du tableau
+(0,058 à $k=5$ et $k=20$, 0,031 à $k=10$).
 
 \begin{table}[h!]
 \caption{Métriques EDI sur libimseti.cz ($k=10$, équité côté utilisateur,
