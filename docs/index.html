@@ -1159,31 +1159,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-cmp">
   <div class="notice" style="border-color:rgba(107,143,255,.3);background:rgba(107,143,255,.07)">
     <span style="color:var(--blue);font-size:1rem;flex-shrink:0">⇄</span>
-    <span><b><span class="i18n-fr">Comparaison cross-dataset (k=10) :</span><span class="i18n-en">Cross-dataset comparison (k=10):</span></b> <span class="i18n-fr">toutes méthodes, tous corpus. Forme = dataset (○ ML100k · ◆ libimseti · ■ RMP) · couleur = méthode. ΔE bas + ILD haut = idéal.</span><span class="i18n-en">all methods, all corpora. Shape = dataset (○ ML100k · ◆ libimseti · ■ RMP) · color = method. Low ΔE + high ILD = ideal.</span></span>
-  </div>
-  <div class="card" style="margin-top:4px">
-    <div class="card-title"><span class="i18n-fr">ΔE vs ILD — tous datasets, toutes méthodes, k=10</span><span class="i18n-en">ΔE vs ILD — all datasets, all methods, k=10</span></div>
-    <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      <span class="i18n-fr">Forme du marqueur = dataset (○ ML100k · ◆ libimseti · ■ RMP). Couleur = méthode.
-      <strong>Zone idéale : bas-gauche</strong> (ΔE faible) + <strong>haut</strong> (ILD élevé). Les marqueurs <strong style="color:var(--green)">AURORA </strong> sont plus grands et entourés d'un anneau blanc.</span><span class="i18n-en">Marker shape = dataset (○ ML100k · ◆ libimseti · ■ RMP). Color = method.
-      <strong>Ideal zone: bottom-left</strong> (low ΔE) + <strong>top</strong> (high ILD). <strong style="color:var(--green)">AURORA</strong> markers are larger and ringed in white.</span>
-    </div>
-    <canvas id="allCmpCanvas" style="width:100%;display:block"></canvas>
-    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--t2)">
-      <span>MovieLens 100k</span><span> libimseti</span><span> Rate My Professors</span>
-      <span style="margin-left:auto"><span class="i18n-fr">← ΔE bas = meilleure équité · ↑ ILD élevé = meilleure diversité</span><span class="i18n-en">← low ΔE = better fairness · ↑ high ILD = better diversity</span></span>
-    </div>
-    <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:.74rem">
-      <div style="padding:8px 11px;background:rgba(107,143,255,.07);border-radius:7px;border-left:3px solid var(--blue)">
-        <strong>Average Score</strong> <span class="i18n-fr">(violet) : ΔE ≈ 0, ILD très bas. Excellent en équité, nul en diversité — il recommande les mêmes items populaires à tout le monde.</span><span class="i18n-en">(purple): ΔE ≈ 0, very low ILD. Excellent on fairness, zero on diversity — it recommends the same popular items to everyone.</span>
-      </div>
-      <div style="padding:8px 11px;background:rgba(255,122,92,.07);border-radius:7px;border-left:3px solid var(--coral)">
-        <strong>Borda/Condorcet</strong> <span class="i18n-fr">(jaune/rouge) : ILD moyen mais ΔE élevé — favorisent les items du groupe majoritaire. Sur libimseti : ΔE > 1 (extrême).</span><span class="i18n-en">(yellow/red): average ILD but high ΔE — favor the majority group's items. On libimseti: ΔE > 1 (extreme).</span>
-      </div>
-      <div style="padding:8px 11px;background:rgba(18,232,122,.07);border-radius:7px;border-left:3px solid var(--green)">
-        <strong>AURORA</strong> <span class="i18n-fr">(vert) : combine ILD élevé et bonne représentation sur plusieurs datasets. Sur RMP : ILD = 0.808, ΔE = 0.112 — meilleur compromis diversité/représentation, pas le meilleur ΔE isolément.</span><span class="i18n-en">(green): combines high ILD and good representation across several datasets. On RMP: ILD = 0.808, ΔE = 0.112 — best diversity/representation trade-off, not the best ΔE in isolation.</span>
-      </div>
-    </div>
+    <span><b><span class="i18n-fr">Comparaison cross-dataset (k=10) :</span><span class="i18n-en">Cross-dataset comparison (k=10):</span></b> <span class="i18n-fr">toutes méthodes, tous corpus. Pour le nuage de points ΔE vs ILD avec front de Pareto, voir l'onglet <strong>Pareto</strong> — ici, le tableau récapitulatif et les temps d'exécution.</span><span class="i18n-en">all methods, all corpora. For the ΔE vs ILD scatter plot with the Pareto front, see the <strong>Pareto</strong> tab — here, the summary table and execution times.</span></span>
   </div>
   <div class="card" style="margin-top:14px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=10)</span><span class="i18n-en">Summary table — ΔE and ILD by dataset and method (k=10)</span></div><button class="csv-btn" onclick="downloadCSV('allCmpTbl','comparaison_tous_corpus.csv')">⬇ CSV</button></div>
@@ -1581,7 +1557,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     if(id==='concl') buildFinal();
     if(id==='viz') setTimeout(()=>{drawRadar();drawScatter();drawSens();},60);
     if(id==='1m') renderTable1M();
-    if(id==='cmp') setTimeout(()=>{buildAllCmpTable();drawAllCmpScatter();drawAllRuntime();},60);
+    if(id==='cmp') setTimeout(()=>{buildAllCmpTable();drawAllRuntime();},60);
     if(id==='scal') setTimeout(()=>{drawScalAll();buildCmpTable();drawCmpScatter();drawRuntime();},60);
     if(id==='lib')  setTimeout(()=>{buildLibTable();drawLibCharts();},60);
     if(id==='rmp')  setTimeout(()=>{buildRmpTable();drawRmpCharts();},60);
