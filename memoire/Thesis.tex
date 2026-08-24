@@ -792,8 +792,8 @@ fraction d'items féminins dans la liste top-$k$. Les tolérances de
 dégradation sont fixées à $\varepsilon_E = 0{,}1$, $\varepsilon_D =
 0{,}05$, et $\varepsilon_I = 0{,}05$, calibrées à partir de mesures de
 référence sur le graphe complet. Nous fixons $k \in \{5, 10, 20\}$ pour
-MovieLens et $k = 10$ pour tous les autres jeux de données, et rapportons
-le taux de compression $|U'|/|U|$ aux côtés de toutes les métriques EDI.
+tous les jeux de données, et rapportons le taux de compression $|U'|/|U|$
+aux côtés de toutes les métriques EDI.
 
 \section{Résultats}
 
@@ -1058,8 +1058,8 @@ Le budget de fusion (section~\ref{sec:methodology}) est fixé à 50\,\% de
 $|U|$ tout au long des expériences principales. Pour vérifier que ce
 choix n'est pas un réglage étroit et sélectionné après coup, nous
 ré-exécutons AURORA à quatre budgets (30\,\%, 42,4\,\%, 50\,\%, 60\,\% de
-$|U|$) sur MovieLens 1M et Rate My Professors, les deux jeux de données
-où l'effet de la compression est le plus visible.
+$|U|$) sur MovieLens 1M ($k=20$) et Rate My Professors ($k=10$), les deux
+jeux de données où l'effet de la compression est le plus visible.
 
 Sur MovieLens~1M, AURORA bat les trois règles de vote à la fois sur
 $\Delta E$ et sur l'ILD sur toute cette plage, et les deux métriques

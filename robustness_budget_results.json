@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "k_ml1m": 20,
+    "k_rmp": 10,
+    "theta": 4.0,
+    "budgets": [
+      0.3,
+      0.424,
+      0.5,
+      0.6
+    ],
+    "description": "Balayage du budget de fusion (30-60% de |U|) sur ML1M et RMP"
+  },
+  "ml1m": [
+    {
+      "budget_frac": 0.3,
+      "max_merges": 1812,
+      "dE": 0.3317,
+      "ILD": 0.4558,
+      "inc_F": 0.2872,
+      "inc_M": 0.3605,
+      "ratio": 0.7,
+      "n_supernodes": 4228,
+      "elapsed_s": 34.222
+    },
+    {
+      "budget_frac": 0.424,
+      "max_merges": 2561,
+      "dE": 0.2773,
+      "ILD": 0.4562,
+      "inc_F": 0.2942,
+      "inc_M": 0.3564,
+      "ratio": 0.576,
+      "n_supernodes": 3479,
+      "elapsed_s": 36.756
+    },
+    {
+      "budget_frac": 0.5,
+      "max_merges": 3020,
+      "dE": 0.2773,
+      "ILD": 0.4562,
+      "inc_F": 0.2942,
+      "inc_M": 0.3564,
+      "ratio": 0.5,
+      "n_supernodes": 3020,
+      "elapsed_s": 37.371
+    },
+    {
+      "budget_frac": 0.6,
+      "max_merges": 3624,
+      "dE": 0.1846,
+      "ILD": 0.4697,
+      "inc_F": 0.2971,
+      "inc_M": 0.3402,
+      "ratio": 0.4,
+      "n_supernodes": 2416,
+      "elapsed_s": 38.891
+    }
+  ],
+  "rmp": [
+    {
+      "budget_frac": 0.3,
+      "max_merges": 594,
+      "dE": 0.1116,
+      "ILD": 0.7454,
+      "inc_F": 1.0,
+      "inc_M": 0.9583,
+      "frac_F": 0.6,
+      "frac_M": 0.4,
+      "ratio": 0.7,
+      "n_supernodes": 1387,
+      "elapsed_s": 7.238
+    },
+    {
+      "budget_frac": 0.424,
+      "max_merges": 840,
+      "dE": 0.0714,
+      "ILD": 0.7878,
+      "inc_F": 1.0,
+      "inc_M": 0.9667,
+      "frac_F": 0.5,
+      "frac_M": 0.5,
+      "ratio": 0.576,
+      "n_supernodes": 1141,
+      "elapsed_s": 9.554
+    },
+    {
+      "budget_frac": 0.5,
+      "max_merges": 990,
+      "dE": 0.1116,
+      "ILD": 0.8081,
+      "inc_F": 1.0,
+      "inc_M": 0.9583,
+      "frac_F": 0.6,
+      "frac_M": 0.4,
+      "ratio": 0.5,
+      "n_supernodes": 991,
+      "elapsed_s": 11.031
+    },
+    {
+      "budget_frac": 0.6,
+      "max_merges": 1189,
+      "dE": 0.1116,
+      "ILD": 0.7668,
+      "inc_F": 1.0,
+      "inc_M": 0.9583,
+      "frac_F": 0.6,
+      "frac_M": 0.4,
+      "ratio": 0.4,
+      "n_supernodes": 792,
+      "elapsed_s": 13.393
+    }
+  ]
+}
