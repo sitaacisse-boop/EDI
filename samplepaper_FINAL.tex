@@ -527,25 +527,51 @@ for scalability validation. We set $k \in \{5, 10, 20\}$.
 \paragraph{libimseti.cz.}
 A Czech social dating network where users rate other users on attractiveness.
 The sensitive attribute is the gender of the rating user (user-side equity).
-We use $k = 10$.
+We set $k \in \{5, 10, 20\}$.
 
 \paragraph{Rate My Professors.}
 An educational rating platform where students rate professors. The sensitive
-attribute is the gender of the professor (item-side equity). We use $k = 10$.
+attribute is the gender of the professor (item-side equity). We set
+$k \in \{5, 10, 20\}$.
 
 \paragraph{OpenAlex (AI/ML/CS, 2018--2023).}
 An academic authorship graph built from the OpenAlex API,
 comprising 99 venues, 904 authors (171 F / 733 M, $\alpha_F \approx 19\%$),
 and 2,124 ratings (co-authorship counts). Gender is inferred from author
 first names. The sensitive attribute is on items (item-side equity).
-We use $k = 10$.
+We set $k \in \{5, 10, 20\}$.
+
+\begin{table}[H]
+\centering
+\caption{Overview of the five datasets.}
+\label{tab:datasets-overview}
+\begin{tabular}{lccccccc}
+\hline
+Dataset & Domain & $|U|$ & $|I|$ & $|E|$ & Scale & Equity & $\alpha_F$ \\
+\hline
+MovieLens 100k    & Movies       & 943   & 1,682  & 100,000    & 1--5  & user-side & 29\% \\
+MovieLens 1M      & Movies       & 6,040 & 3,706  & 1,000,209  & 1--5  & user-side & 28\% \\
+libimseti.cz      & Dating       & 1,000 & 32,677 & 97,707     & 1--10 & user-side & 50\% \\
+Rate My Prof.     & Academic     & 1,981 & 59,066 & 150,800    & 1--5  & item-side & 51\%* \\
+OpenAlex          & Publications & 99    & 904    & 2,124      & 1--5  & item-side & 19\% \\
+\hline
+\end{tabular}
+\vspace{2pt}
+\begin{footnotesize}
+* $\alpha_F$ = proportion of women among the items (recommended
+professors), not among users.
+\end{footnotesize}
+\end{table}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{fig_data_overview}
-\caption{MovieLens 100k overview: rating distribution, gender split
-(273 F / 670 M), and number of ratings per user.}
-\label{fig:data}
+\includegraphics[width=\textwidth]{fig_datasets_overview_full}
+\caption{Overview of the five datasets: corpus size (log scale) and
+gender imbalance $\alpha_F$ by equity side (top), and rating distribution
+for each dataset (bottom). For Rate My Professors, the rating is a
+continuous (course, professor) average on 1--5, grouped into eight bins
+of width 0.5.}
+\label{fig:datasets-overview}
 \end{figure}
 
 

@@ -739,28 +739,52 @@ passage à l'échelle. Nous fixons $k \in \{5, 10, 20\}$.
 \paragraph{libimseti.cz.}
 Un réseau social de rencontres tchèque où les utilisateurs notent
 d'autres utilisateurs sur leur attractivité. L'attribut sensible est le
-genre de l'utilisateur qui note (équité côté utilisateur). Nous utilisons
-$k = 10$.
+genre de l'utilisateur qui note (équité côté utilisateur). Nous fixons
+$k \in \{5, 10, 20\}$.
 
 \paragraph{Rate My Professors.}
 Une plateforme d'évaluation pédagogique où les étudiants notent des
 professeurs. L'attribut sensible est le genre du professeur (équité côté
-item). Nous utilisons $k = 10$.
+item). Nous fixons $k \in \{5, 10, 20\}$.
 
 \paragraph{OpenAlex (IA/ML/informatique, 2018--2023).}
 Un graphe de paternité académique construit à partir de l'API OpenAlex,
 comprenant 99 venues, 904 auteurs (171 F / 733 M, $\alpha_F \approx
 19\,\%$), et 2~124 notes (comptes de co-paternité). Le genre est déduit
 du prénom de l'auteur. L'attribut sensible est sur les items (équité côté
-item). Nous utilisons $k = 10$.
+item). Nous fixons $k \in \{5, 10, 20\}$.
+
+\begin{table}[H]
+\centering
+\caption{Vue d'ensemble des cinq jeux de données.}
+\label{tab:datasets-overview}
+\begin{tabular}{lccccccc}
+\hline
+Jeu de données & Domaine & $|U|$ & $|I|$ & $|E|$ & Échelle & Équité & $\alpha_F$ \\
+\hline
+MovieLens 100k    & Films        & 943    & 1\,682  & 100\,000    & 1--5  & user-side & 29\,\% \\
+MovieLens 1M      & Films        & 6\,040 & 3\,706  & 1\,000\,209 & 1--5  & user-side & 28\,\% \\
+libimseti.cz      & Rencontres   & 1\,000 & 32\,677 & 97\,707     & 1--10 & user-side & 50\,\% \\
+Rate My Prof.     & Académique   & 1\,981 & 59\,066 & 150\,800    & 1--5  & item-side & 51\,\%* \\
+OpenAlex          & Publications & 99     & 904     & 2\,124      & 1--5  & item-side & 19\,\% \\
+\hline
+\end{tabular}
+\vspace{2pt}
+\begin{footnotesize}
+* $\alpha_F$ = proportion de femmes dans les items (professeurs
+recommandés), pas dans les utilisateurs.
+\end{footnotesize}
+\end{table}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{fig_data_overview_fr}
-\caption{Vue d'ensemble de MovieLens 100k : distribution des notes,
-répartition par genre (273 F / 670 M), et nombre de notes par
-utilisateur.}
-\label{fig:data}
+\includegraphics[width=\textwidth]{fig_datasets_overview_full_fr}
+\caption{Vue d'ensemble des cinq jeux de données : taille des corpus
+(échelle log) et déséquilibre de genre $\alpha_F$ par côté d'équité
+(haut), et répartition des notes pour chaque jeu de données (bas). Pour
+Rate My Professors, la note est une moyenne (cours, professeur) continue
+sur 1--5, regroupée en huit intervalles de largeur 0,5.}
+\label{fig:datasets-overview}
 \end{figure}
 
 \section{Méthodes de Référence}
