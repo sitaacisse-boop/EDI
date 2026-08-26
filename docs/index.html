@@ -3331,7 +3331,13 @@ function buildScalTable(){
       const stk=m==='AURORA'&&d.stable_topk?` style="color:var(--amber)"`:''
       const deCol=d.dE<.1?'var(--good)':d.dE<.38?'var(--warn)':'var(--bad)';
       const deSym=d.dE<.1?'✓':d.dE<.38?'~':'✕';
-      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums;color:${deCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${deSym}</span>${d.dE.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums">${d.ILD.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums">${d.inc_F.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums">${d.inc_M.toFixed(3)}</td>`;
+      const ildCol=d.ILD>=.8?'var(--good)':d.ILD>=.4?'var(--warn)':'var(--bad)';
+      const ildSym=d.ILD>=.8?'✓':d.ILD>=.4?'~':'✕';
+      const incFCol=d.inc_F>=.25?'var(--good)':d.inc_F>=.05?'var(--warn)':'var(--bad)';
+      const incFSym=d.inc_F>=.25?'✓':d.inc_F>=.05?'~':'✕';
+      const incMCol=d.inc_M>=.25?'var(--good)':d.inc_M>=.05?'var(--warn)':'var(--bad)';
+      const incMSym=d.inc_M>=.25?'✓':d.inc_M>=.05?'~':'✕';
+      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums;color:${deCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${deSym}</span>${d.dE.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums;color:${ildCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${ildSym}</span>${d.ILD.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums;color:${incFCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${incFSym}</span>${d.inc_F.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums;color:${incMCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${incMSym}</span>${d.inc_M.toFixed(3)}</td>`;
     }).join('');
     const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
