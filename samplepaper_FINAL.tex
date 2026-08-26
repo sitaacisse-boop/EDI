@@ -395,7 +395,11 @@ inclusion score of group $g$ is
 Inclusion is satisfied for group $g$ when $\mathrm{inclusion}_g(R) \geq
 \alpha_g$: a group representing $\alpha_g$ of the user population should find
 at least the same proportion of top-$k$ items relevant. We set $\theta = 4.0$
-as our default and compare with $\theta = 3.5$ experimentally.
+as our default on the 1--5 scale and compare with $\theta = 3.5$, the
+threshold used by Aird et al.~\cite{aird_social_2024} to define a ``liked''
+item on MovieLens (rating $>3$); this threshold is recalibrated per dataset
+to preserve the same semantics across different rating scales (see
+Section~\ref{sec:experimentation}).
 
 \paragraph{Item-side equity.}
 In item-side equity settings (Rate My Professors, OpenAlex), the sensitive
@@ -595,9 +599,16 @@ Fair Re-rank addresses EDI as a post-hoc correction.
 We evaluate all methods on the EDI metrics defined in Section~4.1.
 For user-side equity datasets (MovieLens, libimseti), we report $\Delta E$,
 ILD, and group inclusion scores ($\mathrm{inc}_F$, $\mathrm{inc}_M$), with
-relevance threshold $\theta \in \{3.5, 4.0\}$ for MovieLens. For item-side
-equity datasets (Rate My Professors, OpenAlex), we report $\Delta E$, ILD,
-and $\mathrm{frac}_F$ — the fraction of female items in the top-$k$ list.
+relevance threshold $\theta \in \{3.5, 4.0\}$ for MovieLens and
+$\theta = 7.0$ for libimseti --- the semantic equivalent of the
+MovieLens threshold on the platform's 1--10 scale, rather than a strict
+linear rescaling. For item-side equity datasets (Rate My Professors,
+OpenAlex), we report $\Delta E$, ILD, and $\mathrm{frac}_F$ — the fraction
+of female items in the top-$k$ list, with $\theta = 4.0$ for Rate My
+Professors (same 1--5 scale as MovieLens) and $\theta = 1.0$ for OpenAlex,
+a minimal threshold justified by the strong sparsity of the rating matrix
+(rating $= \min(\text{papers}, 5)$; most authors have only one paper per
+venue, see Figure~\ref{fig:datasets-overview}).
 Degradation tolerances are set to $\varepsilon_E = 0.1$, $\varepsilon_D = 0.05$,
 and $\varepsilon_I = 0.05$, calibrated from baseline measurements on the full
 graph. We set $k \in \{5, 10, 20\}$ for all datasets, and report the

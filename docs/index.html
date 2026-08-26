@@ -1174,7 +1174,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   <div class="card" style="margin-top:14px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau récapitulatif — ΔE et ILD par dataset et méthode (k=<span id="allCmpKLabel1">10</span>)</span><span class="i18n-en">Summary table — ΔE and ILD by dataset and method (k=<span id="allCmpKLabel1b">10</span>)</span></div><button class="csv-btn" onclick="downloadCSV('allCmpTbl','comparaison_tous_corpus_k'+curAllCmpK+'.csv')">⬇ CSV</button></div>
     <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px;line-height:1.5">
-      <span class="i18n-fr">Lecture : <span style="color:var(--green)">✓ vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">~ ambre</span> = moyen · <span style="color:var(--red)">✕ rouge</span> = mauvais (symboles ajoutés pour rester lisible en cas de daltonisme). Chaque cellule montre ΔE et ILD pour une méthode × un corpus.</span><span class="i18n-en">Legend: <span style="color:var(--green)">✓ green</span> = good (ΔE &lt; 0.05, ILD ≥ 0.80) · <span style="color:var(--amber)">~ amber</span> = medium · <span style="color:var(--red)">✕ red</span> = poor (symbols added to stay legible for color-blind readers). Each cell shows ΔE and ILD for one method × one corpus.</span>
+      <span class="i18n-fr">Lecture : <span style="color:var(--green)">✓ vert</span> = bon (ΔE &lt; 0.05, ILD ≥ 0.80, inc ≥ 0.25) · <span style="color:var(--amber)">~ ambre</span> = moyen · <span style="color:var(--red)">✕ rouge</span> = mauvais (symboles ajoutés pour rester lisible en cas de daltonisme). Chaque cellule montre ΔE, ILD et inclusion (inc_F, ou frac_F pour RMP/OpenAlex) pour une méthode × un corpus — une inclusion rouge signale une méthode quasi dégénérée (ex. Average Score sur les corpus user-side), même quand ΔE/ILD semblent bons.</span><span class="i18n-en">Legend: <span style="color:var(--green)">✓ green</span> = good (ΔE &lt; 0.05, ILD ≥ 0.80, inc ≥ 0.25) · <span style="color:var(--amber)">~ amber</span> = medium · <span style="color:var(--red)">✕ red</span> = poor (symbols added to stay legible for color-blind readers). Each cell shows ΔE, ILD, and inclusion (inc_F, or frac_F for RMP/OpenAlex) for one method × one corpus — a red inclusion value signals a near-degenerate method (e.g. Average Score on the user-side corpora), even when ΔE/ILD look good.</span>
     </div>
     <div style="overflow-x:auto"><table class="ftbl" id="allCmpTbl"></table></div>
     <div id="allCmpObs" style="margin-top:10px;padding:9px 13px;background:var(--s2);border-radius:8px;font-size:.77rem;color:var(--t2);line-height:1.55"></div>
@@ -1215,7 +1215,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="card">
       <div class="card-title"><span class="i18n-fr">Métriques EDI de « AURORA » à travers les échelles</span><span class="i18n-en">"AURORA" EDI metrics across scales</span></div>
       <canvas id="scalEdiCanvas" style="width:100%;display:block"></canvas>
-      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5"><span class="i18n-fr">ΔE (vert, 1−ΔE affiché) et ILD (bleu) pour AURORA à k=10. Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les deux métriques.</span><span class="i18n-en">ΔE (green, 1−ΔE shown) and ILD (blue) for AURORA at k=10. Dashed lines = ML-100k, solid lines = ML-1M. A higher value is better for both metrics.</span></p>
+      <p style="font-size:.68rem;color:var(--t3);margin:8px 0 0;line-height:1.5"><span class="i18n-fr">Les 3 métriques EDI pour AURORA à k=10&nbsp;: ΔE (vert, 1−ΔE affiché), ILD (bleu), inc_F (ambre). Lignes tiretées = ML-100k, lignes pleines = ML-1M. Une valeur élevée est meilleure pour les trois métriques.</span><span class="i18n-en">All 3 EDI metrics for AURORA at k=10: ΔE (green, 1−ΔE shown), ILD (blue), inc_F (amber). Dashed lines = ML-100k, solid lines = ML-1M. A higher value is better for all three metrics.</span></p>
     </div>
   </div>
   <div class="card" style="margin-top:14px">
@@ -1242,16 +1242,30 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;border:2.5px solid var(--t3);background:transparent"></div>100k</div>
         <div style="display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--t2)"><div style="width:16px;height:16px;border-radius:50%;background:var(--t3)"></div>1M</div>
       </div>
+      <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6"><span class="i18n-fr">Zone en pointillés = idéale (ΔE bas + ILD haut). Lignes reliant chaque méthode = trajectoire 100k→1M : <b style="color:var(--good)">AURORA</b> s'en rapproche nettement à 1M, mais <b>Fair Re-rank</b> reste devant sur ce corpus.</span><span class="i18n-en">Dashed zone = ideal (low ΔE + high ILD). Lines connecting each method = 100k→1M trajectory: <b style="color:var(--good)">AURORA</b> moves noticeably closer at 1M, but <b>Fair Re-rank</b> stays ahead on this corpus.</span></p>
     </div>
     <div class="card" style="margin-top:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau — 100k vs 1M, θ = 4.0</span><span class="i18n-en">Table — 100k vs 1M, θ = 4.0</span></div><button class="csv-btn" onclick="downloadCSV('cmpTbl','comparaison_100k_1m.csv')">⬇ CSV</button></div>
       <div style="overflow-x:auto"><table class="ftbl" id="cmpTbl"></table></div>
+      <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6">
+        <span class="i18n-fr">Les 4 dernières colonnes sont <b>Δ = valeur 1M − valeur 100k</b>. Comme un ΔE plus bas est meilleur, <b style="color:var(--good)">vert sur ΔΔE</b> = négatif = l'équité s'améliore à 1M ; <b style="color:var(--bad)">rouge</b> = positif = elle se dégrade. ILD, inc_F et inc_M suivent la logique inverse (plus haut = meilleur) : <b style="color:var(--good)">vert</b> = positif = amélioration ; <b style="color:var(--bad)">rouge</b> = négatif = dégradation.</span><span class="i18n-en">The last 4 columns are <b>Δ = 1M value − 100k value</b>. Since a lower ΔE is better, <b style="color:var(--good)">green on ΔΔE</b> = negative = fairness improves at 1M; <b style="color:var(--bad)">red</b> = positive = it worsens. ILD, inc_F, and inc_M follow the opposite logic (higher = better): <b style="color:var(--good)">green</b> = positive = improvement; <b style="color:var(--bad)">red</b> = negative = worsening.</span>
+      </p>
     </div>
     <div class="card" style="margin-top:10px">
       <div class="card-title"><span class="i18n-fr">Temps d'exécution — 100k vs 1M</span><span class="i18n-en">Execution time — 100k vs 1M</span></div>
       <canvas id="rtCanvas" style="width:100%;display:block"></canvas>
       <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.6"><span class="i18n-fr">Barres claires = 100k · Barres pleines = 1M · Échelle logarithmique.</span><span class="i18n-en">Light bars = 100k · Solid bars = 1M · Logarithmic scale.</span></p>
     </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="card-title"><span class="i18n-fr">Ce que montrent ces courbes</span><span class="i18n-en">What these curves show</span></div>
+    <p style="font-size:.78rem;color:var(--t2);line-height:1.65;margin:0">
+      <span class="i18n-fr">Le budget de fusion proportionnel (50&nbsp;% de |U|) reste exactement constant à toutes les échelles testées (250&nbsp;→&nbsp;3&nbsp;020 super-nœuds sur 500&nbsp;→&nbsp;6&nbsp;040 utilisateurs, ratio&nbsp;=&nbsp;0,500 partout) : le mécanisme de compression ne dérive pas avec la taille du corpus. Le temps d'exécution d'AURORA croît en revanche plus vite que linéairement avec n_users (×22 pour ×12 utilisateurs entre 500 et 6&nbsp;040, exposant empirique&nbsp;≈&nbsp;1,24), et l'écart avec les règles de vote se creuse avec l'échelle&nbsp;: environ 33× plus lente que Borda à 500 utilisateurs, environ 60× à 6&nbsp;040 — un coût qui reste de l'ordre de la minute (77&nbsp;s) sur le plus grand corpus testé, acceptable pour un calcul hors ligne mais à surveiller au-delà. Sur ΔE et ILD, AURORA est stable au-delà de ~1&nbsp;000 utilisateurs (ΔE&nbsp;≈&nbsp;0,21–0,26, ILD&nbsp;≈&nbsp;0,43–0,45), sans tendance nette d'amélioration ni de dégradation&nbsp;; les valeurs plus dispersées en dessous de 1&nbsp;000 utilisateurs reflètent la taille réduite de l'échantillon, pas un effet de l'algorithme.</span><span class="i18n-en">The proportional merge budget (50% of |U|) stays exactly constant at every scale tested (250&nbsp;→&nbsp;3,020 supernodes across 500&nbsp;→&nbsp;6,040 users, ratio&nbsp;=&nbsp;0.500 throughout): the compression mechanism does not drift with corpus size. AURORA's runtime, however, grows faster than linearly with n_users (×22 for a ×12 increase in users between 500 and 6,040, an empirical exponent&nbsp;≈&nbsp;1.24), and the gap with the voting rules widens with scale: roughly 33× slower than Borda at 500 users, roughly 60× at 6,040 — a cost that stays on the order of a minute (77s) on the largest corpus tested, acceptable for offline computation but worth watching beyond that. On ΔE and ILD, AURORA is stable above ~1,000 users (ΔE&nbsp;≈&nbsp;0.21–0.26, ILD&nbsp;≈&nbsp;0.43–0.45), with no clear improving or degrading trend; the more scattered values below 1,000 users reflect the smaller sample size, not an algorithmic effect.</span>
+    </p>
+    <p style="font-size:.72rem;color:var(--t3);line-height:1.6;margin:10px 0 0;padding-top:10px;border-top:1px solid rgba(120,120,180,.15)">
+      <span class="i18n-fr"><b>Limite :</b> ce balayage n'a été mesuré qu'à k=10, θ=4.0. La stabilité du temps d'exécution est cohérente avec le tableau d'efficacité computationnelle, où le temps d'AURORA varie peu avec k (3,79–4,04&nbsp;s sur MovieLens 100k pour k∈{5,10,20}) — l'extrapoler aux autres k est donc raisonnable. En revanche, la stabilité de ΔE et ILD à travers les échelles n'a été vérifiée qu'à ce seul k&nbsp;; rien ne garantit qu'elle tienne à k=5 ou k=20, puisque ΔE et ILD sont, eux, sensibles à k sur chaque jeu de données testé ailleurs sur ce site. C'est une limite ouverte, pas une généralisation établie.</span><span class="i18n-en"><b>Limitation:</b> this sweep was only measured at k=10, θ=4.0. The runtime stability is consistent with the computational-efficiency table, where AURORA's runtime varies little with k (3.79–4.04s on MovieLens 100k for k∈{5,10,20}) — so extrapolating it to other k values is reasonable. The stability of ΔE and ILD across scale, however, has only been checked at this single k; nothing guarantees it holds at k=5 or k=20, since ΔE and ILD are themselves sensitive to k on every dataset tested elsewhere on this site. This is an open limitation, not an established generalization.</span>
+    </p>
   </div>
 </div>
 
@@ -1459,7 +1473,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   </div>
   <div class="notice">
     <span style="color:var(--blue);font-size:1rem;flex-shrink:0"></span>
-    <span><b><span class="i18n-fr">Radar EDI par dataset :</span><span class="i18n-en">EDI radar by dataset:</span></b> <span class="i18n-fr">chaque axe est normalisé [0→1]. Pour ΔE, l'axe est inversé (1−ΔE) afin que <em>plus grand = meilleur</em> sur tous les axes. k=10 pour tous les datasets.</span><span class="i18n-en">each axis is normalized [0→1]. For ΔE, the axis is inverted (1−ΔE) so that <em>larger = better</em> on every axis. k=10 for all datasets.</span></span>
+    <span><b><span class="i18n-fr">Radar EDI par dataset :</span><span class="i18n-en">EDI radar by dataset:</span></b> <span class="i18n-fr">chaque axe est normalisé [0→1]. Pour ΔE, l'axe est inversé (1−ΔE) afin que <em>plus grand = meilleur</em> sur tous les axes. Vue figée à k=10 pour les 4 corpus — le profil change avec k (voir l'onglet <strong>Comparaison</strong>, sélecteur k=5/10/20, pour vérifier si la forme du radar tient à d'autres k). MovieLens 1M n'est pas dupliqué ici : c'est la variante de passage à l'échelle du même corpus « Films », déjà comparée à 100k dans les onglets <strong>Scalabilité</strong> et <strong>Comparaison</strong>.</span><span class="i18n-en">each axis is normalized [0→1]. For ΔE, the axis is inverted (1−ΔE) so that <em>larger = better</em> on every axis. Fixed view at k=10 for the 4 corpora — the profile shifts with k (see the <strong>Comparison</strong> tab, k=5/10/20 selector, to check whether the radar shape holds at other k). MovieLens 1M is not duplicated here: it's the scalability variant of the same "Movies" corpus, already compared to 100k in the <strong>Scalability</strong> and <strong>Comparison</strong> tabs.</span></span>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
     <div class="card">
@@ -1495,15 +1509,16 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <div class="card-title"><span class="i18n-fr">ΔE (équité) vs ILD (diversité) — tous datasets, toutes méthodes, k=10</span><span class="i18n-en">ΔE (fairness) vs ILD (diversity) — all datasets, all methods, k=10</span></div>
     <canvas id="paretoCanvas" style="width:100%;display:block"></canvas>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:.72rem" id="paretoLegend"></div>
+    <p style="font-size:.7rem;color:var(--t3);margin:8px 0 0;line-height:1.5"><span class="i18n-fr"><b>Taille du point = inclusion</b> (inc_F, ou frac_F pour RMP/OpenAlex) : un point minuscule signale une inclusion quasi nulle, même bien placé sur ΔE et ILD.</span><span class="i18n-en"><b>Point size = inclusion</b> (inc_F, or frac_F for RMP/OpenAlex): a tiny point signals near-zero inclusion, even when well-placed on ΔE and ILD.</span></p>
   </div>
   <div class="card" style="margin-top:14px">
     <div class="card-title"><span class="i18n-fr">Lecture du graphique</span><span class="i18n-en">Reading the chart</span></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:.8rem;color:var(--t2);line-height:1.6">
       <div>
-        <strong style="color:var(--green)"><span class="i18n-fr">Zone idéale :</span><span class="i18n-en">Ideal zone:</span></strong> <span class="i18n-fr">bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) s'y retrouve sur les 3 datasets : sans pondération par groupe, il ne crée pas d'écart — mais sans garantie non plus. <strong>AURORA</strong> s'en approche sur RMP (ΔE=0.112, ILD=0.808) et améliore l'équité vs Borda sur MovieLens (100k et 1M) ainsi que sur libimseti ; sur RMP uniquement, Borda a un ΔE plus bas (AURORA privilégie la diversité sur ce corpus).</span><span class="i18n-en">bottom-left (low ΔE) + top (high ILD). <strong>Average Score</strong> (purple) lands there on all 3 datasets: without group weighting, it creates no gap — but no guarantee either. <strong>AURORA</strong> gets close on RMP (ΔE=0.112, ILD=0.808) and improves fairness vs Borda on MovieLens (100k and 1M) as well as on libimseti; on RMP only, Borda has a lower ΔE (AURORA favors diversity on that corpus).</span>
+        <strong style="color:var(--green)"><span class="i18n-fr">Zone idéale :</span><span class="i18n-en">Ideal zone:</span></strong> <span class="i18n-fr">bas-gauche (ΔE faible) + haut (ILD élevé). <strong>Average Score</strong> (violet) y est sur 3 des 4 corpus (MovieLens 100k, libimseti, RMP) — mais ses points y sont minuscules sur MovieLens 100k et libimseti (inc_F≈0,001–0,002) : elle recommande la même liste à tout le monde, donc elle ne peut structurellement inclure personne. Sur OpenAlex, elle sort même de la zone idéale (ILD=0,356). <strong>AURORA</strong> n'y entre que sur RMP (ΔE=0,112, ILD=0,808), mais avec un point de taille correcte sur les 4 corpus (inc_F entre 0,19 et 0,35) — elle ne s'effondre jamais sur le troisième axe.</span><span class="i18n-en">bottom-left (low ΔE) + top (high ILD). <strong>Average Score</strong> (purple) lands there on 3 of the 4 corpora (MovieLens 100k, libimseti, RMP) — but its points are tiny on MovieLens 100k and libimseti (inc_F≈0.001–0.002): it recommends the same list to everyone, so it structurally cannot include anyone. On OpenAlex, it even falls outside the ideal zone (ILD=0.356). <strong>AURORA</strong> only enters the zone on RMP (ΔE=0.112, ILD=0.808), but with a reasonably sized point across all 4 corpora (inc_F between 0.19 and 0.35) — it never collapses on the third axis.</span>
       </div>
       <div>
-        <strong style="color:var(--amber)"><span class="i18n-fr">Compromis observé :</span><span class="i18n-en">Observed trade-off:</span></strong> <span class="i18n-fr">Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur ΔE par construction du graphe, là où Average Score obtient un bon résultat sans contrôle explicite.</span><span class="i18n-en">Borda/Condorcet are poor on both axes on RMP. Fair Re-rank improves fairness but reduces diversity (low ILD). AURORA's value is its <em>formal guarantee</em> on ΔE through graph construction, whereas Average Score gets a good result without explicit control.</span>
+        <strong style="color:var(--amber)"><span class="i18n-fr">Compromis observé :</span><span class="i18n-en">Observed trade-off:</span></strong> <span class="i18n-fr">Borda/Condorcet sont mauvais sur les deux axes sur RMP. Fair Re-rank améliore l'équité mais réduit la diversité (ILD bas). La valeur d'AURORA est sa <em>garantie formelle</em> sur les trois métriques par construction du graphe — là où Average Score obtient un bon ΔE/ILD sans aucun contrôle explicite, au prix d'une inclusion quasi nulle sur les corpus user-side (visible à la taille de ses points).</span><span class="i18n-en">Borda/Condorcet are poor on both axes on RMP. Fair Re-rank improves fairness but reduces diversity (low ILD). AURORA's value is its <em>formal guarantee</em> on all three metrics through graph construction — whereas Average Score gets a good ΔE/ILD with no explicit control at all, at the cost of near-zero inclusion on the user-side corpora (visible in its point size).</span>
       </div>
     </div>
   </div>
@@ -2587,31 +2602,6 @@ function renderTable1M(){
   document.getElementById('interp1M').innerHTML=`<p>${INTERP1M()[cur1MK]}</p>`;
 }
 
-function buildCmpTable(){
-  const t=document.getElementById('cmpTbl');
-  t.innerHTML='';
-  const k=cmpK;
-  let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">100k</th><th colspan="4">1M</th><th colspan="2">Δ (1M−100k)</th></tr>`;
-  h+=`<tr><th>${L('Méthode','Method')}</th><th></th>`;
-  ['100k','1M'].forEach(()=>COLS().forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
-  h+=`<th>ΔΔE</th><th>ΔILD</th></tr></thead><tbody>`;
- METHODS.forEach(m=>{
-    const r0=ALL[k][m],r1=ALL1M[k][m];
-    const isO=m==='AURORA',isFR=m==='Fair Re-rank';
-    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' AURORA':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
-    COLS().forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
-    COLS().forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
-    const ddE=r1.dE-r0.dE,dILD=r1.ILD-r0.ILD;
-    const dECol=ddE<0?'var(--good)':'var(--bad)';
-    const ILDCol=dILD>0?'var(--good)':'var(--bad)';
-    h+=`<td style="color:${dECol};font-weight:700">${ddE>=0?'+':''}${ddE.toFixed(4)}</td>`;
-    h+=`<td style="color:${ILDCol};font-weight:700">${dILD>=0?'+':''}${dILD.toFixed(4)}</td>`;
-    h+=`</tr>`;
-  });
-  h+=`</tbody>`;
-  t.innerHTML=h;
-}
-
 function drawCmpScatter(){
   const cv=document.getElementById('cmpCanvas');
   if(!cv) return;
@@ -2720,6 +2710,36 @@ function drawCmpScatter(){
     ctx.fillText(lbl,lx,ly);
     ctx.shadowBlur=0;
   });
+}
+
+function buildCmpTable(){
+  const t=document.getElementById('cmpTbl');
+  if(!t) return;
+  t.innerHTML='';
+  const k=cmpK;
+  let h=`<thead><tr class="ghdr"><th colspan="2"></th><th colspan="4">100k</th><th colspan="4">1M</th><th colspan="4">Δ (1M−100k)</th></tr>`;
+  h+=`<tr><th>${L('Méthode','Method')}</th><th></th>`;
+  ['100k','1M'].forEach(()=>COLS().forEach(c=>{h+=`<th>${c.key==='dE'?'ΔE':c.key}</th>`;}));
+  h+=`<th>ΔΔE</th><th>ΔILD</th><th>ΔincF</th><th>ΔincM</th></tr></thead><tbody>`;
+ METHODS.forEach(m=>{
+    const r0=ALL[k][m],r1=ALL1M[k][m];
+    const isO=m==='AURORA',isFR=m==='Fair Re-rank';
+    h+=`<tr class="${isO?'tor':isFR?'tfair':''}"><td>${isO?' AURORA':isFR?'↗ Fair Re-rank':m}</td><td></td>`;
+    COLS().forEach(c=>{h+=`<td>${r0[c.key].toFixed(4)}</td>`;});
+    COLS().forEach(c=>{h+=`<td>${r1[c.key].toFixed(4)}</td>`;});
+    const ddE=r1.dE-r0.dE,dILD=r1.ILD-r0.ILD,dIncF=r1.inc_F-r0.inc_F,dIncM=r1.inc_M-r0.inc_M;
+    const dECol=ddE<=0?'var(--good)':'var(--bad)';
+    const ILDCol=dILD>=0?'var(--good)':'var(--bad)';
+    const incFCol=dIncF>=0?'var(--good)':'var(--bad)';
+    const incMCol=dIncM>=0?'var(--good)':'var(--bad)';
+    h+=`<td style="color:${dECol};font-weight:700">${ddE>=0?'+':''}${ddE.toFixed(4)}</td>`;
+    h+=`<td style="color:${ILDCol};font-weight:700">${dILD>=0?'+':''}${dILD.toFixed(4)}</td>`;
+    h+=`<td style="color:${incFCol};font-weight:700">${dIncF>=0?'+':''}${dIncF.toFixed(4)}</td>`;
+    h+=`<td style="color:${incMCol};font-weight:700">${dIncM>=0?'+':''}${dIncM.toFixed(4)}</td>`;
+    h+=`</tr>`;
+  });
+  h+=`</tbody>`;
+  t.innerHTML=h;
 }
 
 function drawAllRuntime(){
@@ -2927,11 +2947,8 @@ window.addEventListener('resize',()=>{
   if(document.getElementById('p-viz')&&document.getElementById('p-viz').classList.contains('on')){
     drawRadar();drawScatter();drawSens();
   }
-  if(document.getElementById('p-cmp')&&document.getElementById('p-cmp').classList.contains('on')){
-    drawCmpScatter();drawRuntime();
-  }
   if(document.getElementById('p-scal')&&document.getElementById('p-scal').classList.contains('on')){
-    drawScalAll();
+    drawScalAll();drawCmpScatter();drawRuntime();
   }
 });
 
@@ -3236,7 +3253,7 @@ function drawScalEdi(){
   const r=scalCtx('scalEdiCanvas',200); if(!r)return;
   const {ctx,W,H}=r;
   const t2=scalCss('t2'),t3=scalCss('t3'),s2=scalCss('s2');
-  const green=scalCss('green'),blue=scalCss('blue');
+  const green=scalCss('green'),blue=scalCss('blue'),amber=scalCss('amber');
   const pad={l:44,r:24,t:18,b:42};
   const pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
 
@@ -3287,19 +3304,25 @@ function drawScalEdi(){
   drawLine(SCAL_100K_SIZES, n=>1-SCAL_100K_DATA[n]["AURORA"].dE, green, false, false);
   drawLine(SCAL_SIZES, n=>1-SCAL_DATA[n]["AURORA"].dE, green, true, true);
 
+  // inc_F — 1M plein ambre, 100k tiretée ambre creux
+  drawLine(SCAL_100K_SIZES, n=>SCAL_100K_DATA[n]["AURORA"].inc_F, amber, false, false);
+  drawLine(SCAL_SIZES, n=>SCAL_DATA[n]["AURORA"].inc_F, amber, true, true);
+
   // Labels
   ctx.fillStyle=blue; ctx.font='bold 8px sans-serif'; ctx.textAlign='left';
   ctx.fillText('ILD↑',pad.l+4,pad.t+12);
   ctx.fillStyle=green;
   ctx.fillText('1−ΔE↑',pad.l+30,pad.t+12);
+  ctx.fillStyle=amber;
+  ctx.fillText('inc_F↑',pad.l+62,pad.t+12);
 }
 
 // ── Scalability table — ML-1M ──────────────────────────────────────────────
 function buildScalTable(){
   const tbl=document.getElementById('scalTbl');
   if(!tbl)return;
-  const head=`<tr><th>${L('Méthode','Method')}</th>${SCAL_SIZES.map(n=>`<th colspan="2">ML-1M ${n>=1000?(n/1000)+'k':n}</th>`).join('')}</tr>
-<tr><th></th>${SCAL_SIZES.map(()=>`<th>${L('Temps','Time')}</th><th>ΔE</th>`).join('')}</tr>`;
+  const head=`<tr><th>${L('Méthode','Method')}</th>${SCAL_SIZES.map(n=>`<th colspan="5">ML-1M ${n>=1000?(n/1000)+'k':n}</th>`).join('')}</tr>
+<tr><th></th>${SCAL_SIZES.map(()=>`<th>${L('Temps','Time')}</th><th>ΔE</th><th>ILD</th><th>inc_F</th><th>inc_M</th>`).join('')}</tr>`;
   const rows=METHODS.map(m=>{
     const cells=SCAL_SIZES.map(n=>{
       const d=SCAL_DATA[n][m];
@@ -3308,7 +3331,7 @@ function buildScalTable(){
       const stk=m==='AURORA'&&d.stable_topk?` style="color:var(--amber)"`:''
       const deCol=d.dE<.1?'var(--good)':d.dE<.38?'var(--warn)':'var(--bad)';
       const deSym=d.dE<.1?'✓':d.dE<.38?'~':'✕';
-      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums;color:${deCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${deSym}</span>${d.dE.toFixed(3)}</td>`;
+      return `<td style="font-variant-numeric:tabular-nums"${stk}>${tStr}</td><td style="font-variant-numeric:tabular-nums;color:${deCol};font-weight:700"><span aria-hidden="true" style="opacity:.75;margin-right:2px">${deSym}</span>${d.dE.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums">${d.ILD.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums">${d.inc_F.toFixed(3)}</td><td style="font-variant-numeric:tabular-nums">${d.inc_M.toFixed(3)}</td>`;
     }).join('');
     const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
@@ -3840,6 +3863,9 @@ function buildPareto(){
     else if(shape==='triangle'){ctx.moveTo(x,y-r);ctx.lineTo(x+r*.87,y+r*.5);ctx.lineTo(x-r*.87,y+r*.5);ctx.closePath();}
     else ctx.rect(x-r+1,y-r+1,(r-1)*2,(r-1)*2);
   }
+  // taille du point = inclusion (inc_F si dispo, sinon frac_F) : un point minuscule
+  // signale une inclusion quasi nulle même quand ΔE/ILD semblent bons.
+  function incR(d){const inc=d.inc_F!==undefined?d.inc_F:(d.frac_F||0); return 2.5+Math.min(1,inc/0.35)*6.5;}
   // marks — passe 1 : baselines (bons résultats plus opaques, mauvais atténués)
   DATASETS.forEach(ds=>{
     const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB[10]:ds.key==='RMP'?RMP[10]:OALEX[10];
@@ -3847,7 +3873,7 @@ function buildPareto(){
       const d=src[m]; const x=toX(d.dE),y=toY(d.ILD);
       const col=MC[m];
       const good=d.dE<0.14&&d.ILD>0.70;
-      const r=good?6:4;
+      const r=incR(d);
       drawShape(ctx,ds.shape,x,y,r);
       ctx.fillStyle=col+(good?'dd':'55'); ctx.fill();
       if(good){ctx.strokeStyle=col+'99';ctx.lineWidth=1.5;ctx.stroke();}
@@ -3857,7 +3883,7 @@ function buildPareto(){
   DATASETS.forEach(ds=>{
     const src=ds.key==='ML100k'?ALL[10]:ds.key==='Lib'?LIB[10]:ds.key==='RMP'?RMP[10]:OALEX[10];
     const d=src['AURORA']; const x=toX(d.dE),y=toY(d.ILD);
-    const col=MC['AURORA']; const r=9;
+    const col=MC['AURORA']; const r=incR(d)+2;
     ctx.shadowBlur=16; ctx.shadowColor=col;
     drawShape(ctx,ds.shape,x,y,r);
     ctx.fillStyle=col+'ee'; ctx.fill();
@@ -3892,12 +3918,12 @@ function buildPareto(){
 // ═══ COMPARAISON CROSS-DATASET (p-cmp) ════════════════════════════════════════
 let curAllCmpK=10;
 function ALLCMP_OBS(){return {
-  5: L(`aucune méthode classique n'est bonne sur tous les datasets simultanément, et à k=5 le tableau se durcit encore : même <strong>Average Score</strong> échoue sur OpenAlex (ΔE=1.233, identique à Borda) — seuls Fair Re-rank (ΔE=0.071) et <strong style="color:var(--green)">AURORA</strong> (ΔE=0.058, la meilleure valeur du tableau) évitent ce biais. Sur libimseti, AURORA reste identique à Borda/Weighted Borda/Condorcet (ΔE=1.138) : aucune amélioration, seul Fair Re-rank domine (ΔE=0.0004). Sur RMP, tous les votes classiques atteignent déjà ΔE=0 — AURORA sacrifie un peu d'équité (ΔE=0.042) pour presque doubler la diversité (ILD=0.416 contre 0.298 au mieux pour les votes classiques). Sur MovieLens 100k, elle bat Borda/Weighted Borda sur les deux axes mais reste légèrement en retrait de Condorcet en diversité (ILD=0.330 contre 0.340).`,
-     `no classical method is good on all datasets simultaneously, and at k=5 the picture gets even harder: even <strong>Average Score</strong> fails on OpenAlex (ΔE=1.233, identical to Borda) — only Fair Re-rank (ΔE=0.071) and <strong style="color:var(--green)">AURORA</strong> (ΔE=0.058, the best value in the table) escape this bias. On libimseti, AURORA is identical to Borda/Weighted Borda/Condorcet (ΔE=1.138): zero improvement, only Fair Re-rank dominates (ΔE=0.0004). On RMP, every classical vote already reaches ΔE=0 — AURORA trades a bit of fairness (ΔE=0.042) for nearly double the diversity (ILD=0.416 vs. 0.298 at best among classical votes). On MovieLens 100k, it beats Borda/Weighted Borda on both axes but trails Condorcet slightly on diversity (ILD=0.330 vs. 0.340).`),
-  10: L(`aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 partout mais ILD très bas (sauf inclusion quasi nulle). Borda est catastrophique sur libimseti (ΔE=1.30) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.267) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.065). Sur libimseti, aucune amélioration.`,
-     `no classical method is good on all datasets simultaneously. Average Score has ΔE≈0 everywhere but very low ILD (plus near-zero inclusion). Borda is catastrophic on libimseti (ΔE=1.30) and OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> systematically beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k and OpenAlex. On RMP, it dominates strongly on diversity (ILD=0.808 versus 0.267) but not on fairness (ΔE=0.112, worse than Borda's 0.065). On libimseti, no improvement.`),
-  20: L(`aucune méthode classique n'est bonne sur tous les datasets simultanément, mais à k=20 <strong style="color:var(--green)">AURORA</strong> est dans sa configuration la plus favorable : elle bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k (ΔE=0.285, ILD=0.462) et sur OpenAlex (ΔE=0.058, ILD=0.333). Sur RMP, elle conserve sa large avance en diversité (ILD=0.818 contre 0.182–0.242 pour les votes classiques) tout en restant plus équitable que Borda (ΔE=0.078 contre 0.139, le pire du tableau). Sur libimseti, l'écart d'équité persiste (ΔE=1.115, pas mieux que Borda) mais la diversité devient la meilleure du tableau (ILD=0.781).`,
-     `no classical method is good on all datasets simultaneously, but at k=20 <strong style="color:var(--green)">AURORA</strong> is in its most favorable configuration: it beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k (ΔE=0.285, ILD=0.462) and on OpenAlex (ΔE=0.058, ILD=0.333). On RMP, it keeps its wide diversity lead (ILD=0.818 vs. 0.182–0.242 for classical votes) while staying fairer than Borda (ΔE=0.078 vs. 0.139, the worst in the table). On libimseti, the fairness gap persists (ΔE=1.115, no better than Borda) but diversity becomes the best in the table (ILD=0.781).`)
+  5: L(`aucune méthode classique n'est bonne sur tous les datasets simultanément, et à k=5 le tableau se durcit encore : même <strong>Average Score</strong> échoue sur OpenAlex (ΔE=1.233, identique à Borda) — seuls Fair Re-rank (ΔE=0.071) et <strong style="color:var(--green)">AURORA</strong> (ΔE=0.058, la meilleure valeur sur ce corpus) évitent ce biais. Sur libimseti, AURORA reste identique à Borda/Weighted Borda/Condorcet (ΔE=1.138) : aucune amélioration, seul Fair Re-rank domine (ΔE=0.0004). Sur RMP, tous les votes classiques atteignent déjà ΔE=0 — AURORA sacrifie un peu d'équité (ΔE=0.042) pour presque doubler la diversité (ILD=0.416 contre 0.298 au mieux pour les votes classiques). Sur MovieLens 100k, elle bat Borda/Weighted Borda sur les deux axes mais reste légèrement en retrait de Condorcet en diversité (ILD=0.330 contre 0.340).`,
+     `no classical method is good on all datasets simultaneously, and at k=5 the picture gets even harder: even <strong>Average Score</strong> fails on OpenAlex (ΔE=1.233, identical to Borda) — only Fair Re-rank (ΔE=0.071) and <strong style="color:var(--green)">AURORA</strong> (ΔE=0.058, the best value on this corpus) escape this bias. On libimseti, AURORA is identical to Borda/Weighted Borda/Condorcet (ΔE=1.138): zero improvement, only Fair Re-rank dominates (ΔE=0.0004). On RMP, every classical vote already reaches ΔE=0 — AURORA trades a bit of fairness (ΔE=0.042) for nearly double the diversity (ILD=0.416 vs. 0.298 at best among classical votes). On MovieLens 100k, it beats Borda/Weighted Borda on both axes but trails Condorcet slightly on diversity (ILD=0.330 vs. 0.340).`),
+  10: L(`aucune méthode classique n'est bonne sur tous les datasets simultanément. Average Score a ΔE≈0 et ILD très haut sur 3 des 4 corpus (ML100k, libimseti, RMP) — mais son inclusion y est quasi nulle (inc_F≈0.001–0.002 sur ML100k/libimseti) : elle recommande la même liste à tout le monde, donc son bon ΔE/ILD ne reflète aucun contrôle réel. Sur OpenAlex, son ILD chute à 0.356. Borda est catastrophique sur libimseti (ΔE=1.30) et OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k et OpenAlex. Sur RMP, elle domine largement en diversité (ILD=0.808 contre 0.267) mais pas en équité (ΔE=0.112, moins bon que Borda à 0.065). Sur libimseti, aucune amélioration.`,
+     `no classical method is good on all datasets simultaneously. Average Score has ΔE≈0 and very high ILD on 3 of the 4 corpora (ML100k, libimseti, RMP) — but its inclusion there is near zero (inc_F≈0.001–0.002 on ML100k/libimseti): it recommends the same list to everyone, so its good ΔE/ILD reflects no real control. On OpenAlex, its ILD drops to 0.356. Borda is catastrophic on libimseti (ΔE=1.30) and OpenAlex (ΔE=1.23). <strong style="color:var(--green)">AURORA</strong> systematically beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k and OpenAlex. On RMP, it dominates strongly on diversity (ILD=0.808 versus 0.267) but not on fairness (ΔE=0.112, worse than Borda's 0.065). On libimseti, no improvement.`),
+  20: L(`aucune méthode classique n'est bonne sur tous les datasets simultanément, mais à k=20 <strong style="color:var(--green)">AURORA</strong> est dans sa configuration la plus favorable : elle bat Borda/Weighted Borda/Condorcet sur ΔE et ILD simultanément sur MovieLens 100k (ΔE=0.285, ILD=0.462) et sur OpenAlex (ΔE=0.058, ILD=0.333). Sur RMP, elle conserve sa large avance en diversité (ILD=0.818 contre 0.182–0.242 pour les votes classiques) tout en restant plus équitable que Borda (ΔE=0.078 contre 0.139, le pire sur ce corpus). Sur libimseti, l'écart d'équité persiste (ΔE=1.115, pas mieux que Borda) mais la diversité devient la meilleure sur ce corpus (ILD=0.781).`,
+     `no classical method is good on all datasets simultaneously, but at k=20 <strong style="color:var(--green)">AURORA</strong> is in its most favorable configuration: it beats Borda/Weighted Borda/Condorcet on ΔE and ILD simultaneously on MovieLens 100k (ΔE=0.285, ILD=0.462) and on OpenAlex (ΔE=0.058, ILD=0.333). On RMP, it keeps its wide diversity lead (ILD=0.818 vs. 0.182–0.242 for classical votes) while staying fairer than Borda (ΔE=0.078 vs. 0.139, the worst on this corpus). On libimseti, the fairness gap persists (ΔE=1.115, no better than Borda) but diversity becomes the best on this corpus (ILD=0.781).`)
 };}
 function buildAllCmpTable(){
   const tbl=document.getElementById('allCmpTbl');
@@ -3910,9 +3936,9 @@ function buildAllCmpTable(){
   ];
   const src={ML100k:ALL[curAllCmpK],Lib:LIB[curAllCmpK],RMP:RMP[curAllCmpK],OAlex:OALEX[curAllCmpK]};
   let h=`<thead><tr><th>${L('Méthode','Method')}</th>`;
- DATASETS.forEach(ds=>{h+=`<th colspan="2">${ds.label}</th>`;});
+ DATASETS.forEach(ds=>{h+=`<th colspan="3">${ds.label}</th>`;});
   h+=`</tr><tr><th></th>`;
- DATASETS.forEach(()=>{h+=`<th>ΔE ↓</th><th>ILD ↑</th>`;});
+ DATASETS.forEach(()=>{h+=`<th>ΔE ↓</th><th>ILD ↑</th><th>inc ↑</th>`;});
   h+=`</tr></thead><tbody>`;
  METHODS.forEach(m=>{
     const isO=m==='AURORA';
@@ -3920,13 +3946,17 @@ function buildAllCmpTable(){
     DATASETS.forEach(ds=>{
       const d=src[ds.key][m];
       const deV=d.dE, ildV=d.ILD;
-      if(deV===null){h+=`<td colspan="2" style="color:var(--amber);font-style:italic;font-size:.77rem">${L('en cours','in progress')}</td>`;return;}
+      const incV=d.inc_F!==undefined?d.inc_F:(d.frac_F||0);
+      if(deV===null){h+=`<td colspan="3" style="color:var(--amber);font-style:italic;font-size:.77rem">${L('en cours','in progress')}</td>`;return;}
       const deCls=deV<.05?'color:var(--green)':deV<.4?'color:var(--amber)':'color:var(--red)';
       const ildCls=ildV>=.8?'color:var(--green)':ildV>=.4?'color:var(--amber)':'color:var(--red)';
+      const incCls=incV>=.25?'color:var(--green)':incV>=.05?'color:var(--amber)':'color:var(--red)';
       const deSym=deV<.05?'✓':deV<.4?'~':'✕';
       const ildSym=ildV>=.8?'✓':ildV>=.4?'~':'✕';
+      const incSym=incV>=.25?'✓':incV>=.05?'~':'✕';
       h+=`<td style="font-variant-numeric:tabular-nums;${deCls}" title="${deV<.05?L('bon','good'):deV<.4?L('moyen','medium'):L('mauvais','poor')}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${deSym}</span>${deV.toFixed(3)}</td>`;
       h+=`<td style="font-variant-numeric:tabular-nums;${ildCls}" title="${ildV>=.8?L('bon','good'):ildV>=.4?L('moyen','medium'):L('mauvais','poor')}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${ildSym}</span>${ildV.toFixed(3)}</td>`;
+      h+=`<td style="font-variant-numeric:tabular-nums;${incCls}" title="${incV>=.25?L('bon','good'):incV>=.05?L('moyen','medium'):L('mauvais — quasi dégénéré','poor — near-degenerate')}"><span aria-hidden="true" style="opacity:.75;margin-right:3px">${incSym}</span>${incV.toFixed(3)}</td>`;
     });
     h+=`</tr>`;
   });

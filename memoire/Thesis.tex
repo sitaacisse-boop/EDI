@@ -590,7 +590,11 @@ L'inclusion est satisfaite pour le groupe $g$ lorsque
 $\mathrm{inclusion}_g(R) \geq \alpha_g$ : un groupe représentant
 $\alpha_g$ de la population d'utilisateurs devrait trouver au moins la
 même proportion d'items top-$k$ pertinents. Nous fixons $\theta = 4{,}0$
-par défaut et comparons avec $\theta = 3{,}5$ expérimentalement.
+par défaut sur l'échelle 1--5 et comparons avec $\theta = 3{,}5$, seuil
+adopté par Aird et al.~\cite{aird_social_2024} pour définir un item
+« aimé » sur MovieLens (note $>3$) ; ce seuil est recalibré par jeu de
+données pour préserver la même sémantique sur des échelles différentes
+(voir chapitre~\ref{chap:validation}, section Jeux de Données).
 
 \paragraph{Équité côté item.}
 Dans les configurations d'équité côté item (Rate My Professors,
@@ -809,10 +813,18 @@ Nous évaluons toutes les méthodes sur les métriques EDI définies en
 section~\ref{sec:methodology}. Pour les jeux de données à équité côté
 utilisateur (MovieLens, libimseti), nous rapportons $\Delta E$, l'ILD, et
 les scores d'inclusion de groupe ($\mathrm{inc}_F$, $\mathrm{inc}_M$),
-avec un seuil de pertinence $\theta \in \{3{,}5, 4{,}0\}$ pour MovieLens.
-Pour les jeux de données à équité côté item (Rate My Professors,
-OpenAlex), nous rapportons $\Delta E$, l'ILD, et $\mathrm{frac}_F$ --- la
-fraction d'items féminins dans la liste top-$k$. Les tolérances de
+avec un seuil de pertinence $\theta \in \{3{,}5, 4{,}0\}$ pour MovieLens
+et $\theta = 7{,}0$ pour libimseti ---
+équivalent sémantique du seuil MovieLens sur l'échelle 1--10 de la
+plateforme, plutôt qu'une mise à l'échelle linéaire stricte. Pour les
+jeux de données à équité côté item (Rate My Professors, OpenAlex), nous
+rapportons $\Delta E$, l'ILD, et $\mathrm{frac}_F$ --- la fraction
+d'items féminins dans la liste top-$k$, avec $\theta = 4{,}0$ pour Rate
+My Professors (même échelle 1--5 que MovieLens) et $\theta = 1{,}0$ pour
+OpenAlex, seuil minimal justifié par la forte parcimonie de la matrice
+de notes (note $= \min(\text{nb papiers}, 5)$ ; la plupart des auteurs
+n'ont qu'un seul papier par venue, voir figure~\ref{fig:datasets-overview}).
+Les tolérances de
 dégradation sont fixées à $\varepsilon_E = 0{,}1$, $\varepsilon_D =
 0{,}05$, et $\varepsilon_I = 0{,}05$, calibrées à partir de mesures de
 référence sur le graphe complet. Nous fixons $k \in \{5, 10, 20\}$ pour
@@ -920,8 +932,9 @@ Sur \textbf{libimseti} (tableau~\ref{tab:libimseti}, $\theta=7{,}0$ sur
 l'échelle 1--10 de la plateforme), Average Score reste dégénéré (même
 mécanisme que ci-dessus) et Fair Re-rank est le seul à obtenir un
 $\Delta E$ bas (0,139) parmi les méthodes non dégénérées ; AURORA obtient
-la meilleure ILD (0,761) mais, comme les méthodes de vote, ne réduit pas
-$\Delta E$ (au-delà de 1,2). Cette limite --- propre à ce seul jeu de
+la meilleure ILD parmi les méthodes à inclusion non triviale (0,761,
+devant Borda, Weighted Borda et Condorcet, entre 0,716 et 0,746) mais,
+comme les méthodes de vote, ne réduit pas $\Delta E$ (au-delà de 1,2). Cette limite --- propre à ce seul jeu de
 données --- est analysée en détail en
 section~\ref{sec:libimseti-limitation} : elle reflète une réelle
 différence de comportement de notation entre groupes plutôt qu'une
