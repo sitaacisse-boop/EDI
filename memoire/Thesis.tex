@@ -507,7 +507,17 @@ proche d'AURORA, et pourtant fondamentalement différent : SCRUF-D agit au
 moment de produire le classement final --- un post-traitement --- alors
 qu'AURORA agit en amont, sur la structure du graphe résumé, avant même que
 le classement ne soit calculé. Leur exploration approfondie de la voie
-post-hoc laisse la voie structurelle ouverte.
+post-hoc laisse la voie structurelle ouverte. Nous ne l'implémentons pas
+comme référentiel expérimental : SCRUF-D exige une fonction d'utilité par
+préoccupation d'équité et un mécanisme de négociation inter-agents (vote
+de Borda, Copeland ou Ranked Pairs entre agents), à concevoir et calibrer
+séparément pour chacun de nos quatre corpus --- une contribution
+méthodologique à part entière, distincte de notre protocole à métriques
+EDI fixes. Fair Re-rank, notre référentiel de post-traitement, reste
+comparable dans l'esprit (un ajustement du classement final sous
+contrainte d'équité) sans requérir cette architecture multi-agents ; une
+implémentation fidèle de SCRUF-D est laissée comme référentiel
+prioritaire pour un travail futur.
 
 \subsection{Lacune de Recherche}
 
@@ -1111,6 +1121,19 @@ $k=10$), et reste dans tous les cas supérieur à celui de Borda
 ($\approx 0{,}065$) : le compromis équité/diversité décrit en
 section~\ref{sec:libimseti-limitation} tient quel que soit le budget
 choisi entre 30 et 60\,\%.
+
+Les résultats de MovieLens 100k à $k=10$ (tableau~\ref{tab:k10}) sont-ils
+stables sous variation de l'échantillon d'utilisateurs~? Un
+sous-échantillonnage sans remise (90\,\% de $|U|$, 30 répétitions)
+confirme que oui : AURORA bat Borda et Condorcet sur $\Delta E$ dans
+28/30 tirages et sur l'ILD dans 30/30 tirages (Weighted Borda : 24/30 et
+30/30), avec un écart-type faible sur les deux métriques ($\Delta E =
+0{,}417 \pm 0{,}035$, ILD $= 0{,}391 \pm 0{,}004$) --- l'avantage
+d'AURORA sur les règles de vote classiques n'est pas un artefact du
+tirage unique rapporté au tableau~\ref{tab:k10}. Fair Re-rank, en
+revanche, reste devant AURORA sur les deux métriques dans les 30 tirages
+sans exception, confirmant que son avantage sur ce corpus est lui aussi
+robuste.
 
 \subsection*{Synthèse Inter-Domaines}
 

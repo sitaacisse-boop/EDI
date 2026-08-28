@@ -321,7 +321,16 @@ competitor, yet it differs from AURORA in a fundamental way: SCRUF-D acts at the
 moment of producing the final ranking, that is, as a post-processing or
 re-ranking step, whereas we act upstream on the structure of the summarized
 graph. Their thorough exploration of the post-processing route leaves the
-structural route open.
+structural route open. We do not implement it as an experimental baseline:
+SCRUF-D requires a per-fairness-concern utility function and an inter-agent
+negotiation mechanism (Borda, Copeland, or Ranked Pairs voting among agents)
+that would need to be designed and calibrated separately for each of our four
+corpora --- a methodological contribution in its own right, distinct from our
+fixed-EDI-metric evaluation protocol. Fair Re-rank, our post-processing
+baseline, remains comparable in spirit (adjusting the final ranking under a
+fairness constraint) without requiring this multi-agent architecture; a
+faithful SCRUF-D implementation is left as a priority baseline for future
+work.
 
 \subsection{Research Gap}
 
@@ -990,6 +999,17 @@ regardless of the exact budget chosen. We did not observe a budget within
 30--60\% that closes this gap while preserving AURORA's diversity
 advantage, which we leave as an open question for future calibration
 work (Section~6).
+
+Are the MovieLens 100k results at $k=10$ (Table~2) stable under
+resampling of the user set? Subsampling without replacement (90\% of
+$|U|$, 30 repetitions) confirms they are: AURORA beats Borda and
+Condorcet on $\Delta E$ in 28/30 draws and on ILD in 30/30 draws
+(Weighted Borda: 24/30 and 30/30), with low variance on both metrics
+($\Delta E = 0.417 \pm 0.035$, ILD $= 0.391 \pm 0.004$) --- AURORA's
+advantage over the classical voting rules is not an artefact of the
+single draw reported in Table~2. Fair Re-rank, by contrast, stays ahead
+of AURORA on both metrics in all 30 draws without exception, confirming
+that its advantage on this dataset is likewise robust.
 
 \subsection*{Cross-Domain Summary}
 
