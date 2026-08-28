@@ -3403,18 +3403,20 @@ function buildLibTable(){
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
   const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
+  const AURORA_PINK='#ff2fd4';
   const rows=METHODS.map(m=>{
     const v=LIBK[m];
+    const isO=m==='AURORA';
     const cells=cols.map(c=>{
       const val=v[c.k];
       const isBest=val===best[c.k];
       const tStr=c.k==='elapsed_s'?(val<1?val.toFixed(3)+'s':val<60?val.toFixed(1)+'s':(val/60).toFixed(1)+'min'):val.toFixed(4);
-      const hi=isBest?`font-weight:900;color:var(--green)`:'';
+      const pinkMe=isO&&(c.k==='ILD'||(c.k==='inc_F'&&curLibK===10));
+      const hi=pinkMe?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?`font-weight:900;color:var(--green)`:'';
       // ΔE > 1 = rouge flagrant (jamais vu sur MovieLens)
       const red=c.k==='dE'&&val>1?`;color:var(--red)`:'' ;
       return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}</td>`;
     }).join('');
-    const isO=m==='AURORA';
     return `<tr style="${isO?'font-weight:700;color:var(--green)':''}"><td>${m}</td>${cells}</tr>`;
   }).join('');
   tbl.innerHTML=`<thead>${head}</thead><tbody>${rows}</tbody>`;
