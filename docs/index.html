@@ -1266,7 +1266,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
   <div class="card" style="margin-top:14px">
     <div class="card-title"><span class="i18n-fr">Ce que montrent ces courbes</span><span class="i18n-en">What these curves show</span></div>
     <p style="font-size:.78rem;color:var(--t2);line-height:1.65;margin:0">
-      <span class="i18n-fr">Le budget de fusion proportionnel (50&nbsp;% de |U|) reste exactement constant à toutes les échelles testées (250&nbsp;→&nbsp;3&nbsp;020 super-nœuds sur 500&nbsp;→&nbsp;6&nbsp;040 utilisateurs, ratio&nbsp;=&nbsp;0,500 partout) : le mécanisme de compression ne dérive pas avec la taille du corpus. Le temps d'exécution d'AURORA croît en revanche plus vite que linéairement avec n_users (×22 pour ×12 utilisateurs entre 500 et 6&nbsp;040, exposant empirique&nbsp;≈&nbsp;1,24), et l'écart avec les règles de vote se creuse avec l'échelle&nbsp;: environ 33× plus lente que Borda à 500 utilisateurs, environ 60× à 6&nbsp;040 — un coût qui reste de l'ordre de la minute (77&nbsp;s) sur le plus grand corpus testé, acceptable pour un calcul hors ligne mais à surveiller au-delà. Sur ΔE et ILD, AURORA est stable au-delà de ~1&nbsp;000 utilisateurs (ΔE&nbsp;≈&nbsp;0,21–0,26, ILD&nbsp;≈&nbsp;0,43–0,45), sans tendance nette d'amélioration ni de dégradation&nbsp;; les valeurs plus dispersées en dessous de 1&nbsp;000 utilisateurs reflètent la taille réduite de l'échantillon, pas un effet de l'algorithme.</span><span class="i18n-en">The proportional merge budget (50% of |U|) stays exactly constant at every scale tested (250&nbsp;→&nbsp;3,020 supernodes across 500&nbsp;→&nbsp;6,040 users, ratio&nbsp;=&nbsp;0.500 throughout): the compression mechanism does not drift with corpus size. AURORA's runtime, however, grows faster than linearly with n_users (×22 for a ×12 increase in users between 500 and 6,040, an empirical exponent&nbsp;≈&nbsp;1.24), and the gap with the voting rules widens with scale: roughly 33× slower than Borda at 500 users, roughly 60× at 6,040 — a cost that stays on the order of a minute (77s) on the largest corpus tested, acceptable for offline computation but worth watching beyond that. On ΔE and ILD, AURORA is stable above ~1,000 users (ΔE&nbsp;≈&nbsp;0.21–0.26, ILD&nbsp;≈&nbsp;0.43–0.45), with no clear improving or degrading trend; the more scattered values below 1,000 users reflect the smaller sample size, not an algorithmic effect.</span>
+      <span class="i18n-fr">Le budget de fusion proportionnel (50&nbsp;% de |U|) reste exactement constant à toutes les échelles testées (250&nbsp;→&nbsp;3&nbsp;020 super-nœuds sur 500&nbsp;→&nbsp;6&nbsp;040 utilisateurs, ratio&nbsp;=&nbsp;0,500 partout) : le mécanisme de compression ne dérive pas avec la taille du corpus. Le temps d'exécution d'AURORA croît en revanche plus vite que linéairement avec n_users (×30 pour ×12 utilisateurs entre 500 et 6&nbsp;040, exposant empirique&nbsp;≈&nbsp;1,36), et l'écart avec les règles de vote se creuse avec l'échelle&nbsp;: environ 12× plus lente que Borda à 500 utilisateurs, environ 29× à 6&nbsp;040 — un coût qui reste de moins d'une minute (37&nbsp;s) sur le plus grand corpus testé, acceptable pour un calcul hors ligne mais à surveiller au-delà. Sur ΔE et ILD, AURORA est stable au-delà de ~1&nbsp;000 utilisateurs (ΔE&nbsp;≈&nbsp;0,21–0,26, ILD&nbsp;≈&nbsp;0,43–0,45), sans tendance nette d'amélioration ni de dégradation&nbsp;; les valeurs plus dispersées en dessous de 1&nbsp;000 utilisateurs reflètent la taille réduite de l'échantillon, pas un effet de l'algorithme.</span><span class="i18n-en">The proportional merge budget (50% of |U|) stays exactly constant at every scale tested (250&nbsp;→&nbsp;3,020 supernodes across 500&nbsp;→&nbsp;6,040 users, ratio&nbsp;=&nbsp;0.500 throughout): the compression mechanism does not drift with corpus size. AURORA's runtime, however, grows faster than linearly with n_users (×30 for a ×12 increase in users between 500 and 6,040, an empirical exponent&nbsp;≈&nbsp;1.36), and the gap with the voting rules widens with scale: roughly 12× slower than Borda at 500 users, roughly 29× at 6,040 — a cost that stays under a minute (37s) on the largest corpus tested, acceptable for offline computation but worth watching beyond that. On ΔE and ILD, AURORA is stable above ~1,000 users (ΔE&nbsp;≈&nbsp;0.21–0.26, ILD&nbsp;≈&nbsp;0.43–0.45), with no clear improving or degrading trend; the more scattered values below 1,000 users reflect the smaller sample size, not an algorithmic effect.</span>
     </p>
     <p style="font-size:.72rem;color:var(--t3);line-height:1.6;margin:10px 0 0;padding-top:10px;border-top:1px solid rgba(120,120,180,.15)">
       <span class="i18n-fr"><b>Limite :</b> ce balayage n'a été mesuré qu'à k=10, θ=4.0. La stabilité du temps d'exécution est cohérente avec le tableau d'efficacité computationnelle, où le temps d'AURORA varie peu avec k (3,79–4,04&nbsp;s sur MovieLens 100k pour k∈{5,10,20}) — l'extrapoler aux autres k est donc raisonnable. En revanche, la stabilité de ΔE et ILD à travers les échelles n'a été vérifiée qu'à ce seul k&nbsp;; rien ne garantit qu'elle tienne à k=5 ou k=20, puisque ΔE et ILD sont, eux, sensibles à k sur chaque jeu de données testé ailleurs sur ce site. C'est une limite ouverte, pas une généralisation établie.</span><span class="i18n-en"><b>Limitation:</b> this sweep was only measured at k=10, θ=4.0. The runtime stability is consistent with the computational-efficiency table, where AURORA's runtime varies little with k (3.79–4.04s on MovieLens 100k for k∈{5,10,20}) — so extrapolating it to other k values is reasonable. The stability of ΔE and ILD across scale, however, has only been checked at this single k; nothing guarantees it holds at k=5 or k=20, since ΔE and ILD are themselves sensitive to k on every dataset tested elsewhere on this site. This is an open limitation, not an established generalization.</span>
@@ -2550,7 +2550,7 @@ const RT_1M={
   "Weighted Borda":{k5:4.6,k10:4.4,k20:4.8},
   "Condorcet":{k5:1.2,k10:1.2,k20:1.3},
   "Fair Re-rank":{k5:5.8,k10:5.1,k20:6.2},
-  "AURORA":{k5:82.1,k10:75.5,k20:79.4}
+  "AURORA":{k5:37.3,k10:37.8,k20:40.1}
 };
 function fmtT(s){
   if(s<.1)return'<0.1s';
@@ -2966,7 +2966,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:.1142,dE:.1369,ILD:.4189,inc_F:.3681,inc_M:.3969},
     "Condorcet":{elapsed_s:.1067,dE:.31,ILD:.395,inc_F:.3482,inc_M:.4131},
     "Fair Re-rank":{elapsed_s:.1567,dE:.0088,ILD:.4355,inc_F:.3518,inc_M:.361},
-    "AURORA":{elapsed_s:3.498,dE:.0967,ILD:.4462,inc_F:.3489,inc_M:.3744,n_supernodes:250,ratio:.5}
+    "AURORA":{elapsed_s:1.254,dE:.0967,ILD:.4462,inc_F:.3489,inc_M:.3744,n_supernodes:250,ratio:.5}
     },
   1000:{n_F:283,n_M:717,n_ratings:162306,
     "Average Score":{elapsed_s:.0066,dE:.0075,ILD:.9889,inc_F:.0025,inc_M:.001},
@@ -2974,7 +2974,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:.2331,dE:.3443,ILD:.4252,inc_F:.3244,inc_M:.3923},
     "Condorcet":{elapsed_s:.1991,dE:.3982,ILD:.4129,inc_F:.3219,inc_M:.4038},
     "Fair Re-rank":{elapsed_s:.2964,dE:.0207,ILD:.4614,inc_F:.323,inc_M:.3304},
-    "AURORA":{elapsed_s:6.897,dE:.2592,ILD:.4263,inc_F:.3233,inc_M:.3759,n_supernodes:500,ratio:.5}
+    "AURORA":{elapsed_s:2.576,dE:.2592,ILD:.4263,inc_F:.3233,inc_M:.3759,n_supernodes:500,ratio:.5}
     },
   2000:{n_F:566,n_M:1434,n_ratings:326612,
     "Average Score":{elapsed_s:.0146,dE:.0023,ILD:1,inc_F:.0002,inc_M:.0006},
@@ -2982,7 +2982,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:.4775,dE:.3246,ILD:.4251,inc_F:.3292,inc_M:.3977},
     "Condorcet":{elapsed_s:.3968,dE:.3981,ILD:.416,inc_F:.3196,inc_M:.404},
     "Fair Re-rank":{elapsed_s:.5657,dE:.0212,ILD:.4601,inc_F:.333,inc_M:.3384},
-    "AURORA":{elapsed_s:16.536,dE:.2334,ILD:.4468,inc_F:.327,inc_M:.379,n_supernodes:1000,ratio:.5}
+    "AURORA":{elapsed_s:6.395,dE:.2334,ILD:.4468,inc_F:.327,inc_M:.379,n_supernodes:1000,ratio:.5}
     },
   4000:{n_F:1132,n_M:2868,n_ratings:664230,
     "Average Score":{elapsed_s:.0266,dE:.0011,ILD:.9872,inc_F:.0005,inc_M:.0003},
@@ -2990,7 +2990,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:.9567,dE:.3673,ILD:.4243,inc_F:.3172,inc_M:.3983},
     "Condorcet":{elapsed_s:.8371,dE:.4912,ILD:.4092,inc_F:.3024,inc_M:.411},
     "Fair Re-rank":{elapsed_s:1.1151,dE:.0134,ILD:.4638,inc_F:.3298,inc_M:.3374},
-    "AURORA":{elapsed_s:43.26,dE:.2241,ILD:.43,inc_F:.3212,inc_M:.3755,n_supernodes:2000,ratio:.5}
+    "AURORA":{elapsed_s:18.405,dE:.2241,ILD:.43,inc_F:.3212,inc_M:.3755,n_supernodes:2000,ratio:.5}
     },
   6040:{n_F:1709,n_M:4331,n_ratings:1000209,
     "Average Score":{elapsed_s:.0356,dE:.0001,ILD:1,inc_F:.0002,inc_M:.0002},
@@ -2998,7 +2998,7 @@ const SCAL_DATA={
     "Weighted Borda":{elapsed_s:1.4833,dE:.4142,ILD:.4258,inc_F:.3106,inc_M:.3995},
     "Condorcet":{elapsed_s:1.2476,dE:.4872,ILD:.4079,inc_F:.3053,inc_M:.4115},
     "Fair Re-rank":{elapsed_s:1.6477,dE:.0185,ILD:.4518,inc_F:.3358,inc_M:.3427},
-    "AURORA":{elapsed_s:77.427,dE:.2137,ILD:.4403,inc_F:.3211,inc_M:.3703,n_supernodes:3020,ratio:.5}
+    "AURORA":{elapsed_s:37.426,dE:.2137,ILD:.4403,inc_F:.3211,inc_M:.3703,n_supernodes:3020,ratio:.5}
     }
 };
 const SCAL_SIZES=[500,1000,2000,4000,6040];

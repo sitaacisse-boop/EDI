@@ -39,6 +39,8 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | `run_sensitivity.py` | Analyse de sensibilité sur les paramètres ε_E, ε_D, max_merges |
 | `run_scalability.py` | Scalabilité 1M : sous-ensembles stratifiés 500→6 040 utilisateurs, k=10, θ=4.0 |
 | `run_scalability_fine.py` | Scalabilité fine 100k : 100→943 utilisateurs — courbe granulaire |
+| `run_bootstrap_ml100k.py` | Sous-échantillonnage sans remise (90% de \|U\|, 30 répétitions) — significativité statistique sur ML100k |
+| `run_robustness_budget.py` | Balayage du budget de fusion (30–60% de \|U\|) sur ML1M (k=20) et RMP (k=10) |
 
 ### Résultats
 | Fichier | Description |
@@ -52,6 +54,8 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | `scalability_results.json` | Scalabilité MovieLens 1M — 6 méthodes × 5 tailles (500, 1k, 2k, 4k, 6 040) |
 | `scalability_100k_results.json` | Scalabilité fine-grained ML-100k — 6 méthodes × 8 tailles (100→943 utilisateurs) |
 | `sensitivity_results.json` | Résultats analyse de sensibilité |
+| `bootstrap_ml100k_results.json` | Sous-échantillonnage sans remise ML100k — moyenne/écart-type et taux de victoire par méthode |
+| `robustness_budget_results.json` | Balayage du budget de fusion (30–60%) — ML1M (k=20) et RMP (k=10) |
 | `fig_edi_baselines.png` | Figure comparative : 6 méthodes × k ∈ {5,10,20} (100k) |
 | `fig_comparison_100k_1m.png` | Comparaison 100k vs 1M — scalabilité |
 | `fig_data_overview.png` | Vue d'ensemble du dataset MovieLens 100k |
@@ -69,7 +73,7 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | `rechercheplan_pdf.pdf` | Plan de recherche complet (6 phases, Mai–Octobre 2026) |
 | `Bibliographie_annotee_Phase1.pdf` | Bibliographie annotée — 13 références classées en 4 axes |
 | `samplepaper_FINAL.tex` | Article scientifique complet (format Springer LNCS, 15 références, compile via `references.bib`) |
-| `memoire/Thesis.tex` | Mémoire de stage M2 DataScale (31 pages) — Contexte, Objectif, État de l'art, Approche, Validation, Conclusion, Apport personnel |
+| `memoire/Thesis.tex` | Mémoire de stage M2 DataScale (33 pages) — Contexte, Objectif, État de l'art, Approche, Validation, Conclusion, Apport personnel |
 | `references.bib` | Base bibliographique commune à l'article et au mémoire (15 entrées) |
 
 ---
@@ -96,56 +100,59 @@ Budget de fusion : 50% de n_users sur tous les corpus (valeur validée par test 
 | Méthode | k | ΔE | ILD | inc_F | inc_M |
 |---|---|---|---|---|---|
 | Average Score | 10 | **0.0068** | 1.000 | 0.001 | 0.002 |
-| Borda | 10 | 0.4249 | 0.354 | 0.293 | 0.392 |
+| Borda | 10 | 0.4522 | 0.349 | 0.287 | 0.393 |
 | Weighted Borda | 10 | 0.4249 | 0.354 | 0.293 | 0.392 |
 | Condorcet | 10 | 0.4459 | 0.356 | 0.292 | 0.394 |
 | Fair Re-rank | 10 | 0.1623 | 0.430 | 0.271 | 0.313 |
+| **AURORA** | 5 | 0.4387 | 0.330 | 0.347 | 0.450 |
 | **AURORA** | 10 | 0.4228 | 0.391 | **0.307** | **0.405** |
 | **AURORA** | 20 | 0.2849 | **0.462** | **0.277** | 0.344 |
 
-À k=20, AURORA bat toutes les méthodes de vote (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient le meilleur ILD toutes méthodes non-triviales confondues. Fair Re-rank reste plus précis sur ΔE seul.  
+À k=20, AURORA bat toutes les méthodes de vote (Borda/W-Borda/Condorcet) sur ΔE et ILD simultanément, et obtient le meilleur ILD toutes méthodes non-triviales confondues. Fair Re-rank reste plus précis sur ΔE seul. À k=5, AURORA bat Borda/Weighted Borda sur les deux axes mais reste légèrement en retrait de Condorcet en diversité.
 Compression : 943 → 471 super-nœuds (ratio 0.50, budget uniforme 50%).
+
+Robustesse statistique (sous-échantillonnage sans remise, 90% de \|U\|, 30 répétitions, k=10) : AURORA bat Borda/Condorcet sur ΔE dans 28/30 tirages et sur l'ILD dans 30/30 — l'avantage n'est pas un artefact du tirage unique ci-dessus. Fair Re-rank reste devant AURORA sur les deux métriques dans les 30/30 tirages.
 
 ### MovieLens 1M — validation scalabilité
 
 | Méthode | k | ΔE | ILD | inc_F | inc_M |
 |---|---|---|---|---|---|
 | Average Score | 10 | **0.0001** | 1.000 | 0.000 | 0.000 |
-| Borda | 10 | 0.538 | 0.402 | 0.302 | 0.417 |
-| Weighted Borda | 10 | 0.371 | 0.413 | 0.324 | 0.404 |
-| Condorcet | 10 | 0.487 | 0.408 | 0.305 | 0.412 |
-| Fair Re-rank | 10 | 0.019 | 0.452 | 0.336 | 0.343 |
-| **AURORA** | 5 | 0.416 | 0.395 | 0.341 | 0.434 |
-| **AURORA** | 10 | 0.214 | 0.440 | 0.321 | 0.370 |
-| **AURORA** | 20 | 0.277 | 0.456 | 0.294 | 0.356 |
+| Borda | 10 | 0.4818 | 0.418 | 0.305 | 0.409 |
+| Weighted Borda | 10 | 0.4142 | 0.426 | 0.311 | 0.400 |
+| Condorcet | 10 | 0.4872 | 0.408 | 0.305 | 0.412 |
+| Fair Re-rank | 10 | 0.0185 | 0.452 | 0.336 | 0.343 |
+| **AURORA** | 5 | 0.4156 | 0.395 | 0.341 | 0.434 |
+| **AURORA** | 10 | 0.2137 | 0.440 | 0.321 | 0.370 |
+| **AURORA** | 20 | 0.2773 | 0.456 | 0.294 | 0.356 |
 
-AURORA bat systématiquement Borda/Weighted Borda/Condorcet sur ΔE et ILD à tout k testé. Fair Re-rank reste la méthode la plus précise sur ΔE seul (0.019 à k=10), mais avec un ILD inférieur à AURORA à k=20.
+AURORA bat systématiquement les 3 règles de vote classiques (Borda/Weighted Borda/Condorcet) sur ΔE et ILD simultanément, à tout k testé. Sur ce corpus, en revanche, Fair Re-rank domine AURORA sur ΔE **et** ILD à la fois, à tout k testé — un résultat propre à ML1M (grande base d'utilisateurs), pas un désavantage général de la méthode.
 
 ### libimseti.cz — équité côté utilisateur
 
 | Méthode | ΔE ↓ | ILD ↑ | inc_F ↑ | inc_M ↑ | Temps |
 |---|---|---|---|---|---|
-| Average Score | **0.016** | **0.867** | 0.002 | 0.000 | 0.009s |
-| Borda | 1.218 | 0.744 | 0.147 | **0.024** | 0.667s |
-| Weighted Borda | 1.218 | 0.744 | 0.147 | **0.024** | 0.705s |
-| Condorcet | 1.296 | 0.746 | **0.157** | 0.024 | 0.257s |
-| Fair Re-rank | 0.144 | 0.719 | 0.039 | 0.024 | 0.807s |
-| AURORA | 1.232 | 0.761 | 0.148 | 0.024 | 7.1s |
+| Average Score | **0.016** | **0.867** | 0.002 | 0.000 | 0.005s |
+| Borda | 1.301 | 0.716 | 0.143 | **0.024** | 0.206s |
+| Weighted Borda | 1.301 | 0.716 | 0.143 | **0.024** | 0.234s |
+| Condorcet | 1.296 | 0.746 | **0.157** | 0.024 | 0.084s |
+| Fair Re-rank | 0.139 | 0.716 | 0.038 | 0.024 | 0.269s |
+| AURORA | 1.232 | 0.761 | 0.148 | 0.024 | 2.3s |
 
-AURORA n'améliore aucune métrique sur ce corpus — vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, section 5.6 de `samplepaper_FINAL.tex`, ou l'onglet « libimseti.cz » du tableau de bord).
+Sur ΔE, aucune méthode de vote (Borda/Weighted Borda/Condorcet/AURORA) n'échappe à l'écart d'équité élevé — seuls Average Score et Fair Re-rank y échappent (ΔE=0.016 et 0.139) ; vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, section 5.6 de `samplepaper_FINAL.tex`, ou l'onglet « libimseti.cz » du tableau de bord). AURORA garde néanmoins un net avantage de diversité (ILD=0.761, la meilleure valeur après Average Score) sur les méthodes de vote.
 
 ### Rate My Professors — équité côté item (frac_F)
 
 | Méthode | ΔE ↓ | ILD ↑ | frac_F ↑ | Temps |
 |---|---|---|---|---|
-| Average Score | **0.000** | **0.982** | 0.40 | 0.012s |
-| Borda | 0.008 | 0.145 | 0.40 | 1.4s |
-| Weighted Borda | 0.008 | 0.145 | 0.40 | 44.4s |
-| Condorcet | 0.076 | 0.253 | 0.30 | 0.4s |
-| Fair Re-rank | **0.000** | 0.196 | 0.50 | 2.0s |
-| **AURORA** | 0.112 | 0.808 | **0.60** | 31.5s |
+| Average Score | **0.000** | **0.982** | 0.40 | 0.008s |
+| Borda | 0.065 | 0.267 | 0.50 | 0.4s |
+| Weighted Borda | **0.000** | 0.245 | 0.20 | 22.9s |
+| Condorcet | 0.076 | 0.253 | 0.30 | 0.1s |
+| Fair Re-rank | **0.000** | 0.276 | 0.50 | 0.5s |
+| **AURORA** | 0.112 | 0.808 | **0.60** | 11.3s |
 
-AURORA reste la seule méthode combinant haute diversité (ILD=0.808, 2e meilleure derrière Average Score) et forte représentation (frac_F=0.60) ; son ΔE bat Condorcet mais reste derrière Borda/Fair Re-rank.
+AURORA reste la seule méthode combinant haute diversité (ILD=0.808, 2e meilleure derrière Average Score) et forte représentation (frac_F=0.60) ; son ΔE (0.112) est en revanche le plus élevé du tableau, derrière toutes les autres méthodes — compromis équité/diversité assumé (voir onglet RMP du tableau de bord).
 
 ### OpenAlex (IA/ML/CS 2018–2023) — équité côté item (frac_F auteur·e·s)
 
@@ -158,9 +165,9 @@ AURORA reste la seule méthode combinant haute diversité (ILD=0.808, 2e meilleu
 | Weighted Borda | 1.233 | 0.000 | 0.00 | 0.011s |
 | Condorcet | 1.233 | 0.000 | 0.00 | 0.008s |
 | Fair Re-rank | 0.071 | 0.356 | 0.20 | 0.013s |
-| **AURORA** | **0.051** | 0.351 | **0.20** | 0.144s |
+| **AURORA** | **0.031** | 0.345 | 0.19 | 0.070s |
 
-AURORA obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'équité inter-groupes tout en maintenant la représentation féminine (frac_F=20%). Borda/WBorda/Condorcet ne recommandent aucune auteure (frac_F=0%).
+AURORA obtient ΔE=0.031 (−56% vs Average Score/Fair Re-rank à 0.071) — seule méthode à corriger ce biais extrême (le plus sévère des 4 corpus) tout en maintenant une représentation féminine proche (frac_F=19% vs 20%). Borda/WBorda/Condorcet ne recommandent aucune auteure (frac_F=0%).
 
 ---
 
@@ -176,8 +183,9 @@ AURORA obtient ΔE=0.051 (vs 0.071 pour Average Score) — amélioration de l'é
 | Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` (1M, 500→6 040) + `scalability_100k_results.json` (100k, 100→943) |
 | Phase 5c — Corpus multi-domaines | Juillet | ✅ Terminé | `libimseti_results.json`, `rmp_results.json`, `openalex_results.json` |
 | Phase 6 — Article de recherche | Juillet–Août | ✅ Terminé | `samplepaper_FINAL.tex` (LLNCS, 15 références, Overleaf) |
-| Phase 7 — Mémoire de stage M2 | Août | ✅ Terminé | `memoire/Thesis.tex` (31 pages, 15 références) |
+| Phase 7 — Mémoire de stage M2 | Août | ✅ Terminé | `memoire/Thesis.tex` (33 pages, 15 références) |
 | Phase 8 — Bilinguisme du tableau de bord | Août | ✅ Terminé | 17 onglets + graphiques traduits FR/EN sur https://sitaacisse-boop.github.io/EDI/ |
+| Phase 9 — Rigueur pré-soutenance | Août | ✅ Terminé | Correctif bug de non-déterminisme (`run_openalex.py`), extension k∈{5,10,20} aux 3 corpus multi-domaines, preuve de significativité statistique, justification SCRUF-D, vérification exhaustive site/mémoire/papier vs JSON sources |
 
 ---
 
