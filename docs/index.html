@@ -1714,6 +1714,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     loadYtApi(()=>{
       ytPlayer=new YT.Player('cineYtHolder',{
         videoId:YT_VIDEO_ID,
+        host:'https://www.youtube-nocookie.com',
         playerVars:{autoplay:1,mute:1,controls:0,disablekb:1,modestbranding:1,rel:0,iv_load_policy:3,loop:1,playlist:YT_VIDEO_ID},
         events:{
           onReady:function(e){
