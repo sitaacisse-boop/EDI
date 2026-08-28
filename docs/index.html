@@ -3533,11 +3533,12 @@ function buildRmpTable(){
     {k:'frac_F', l:'frac F',    dir:'mid'},
     {k:'elapsed_s',l:L('Temps','Time'),   dir:'min'}
   ];
-  const best={};
+  const best={},worst={};
   cols.forEach(c=>{
     if(c.dir==='mid')return;
     const vals=METHODS.map(m=>RMPK[m][c.k]);
     best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
+    worst[c.k]=c.dir==='min'?Math.max(...vals):Math.min(...vals);
   });
   const head=`<tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr>`;
   const AURORA_PINK='#ff2fd4';
@@ -3551,7 +3552,8 @@ function buildRmpTable(){
       else if(c.k==='frac_F') tStr=(val*100).toFixed(0)+'%';
       else tStr=val.toFixed(4);
       const isBest=c.dir!=='mid'&&val===best[c.k];
-      const hi=isO?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?'font-weight:900;color:var(--green)':'';
+      const isWorst=c.dir!=='mid'&&best[c.k]!==worst[c.k]&&val===worst[c.k];
+      const hi=isO?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?'font-weight:900;color:var(--green)':isWorst?'font-weight:900;color:var(--red)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}">${tStr}</td>`;
     }).join('');
     return `<tr style="${isO?`font-weight:700;color:${AURORA_PINK}`:''}"><td>${m}</td>${cells}</tr>`;
