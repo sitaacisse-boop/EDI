@@ -1026,18 +1026,19 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     </div>
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
-        <div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Projection 2D — ΔE vs ILD (MovieLens 100k et 1M, k=5/10/20)</span><span class="i18n-en">2D projection — ΔE vs ILD (MovieLens 100k and 1M, k=5/10/20)</span></div>
+        <div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Projection — ΔE vs ILD vs inclusion (MovieLens 100k et 1M, k=5/10/20)</span><span class="i18n-en">Projection — ΔE vs ILD vs inclusion (MovieLens 100k and 1M, k=5/10/20)</span></div>
         <div class="pills" id="vizDSPills">
           <button class="pill on" data-vds="100k">100k</button>
           <button class="pill" data-vds="1M">1M</button>
           <button class="pill" data-vds="both"><span class="i18n-fr">Les deux</span><span class="i18n-en">Both</span></button>
         </div>
       </div>
-      <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px"><span class="i18n-fr">Chaque cercle = une méthode × un k. Coin <strong>supérieur gauche</strong> = idéal (ΔE bas + ILD élevé). Taille = k (=20, ·=5).</span><span class="i18n-en">Each circle = one method × one k. <strong>Top-left</strong> corner = ideal (low ΔE + high ILD). Size = k (=20, ·=5).</span></div>
+      <div style="font-size:.74rem;color:var(--t3);margin-bottom:8px"><span class="i18n-fr">Chaque cercle = une méthode × un k. Coin <strong>supérieur gauche</strong> = idéal (ΔE bas + ILD élevé). Taille = k (=20, ·=5). Anneau pointillé externe = inclusion moyenne (inc_F+inc_M)/2 — plus large = meilleure inclusion, absent = inclusion quasi nulle.</span><span class="i18n-en">Each circle = one method × one k. <strong>Top-left</strong> corner = ideal (low ΔE + high ILD). Size = k (=20, ·=5). Outer dashed ring = average inclusion (inc_F+inc_M)/2 — wider = better inclusion, absent = near-zero inclusion.</span></div>
       <canvas id="scatterCanvas" style="width:100%;display:block"></canvas>
       <div style="margin-top:8px;display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;color:var(--t3)">
         <span><span class="i18n-fr">Grand = k=20 · Moyen = k=10 · Petit = k=5</span><span class="i18n-en">Large = k=20 · Medium = k=10 · Small = k=5</span></span>
         <span><span class="i18n-fr">- - -Trajectoire k=5→10→20 par méthode</span><span class="i18n-en">- - -k=5→10→20 trajectory per method</span></span>
+        <span><span class="i18n-fr">⭕ anneau = inclusion</span><span class="i18n-en">⭕ ring = inclusion</span></span>
         <span style="margin-left:auto"><span class="i18n-fr">○ ouvert = 100k · ● plein = 1M (mode "Les deux")</span><span class="i18n-en">○ open = 100k · ● filled = 1M ("Both" mode)</span></span>
       </div>
       <div style="margin-top:10px;padding:9px 13px;background:rgba(176,122,255,.07);border-left:3px solid var(--purple);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
@@ -2336,12 +2337,16 @@ function drawScatter(){
 
   // points
   const KR={5:5,10:7.5,20:11};
+  // anneau externe = inclusion moyenne (inc_F+inc_M)/2 : plus l'anneau est large, plus l'inclusion est haute
+  const incRingR=avgInc=>Math.min(16,avgInc*32);
   DRAW_D.forEach((DS,di)=>{
     [5,10,20].forEach(k=>{
       METHODS.forEach(m=>{
         const r=DS[k][m],col=MC[m];
         const x=sx(r.dE),y=sy(r.ILD),rad=KR[k];
         const isO=m==='AURORA';
+        const avgInc=((r.inc_F||0)+(r.inc_M||0))/2;
+        const ringExtra=incRingR(avgInc);
         if(isBoth&&di===0){
           // 100k: open circle
           ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
@@ -2355,6 +2360,10 @@ function drawScatter(){
           ctx.fillStyle=isO?col:col+'b0';ctx.fill();
           ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1.5;ctx.stroke();
           ctx.shadowBlur=0;
+        }
+        if(ringExtra>1.5){
+          ctx.beginPath();ctx.arc(x,y,rad+4+ringExtra,0,Math.PI*2);
+          ctx.strokeStyle=col+'80';ctx.lineWidth=1.3;ctx.setLineDash([2,2]);ctx.stroke();ctx.setLineDash([]);
         }
       });
     });
