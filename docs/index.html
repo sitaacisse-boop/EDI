@@ -1866,6 +1866,7 @@ function renderTable(){
   const d=ALL[curK];
   const bests={};
   COLS().forEach(c=>{const vs=METHODS.map(m=>d[m][c.key]);bests[c.key]=c.dir==='min'?Math.min(...vs):Math.max(...vs);});
+  const AURORA_PINK='#ff2fd4';
   let h=`<table><thead><tr><th>${L('Méthode','Method')}</th>`;
  COLS().forEach(c=>{h+=`<th>${c.lbl}</th>`;});
   h+='</tr></thead><tbody>';
@@ -1882,7 +1883,9 @@ function renderTable(){
         :c.key==='ILD'?(v>=.8?'var(--good)':v>=.35?'var(--warn)':'var(--bad)')
         :c.key==='inc_F'?(v>=AF?'var(--good)':'var(--bad)')
         :(v>=AM?'var(--good)':'var(--bad)');
-      h+=`<td><div class="m-val">${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip(c.key,v)}</td>`;
+      const pinkMe=isO&&(c.key==='ILD'||(c.key==='inc_F'&&curK===10));
+      const valStyle=pinkMe?` style="font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88"`:'';
+      h+=`<td><div class="m-val"${valStyle}>${best?'<strong>':''}${v.toFixed(4)}${best?'</strong>':''} ${best?'':''}</div><div class="m-bar"><div class="m-bar-fill" style="width:${bw}%;background:${bc}"></div></div>${chip(c.key,v)}</td>`;
     });
     h+='</tr>';
   });
