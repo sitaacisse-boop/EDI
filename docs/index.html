@@ -3397,6 +3397,7 @@ function buildLibTable(){
   const LIBK=LIB[curLibK];
   const cols=[{k:'dE',l:'ΔE ↓',dir:'min'},{k:'ILD',l:'ILD ↑',dir:'max'},
               {k:'inc_F',l:'inc_F ↑',dir:'max'},{k:'inc_M',l:'inc_M ↑',dir:'max'},{k:'elapsed_s',l:L('Temps','Time'),dir:'min'}];
+  const TARGET={inc_F:.50,inc_M:.50}; // libimseti: 500F/500M par construction
   const best={};
   cols.forEach(c=>{
     const vals=METHODS.map(m=>LIBK[m][c.k]);
@@ -3412,7 +3413,13 @@ function buildLibTable(){
       const isBest=val===best[c.k];
       const tStr=c.k==='elapsed_s'?(val<1?val.toFixed(3)+'s':val<60?val.toFixed(1)+'s':(val/60).toFixed(1)+'min'):val.toFixed(4);
       const pinkMe=isO&&(c.k==='ILD'||(c.k==='inc_F'&&curLibK===10));
-      const hi=pinkMe?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?`font-weight:900;color:var(--green)`:'';
+      let hi;
+      if(c.k==='inc_F'||c.k==='inc_M'){
+        // comparé à la cible réelle (α_F=α_M=0.50), pas au meilleur du tableau
+        hi=pinkMe?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:val>=TARGET[c.k]?`font-weight:900;color:var(--green)`:`color:var(--red)`;
+      } else {
+        hi=pinkMe?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?`font-weight:900;color:var(--green)`:'';
+      }
       // ΔE > 1 = rouge flagrant (jamais vu sur MovieLens)
       const red=c.k==='dE'&&val>1?`;color:var(--red)`:'' ;
       return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}</td>`;
@@ -3538,6 +3545,7 @@ function buildRmpTable(){
     {k:'frac_F', l:'frac F',    dir:'mid'},
     {k:'elapsed_s',l:L('Temps','Time'),   dir:'min'}
   ];
+  const TARGET_FRAC_F=.51; // RMP : 51% de profs femmes parmi les items
   const best={},worst={};
   cols.forEach(c=>{
     if(c.dir==='mid')return;
@@ -3558,7 +3566,9 @@ function buildRmpTable(){
       else tStr=val.toFixed(4);
       const isBest=c.dir!=='mid'&&val===best[c.k];
       const isWorst=c.dir!=='mid'&&best[c.k]!==worst[c.k]&&val===worst[c.k];
-      const hi=isO?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?'font-weight:900;color:var(--green)':isWorst?'font-weight:900;color:var(--red)':'';
+      // frac_F : comparé à la cible réelle (51% de profs femmes), pas au meilleur du tableau
+      const fracHi=c.k==='frac_F'?(val>=TARGET_FRAC_F?'font-weight:900;color:var(--green)':'color:var(--red)'):null;
+      const hi=isO?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:fracHi!==null?fracHi:isBest?'font-weight:900;color:var(--green)':isWorst?'font-weight:900;color:var(--red)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}">${tStr}</td>`;
     }).join('');
     return `<tr style="${isO?`font-weight:700;color:${AURORA_PINK}`:''}"><td>${m}</td>${cells}</tr>`;
@@ -3707,6 +3717,7 @@ function buildOalexTable(){
   });
   const head=`<thead><tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
   const AURORA_PINK='#ff2fd4';
+  const TARGET_FRAC_F=.19; // OpenAlex : ~19% d'auteur·e·s femmes (genre connu)
   const rows=METHODS.map(m=>{
     const v=OAK[m];
     const isO=m==='AURORA';
@@ -3719,7 +3730,9 @@ function buildOalexTable(){
       else tStr=val.toFixed(4);
       const isBest=c.dir!=='mid'&&val===best[c.k];
       const red=c.k==='dE'&&val>1?';color:var(--red)':'';
-      const hi=(isO&&c.k==='ILD')?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?'font-weight:900;color:var(--green)':'';
+      // frac_F : comparé à la cible réelle (~19% d'autrices), pas au meilleur du tableau
+      const fracHi=c.k==='frac_F'?(val>=TARGET_FRAC_F?'font-weight:900;color:var(--green)':'color:var(--red)'):null;
+      const hi=(isO&&c.k==='ILD')?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:fracHi!==null?fracHi:isBest?'font-weight:900;color:var(--green)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}${isBest?' ':''}</td>`;
     }).join('');
     return `<tr ${isO?'class="tr-AURORA"':''}><td><div class="m-name">${m}</div></td>${cells}</tr>`;
