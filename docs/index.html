@@ -3701,6 +3701,7 @@ function buildOalexTable(){
     if(vals.length) best[c.k]=c.dir==='min'?Math.min(...vals):Math.max(...vals);
   });
   const head=`<thead><tr><th>${L('Méthode','Method')}</th>${cols.map(c=>`<th>${c.l}</th>`).join('')}</tr></thead>`;
+  const AURORA_PINK='#ff2fd4';
   const rows=METHODS.map(m=>{
     const v=OAK[m];
     const isO=m==='AURORA';
@@ -3713,7 +3714,7 @@ function buildOalexTable(){
       else tStr=val.toFixed(4);
       const isBest=c.dir!=='mid'&&val===best[c.k];
       const red=c.k==='dE'&&val>1?';color:var(--red)':'';
-      const hi=isBest?'font-weight:900;color:var(--green)':'';
+      const hi=(isO&&c.k==='ILD')?`font-weight:900;color:${AURORA_PINK};text-shadow:0 0 8px ${AURORA_PINK}88`:isBest?'font-weight:900;color:var(--green)':'';
       return `<td style="font-variant-numeric:tabular-nums;${hi}${red}">${tStr}${isBest?' ':''}</td>`;
     }).join('');
     return `<tr ${isO?'class="tr-AURORA"':''}><td><div class="m-name">${m}</div></td>${cells}</tr>`;
