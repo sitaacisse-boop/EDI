@@ -1041,6 +1041,9 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
         <span><span class="i18n-fr">⭕ anneau = inclusion</span><span class="i18n-en">⭕ ring = inclusion</span></span>
         <span style="margin-left:auto"><span class="i18n-fr">○ ouvert = 100k · ● plein = 1M (mode "Les deux")</span><span class="i18n-en">○ open = 100k · ● filled = 1M ("Both" mode)</span></span>
       </div>
+      <div style="margin-top:10px;padding:9px 13px;background:rgba(15,209,122,.07);border-left:3px solid var(--green);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
+        <strong style="color:var(--t1)"><span class="i18n-fr">Zone idéale combinée (ΔE + ILD + inclusion) :</span><span class="i18n-en">Combined ideal zone (ΔE + ILD + inclusion):</span></strong> <span class="i18n-fr">le rectangle vert ne montre l'idéal que sur ΔE/ILD (position) — l'idéal complet demanderait <em>en plus</em> le plus grand anneau possible à cet endroit. Aucune méthode n'y parvient : seul Average Score entre dans le rectangle, mais sans anneau (inclusion quasi nulle) — c'est justement pourquoi son résultat est qualifié de dégénéré ailleurs sur ce site. Confirme le constat central du mémoire : aucune méthode ne satisfait les trois critères EDI simultanément.</span><span class="i18n-en">the green rectangle only shows the ideal on ΔE/ILD (position) — the full ideal would <em>also</em> need the largest possible ring at that spot. No method gets there: only Average Score falls inside the rectangle, but with no ring (near-zero inclusion) — exactly why its result is called degenerate elsewhere on this site. Confirms the thesis's central finding: no method satisfies all three EDI criteria simultaneously.</span>
+      </div>
       <div style="margin-top:10px;padding:9px 13px;background:rgba(176,122,255,.07);border-left:3px solid var(--purple);border-radius:0 7px 7px 0;font-size:.77rem;color:var(--t2)">
         <strong style="color:var(--t1)"><span class="i18n-fr">Projection 2D sur MovieLens uniquement.</span><span class="i18n-en">2D projection on MovieLens only.</span></strong><span class="i18n-fr">Pour voir la projection sur <em>tous les datasets</em> (MovieLens, libimseti, RMP), voir l'onglet <strong>Pareto </strong> qui compare toutes méthodes × tous corpus sur un seul graphique.</span><span class="i18n-en">To see the projection across <em>all datasets</em> (MovieLens, libimseti, RMP), see the <strong>Pareto</strong> tab, which compares all methods × all corpora on a single chart.</span>
       </div>
@@ -2281,7 +2284,7 @@ function drawScatter(){
   ctx.setLineDash([]);
   ctx.fillStyle='rgba(15,209,122,.5)';
   ctx.font='10px system-ui';ctx.textAlign='left';
-  ctx.fillText(L('Zone idéale','Ideal zone'),sx(.005)+3,pt+12);
+  ctx.fillText(L('Zone idéale (ΔE+ILD)','Ideal zone (ΔE+ILD)'),sx(.005)+3,pt+12);
 
   // grid
   [.1,.2,.3,.4,.5].forEach(v=>{
