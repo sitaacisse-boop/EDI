@@ -19,6 +19,8 @@
 \usepackage{float}
 \usepackage{lscape}
 \usepackage{placeins}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
 
 % couleur officielle Université Paris-Saclay (prune, Pantone 229C)
 \usepackage{xcolor}
@@ -162,7 +164,7 @@ par Résumé de Graphe\\[0.6cm]}
 \begin{minipage}{0.33\textwidth}
 \centering
 {\large\textbf{Tutrice pédagogique}}\\[2pt]
-\normalsize Zoubida Kedad
+\normalsize Prof. Zoubida Kedad
 \end{minipage}
 
 \vspace{1.5cm}
@@ -284,8 +286,9 @@ Le sujet de recherche, portant sur l'équité, la diversité et
 l'inclusion (EDI) dans les systèmes de recommandation, a été proposé
 par le Prof. Malek Mouhoub et développé de façon autonome durant le
 stage. Il a donné lieu à la rédaction d'un article scientifique soumis
-à une conférence internationale (format Springer LNCS), dont ce
-mémoire reprend et détaille le contenu en français. Le suivi
+à la revue internationale \emph{Expert Systems With Applications}
+(Elsevier), dont ce mémoire reprend et détaille le contenu en
+français. Le suivi
 pédagogique côté Université Paris-Saclay a été assuré par Zoubida
 Kedad.
 
@@ -382,6 +385,85 @@ par exemple Rate My Professors, OpenAlex), où $\{F, M\}$ désigne les deux
 groupes de genre. Le graphe est biparti : les arêtes relient uniquement
 des utilisateurs à des items, jamais deux utilisateurs ou deux items entre
 eux.
+
+La figure~\ref{fig:bipartite-example} illustre cette structure sur un
+petit exemple à quatre utilisateurs et trois items, repris et détaillé
+numériquement au tableau~\ref{tab:toy} (section~\ref{sec:example}).
+
+\begin{figure}[H]
+\centering
+\definecolor{rosepref}{RGB}{247,180,200}
+\definecolor{mauvepref}{RGB}{186,150,214}
+\resizebox{0.7\textwidth}{!}{%
+\begin{tikzpicture}[
+  user/.style={circle, draw, minimum size=9mm, font=\small},
+  userF/.style={user, fill=rosepref},
+  userM/.style={user, fill=mauvepref},
+  item/.style={circle, draw, minimum size=9mm, font=\small, fill=orange!15},
+  edgelabel/.style={font=\scriptsize, fill=white, inner sep=1pt},
+  legtext/.style={font=\scriptsize, align=left, text width=3.4cm},
+  callout/.style={font=\scriptsize\itshape, align=left, text width=3.0cm},
+  arrowline/.style={-{Latex[length=2mm]}, gray, thick, dashed}
+]
+  % en-têtes de colonnes
+  \node[font=\small\bfseries] (hdrU) at (0, 5.4) {Utilisateurs $U$};
+  \node[font=\small\bfseries] (hdrI) at (5, 5.4) {Items $I$};
+
+  % nœuds utilisateurs (colonne de gauche) : groupe F (rose) / groupe M (mauve)
+  \node[userF] (u1) at (0, 4.5) {$u_1$};
+  \node[userM] (u2) at (0, 3.0) {$u_2$};
+  \node[userM] (u3) at (0, 1.5) {$u_3$};
+  \node[userM] (u4) at (0, 0.0) {$u_4$};
+
+  % nœuds items (colonne de droite)
+  \node[item] (i1) at (5, 4.5) {$i_1$};
+  \node[item] (i2) at (5, 2.25) {$i_2$};
+  \node[item] (i3) at (5, 0.0) {$i_3$};
+
+  % arêtes pondérées : w(u,i) = note attribuée
+  \draw (u1) -- node[edgelabel] (w11) {5} (i1);
+  \draw (u1) -- node[edgelabel] {2} (i2);
+  \draw (u2) -- node[edgelabel] (w21) {1} (i1);
+  \draw (u2) -- node[edgelabel] {5} (i2);
+  \draw (u2) -- node[edgelabel] {3} (i3);
+  \draw (u3) -- node[edgelabel] {4} (i2);
+  \draw (u3) -- node[edgelabel] {5} (i3);
+  \draw (u4) -- node[edgelabel] {2} (i1);
+  \draw (u4) -- node[edgelabel] {5} (i2);
+  \draw (u4) -- node[edgelabel] {4} (i3);
+
+  % --- légende des couleurs, placée à droite du graphe ---
+  \node[userF, minimum size=5mm, font=\tiny] (legF) at (7.0, 4.5) {};
+  \node[legtext, right=2mm of legF] {Groupe utilisateur $F$ : Femme};
+
+  \node[userM, minimum size=5mm, font=\tiny] (legM) at (7.0, 3.6) {};
+  \node[legtext, right=2mm of legM] {Groupe utilisateur $M$ : Homme};
+
+  \node[item, minimum size=5mm, font=\tiny] (legI) at (7.0, 2.7) {};
+  \node[legtext, right=2mm of legI] {Item $i \in I$};
+
+  % --- flèches annotant l'arête, le poids, et l'attribut sensible ---
+  \node[callout] (ann-e) at (-3.4, 3.6) {une arête\\$(u,i) \in E$ :\\$u$ a noté $i$};
+  \draw[arrowline] (ann-e.east) to[bend right=15] (w21.west);
+
+  \node[callout] (ann-w) at (-3.4, 1.2) {le poids\\$w(u,i)$ :\\la note attribuée};
+  \draw[arrowline] (ann-w.east) to[bend right=15] (w11.south west);
+
+  \node[callout] (ann-s) at (7.0, 1.4) {attribut sensible\\$s(u) \in \{F, M\}$ :\\couleur du nœud};
+  \draw[arrowline] (ann-s.north) to[bend left=15] (legF.south);
+\end{tikzpicture}%
+}
+\caption{Exemple de graphe de préférences biparti attribué et pondéré
+$G = (U \cup I, E, w, s)$ : quatre utilisateurs (dont une femme, en rose,
+et trois hommes, en mauve) notent jusqu'à trois items. Les annotations
+indiquent les éléments de la notation formelle : un sommet utilisateur
+$u \in U$, un sommet item $i \in I$, une arête $(u,i) \in E$, son poids
+$w(u,i)$ (la note attribuée), et l'attribut sensible $s$ porté par les
+utilisateurs. L'absence d'arête entre $u_1$ et $i_3$, ou entre $u_3$ et
+$i_1$, signifie que la note n'a pas été observée. Cet exemple est repris
+au tableau~\ref{tab:toy}.}
+\label{fig:bipartite-example}
+\end{figure}
 
 \subsection{Agrégation de préférences}
 
@@ -683,6 +765,7 @@ référence sur le graphe complet, comme décrit au
 chapitre~\ref{chap:validation}.
 
 \section{Exemple Illustratif}
+\label{sec:example}
 
 Pour illustrer concrètement comment une agrégation non contrainte peut
 nuire à l'EDI, considérons quatre utilisateurs --- $u_1 \in \mathcal{G}_F$
@@ -838,8 +921,14 @@ Les tolérances de
 dégradation sont fixées à $\varepsilon_E = 0{,}1$, $\varepsilon_D =
 0{,}05$, et $\varepsilon_I = 0{,}05$, calibrées à partir de mesures de
 référence sur le graphe complet. Nous fixons $k \in \{5, 10, 20\}$ pour
-tous les jeux de données, et rapportons le taux de compression $|U'|/|U|$
-aux côtés de toutes les métriques EDI.
+tous les jeux de données : ces trois valeurs sont usuelles dans
+l'évaluation des systèmes de recommandation top-$k$ et couvrent une
+liste courte ($k=5$), la taille la plus fréquemment rapportée dans la
+littérature sur l'équité en recommandation, notamment par Aird et
+al.~\cite{aird_exploring_2023} ($k=10$), et une liste plus longue ($k=20$)
+permettant de vérifier que les tendances observées ne sont pas un
+artefact d'une liste courte. Nous rapportons le taux de compression
+$|U'|/|U|$ aux côtés de toutes les métriques EDI.
 
 \section{Résultats}
 
@@ -1224,7 +1313,6 @@ MovieLens 100k, les barres foncées désignent MovieLens 1M.}
 
 \chapter{Conclusion et Perspectives}
 \label{chap:conclusion}
-\label{sec:conclusion}
 
 Ce mémoire a traité le problème de l'agrégation des préférences
 utilisateur d'une manière qui préserve explicitement l'équité, la
@@ -1237,35 +1325,33 @@ l'écart d'équité, la diversité intra-liste, et l'inclusion de groupe de
 l'original dans des tolérances prescrites. Cette approche structurelle
 contraste avec les techniques a posteriori existantes telles que le
 re-classement, qui imposent l'équité après que l'agrégation a déjà été
-calculée.
-
-Évaluée sur cinq jeux de données couvrant quatre domaines, aucune méthode
-de référence ne satisfait les trois critères EDI simultanément. AURORA
-bat systématiquement les règles de vote classiques sur l'équité et la
-diversité, et égale ou dépasse Fair Re-rank sur les corpus plus petits ou
-à équité côté item --- notamment sur OpenAlex, où elle atteint l'écart
-d'équité le plus faible observé ($\Delta E = 0{,}031$) tout en corrigeant
-le biais le plus extrême de notre évaluation. Deux limites structurelles
-se dégagent cependant : sur le plus grand MovieLens~1M, Fair Re-rank
-domine AURORA sur les deux axes, probablement grâce à un vivier de
-candidats plus large pour le re-classement ; et sur libimseti, où
-l'attribut sensible existe des deux côtés du graphe, AURORA --- comme
-les règles de vote classiques --- ne réduit pas l'écart d'équité, ce
-que nous rattachons à une différence réelle de comportement entre les
-groupes plutôt qu'à une lacune algorithmique.
-
-Pris ensemble, ces résultats soutiennent une affirmation plus précise
-qu'« AURORA est uniformément meilleure » : intégrer des contraintes EDI
-dans la structure de \emph{coarsening} surpasse systématiquement les
-règles de vote non contraintes, et égale ou améliore le re-classement a
-posteriori sur les jeux de données plus petits ou à équité côté item,
-mais une base d'utilisateurs suffisamment grande ou un domaine à
-préférences réciproques et dépendantes de l'attribut peut favoriser une
-approche a posteriori ou exposer une limite réelle de tout cadre
-d'agrégation à classement unique. Cette nuance constitue en soi une
-contribution : elle clarifie les conditions dans lesquelles un résumé
-structurel sous contraintes est préférable au re-classement, plutôt que
-d'affirmer une supériorité inconditionnelle.
+calculée. Pour valider cette approche, nous l'avons évaluée sur cinq
+jeux de données couvrant quatre domaines : aucune méthode de référence
+n'y satisfait les trois critères EDI simultanément, tandis qu'AURORA bat
+systématiquement les règles de vote classiques
+sur l'équité et la diversité, et égale ou dépasse Fair Re-rank sur les
+corpus plus petits ou à équité côté item --- notamment sur OpenAlex, où
+elle atteint l'écart d'équité le plus faible observé ($\Delta E =
+0{,}031$) tout en corrigeant le biais le plus extrême de notre
+évaluation. Deux limites structurelles se dégagent cependant : sur le
+plus grand MovieLens~1M, Fair Re-rank domine AURORA sur les deux axes,
+probablement grâce à un vivier de candidats plus large pour le
+re-classement ; et sur libimseti, où l'attribut sensible existe des deux
+côtés du graphe, AURORA --- comme les règles de vote classiques --- ne
+réduit pas l'écart d'équité, ce que nous rattachons à une différence
+réelle de comportement entre les groupes plutôt qu'à une lacune
+algorithmique. Pris ensemble, ces résultats soutiennent une affirmation
+plus précise qu'« AURORA est uniformément meilleure » : intégrer des
+contraintes EDI dans la structure de \emph{coarsening} surpasse
+systématiquement les règles de vote non contraintes, et égale ou
+améliore le re-classement a posteriori sur les jeux de données plus
+petits ou à équité côté item, mais une base d'utilisateurs suffisamment
+grande ou un domaine à préférences réciproques et dépendantes de
+l'attribut peut favoriser une approche a posteriori ou exposer une
+limite réelle de tout cadre d'agrégation à classement unique. Cette
+nuance constitue en soi une contribution : elle clarifie les conditions
+dans lesquelles un résumé structurel sous contraintes est préférable au
+re-classement, plutôt que d'affirmer une supériorité inconditionnelle.
 
 Plusieurs directions restent ouvertes pour des travaux futurs :
 étendre le cadre à des attributs sensibles multiples et simultanés (par
@@ -1286,8 +1372,6 @@ remplacer la stratégie de fusion gloutonne par des techniques de
 détection de communautés guidées directement par l'impact EDI de chaque
 fusion candidate.
 
-
-\section{Apport Personnel du Stage}
 
 Sur le plan personnel, ce stage a été une expérience de recherche menée
 de bout en bout, depuis une idée initiale jusqu'à un article scientifique
