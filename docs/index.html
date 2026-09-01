@@ -1610,9 +1610,15 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
 <div class="panel" id="p-pareto">
   <div class="notice">
     <span style="color:var(--green);font-size:1rem;flex-shrink:0"></span>
-    <span><b><span class="i18n-fr">Front de Pareto (ΔE vs ILD) :</span><span class="i18n-en">Pareto front (ΔE vs ILD):</span></b> <span class="i18n-fr">chaque point est une méthode sur un dataset. <em>Idéal = bas-gauche pour ΔE, haut pour ILD.</em> Le front de Pareto (ligne verte) relie les points qu'aucune méthode ne domine simultanément. 4 corpus · 6 méthodes · k=10.</span><span class="i18n-en">each point is one method on one dataset. <em>Ideal = bottom-left for ΔE, top for ILD.</em> The Pareto front (green line) connects the points that no method simultaneously dominates. 4 corpora · 6 methods · k=10.</span></span>
+    <span><b><span class="i18n-fr">Fronts de Pareto empiriques (ΔE vs ILD), un par dataset :</span><span class="i18n-en">Empirical Pareto fronts (ΔE vs ILD), one per dataset:</span></b> <span class="i18n-fr">chaque point est une méthode sur un dataset. <em>Idéal = bas-gauche pour ΔE, haut pour ILD.</em> Chaque ligne pointillée relie, <strong>au sein d'un même dataset</strong>, les méthodes qu'aucune autre méthode de ce dataset ne domine simultanément sur ΔE et ILD. 4 corpus · 6 méthodes · k=10.</span><span class="i18n-en">each point is one method on one dataset. <em>Ideal = bottom-left for ΔE, top for ILD.</em> Each dashed line connects, <strong>within a single dataset</strong>, the methods that no other method on that same dataset simultaneously dominates on ΔE and ILD. 4 corpora · 6 methods · k=10.</span></span>
   </div>
-  <div class="card" style="margin-top:4px">
+  <div class="card" style="margin-top:4px;border-color:rgba(255,184,48,.3);background:rgba(255,184,48,.04)">
+    <div class="card-title" style="color:var(--amber)"><span class="i18n-fr">Contrainte à satisfaire, pas objectif à optimiser</span><span class="i18n-en">A constraint to satisfy, not an objective to optimize</span></div>
+    <p style="font-size:.8rem;color:var(--t2);line-height:1.65">
+      <span class="i18n-fr">Ces fronts comparent <em>a posteriori</em> six méthodes déjà calculées — ils ne décrivent pas ce qu'AURORA optimise en interne. AURORA ne cherche jamais à faire un compromis entre ΔE et ILD : son problème formel (mémoire, éq. IV.9) est de <strong>minimiser la perte structurelle</strong> L(G,G') du coarsening <strong>sous contrainte</strong> que ΔE, l'ILD et l'inclusion restent dans une tolérance (ε_E, ε_D, ε_I) par rapport au graphe original — pas de maximiser ou d'arbitrer entre ces métriques. Qu'un point AURORA se retrouve ou non sur un front ci-dessous est donc une observation empirique sur le résultat, pas une caractérisation de sa fonction objectif.</span><span class="i18n-en">These fronts compare six already-computed methods <em>after the fact</em> — they do not describe what AURORA optimizes internally. AURORA never trades off ΔE against ILD: its formal problem (thesis, eq. IV.9) is to <strong>minimize the coarsening's structural loss</strong> L(G,G') <strong>subject to the constraint</strong> that ΔE, ILD, and inclusion stay within a tolerance (ε_E, ε_D, ε_I) of the original graph — not to maximize or arbitrate between these metrics. Whether or not an AURORA point lands on a front below is thus an empirical observation about the outcome, not a characterization of its objective function.</span>
+    </p>
+  </div>
+  <div class="card" style="margin-top:14px">
     <div class="card-title"><span class="i18n-fr">ΔE (équité) vs ILD (diversité) — tous datasets, toutes méthodes, k=10</span><span class="i18n-en">ΔE (fairness) vs ILD (diversity) — all datasets, all methods, k=10</span></div>
     <canvas id="paretoCanvas" style="width:100%;display:block"></canvas>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font-size:.72rem" id="paretoLegend"></div>
@@ -3985,17 +3991,22 @@ function buildPareto(){
     ctx.fillStyle='rgba(18,232,122,.45)'; ctx.font='bold 9px system-ui,sans-serif';
     ctx.textAlign='left'; ctx.fillText(L('Zone idéale','Ideal zone'),pad.l+4,zy1+12);
   }
-  // Pareto front
+  // Front de Pareto empirique, calculé séparément par dataset : la dominance
+  // n'a de sens qu'entre méthodes évaluées sur le même problème (même corpus,
+  // même k, même θ) — jamais entre deux corpus différents.
   function paretoFront(pts){
     const s=[...pts].sort((a,b)=>a.dE-b.dE); const f=[];let maxI=-1;
     s.forEach(p=>{if(p.ILD>maxI){f.push(p);maxI=p.ILD;}}); return f;
   }
-  const front=paretoFront(allPts);
-  if(front.length>1){
-    ctx.beginPath(); ctx.moveTo(toX(front[0].dE),toY(front[0].ILD));
-    front.slice(1).forEach(p=>ctx.lineTo(toX(p.dE),toY(p.ILD)));
-    ctx.setLineDash([5,3]); ctx.strokeStyle='rgba(18,232,122,.55)'; ctx.lineWidth=2; ctx.stroke(); ctx.setLineDash([]);
-  }
+  DATASETS.forEach(ds=>{
+    const dsPts=allPts.filter(p=>p.ds===ds.key);
+    const front=paretoFront(dsPts);
+    if(front.length>1){
+      ctx.beginPath(); ctx.moveTo(toX(front[0].dE),toY(front[0].ILD));
+      front.slice(1).forEach(p=>ctx.lineTo(toX(p.dE),toY(p.ILD)));
+      ctx.setLineDash([5,3]); ctx.strokeStyle=ds.color; ctx.lineWidth=1.6; ctx.globalAlpha=.65; ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha=1;
+    }
+  });
   function drawShape(ctx,shape,x,y,r){
     ctx.beginPath();
     if(shape==='circle')   ctx.arc(x,y,r,0,2*Math.PI);
