@@ -841,8 +841,13 @@ passage à l'échelle. Nous fixons $k \in \{5, 10, 20\}$.
 \paragraph{libimseti.cz.}
 Un réseau social de rencontres tchèque où les utilisateurs notent
 d'autres utilisateurs sur leur attractivité. L'attribut sensible est le
-genre de l'utilisateur qui note (équité côté utilisateur). Nous fixons
-$k \in \{5, 10, 20\}$.
+genre de l'utilisateur qui note (équité côté utilisateur). Pour les
+expériences principales de coarsening sous contraintes EDI, nous
+utilisons un sous-échantillon aléatoire de 1\,000 évaluateurs (97\,707
+notes, tableau~\ref{tab:datasets-overview}) ; la
+section~\ref{sec:libimseti-limitation} analyse en complément le graphe
+complet à 17,3 M d'arêtes pour caractériser le comportement de notation
+par paire de genres. Nous fixons $k \in \{5, 10, 20\}$.
 
 \paragraph{Rate My Professors.}
 Une plateforme d'évaluation pédagogique où les étudiants notent des
@@ -867,8 +872,8 @@ Jeu de données & Domaine & $|U|$ & $|I|$ & $|E|$ & Échelle & Équité & $\alph
 MovieLens 100k    & Films        & 943    & 1\,682  & 100\,000    & 1--5  & user-side & 29\,\% \\
 MovieLens 1M      & Films        & 6\,040 & 3\,706  & 1\,000\,209 & 1--5  & user-side & 28\,\% \\
 libimseti.cz      & Rencontres   & 1\,000 & 32\,677 & 97\,707     & 1--10 & user-side & 50\,\% \\
-Rate My Prof.     & Académique   & 1\,981 & 59\,066 & 150\,800    & 1--5  & item-side & 51\,\%* \\
-OpenAlex          & Publications & 99     & 904     & 2\,124      & 1--5  & item-side & 19\,\% \\
+Rate My Prof.     & Éducation    & 1\,981 & 59\,066 & 150\,800    & 1--5  & item-side & 51\,\%* \\
+OpenAlex          & Académique   & 99     & 904     & 2\,124      & 1--5  & item-side & 19\,\% \\
 \hline
 \end{tabular}
 \vspace{2pt}
@@ -1018,8 +1023,8 @@ Fair Re-rank   &   0,938\,s &   0,928\,s &   0,926\,s \\
 \paragraph{Efficacité computationnelle.}
 Le tableau~\ref{tab:runtime} rapporte les temps d'exécution par méthode.
 Toutes les méthodes de référence s'exécutent en moins d'une seconde,
-tandis qu'AURORA prend 3,8 à 4,0\,s sur MovieLens 100k --- environ 4 à 6
-fois plus lent que Fair Re-rank et 5 à 6 fois plus lent que Borda.
+tandis qu'AURORA prend 3,8 à 4,0\,s sur MovieLens 100k --- environ 4,0 à
+4,4 fois plus lent que Fair Re-rank et 5 à 6 fois plus lent que Borda.
 Ce temps reste stable quel que soit $k$ (le budget de fusion, exprimé en
 fraction de $|U|$, ne dépend pas de $k$), et demeure de l'ordre de
 quelques secondes même sur un jeu de données plus grand
@@ -1038,7 +1043,9 @@ mécanisme que ci-dessus) et Fair Re-rank est le seul à obtenir un
 $\Delta E$ bas (0,139) parmi les méthodes non dégénérées ; AURORA obtient
 la meilleure ILD parmi les méthodes à inclusion non triviale (0,761,
 devant Borda, Weighted Borda et Condorcet, entre 0,716 et 0,746) mais,
-comme les méthodes de vote, ne réduit pas $\Delta E$ (au-delà de 1,2). Cette limite --- propre à ce seul jeu de
+comme les méthodes de vote, ne réduit pas significativement $\Delta E$
+par rapport à Borda (1,232 contre 1,301, tous deux bien au-delà de 1,2).
+Cette limite --- propre à ce seul jeu de
 données --- est analysée en détail en
 section~\ref{sec:libimseti-limitation} : elle reflète une réelle
 différence de comportement de notation entre groupes plutôt qu'une
@@ -1204,9 +1211,10 @@ jeux de données où l'effet de la compression est le plus visible.
 
 Sur MovieLens~1M, AURORA bat les trois règles de vote à la fois sur
 $\Delta E$ et sur l'ILD sur toute cette plage, et les deux métriques
-s'améliorent légèrement quand le budget augmente ($\Delta E$ : 0,332 à
-30\,\% $\to$ 0,185 à 60\,\% ; ILD : 0,456 $\to$ 0,470) --- la méthode est
-robuste au choix exact du budget. Sur Rate My Professors, l'ILD reste
+s'améliorent quand le budget augmente --- nettement pour $\Delta E$
+(0,332 à 30\,\% $\to$ 0,185 à 60\,\%, soit une réduction de 44\,\%) et
+marginalement pour l'ILD (0,456 $\to$ 0,470) --- la méthode est robuste
+au choix exact du budget. Sur Rate My Professors, l'ILD reste
 stable et élevée (0,75--0,81) sur toute la plage, confirmant que le gain
 de diversité n'est pas un artefact du réglage à 50\,\% ; $\Delta E$, en
 revanche, ne s'améliore pas de façon monotone avec la compression (ce
@@ -1229,7 +1237,7 @@ revanche, reste devant AURORA sur les deux métriques dans les 30 tirages
 sans exception, confirmant que son avantage sur ce corpus est lui aussi
 robuste.
 
-\subsection*{Synthèse Inter-Domaines}
+\subsection{Synthèse Inter-Domaines}
 
 Le tableau~\ref{tab:synthesis} résume la méthode la plus performante par
 métrique et par jeu de données. AURORA est en tête sur la diversité
@@ -1472,3 +1480,4 @@ ACM Transactions on Intelligent Systems and Technology \textbf{16} (2024)
 \end{thebibliography}
 
 \end{document}
+

@@ -540,7 +540,11 @@ for scalability validation. We set $k \in \{5, 10, 20\}$.
 \paragraph{libimseti.cz.}
 A Czech social dating network where users rate other users on attractiveness.
 The sensitive attribute is the gender of the rating user (user-side equity).
-We set $k \in \{5, 10, 20\}$.
+For the main EDI-constrained coarsening experiments we use a random
+subsample of 1,000 raters (97,707 ratings, Table~\ref{tab:datasets-overview});
+Section~\ref{sec:libimseti-limitation} additionally analyzes the full
+17.3M-edge graph to characterize rating behavior by gender pair. We set
+$k \in \{5, 10, 20\}$.
 
 \paragraph{Rate My Professors.}
 An educational rating platform where students rate professors. The sensitive
@@ -565,8 +569,8 @@ Dataset & Domain & $|U|$ & $|I|$ & $|E|$ & Scale & Equity & $\alpha_F$ \\
 MovieLens 100k    & Movies       & 943   & 1,682  & 100,000    & 1--5  & user-side & 29\% \\
 MovieLens 1M      & Movies       & 6,040 & 3,706  & 1,000,209  & 1--5  & user-side & 28\% \\
 libimseti.cz      & Dating       & 1,000 & 32,677 & 97,707     & 1--10 & user-side & 50\% \\
-Rate My Prof.     & Academic     & 1,981 & 59,066 & 150,800    & 1--5  & item-side & 51\%* \\
-OpenAlex          & Publications & 99    & 904    & 2,124      & 1--5  & item-side & 19\% \\
+Rate My Prof.     & Education    & 1,981 & 59,066 & 150,800    & 1--5  & item-side & 51\%* \\
+OpenAlex          & Academic     & 99    & 904    & 2,124      & 1--5  & item-side & 19\% \\
 \hline
 \end{tabular}
 \vspace{2pt}
@@ -758,7 +762,7 @@ under one second. Because the merge budget is expressed as a fixed
 fraction of $|U|$ rather than a fixed absolute count, the number of
 candidate merges the algorithm evaluates no longer depends on $k$, and
 AURORA's runtime is stable across $k \in \{5, 10, 20\}$ (3.8--4.0\,s on
-MovieLens 100k). This is roughly $4$--$6\times$ slower than Fair Re-rank
+MovieLens 100k). This is roughly $4.0$--$4.4\times$ slower than Fair Re-rank
 and $5$--$6\times$ slower than Borda, but remains on the order of a
 few seconds even as the dataset grows (Section~\ref{sec:scalability}), which we consider
 acceptable given that coarsening is typically performed offline.
@@ -774,7 +778,8 @@ group. Borda-based methods and AURORA all produce equity gaps above 1.2,
 whereas Fair Re-rank (0.139) is a clear outlier among the non-degenerate
 methods. AURORA achieves the best ILD among all methods that produce
 non-trivial inclusion (0.761, ahead of Borda, Weighted Borda, and Condorcet,
-which range from 0.716 to 0.746), but does not reduce $\Delta E$ relative to Borda.
+which range from 0.716 to 0.746), but does not meaningfully reduce $\Delta E$
+relative to Borda (1.232 vs.\ 1.301, both well above 1.2).
 We analyze this limitation in detail in
 Section~\ref{sec:libimseti-limitation}: unlike the other three
 datasets, libimseti is the only corpus where the sensitive attribute is
@@ -984,9 +989,10 @@ ILD $\uparrow$ \\
 
 On MovieLens~1M, AURORA beats Borda, Weighted Borda, and Condorcet on both
 $\Delta E$ and ILD at every budget in this range, and both metrics improve
-slightly as the budget grows --- the method is robust to the exact choice
-of budget, and 50\% is a reasonable, round value within a range that
-performs consistently well. On Rate My Professors, ILD is stable and
+as the budget grows --- substantially for $\Delta E$ (0.332 at 30\% to
+0.185 at 60\%, a 44\% reduction) and marginally for ILD (0.456 to 0.470)
+--- the method is robust to the exact choice of budget, and 50\% is a
+reasonable, round value within a range that performs consistently well. On Rate My Professors, ILD is stable and
 consistently high (0.75--0.81) across the range, confirming that the
 diversity gain is not an artefact of the specific 50\% budget; $\Delta E$,
 by contrast, does not vary smoothly with the budget and is not
@@ -1011,7 +1017,7 @@ single draw reported in Table~2. Fair Re-rank, by contrast, stays ahead
 of AURORA on both metrics in all 30 draws without exception, confirming
 that its advantage on this dataset is likewise robust.
 
-\subsection*{Cross-Domain Summary}
+\subsection{Cross-Domain Summary}
 
 Table~\ref{tab:synthesis} summarizes the best-performing method per
 metric and dataset at $k=10$ (or the reported $k$ for single-$k$
