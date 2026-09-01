@@ -669,10 +669,9 @@ for scalability validation. We set $k \in \{5, 10, 20\}$.
 \paragraph{libimseti.cz.}
 A Czech social dating network where users rate other users on attractiveness.
 The sensitive attribute is the gender of the rating user (user-side equity).
-For the main EDI-constrained coarsening experiments we use a random
-subsample of 1,000 raters (97,707 ratings, Table~\ref{tab:datasets-overview});
-Section~\ref{sec:libimseti-limitation} additionally analyzes the full
-17.3M-edge graph to characterize rating behavior by gender pair. We set
+Our main experiments use a 1,000-rater subsample
+(Table~\ref{tab:datasets-overview}); Section~\ref{sec:libimseti-limitation}
+separately analyzes the full 17.3M-edge graph. We set
 $k \in \{5, 10, 20\}$.
 
 \paragraph{Rate My Professors.}
@@ -923,7 +922,7 @@ whereas Fair Re-rank (0.139) is a clear outlier among the non-degenerate
 methods. AURORA achieves the best ILD among all methods that produce
 non-trivial inclusion (0.761, ahead of Borda, Weighted Borda, and Condorcet,
 which range from 0.716 to 0.746), but does not meaningfully reduce $\Delta E$
-relative to Borda (1.232 vs.\ 1.301, both well above 1.2).
+relative to Borda (Table~\ref{tab:libimseti}).
 We analyze this limitation in detail in
 Section~\ref{sec:libimseti-limitation}: unlike the other three
 datasets, libimseti is the only corpus where the sensitive attribute is
@@ -1136,8 +1135,8 @@ ILD $\uparrow$ \\
 
 On MovieLens~1M, AURORA beats Borda, Weighted Borda, and Condorcet on both
 $\Delta E$ and ILD at every budget in this range, and both metrics improve
-as the budget grows — substantially for $\Delta E$ (0.332 at 30\% to 0.185
-at 60\%, a 44\% reduction) and marginally for ILD (0.456 to 0.470) — the
+as the budget grows — substantially for $\Delta E$, marginally for ILD
+(Table~\ref{tab:robustness}) — the
 method is robust to the exact choice of budget, and 50\% is a reasonable,
 round value within a range that performs consistently well. On Rate My Professors, ILD is stable and
 consistently high (0.75--0.81) across the range, confirming that the
