@@ -242,7 +242,7 @@ préférences, graphe biparti, choix social.
 \addcontentsline{toc}{section}{Remerciements}
 
 Je remercie le Prof. Malek Mouhoub pour son encadrement tout au long de
-ce stage, ainsi que Zoubida Kedad pour son suivi pédagogique. Je
+ce stage, ainsi que la Prof. Zoubida Kedad pour son suivi pédagogique. Je
 souhaite également remercier ma famille pour son soutien constant : mes
 parents, mes tantes et tous mes oncles, tout particulièrement Mayata
 Ndiaye Mbaye. Merci aussi à Abdoulaye Dahirou Dia, ainsi qu'à Serigne
@@ -980,7 +980,12 @@ règles de vote classiques (Borda, Weighted Borda, Condorcet) sur
 $\Delta E$ à chaque $k \in \{5,10,20\}$, tout en obtenant le meilleur
 score d'inclusion pour au moins un groupe à chaque $k$ ; elle améliore
 les quatre métriques par rapport à Borda simultanément à $k=10$
-(Condorcet y parvient également). Sur l'ILD, elle dépasse Borda
+(Condorcet y parvient également). À $k=20$, ce succès s'étend aux
+\emph{trois} règles de vote à la fois (Borda, Condorcet, et Weighted
+Borda simultanément) --- un résultat plus complet qu'à $k=10$, ce qui
+explique pourquoi $k=20$ est retenu comme configuration globale pour
+MovieLens 100k dans la synthèse inter-domaines (tableau~\ref{tab:synthesis}).
+Sur l'ILD, elle dépasse Borda
 et Condorcet à presque tous les $k$ (seule exception : $k=5$, où
 Condorcet est légèrement au-dessus), et rattrape Fair Re-rank à $k=20$
 (0,462 contre 0,427) sans y parvenir à $k=5$ et $k=10$. Enfin, le taux de
@@ -1159,7 +1164,8 @@ qu'un défaut spécifique à notre méthode.
 \begin{table}[h!]
 \caption{Métriques EDI sur Rate My Professors ($k=10$, équité côté item).
 $\mathrm{frac}_F$ = fraction de professeures dans le top-$k$.
-Gras : meilleur par colonne.}
+Gras : meilleure(s) valeur(s) par colonne (toutes les valeurs ex æquo
+sont mises en gras).}
 \label{tab:rmp}
 \centering
 \begin{tabular}{lccc}
@@ -1179,8 +1185,9 @@ AURORA           & 0,112 & 0,808 & \textbf{0,60} \\
 \FloatBarrier
 \begin{table}[h!]
 \caption{Métriques EDI sur OpenAlex IA/ML/informatique 2018--2023
-($k=10$, équité côté item ; $\alpha_F \approx 19\,\%$). Gras : meilleur
-par colonne.}
+($k=10$, équité côté item ; $\alpha_F \approx 19\,\%$). Gras :
+meilleure(s) valeur(s) par colonne (toutes les valeurs ex æquo sont
+mises en gras).}
 \label{tab:oalex}
 \centering
 \begin{tabular}{lccc}
