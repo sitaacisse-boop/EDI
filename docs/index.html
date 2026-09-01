@@ -971,11 +971,6 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
     <p><span class="i18n-fr">Seulement 19% d'autrices en AI/ML. Borda, Condorcet et Weighted Borda recommandent 0% de femmes (ΔE=1.23, ILD=0). C'est le biais le plus extrême observé dans nos 4 corpus, comparable aux études publiées sur les citations en Sciences. AURORA atteint ΔE=0.031 (−56% vs Average Score) tout en maintenant frac_F=19% — seule méthode à corriger ce biais extrême tout en préservant la représentation féminine.</span><span class="i18n-en">Only 19% female authors in AI/ML. Borda, Condorcet, and Weighted Borda recommend 0% women (ΔE=1.23, ILD=0). This is the most extreme bias observed across our 4 corpora, comparable to published studies on citations in the sciences. AURORA reaches ΔE=0.031 (−56% vs Average Score) while maintaining frac_F=19% — the only method that corrects this extreme bias while preserving female representation.</span></p>
   </div>
 
-  <div class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</span><span class="i18n-en">Full comparison table — MovieLens, all configurations (θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('finalTbl','movielens_final_table.csv')">⬇ CSV</button></div>
-    <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
-  </div>
-
   <div style="margin-top:14px;padding:14px 18px;background:var(--s2);border-radius:10px;font-size:.8rem;color:var(--t2);line-height:1.65">
     <strong style="color:var(--t1)"><span class="i18n-fr">Perspectives :</span><span class="i18n-en">Outlook:</span></strong>
     <span class="i18n-fr">résultats validés sur <strong>4 corpus</strong> (MovieLens 100k/1M, libimseti, RMP, OpenAlex) couvrant recommandation de films, profils de rencontres, professeurs et auteurs académiques.
@@ -1293,6 +1288,11 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <span class="i18n-fr">5 barres par méthode : <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Échelle logarithmique. <strong style="color:var(--green)">AURORA</strong> est plus lent mais reste sous 10 min sur tous les corpus.</span><span class="i18n-en">5 bars per method: <span style="color:#6b8fff">ML 100k</span> · <span style="color:#22d4f5">ML 1M</span> · <span style="color:#ff7a5c">libimseti</span> · <span style="color:#b07aff">RMP</span> · <span style="color:#f5a523">OpenAlex</span>. Logarithmic scale. <strong style="color:var(--green)">AURORA</strong> is slower but stays under 10 min on every corpus.</span>
     </div>
     <canvas id="allRtCanvas" style="width:100%;display:block"></canvas>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div class="card-title" style="margin-bottom:0"><span class="i18n-fr">Tableau comparatif complet — MovieLens, toutes configurations (θ=4.0)</span><span class="i18n-en">Full comparison table — MovieLens, all configurations (θ=4.0)</span></div><button class="csv-btn" onclick="downloadCSV('finalTbl','movielens_final_table.csv')">⬇ CSV</button></div>
+    <div style="overflow-x:auto"><table class="ftbl" id="finalTbl"></table></div>
   </div>
 
 </div>
