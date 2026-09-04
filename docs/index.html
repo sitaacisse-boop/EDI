@@ -4215,4 +4215,27 @@ function drawAllCmpScatter(){
 })();
 </script>
 
+<script>
+(function(){
+  const vid=document.querySelector('.aurora-video');
+  if(!vid) return;
+  function applyFullscreenSize(){
+    const fsEl=document.fullscreenElement||document.webkitFullscreenElement;
+    if(fsEl===vid){
+      vid.style.setProperty('max-width','none','important');
+      vid.style.setProperty('width','100%','important');
+      vid.style.setProperty('height','100%','important');
+      vid.style.setProperty('object-fit','contain','important');
+    }else{
+      vid.style.removeProperty('max-width');
+      vid.style.removeProperty('width');
+      vid.style.removeProperty('height');
+      vid.style.removeProperty('object-fit');
+    }
+  }
+  document.addEventListener('fullscreenchange',applyFullscreenSize);
+  document.addEventListener('webkitfullscreenchange',applyFullscreenSize);
+})();
+</script>
+
 </body></html>
