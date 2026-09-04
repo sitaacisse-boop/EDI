@@ -236,6 +236,11 @@ canvas{width:100%;display:block;border-radius:8px}
 .aurora-video{display:block;margin:14px auto 0;max-width:300px;width:100%;border-radius:10px;box-shadow:var(--sh);background:#000}
 .aurora-video:fullscreen{max-width:none!important;width:100%;height:100%;object-fit:contain;border-radius:0}
 .aurora-video:-webkit-full-screen{max-width:none!important;width:100%;height:100%;object-fit:contain}
+.aurora-video.expanded{position:fixed!important;inset:0!important;margin:0!important;max-width:100vw!important;width:100vw!important;height:100vh!important;object-fit:contain;border-radius:0!important;z-index:250}
+.video-backdrop{position:fixed;inset:0;background:rgba(4,2,14,.92);display:none;z-index:249}
+.video-backdrop.on{display:block}
+#auroraVideoCloseBtn{position:fixed;top:18px;right:26px;z-index:251;display:none}
+.video-backdrop.on #auroraVideoCloseBtn{display:block}
 
 /* ── FR/EN toggle ── */
 .i18n-en{display:none}
@@ -1061,10 +1066,14 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <img src="img/aurora/thumb/aurora-16.jpg" data-full="img/aurora/full/aurora-16.jpg" alt="Aurore boréale à Regina 26" loading="lazy">
     </div>
     <p style="font-size:.68rem;color:var(--t3);margin-top:10px"><span class="i18n-fr">Cliquer sur une photo pour l'agrandir · flèches ← → ou clic pour naviguer · Échap pour fermer.</span><span class="i18n-en">Click a photo to enlarge it · arrows ← → or click to navigate · Esc to close.</span></p>
-    <video class="aurora-video" controls playsinline preload="metadata">
+    <video class="aurora-video" id="auroraVideo" controls playsinline preload="metadata">
       <source src="video/aurora_presentation.mp4" type="video/mp4">
     </video>
+    <button class="cine-btn" id="auroraVideoExpandBtn" style="margin-top:10px"><span class="i18n-fr">⤢ Agrandir la vidéo</span><span class="i18n-en">⤢ Enlarge video</span></button>
   </div>
+</div>
+<div class="video-backdrop" id="auroraVideoBackdrop">
+  <span class="lb-close" id="auroraVideoCloseBtn">&times;</span>
 </div>
 
 <div class="aurora-lightbox" id="auroraLightbox">
@@ -4217,8 +4226,30 @@ function drawAllCmpScatter(){
 
 <script>
 (function(){
-  const vid=document.querySelector('.aurora-video');
-  if(!vid) return;
+  const vid=document.getElementById('auroraVideo');
+  const expandBtn=document.getElementById('auroraVideoExpandBtn');
+  const backdrop=document.getElementById('auroraVideoBackdrop');
+  const closeBtn=document.getElementById('auroraVideoCloseBtn');
+  if(!vid||!expandBtn||!backdrop||!closeBtn) return;
+
+  function openExpanded(){
+    vid.classList.add('expanded');
+    backdrop.classList.add('on');
+    document.body.style.overflow='hidden';
+  }
+  function closeExpanded(){
+    vid.classList.remove('expanded');
+    backdrop.classList.remove('on');
+    document.body.style.overflow='';
+  }
+  expandBtn.addEventListener('click',openExpanded);
+  closeBtn.addEventListener('click',closeExpanded);
+  backdrop.addEventListener('click',closeExpanded);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&vid.classList.contains('expanded')) closeExpanded();
+  });
+
+  // Repli : si le navigateur gère bien :fullscreen natif sur <video>, on l'applique aussi.
   function applyFullscreenSize(){
     const fsEl=document.fullscreenElement||document.webkitFullscreenElement;
     if(fsEl===vid){
