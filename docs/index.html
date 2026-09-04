@@ -233,6 +233,9 @@ canvas{width:100%;display:block;border-radius:8px}
 .cine-ico{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:background .15s;user-select:none}
 .cine-ico:hover{background:rgba(255,255,255,.18)}
 .cine-caption{position:absolute;bottom:16px;left:22px;z-index:3;color:#fff;opacity:.8;font-size:.72rem;font-weight:600;letter-spacing:.04em}
+.aurora-video{display:block;margin:14px auto 0;max-width:300px;width:100%;border-radius:10px;box-shadow:var(--sh);background:#000}
+.aurora-video:fullscreen{max-width:none!important;width:100%;height:100%;object-fit:contain;border-radius:0}
+.aurora-video:-webkit-full-screen{max-width:none!important;width:100%;height:100%;object-fit:contain}
 
 /* ── FR/EN toggle ── */
 .i18n-en{display:none}
@@ -1058,7 +1061,7 @@ utility_M = Σ_{u∈G_M} Σ_{i∈R} w(u,i) / (|G_M| × k)</div>
       <img src="img/aurora/thumb/aurora-16.jpg" data-full="img/aurora/full/aurora-16.jpg" alt="Aurore boréale à Regina 26" loading="lazy">
     </div>
     <p style="font-size:.68rem;color:var(--t3);margin-top:10px"><span class="i18n-fr">Cliquer sur une photo pour l'agrandir · flèches ← → ou clic pour naviguer · Échap pour fermer.</span><span class="i18n-en">Click a photo to enlarge it · arrows ← → or click to navigate · Esc to close.</span></p>
-    <video controls playsinline preload="metadata" style="display:block;margin:14px auto 0;max-width:300px;width:100%;border-radius:10px;box-shadow:var(--sh)">
+    <video class="aurora-video" controls playsinline preload="metadata">
       <source src="video/aurora_presentation.mp4" type="video/mp4">
     </video>
   </div>
