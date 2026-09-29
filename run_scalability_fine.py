@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Scalabilite fine-grained — MovieLens 100k (dataset original)
 Sous-ensembles: n_users in {100, 150, 200, 300, 400, 500, 700, 943}

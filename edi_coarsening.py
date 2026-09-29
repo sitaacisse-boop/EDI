@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 EDI-Constrained Graph Coarsening — contribution principale
 Adji Marieme Sita Cissé — Stage M2 DataScale / University of Regina

@@ -1,0 +1,25 @@
+Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub
+Department of Computer Science, University of Regina, Canada.
+All rights reserved.
+
+This repository contains the source code, experimental results, figures and
+interactive dashboard of AURORA (Attributed Unified gRaph cOarsening for
+equitable RecommendAtion), an original research work by Adji Marieme Sita
+Cissé, supervised by Prof. Malek Mouhoub.
+
+The contents are made publicly visible only so that reviewers and readers can
+inspect and verify the reported results. No license is granted to copy,
+modify, redistribute, publish or reuse any part of this repository (code,
+method, text, figures or results), in whole or in part, without the prior
+written permission of the authors.
+
+Any academic reference to this work must cite:
+
+  A. M. S. Cissé and M. Mouhoub. Aggregating User Preferences while Ensuring
+  Equity, Diversity, and Inclusion using Graph Summarization. 2026.
+  https://github.com/sitaacisse-boop/EDI
+
+Contact: ace108@uregina.ca
+
+Third-party datasets (MovieLens, libimseti.cz, Rate My Professors, OpenAlex)
+remain subject to their own licenses and terms of use.

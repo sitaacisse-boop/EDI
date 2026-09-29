@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Expérience de scalabilité — MovieLens 1M
 Pour n_users ∈ {500, 1000, 2000, 4000, 6040}, échantillon stratifié par genre,

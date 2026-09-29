@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Expériences EDI sur MovieLens 1M (6040 users, 3952 films, 1M ratings).
 Même protocole que run_all_experiments.py — uniquement le chargement change.

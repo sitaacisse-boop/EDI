@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Analyse de sensibilité des paramètres epsilon de la coarsenisation EDI.
 Fixe k=20, theta=4.0 et fait varier eps_E et eps_D pour montrer

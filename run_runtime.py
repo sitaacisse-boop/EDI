@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Mesure du temps d'execution de chaque methode pour k in {5, 10, 20}.
 Produit runtime_results.json + affiche un tableau recapitulatif.

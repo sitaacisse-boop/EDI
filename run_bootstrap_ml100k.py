@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Test de robustesse statistique — MovieLens 100k.
 Sous-échantillonnage sans remise des utilisateurs (90% de |U|, 30

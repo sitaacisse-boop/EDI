@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Experiences EDI — Rate My Professors (dataset vxuv/ratemyprofessor-dataset)
 3.26M avis d'etudiants sur des professeurs (echelle quality 1-5)

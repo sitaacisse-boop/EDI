@@ -1,3 +1,47 @@
+# AURORA — EDI-Constrained Graph Summarization for Fair Preference Aggregation
+
+**Author:** Adji Marieme Sita Cissé (University of Regina)  
+**Supervisor and co-author:** Prof. Malek Mouhoub (University of Regina)  
+**Funding:** DataIA International Mobility Grant, Université Paris-Saclay  
+**Interactive dashboard:** https://sitaacisse-boop.github.io/EDI/
+
+> © 2026 Adji Marieme Sita Cissé and Malek Mouhoub. All rights reserved.
+> This repository is public for review and verification only. See [LICENSE](LICENSE).
+> Please cite this work using [CITATION.cff](CITATION.cff) (GitHub "Cite this repository" button).
+
+## Overview
+AURORA aggregates user preferences through graph summarization under explicit
+Equity, Diversity and Inclusion (EDI) constraints. Preferences are modeled as a
+weighted attributed bipartite graph; user nodes are greedily merged into
+supernodes, and a merge is accepted only if the equity gap (ΔE), intra-list
+diversity (ILD) and group inclusion of the summarized graph stay within given
+tolerances. AURORA is evaluated against Average Score, Borda, Weighted Borda,
+Condorcet and Fair Re-rank on five datasets: MovieLens 100k and 1M,
+libimseti.cz, Rate My Professors and OpenAlex (AI/ML/CS, 2018–2023).
+
+## How to cite
+```bibtex
+@misc{cisse2026aurora,
+  author = {Ciss{\'e}, Adji Marieme Sita and Mouhoub, Malek},
+  title  = {Aggregating User Preferences while Ensuring Equity, Diversity,
+            and Inclusion using Graph Summarization},
+  year   = {2026},
+  url    = {https://github.com/sitaacisse-boop/EDI}
+}
+```
+
+## Main files
+| File | Description |
+|---|---|
+| `edi_coarsening.py` | AURORA: EDI-constrained graph coarsening (core method) |
+| `edi_baselines.py` | Baselines and EDI metrics (ΔE, ILD, inclusion) |
+| `run_*.py` | Experiment scripts for each dataset and analysis |
+| `*_results.json` | Raw experimental results |
+| `docs/` | Interactive dashboard (GitHub Pages) |
+
+---
+*Version française détaillée ci-dessous.*
+
 # Projet de Recherche — EDI & Graph Summarization
 **Auteure :** Adji Marieme Sita Cissé  
 **Directeur :** Prof. Malek Mouhoub — University of Regina  
@@ -50,7 +94,6 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | `libimseti_results.json` | Résultats libimseti — 6 méthodes × k=10 (ΔE, ILD, inc_F, inc_M) |
 | `rmp_results.json` | Résultats Rate My Professors — 6 méthodes × k=10 (ΔE, ILD, frac_F) |
 | `openalex_results.json` | Résultats OpenAlex — 6 méthodes × k=10 (ΔE, ILD, frac_F) |
-| `openalex_raw_cache.json` | Cache brut OpenAlex API (45 008 papers) — évite re-fetch |
 | `scalability_results.json` | Scalabilité MovieLens 1M — 6 méthodes × 5 tailles (500, 1k, 2k, 4k, 6 040) |
 | `scalability_100k_results.json` | Scalabilité fine-grained ML-100k — 6 méthodes × 8 tailles (100→943 utilisateurs) |
 | `sensitivity_results.json` | Résultats analyse de sensibilité |
@@ -58,7 +101,6 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 | `robustness_budget_results.json` | Balayage du budget de fusion (30–60%) — ML1M (k=20) et RMP (k=10) |
 | `fig_edi_baselines.png` | Figure comparative : 6 méthodes × k ∈ {5,10,20} (100k) |
 | `fig_comparison_100k_1m.png` | Comparaison 100k vs 1M — scalabilité |
-| `fig_data_overview.png` | Vue d'ensemble du dataset MovieLens 100k |
 
 ### Notebook
 | Fichier | Description |
@@ -68,12 +110,6 @@ Agrégation des préférences utilisateurs en garantissant l'Équité, la Divers
 ### Documents de référence
 | Fichier | Description |
 |---|---|
-| `Phase2_ModelSpec_FR.pdf` | Spécification du modèle — version française |
-| `Phase2_ModelSpec_EN.pdf` | Model specification — English version |
-| `rechercheplan_pdf.pdf` | Plan de recherche complet (6 phases, Mai–Octobre 2026) |
-| `Bibliographie_annotee_Phase1.pdf` | Bibliographie annotée — 13 références classées en 4 axes |
-| `samplepaper_FINAL.tex` | Article scientifique complet (format Springer LNCS, 15 références, compile via `references.bib`) |
-| `memoire/Thesis.tex` | Mémoire de stage M2 DataScale (33 pages) — Contexte, Objectif, État de l'art, Approche, Validation, Conclusion, Apport personnel |
 | `references.bib` | Base bibliographique commune à l'article et au mémoire (15 entrées) |
 
 ---
@@ -139,7 +175,7 @@ AURORA bat systématiquement les 3 règles de vote classiques (Borda/Weighted Bo
 | Fair Re-rank | 0.139 | 0.716 | 0.038 | 0.024 | 0.269s |
 | AURORA | 1.232 | 0.761 | 0.148 | 0.024 | 2.3s |
 
-Sur ΔE, aucune méthode de vote (Borda/Weighted Borda/Condorcet/AURORA) n'échappe à l'écart d'équité élevé — seuls Average Score et Fair Re-rank y échappent (ΔE=0.016 et 0.139) ; vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, section 5.6 de `samplepaper_FINAL.tex`, ou l'onglet « libimseti.cz » du tableau de bord). AURORA garde néanmoins un net avantage de diversité (ILD=0.761, la meilleure valeur après Average Score) sur les méthodes de vote.
+Sur ΔE, aucune méthode de vote (Borda/Weighted Borda/Condorcet/AURORA) n'échappe à l'écart d'équité élevé — seuls Average Score et Fair Re-rank y échappent (ΔE=0.016 et 0.139) ; vérifié robuste à un budget de fusion plus large (jusqu'à 60%) et à une contrainte d'équité resserrée. Limite structurelle, pas un problème de réglage : libimseti est le seul corpus où le genre existe des deux côtés du graphe biparti (notateurs et profils notés), et les patterns de notation diffèrent significativement selon la paire de genres — une illustration empirique de l'argument de Yao & Huang (2017) selon lequel la parité démographique n'est pas toujours appropriée quand les préférences dépendent légitimement de l'attribut sensible (voir discussion détaillée, l'onglet « libimseti.cz » du tableau de bord). AURORA garde néanmoins un net avantage de diversité (ILD=0.761, la meilleure valeur après Average Score) sur les méthodes de vote.
 
 ### Rate My Professors — équité côté item (frac_F)
 
@@ -183,7 +219,7 @@ AURORA obtient ΔE=0.031 (−56% vs Average Score/Fair Re-rank à 0.071) — seu
 | Phase 5b — Scalabilité | Juillet | ✅ Terminé | `scalability_results.json` (1M, 500→6 040) + `scalability_100k_results.json` (100k, 100→943) |
 | Phase 5c — Corpus multi-domaines | Juillet | ✅ Terminé | `libimseti_results.json`, `rmp_results.json`, `openalex_results.json` |
 | Phase 6 — Article de recherche | Juillet–Août | ✅ Terminé | `samplepaper_FINAL.tex` (LLNCS, 15 références, Overleaf) |
-| Phase 7 — Mémoire de stage M2 | Août | ✅ Terminé | `memoire/Thesis.tex` (33 pages, 15 références) |
+| Phase 7 — Mémoire de stage M2 | Août | ✅ Terminé | Mémoire (disponible sur demande) |
 | Phase 8 — Bilinguisme du tableau de bord | Août | ✅ Terminé | 17 onglets + graphiques traduits FR/EN sur https://sitaacisse-boop.github.io/EDI/ |
 | Phase 9 — Rigueur pré-soutenance | Août | ✅ Terminé | Correctif bug de non-déterminisme (`run_openalex.py`), extension k∈{5,10,20} aux 3 corpus multi-domaines, preuve de significativité statistique, justification SCRUF-D, vérification exhaustive site/mémoire/papier vs JSON sources |
 

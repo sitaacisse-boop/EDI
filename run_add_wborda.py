@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Ajoute Weighted Borda aux résultats existants (experiments_results.json)
 sans relancer les expériences coûteuses (coarsening + condorcet).

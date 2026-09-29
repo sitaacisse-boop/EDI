@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you refer to this work, please cite it as below."
+title: "AURORA: Aggregating User Preferences while Ensuring Equity, Diversity, and Inclusion using Graph Summarization"
+authors:
+  - family-names: "Cissé"
+    given-names: "Adji Marieme Sita"
+    affiliation: "University of Regina"
+    email: "ace108@uregina.ca"
+  - family-names: "Mouhoub"
+    given-names: "Malek"
+    affiliation: "University of Regina"
+date-released: 2026-09-28
+url: "https://github.com/sitaacisse-boop/EDI"
+repository-code: "https://github.com/sitaacisse-boop/EDI"
+keywords:
+  - fairness
+  - equity diversity inclusion
+  - graph summarization
+  - preference aggregation
+  - recommender systems

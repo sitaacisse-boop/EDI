@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Experiences EDI sur libimseti.cz (site de rencontres tcheque)
 Dataset : 17.3M ratings de profils par des utilisateurs (echelle 1-10)

@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Adji Marieme Sita Cissé and Malek Mouhoub, University of Regina.
+# All rights reserved. Part of AURORA (https://github.com/sitaacisse-boop/EDI). See LICENSE.
+
 """
 Robustesse au budget de fusion — MovieLens 1M et Rate My Professors.
 Ré-exécute AURORA à 4 budgets (30%, 42.4%, 50%, 60% de |U|) pour vérifier
