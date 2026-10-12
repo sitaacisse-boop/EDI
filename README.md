@@ -7,7 +7,9 @@
 
 > © 2026 Adji Marieme Sita Cissé and Malek Mouhoub. All rights reserved.
 > This repository is public for review and verification only. See [LICENSE](LICENSE).
-> Please cite this work using [CITATION.cff](CITATION.cff) (GitHub "Cite this repository" button).
+> If you use this code, or any part of it, please cite our arXiv paper (see [Citation](#citation)).
+>
+> **Paper:** [arXiv:2610.07128](https://arxiv.org/abs/2610.07128)
 
 ## Overview
 AURORA aggregates user preferences through graph summarization under explicit
@@ -19,16 +21,23 @@ tolerances. AURORA is evaluated against Average Score, Borda, Weighted Borda,
 Condorcet and Fair Re-rank on five datasets: MovieLens 100k and 1M,
 libimseti.cz, Rate My Professors and OpenAlex (AI/ML/CS, 2018–2023).
 
-## How to cite
+## Citation
+If you use this code, or any part of it, in your research, please cite the following paper:
+
+Adji Marieme Sita Cissé and Malek Mouhoub.
+[Aggregating User Preferences while Ensuring Equity, Diversity, and Inclusion using Graph Summarization](https://arxiv.org/abs/2610.07128).
+arXiv preprint arXiv:2610.07128, 2026.
+
 ```bibtex
-@misc{cisse2026aurora,
-  author = {Ciss{\'e}, Adji Marieme Sita and Mouhoub, Malek},
-  title  = {Aggregating User Preferences while Ensuring Equity, Diversity,
-            and Inclusion using Graph Summarization},
-  year   = {2026},
-  url    = {https://github.com/sitaacisse-boop/EDI}
+@article{cisse2026aggregating,
+  title   = {Aggregating User Preferences while Ensuring Equity, Diversity, and Inclusion using Graph Summarization},
+  author  = {Ciss{\'e}, Adji Marieme Sita and Mouhoub, Malek},
+  journal = {arXiv preprint arXiv:2610.07128},
+  year    = {2026}
 }
 ```
+
+GitHub also shows a **"Cite this repository"** button (from [CITATION.cff](CITATION.cff)).
 
 ## Main files
 | File | Description |
@@ -45,7 +54,8 @@ libimseti.cz, Rate My Professors and OpenAlex (AI/ML/CS, 2018–2023).
 # Projet de Recherche — EDI & Graph Summarization
 **Auteure :** Adji Marieme Sita Cissé  
 **Directeur :** Prof. Malek Mouhoub — University of Regina  
-**Période :** Mai – Octobre 2026 | Bourse DataIA Mobilité Internationale
+**Période :** Mai – Octobre 2026 | Bourse DataIA Mobilité Internationale  
+**Article :** [arXiv:2610.07128](https://arxiv.org/abs/2610.07128). Si vous utilisez ce code, merci de citer cet article (voir [Citation](#citation)).
 
 ---
 
